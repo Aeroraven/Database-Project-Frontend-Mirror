@@ -1,20 +1,29 @@
 <template>
-  <div class="zms-top-navigation-bar">
-      <hamburger></hamburger>
-      <top-navigation-bar-title></top-navigation-bar-title>
-  </div>
+    <div class="zms-top-navigation-bar" :style="slidebarStyle">
+        <hamburger></hamburger>
+        <top-navigation-bar-title></top-navigation-bar-title>
+    </div>
 </template>
 
 <script>
 import TopNavigationBarTitle from "@/components/TopNavigationBarTitle.vue"
 import Hamburger from "@/components/Hamburger.vue"
 export default {
-  name: 'TopNavigationBar',
-  
-  components:{
-    TopNavigationBarTitle,
-    Hamburger
-  }
+    name: 'TopNavigationBar',
+    computed:{
+        slidebarStyle(){
+            return{
+                left:this.$store.state.sSlideBarLeft+'px',
+            }
+        }  
+    },
+    methods:{
+        
+    },
+    components:{
+        TopNavigationBarTitle,
+        Hamburger
+    }
 }
 </script>
 
@@ -23,7 +32,7 @@ export default {
         box-shadow: darkgrey 3px -4px 20px 0.5px ;
         position:fixed;
         top:0px;
-        left:0px;
+        /*left:0px;*/
         right:0px;
         height:35px;
         padding-top:10px;
@@ -35,5 +44,6 @@ export default {
         font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
         color:rgb(50, 121, 235);
         text-align: left;
+        transition: all 1s;
     }
 </style>

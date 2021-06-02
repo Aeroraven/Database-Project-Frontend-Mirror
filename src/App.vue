@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <slidebar></slidebar>
     <top-navigation-bar></top-navigation-bar>
     <br/><br/><br/>
     <div id="nav">
@@ -12,10 +13,12 @@
 
 <script>
 import TopNavigationBar from './components/TopNavigationBar.vue'
+import Slidebar from './components/Slidebar.vue'
 export default {
     name: 'App',
     components: {
         TopNavigationBar,
+        Slidebar,
     }
 }
 </script>

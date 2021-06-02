@@ -16,6 +16,7 @@ export default {
     methods:{
         rotateHamburger(){
             this.rotateDeg=90-this.rotateDeg;
+            this.$store.commit('calloutSlideBar');
         }
     },
     computed:{
