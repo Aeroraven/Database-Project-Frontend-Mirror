@@ -44,7 +44,7 @@ export default {
         font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
         color:rgb(248, 248, 248);
         text-align: left;
-        transition: all 1s;
+        transition: all .5s;
         background-color:rgb(59, 111, 207);
     }
 </style>

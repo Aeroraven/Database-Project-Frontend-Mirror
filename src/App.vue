@@ -2,23 +2,21 @@
   <div id="app">
     <slidebar></slidebar>
     <top-navigation-bar></top-navigation-bar>
-    <br/><br/><br/>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <page-container></page-container>
+    
   </div>
 </template>
 
 <script>
 import TopNavigationBar from './components/TopNavigationBar.vue'
 import Slidebar from './components/Slidebar.vue'
+import PageContainer from './components/PageContainer.vue'
 export default {
     name: 'App',
     components: {
         TopNavigationBar,
         Slidebar,
+        PageContainer,
     }
 }
 </script>
@@ -30,6 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+ 
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;

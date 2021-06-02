@@ -61,7 +61,37 @@
 
 6. 改动可以直接提交到repo里。
 
+   
+
 ##### 更新记录
+
+更新 @ 2021-06-02 20:54 | hzw
+
+- 增加了MDI图标库，需要执行下列命令
+
+  ```Shell
+  npm install @mdi/js @jamescoyle/vue-icon
+  ```
+
+- 将App.vue的路由视图(Router-View)移动到组件PageContainer中
+- 优化了左侧栏的样式
+- 对于左侧菜单的内容，可以到store里更改JSON，不需要在Slidebar.vue中添加组件
+
+
+
+Change @2020-06-02 17:44
+
+- Added the slide bar.
+- Readjusted the top navigation bar.
+
+
+
+Change @2021-06-02 14:02
+
+- Added the top navigation bar and corresponding components.
+- If it does not satisfy the requirement, just revert this commit.
+
+
 
 Change @2021-06-01 23:44
 
@@ -74,12 +104,3 @@ Change @2021-06-01 23:44
 npm install
 ```
 
-Change @2021-06-02 14:02
-
-- Added the top navigation bar and corresponding components.
-- If it does not satisfy the requirement, just revert this commit.
-
-Change @2020-06-02 17:44
-
-- Added the slide bar.
-- Readjusted the top navigation bar.

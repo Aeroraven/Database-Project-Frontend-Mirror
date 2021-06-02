@@ -1,6 +1,6 @@
 <template>
     <div class="zms-slidebar-headicon" >
-        <img :src="HeadImg"/>
+        <img :src="HeadImg"/><br/>
         <div class="zms-slidebar-headicon-text">
             {{getProjectName}}
         </div>
@@ -30,7 +30,7 @@ export default {
 
 <style scoped lang="scss">
     .zms-slidebar-headicon{
-        background-color:rgb(47, 120, 216);
+        background-color:rgb(59, 116, 190);
         height:200px;
         position:relative;
         img{

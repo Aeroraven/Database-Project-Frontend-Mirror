@@ -1,26 +1,8 @@
 <template>
   <div class="zms-slidebar" :style="slidebarStyle">
       <slidebar-head-icon></slidebar-head-icon>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
-      <slidebar-list-item></slidebar-list-item>
+      <slidebar-list-item v-for="i in getMenuItems().length" :key="i" 
+        :itemName="getMenuItems()[i-1].name" :iconPath="getMenuItems()[i-1].icon"></slidebar-list-item>
   </div>
 </template>
 
@@ -35,7 +17,13 @@ export default {
             return{
                 width:this.$store.state.sSlideBarLeft+'px',
             }
-        } 
+        },
+        
+    },
+    methods:{
+        getMenuItems(){
+            return this.$store.state.sProjectFunctions;
+        }
     }
 }
 </script>s
@@ -48,8 +36,8 @@ export default {
         bottom:0px;
         overflow-y:scroll;
         overflow-x:hidden;
-        background-color:rgb(249, 251, 255);
-        transition:all 1s;
+        background-color:rgb(47, 47, 47);
+        transition:all .5s;
          
     }
     .zms-slidebar::-webkit-scrollbar {

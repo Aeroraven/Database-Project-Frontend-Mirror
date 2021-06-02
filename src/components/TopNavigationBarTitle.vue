@@ -1,15 +1,22 @@
 <template>
-  <div class="zms-top-navigation-bar-title">
-      {{getProjectName}}
-  </div>
+    <div class="zms-top-navigation-bar-title">
+        {{getTitle}}
+    </div>
 </template>
 
 <script>
+
 export default {
+  components: {  },
   name: 'TopNavigationBarTitle',
+  data:()=>{
+      return {
+          abc:[1,2,3,4],
+      }
+  },
   computed:{
-      getProjectName(){
-          return this.$store.state.sProjectName;
+      getTitle(){
+          return this.$store.state.sTopBarTitle;
       }
   }
 }
