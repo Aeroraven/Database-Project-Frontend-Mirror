@@ -7,14 +7,17 @@ let store= new Vuex.Store({
   state: {
     //Resources
     sAsset_HamburgerImg:'assets/top-navigation-bar-hamburger.png',
+    sAsset_SlidebarHeadIcon:'assets/slide-bar-head-icon.png',
     //Projects Definitions
     sProjectName:"ZMS 管理系统",
-    //Style Control
-    scSlideBarLeft:200,
-    scSlideBarLeftInitial:40,
-    scSlideBarCalloutStat:0,
+
     //Style Control Constants
-    sSlideBarLeft:40,
+    scSlideBarLeft:250,
+    scSlideBarLeftInitial:0,
+    scSlideBarCalloutStat:0,
+
+    //Style Control 
+    sSlideBarLeft:0,
   },
   mutations: {
     calloutSlideBar(){

@@ -15,3 +15,8 @@ Change @2021-06-02 14:02
 
 - Added the top navigation bar and corresponding components.
 - If it does not satisfy the requirement, just revert this commit.
+
+Change @2020-06-02 17:44
+
+- Added the slide bar.
+- Readjusted the top navigation bar.

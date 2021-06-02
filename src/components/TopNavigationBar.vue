@@ -42,8 +42,9 @@ export default {
         font-weight: bold;
         font-size:17px;
         font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-        color:rgb(50, 121, 235);
+        color:rgb(248, 248, 248);
         text-align: left;
         transition: all 1s;
+        background-color:rgb(59, 111, 207);
     }
 </style>

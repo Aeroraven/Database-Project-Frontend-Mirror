@@ -30,6 +30,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 #nav {
@@ -43,5 +46,8 @@ export default {
       color: #42b983;
     }
   }
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); 
 }
 </style>
