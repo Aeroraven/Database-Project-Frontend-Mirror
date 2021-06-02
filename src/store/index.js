@@ -3,8 +3,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+let store= new Vuex.Store({
   state: {
+    //Resources
+    sAsset_HamburgerImg:'assets/top-navigation-bar-hamburger.png',
+    //Projects Definitions
+    sProjectName:"ZMS 管理系统",
   },
   mutations: {
   },
@@ -13,3 +17,4 @@ export default new Vuex.Store({
   modules: {
   }
 })
+export default store;

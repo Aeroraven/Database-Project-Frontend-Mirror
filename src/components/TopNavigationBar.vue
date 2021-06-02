@@ -1,0 +1,39 @@
+<template>
+  <div class="zms-top-navigation-bar">
+      <hamburger></hamburger>
+      <top-navigation-bar-title></top-navigation-bar-title>
+  </div>
+</template>
+
+<script>
+import TopNavigationBarTitle from "@/components/TopNavigationBarTitle.vue"
+import Hamburger from "@/components/Hamburger.vue"
+export default {
+  name: 'TopNavigationBar',
+  
+  components:{
+    TopNavigationBarTitle,
+    Hamburger
+  }
+}
+</script>
+
+<style scoped lang="scss">
+    .zms-top-navigation-bar{
+        box-shadow: darkgrey 3px -4px 20px 0.5px ;
+        position:fixed;
+        top:0px;
+        left:0px;
+        right:0px;
+        height:35px;
+        padding-top:10px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        font-weight: bold;
+        font-size:17px;
+        font-family:"Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+        color:rgb(50, 121, 235);
+        text-align: left;
+    }
+</style>

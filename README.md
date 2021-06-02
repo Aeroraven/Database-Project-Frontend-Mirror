@@ -11,3 +11,7 @@ Change @2021-06-01 23:44
 npm install
 ```
 
+Change @2021-06-02 14:02
+
+- Added the top navigation bar and corresponding components.
+- If it does not satisfy the requirement, just revert this commit.

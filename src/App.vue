@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <top-navigation-bar></top-navigation-bar>
+    <br/><br/><br/>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,6 +9,16 @@
     <router-view/>
   </div>
 </template>
+
+<script>
+import TopNavigationBar from './components/TopNavigationBar.vue'
+export default {
+    name: 'App',
+    components: {
+        TopNavigationBar,
+    }
+}
+</script>
 
 <style lang="scss">
 #app {
