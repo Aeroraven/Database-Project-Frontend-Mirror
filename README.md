@@ -65,6 +65,15 @@
 
 ##### 更新记录
 
+更新 @ 2021-06-03 00:39 | hzw
+
+- 增加了Slidebar的二级菜单，同时实现收折动画
+- 填补了一/二级菜单内容
+- 修改二级菜单内容可以到store里更改JSON的child，不需要在Slidebar.vue中添加组件
+- （求dl解决vue的background-image问题，filter+transition太难看了）
+
+
+
 更新 @ 2021-06-02 20:54 | hzw
 
 - 增加了MDI图标库，需要执行下列命令

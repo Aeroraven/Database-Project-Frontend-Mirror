@@ -1,12 +1,20 @@
 <template>
-    <div class="zms-slidebar-vlist-item" :class="getBaseClass" :style="slidebarStyle" @click="toggleCollapse">
-        <slidebar-list-icon :itemPath="iconPath"></slidebar-list-icon>
-        <span :class="getTextClass">{{itemName}}</span>
-        <div :class="getArrowClass">
-            <template>
-                <svg-icon type="mdi" :path="mdiUpPath"></svg-icon>
-            </template>
+    <div class="zms-slidebar-vlist-item-container" >
+        <div class="zms-slidebar-vlist-item" :class="getBaseClass" :style="slidebarStyle" @click="toggleCollapse">
+            <slidebar-list-icon :itemPath="iconPath" :activated="!this.collapse"></slidebar-list-icon>
+            <span :class="getTextClass">{{itemName}}</span>
+            <div :class="getArrowClass">
+                <template>
+                    <svg-icon type="mdi" :path="mdiUpPath"></svg-icon>
+                </template>
+            </div>
+            
         </div>
+        <collapse-transition>
+            <div class="zms-slidebar-vlist-item-child" v-if="!collapse">
+                <slidebar-list-item-child v-for="i in childs.length" :key="i" :props="childs[i-1]"></slidebar-list-item-child>
+            </div>
+        </collapse-transition>
     </div>
 </template>
 
@@ -14,12 +22,16 @@
 import SlidebarListIcon from './SlidebarListIcon.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiChevronUp } from '@mdi/js'
+import SlidebarListItemChild from './SlidebarListItemChild.vue'
+import CollapseTransition from '@/assets/transitions/collapseTransition.js'
+
 export default {
     name: 'SlidebarListItem',
     props:{
         withIcon:Boolean,
         itemName:String,
         iconPath:String,
+        childs:Array,
     },
     computed:{
         getTextClass(){
@@ -44,6 +56,8 @@ export default {
     components:{
         SlidebarListIcon,
         SvgIcon,
+        SlidebarListItemChild,
+        CollapseTransition,
     },
     data() {
         return {
@@ -56,6 +70,9 @@ export default {
         toggleCollapse(){
             this.collapse=!this.collapse;
             this.extended=!this.extended;
+        },
+        collapseSlideBar(){
+            this.$store.commit('calloutSlideBar');
         }
     }
 }
@@ -90,7 +107,7 @@ export default {
         white-space: nowrap;
         position:relative;
         letter-spacing: 2px;
-        color:#ffffff;
+        
         font-weight: bold;
         font-size:14px;
     }
@@ -104,6 +121,12 @@ export default {
         margin-left:30px;
         position:relative;
         top:-5px;
+        color:#7ec5ff;
+    }
+    .zms-slidebar-vlist-item-collapse{
+        color:#ffffff;
+    }
+    .zms-slidebar-vlist-item-collapse-activated{
         color:#7ec5ff;
     }
     .zms-slidebar-vlist-item-ext:hover{

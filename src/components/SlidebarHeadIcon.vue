@@ -45,7 +45,9 @@ export default {
         text-align: center;
         font-size:25px;
         white-space:nowrap;
-        
+        letter-spacing: 2px;
+        font-weight: bold;
     }
+    
     
 </style>

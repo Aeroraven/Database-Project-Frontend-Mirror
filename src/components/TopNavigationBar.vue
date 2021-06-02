@@ -45,6 +45,6 @@ export default {
         color:rgb(248, 248, 248);
         text-align: left;
         transition: all .5s;
-        background-color:rgb(59, 111, 207);
+        background-color:#3b6fcf;
     }
 </style>

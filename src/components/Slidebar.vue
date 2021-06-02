@@ -2,7 +2,8 @@
   <div class="zms-slidebar" :style="slidebarStyle">
       <slidebar-head-icon></slidebar-head-icon>
       <slidebar-list-item v-for="i in getMenuItems().length" :key="i" 
-        :itemName="getMenuItems()[i-1].name" :iconPath="getMenuItems()[i-1].icon"></slidebar-list-item>
+        :itemName="getMenuItems()[i-1].name" :iconPath="getMenuItems()[i-1].icon"
+        :childs="getMenuItems()[i-1].child"></slidebar-list-item>
   </div>
 </template>
 
