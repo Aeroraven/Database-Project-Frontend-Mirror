@@ -65,6 +65,20 @@
 
 ##### 更新记录
 
+更新 @ 2021-06-04 00:35 | hzw
+
+- 增加了Animate.css样式，要执行下列命令
+
+  ```shell
+  npm install animate.css -save
+  ```
+
+- 实现路由切换时的过渡效果(使用animate.css)
+
+- 重新整理了组件文件夹
+
+
+
 更新 @ 2021-06-03 21:20 | hzw
 
 - 优化了部分组件鼠标按下的样式，要执行下列命令 (只使用了vue-ripple-directive)
