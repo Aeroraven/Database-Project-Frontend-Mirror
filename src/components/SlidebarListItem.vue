@@ -1,6 +1,6 @@
 <template>
     <div class="zms-slidebar-vlist-item-container" >
-        <div class="zms-slidebar-vlist-item" :class="getBaseClass"  @click="toggleCollapse">
+        <div class="zms-slidebar-vlist-item" :class="getBaseClass"  @click="toggleCollapse"  v-ripple>
             <slidebar-list-icon :itemPath="iconPath" :activated="!this.collapse"></slidebar-list-icon>
             <span :class="getTextClass">{{itemName}}</span>
             <div :class="getArrowClass">

@@ -1,7 +1,7 @@
 <template>
     <div class="zms-button" :class="getStyleClass" 
         @click="this.$emit('zmsclick')" @mouseover="this.$emit('zmsmouseover')"
-        @mouseleave="this.$emit('zmsmouseleave')">
+        @mouseleave="this.$emit('zmsmouseleave')" v-ripple>
 
         <span class="zms-button-icon" v-if="showIcon">
             <template>

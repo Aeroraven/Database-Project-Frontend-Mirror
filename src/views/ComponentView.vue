@@ -12,7 +12,10 @@
         
         <hr/>
         <br/><b>Checkbox</b><br/><br/>
-        <z-check-box></z-check-box>
+        <z-check-box caption="APPLE"></z-check-box>
+        <z-check-box caption="PINEAPPLE"></z-check-box>
+        <z-check-box caption="ROTTEN PINEAPPLES"></z-check-box>
+        <z-check-box caption="ROTTEN PINEAPPLES"></z-check-box>
     </div>
     
 </template>
@@ -24,7 +27,9 @@ import ZCheckBox from '../components/ZCheckBox.vue'
 export default {
   components: { ZButton, ZCheckBox },
     name: 'ComponentView',
-  
+    created(){
+        this.$store.dispatch('alterTopNavTitle',{title:'Components Examples'})
+    }
 }
 </script>
 <style scoped lang="scss">
