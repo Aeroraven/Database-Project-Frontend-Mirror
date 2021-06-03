@@ -6,7 +6,7 @@ import AnimalFeedManagement from '../views/AnimalFeedManagement.vue'
 import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
 import AnimalRecipeManagement from '../views/AnimalRecipeManagement.vue'
 import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
-
+import ComponentView from '../views/ComponentView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -24,6 +24,11 @@ const routes = [
     path: '/animalFeedManagement',
     name: 'AnimalFeedManagement',
     component: AnimalFeedManagement
+  },
+  {
+    path: '/componentView',
+    name: 'ComponentView',
+    component: ComponentView
   },
   {
     path: '/animalInfoManagement',

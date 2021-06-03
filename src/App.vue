@@ -3,7 +3,7 @@
     <slidebar></slidebar>
     <top-navigation-bar></top-navigation-bar>
     <page-container></page-container>
-    <z-popup-window title="你好世界">这是一个弹出式窗口，可以把组件放这里</z-popup-window>
+    <z-popup-window title="你好世界">HelloWorld</z-popup-window>
   </div>
 </template>
 

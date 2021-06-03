@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <h3>Homepage</h3>
+        <h3>Component Examples</h3>
         <hr/>
         <br/><b>Buttons</b><br/><br/>
 
@@ -23,7 +23,7 @@ import ZCheckBox from '../components/ZCheckBox.vue'
 
 export default {
   components: { ZButton, ZCheckBox },
-    name: 'Home',
+    name: 'ComponentView',
   
 }
 </script>

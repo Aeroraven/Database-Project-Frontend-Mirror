@@ -20,6 +20,9 @@ let store= new Vuex.Store({
             animalReproduction:'动物繁育管理'
         },
         sProjectFunctions:[
+          {name:'组件示例',route:'',icon:'assets/slide-bar-animal-manage.png',child:[
+            {name:'组件示例',route:'/componentView',icon:'assets/slide-bar-animal-manage.png',child:[]}
+          ]},
           {name:'动物管理',route:'',icon:'assets/slide-bar-animal-manage.png',child:[
             {name:'医疗管理',route:'/animalCareManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
             {name:'信息管理',route:'/animalInfoManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},

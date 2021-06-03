@@ -26,5 +26,9 @@ export default {
         bottom:0px;
         top:55px;
         transition:all .5s;
+        text-align: left;
+        padding-left:40px;
+        padding-right:40px;
+        padding-top:10px;
     }
 </style>
