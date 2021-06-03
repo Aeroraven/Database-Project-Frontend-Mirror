@@ -19,7 +19,7 @@ export default {
     },
     computed:{
         getOverallStyle(){
-            let x=100;
+            let x=97;
             if(this.type==='half'){
                 x=40;
             }

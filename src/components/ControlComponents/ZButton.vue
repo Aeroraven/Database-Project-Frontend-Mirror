@@ -23,6 +23,7 @@ import {
      mdiCloseThick,
      mdiTools,
      mdiFilterPlus,
+     mdiKeyboardTab,
      } from '@mdi/js'
 export default {
     name: 'ZButton',
@@ -62,7 +63,8 @@ export default {
                 'check':mdiCheckBold,
                 'cross':mdiCloseThick,
                 'tool':mdiTools,
-                'filter-plus':mdiFilterPlus
+                'filter-plus':mdiFilterPlus,
+                'tab':mdiKeyboardTab
             },
             activeIcon:'heart', 
             activeType:'dark',
