@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import ZButton from '../components/ControlComponents/ZButton.vue'
-import ZCheckBox from '../components/ControlComponents/ZCheckBox.vue'
+import ZButton from '../components/ZButton.vue'
+import ZCheckBox from '../components/ZCheckBox.vue'
 
 export default {
   components: { ZButton, ZCheckBox },

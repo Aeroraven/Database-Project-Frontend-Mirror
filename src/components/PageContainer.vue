@@ -1,11 +1,6 @@
 <template>
   <div class="zms-wrapper" :style="slidebarStyle">
-        <transition 
-        enter-active-class="animate__animated animate__fadeIn animate__delay-1s"
-        leave-active-class="animate__animated animate__fadeOut ">
-            <router-view :key="$route.fullpath"/>
-        </transition>
-        
+        <router-view :key="$route.fullpath"/>
   </div>
 </template>
 
@@ -32,8 +27,8 @@ export default {
         top:55px;
         transition:all .5s;
         text-align: left;
-        padding-left:50px;
-        padding-right:50px;
+        padding-left:40px;
+        padding-right:40px;
         padding-top:10px;
     }
 </style>
