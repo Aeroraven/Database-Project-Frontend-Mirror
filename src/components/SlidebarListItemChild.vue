@@ -1,5 +1,5 @@
 <template>
-    <div class="zms-slidebar-vlist-item-child" @click="collapseSlideBar"> 
+    <div class="zms-slidebar-vlist-item-child" @click="collapseSlideBar();routerDirect();"> 
         {{props.name}}
     </div>
 </template>
@@ -16,6 +16,10 @@ export default {
     methods:{
         collapseSlideBar(){
             this.$store.commit('calloutSlideBar');
+        },
+        routerDirect(){
+            this.$router.push(this.props.route);
+            //this.$store.dispatch('alterTopNavTitle',{title:this.props.name})
         }
     }
 }

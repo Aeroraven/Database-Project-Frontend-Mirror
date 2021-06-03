@@ -32,7 +32,7 @@
 
      尽量不要在距离过远的组件之间传值，直接在这里改动。
 
-   - /src/route/: Vue-route，Vue路由，暂时不用动。
+   - /src/route/: Vue-route，Vue路由。
 
    - /src/components/: 存放Vue组件（如果要在组件A中放组件B，在B中写import A from 'A的路径'。在B中的使用A的方法是将A当作HTML标签名称，如果不使用会报错。能拆组件就尽量拆，尽量避免大量重复的div、span等（用v-for替代）。可以使用SCSS。）
 
@@ -49,7 +49,7 @@
 
      上面这样写也是可以的，内层表示class=“classA"下的div才会有的样式。
 
-   - /src/views/: 暂时只有Helloworld的两个页面。
+   - /src/views/: 放视图（就是小组讨论中的界面/页面）。每个vue就当成一个html文件去看待就行了。这里面的vue中的created，当成原来的html中的onload去看就行了（或者当成c++的构造函数）（重载时created不执行的问题已经解决了，不需要考虑created不执行的问题）。
 
    - /src/App.vue：当成c++的main函数
 
@@ -64,6 +64,14 @@
    
 
 ##### 更新记录
+
+更新 @ 2021-06-03 13:06 | hzw
+
+- 修改了Vue路由设置(Vue-Route)和左边栏(Slide Bar)的相应配置，现在能够通过点击左边栏跳转到相应的界面了（界面会显示在PageContainer组件中的路由视图中）
+- 目前只建立了动物管理的页面。如果需要加页面，参照views下的样例，和router/index.js下的样例建立新的页面。注意需要到store/index.js下改动（每一个菜单项的route键存储其对应的path，需要和router/index.js下的相对应）
+- 优化了Slidebar组件和PageContainer组件的样式
+
+
 
 更新 @ 2021-06-03 01:34 | hzw
 

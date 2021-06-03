@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import AnimalCareManagement from '../views/AnimalCareManagement.vue'
+import AnimalFeedManagement from '../views/AnimalFeedManagement.vue'
+import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
+import AnimalRecipeManagement from '../views/AnimalRecipeManagement.vue'
+import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
 
 Vue.use(VueRouter)
 
@@ -11,11 +16,33 @@ const routes = [
     component: Home
   },
   {
+    path: '/animalCareManagement',
+    name: 'AnimalCareManagement',
+    component: AnimalCareManagement
+  },
+  {
+    path: '/animalFeedManagement',
+    name: 'AnimalFeedManagement',
+    component: AnimalFeedManagement
+  },
+  {
+    path: '/animalInfoManagement',
+    name: 'AnimalInfoManagement',
+    component: AnimalInfoManagement
+  },
+  {
+    path: '/animalRecipeManagement',
+    name: 'AnimalRecipeManagement',
+    component: AnimalRecipeManagement
+  },
+  {
+    path: '/animalReproductionManagement',
+    name: 'AnimalReproductionManagement',
+    component: AnimalReproductionManagement
+  },
+  {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]

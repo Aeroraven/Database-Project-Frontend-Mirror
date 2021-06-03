@@ -1,9 +1,10 @@
 <template>
   <div class="zms-slidebar" :style="slidebarStyle">
-      <slidebar-head-icon></slidebar-head-icon>
-      <slidebar-list-item v-for="i in getMenuItems().length" :key="i" 
-        :itemName="getMenuItems()[i-1].name" :iconPath="getMenuItems()[i-1].icon"
-        :childs="getMenuItems()[i-1].child"></slidebar-list-item>
+        <slidebar-head-icon></slidebar-head-icon>
+        <slidebar-list-item v-for="i in getMenuItems().length" :key="i" 
+            :itemName="getMenuItems()[i-1].name" :iconPath="getMenuItems()[i-1].icon"
+            :childs="getMenuItems()[i-1].child"></slidebar-list-item>
+        <hr/>
   </div>
 </template>
 
@@ -39,6 +40,13 @@ export default {
         overflow-x:hidden;
         background-color:rgb(47, 47, 47);
         transition:all .5s;
+        hr{
+            border:rgb(87, 87, 87) 0.5px solid;
+            border-bottom:none;
+            margin-right:20px;
+            margin-left:20px;
+
+        }
          
     }
     .zms-slidebar::-webkit-scrollbar {

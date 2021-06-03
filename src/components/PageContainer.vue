@@ -1,10 +1,6 @@
 <template>
   <div class="zms-wrapper" :style="slidebarStyle">
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
-        </div>
-        <router-view/>
+        <router-view :key="$route.fullpath"/>
   </div>
 </template>
 
@@ -28,7 +24,7 @@ export default {
         position:fixed;
         right:0px;
         bottom:0px;
-        top:35px;
+        top:55px;
         transition:all .5s;
     }
 </style>
