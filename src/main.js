@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Ripple from 'vue-ripple-directive';
+import animated from 'animate.css'
 
+Vue.use(animated)
 Vue.directive('ripple', Ripple);
 Vue.config.productionTip = false;
 

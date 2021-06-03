@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import TopNavigationBarTitle from "@/components/TopNavigationBarTitle.vue"
-import Hamburger from "@/components/Hamburger.vue"
+import TopNavigationBarTitle from "@/components/TopbarComponents/TopNavigationBarTitle.vue"
+import Hamburger from "@/components/TopbarComponents/Hamburger.vue"
 export default {
     name: 'TopNavigationBar',
     computed:{
@@ -32,7 +32,6 @@ export default {
         box-shadow: darkgrey 3px -4px 20px 0.5px ;
         position:fixed;
         top:0px;
-        /*left:0px;*/
         right:0px;
         height:35px;
         padding-top:10px;

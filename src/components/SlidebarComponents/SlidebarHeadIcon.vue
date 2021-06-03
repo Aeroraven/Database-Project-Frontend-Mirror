@@ -30,8 +30,8 @@ export default {
 
 <style scoped lang="scss">
     .zms-slidebar-headicon{
-        background-color:rgb(59, 116, 190);
-        height:200px;
+        background-color:rgb(29, 90, 170);
+        height:230px;
         position:relative;
         img{
             height:50%;

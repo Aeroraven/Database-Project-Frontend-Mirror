@@ -8,6 +8,7 @@ let store= new Vuex.Store({
         //资源路径
         sAsset_HamburgerImg:'assets/top-navigation-bar-hamburger.png',
         sAsset_SlidebarHeadIcon:'assets/slide-bar-head-icon.png',
+        sAsset_WelcomeIcon:'assets/welcome-icon.png',
 
         //项目常量
         sProjectName:"ZMS 管理系统",
