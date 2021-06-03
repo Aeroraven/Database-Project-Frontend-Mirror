@@ -65,6 +65,14 @@
 
 ##### 更新记录
 
+更新 @ 2021-06-03 15:20 | hzw
+
+- 增加了按钮组件(ZButton.vue)，图标不需要外部引用(像element-ui的图标使用方式，需要使用MDI，可选项会比element-ui的按钮多一点)
+- 目前支持3个事件zmsclick、zmsmouseover、zmsmouseleave
+- 对于控件组件，通过访问/componentView查看示例
+
+
+
 更新 @ 2021-06-03 13:06 | hzw
 
 - 修改了Vue路由设置(Vue-Route)和左边栏(Slide Bar)的相应配置，现在能够通过点击左边栏跳转到相应的界面了（界面会显示在PageContainer组件中的路由视图中）
