@@ -65,6 +65,17 @@
 
 ##### 更新记录
 
+更新 @ 2021-06-03 21:20 | hzw
+
+- 优化了部分组件鼠标按下的样式，要执行下列命令 (只使用了vue-ripple-directive)
+
+  ```Shell
+  npm install vue-ripple-directive -save
+  npm install vue-waves -save
+  ```
+
+
+
 更新 @ 2021-06-03 15:20 | hzw
 
 - 增加了按钮组件(ZButton.vue)，图标不需要外部引用(像element-ui的图标使用方式，需要使用MDI，可选项会比element-ui的按钮多一点)
