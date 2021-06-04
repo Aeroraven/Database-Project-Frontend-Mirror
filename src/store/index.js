@@ -25,11 +25,11 @@ let store= new Vuex.Store({
             {name:'组件示例',route:'/componentView',icon:'mdi-puzzle',child:[]}
           ]},
           {name:'动物管理',route:'',icon:'mdi-cat',child:[
-            {name:'医疗管理',route:'/animalCareManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'信息管理',route:'/animalInfoManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'食谱管理',route:'/animalRecipeManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'喂养管理',route:'/animalFeedManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'繁育管理',route:'/animalReproductionManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'医疗管理',route:'/animalCareManagement',icon:'mdi-needle',child:[]},
+            {name:'信息管理',route:'/animalInfoManagement',icon:'mdi-information-outline',child:[]},
+            {name:'食谱管理',route:'/animalRecipeManagement',icon:'mdi-food',child:[]},
+            {name:'喂养管理',route:'/animalFeedManagement',icon:'mdi-food-variant',child:[]},
+            {name:'繁育管理',route:'/animalReproductionManagement',icon:'mdi-baby-bottle-outline',child:[]},
           ]},
           {name:'演出管理',route:'',icon:'mdi-radio',child:[
             {name:'信息管理',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
