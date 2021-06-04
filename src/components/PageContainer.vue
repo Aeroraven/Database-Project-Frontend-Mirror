@@ -17,7 +17,8 @@ export default {
     computed:{
         slidebarStyle(){
             return{
-                left:this.$store.state.sSlideBarLeft+'px',
+                //left:this.$store.state.sSlideBarLeft+'px',
+                left:'0px',
             }
         }  
     },
@@ -26,6 +27,7 @@ export default {
 
 <style scoped lang="scss">
     .zms-wrapper{
+        z-index:1;
         position:fixed;
         right:0px;
         bottom:0px;
@@ -35,5 +37,6 @@ export default {
         padding-left:50px;
         padding-right:50px;
         padding-top:10px;
+        background-color: #f0f0f0;
     }
 </style>

@@ -21,11 +21,9 @@
 </template>
 
 <script>
-import ZButton from '../components/ControlComponents/ZButton.vue'
-import ZCheckBox from '../components/ControlComponents/ZCheckBox.vue'
 
 export default {
-  components: { ZButton, ZCheckBox },
+  components: { },
     name: 'ComponentView',
     created(){
         this.$store.dispatch('alterTopNavTitle',{title:'Components Examples'})

@@ -1,54 +1,63 @@
 <template>
-  <div id="app">
-    <slidebar></slidebar>
-    <top-navigation-bar></top-navigation-bar>
-    <page-container></page-container>
-    <z-popup-window title="你好世界" style="display:none">HelloWorld</z-popup-window>
-  </div>
+  <v-app>
+    <v-navigation-drawer v-model="drawer" absolute temporary app style="overflow:hidden;width:300px">
+      <navigator></navigator>
+    </v-navigation-drawer>
+    <v-app-bar app color="primary">
+      <v-app-bar-nav-icon color="white"  @click="switchDrawer"></v-app-bar-nav-icon>
+      <v-app-bar-title :class="getAppbarStyleClass" v-html="getAppbarTitle"></v-app-bar-title>
+      <appbar-ext class="zms-right"></appbar-ext>
+    </v-app-bar>
+
+    <v-main>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import TopNavigationBar from './components/TopbarComponents/TopNavigationBar.vue'
-import Slidebar from './components/SlidebarComponents/Slidebar.vue'
-import PageContainer from './components/PageContainer.vue'
-import ZPopupWindow from './components/ControlComponents/ZPopupWindow.vue'
+import AppbarExt from './components/AppBar/AppbarExt.vue';
+import Navigator from './components/Navigatior/Navigator.vue';
+
 export default {
-    name: 'App',
-    components: {
-        TopNavigationBar,
-        Slidebar,
-        PageContainer,
-        ZPopupWindow,
+  name: 'App',
+  components:{
+    Navigator,
+    AppbarExt,
+  },
+    
+  data: () =>{
+    return{
+      drawer: false,
     }
-}
-</script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
- 
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  },
+  computed:{
+    getAppbarTitle(){
+      return this.$store.state.sTopBarTitle;
+    },
+    getAppbarStyleClass(){
+      return {
+        'zms-white':true
+      }
+    }
+  },
+  methods:{
+    switchDrawer(){
+      this.drawer=!this.drawer;
     }
   }
-}
-::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2); 
-}
+};
+</script>
+<style scoped lang="scss">
+  .zms-right{
+    position: fixed;
+    right:20px;
+
+  }
 </style>

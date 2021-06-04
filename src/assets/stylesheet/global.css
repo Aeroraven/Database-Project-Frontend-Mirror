@@ -1,0 +1,58 @@
+.zms-white{
+    color:white;
+}
+.zms-scrollbar::-webkit-scrollbar {
+    width: 5px;     
+    height: 1px;
+}
+.zms-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #979ca3;
+}
+.zms-scrollbar::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        background: #ededed;
+}
+.zms-scrollbar{
+    overflow-y: scroll;
+
+}
+::-webkit-scrollbar {
+    width: 5px;     
+    height: 1px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #979ca3;
+}
+::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        background: #ededed;
+}
+.zms-navigator-body{
+    margin-left:10px;
+    margin-right:10px;
+}
+.zms-bold{
+    font-weight: bold;
+}
+.zms-nav-padding{
+    padding-left:50px;
+}
+.zms-halfwidth{
+    width:40%;
+    margin-right:4%;
+    margin-left:4%;
+    margin-top:10px;
+}
+.zms-fullwidth{
+    width:40%;
+    
+}
+.zms-inlb{
+    display: inline-block;
+}
