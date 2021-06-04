@@ -1,6 +1,6 @@
 <template>
   <div class="zms-home-welcome">
-      <v-card outlined ripple="false" class="zms-card-noborder" >
+      <v-card outlined ripple="false" class="zms-card-noborder" color="transparent">
             <div class="zms-home-body">
                 <div class="zms-home-center">
                     <v-img contain :src="avatarImg" aspect-ratio="16/9" height="150px" class="zms-img"></v-img>
@@ -43,6 +43,7 @@ export default {
     }
     .zms-card-noborder{
         border-width: 0px;
+        background-color:#ffffff00;
     }
     .zms-home-title{
         font-size:25px;
@@ -57,5 +58,6 @@ export default {
         display:inline-block;
         vertical-align: top;
         margin-bottom:20px;
+        background:transparent;
     }
 </style>

@@ -5,9 +5,22 @@
                 <v-icon>mdi-information</v-icon> 园区概览
             </div>
             <div class="zms-home-body">
-                <div>
-                    <v-chip class="ma-2" color="primary" ripple="false" label text-color="white"><v-icon left>mdi-label</v-icon>通知</v-chip>2020-2021（二）学期嘉定校区民族重新学习班上课时间一览 （3月15日已更新）
-                </div>
+                
+                <v-container class="grey lighten-5">
+                    <v-row no-gutters>
+                        <template v-for="n in 8">
+                            <v-col :key="n" class="zms-center">
+                                <span class="zms-stat" v-if="n<=4">{{Math.floor(Math.random()*1024)}}</span>
+                                <span v-if="n>4">当前场馆人数</span>
+                            </v-col>
+                            <v-responsive
+                            v-if="n %4==0"
+                            :key="`width-${n}`"
+                            width="100%"
+                            ></v-responsive>
+                        </template>
+                    </v-row>
+                </v-container>
             </div>
       </v-card>
   </div>
@@ -28,6 +41,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    .zms-stat{
+        font-family: 'benderregular';
+        font-size:25px;
+    }
     .zms-home-notice{
         margin:0px 20px 0px 20px;
         padding-top:10px;

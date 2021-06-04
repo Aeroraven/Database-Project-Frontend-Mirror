@@ -2,17 +2,27 @@
   <div class="zms-home-notice">
       <v-card  ripple="false" elevation="10" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-information</v-icon> 园区通知
+                <v-icon>mdi-information</v-icon> 帐户信息
             </div>
             <div class="zms-home-body">
-                <div>
-                    <v-chip class="ma-2" color="primary" ripple="false" label text-color="white"><v-icon left>mdi-label</v-icon>通知</v-chip>2020-2021（二）学期嘉定校区民族重新学习班上课时间一览 （3月15日已更新）
-                </div>
-                <div>
-                    <v-chip class="ma-2" color="primary" ripple="false" label text-color="white"><v-icon left>mdi-label</v-icon>通知</v-chip>2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
-
-                </div>
-
+                <v-container>
+                    <v-row>
+                        <v-col cols="4">
+                            <v-img contain :src="avatarImg" aspect-ratio="16/9" height="100px" class="zms-img"></v-img>
+                        </v-col>
+                        <v-col cols="8">
+                            <b>张三</b> 1950000<br/>
+                            系统管理员<br/><br/>
+                            <v-btn  class="zms-fullwidth"  light color="primary" >
+                                <v-icon>mdi-cog</v-icon>设置
+                            </v-btn>&nbsp;
+                            <v-btn  class="zms-fullwidth"  light color="error" >
+                                <v-icon>mdi-exit-to-app</v-icon>退出
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                
             </div>
       </v-card>
   </div>
@@ -22,13 +32,20 @@
 
 export default {
     components: {  },
-    name: 'HomepageNotice',
+    name: 'HomepageAccountOverview',
     props:{
         drawer:Boolean,
     },
     methods:{
         
-    }
+    },created(){
+        let urlTemp = this.$store.state.sAsset_WelcomeIcon;
+        this.avatarImg = require("@/"+urlTemp)
+    },data:()=>{
+        return{
+            avatarImg:null,
+        }
+    },
 };
 </script>
 

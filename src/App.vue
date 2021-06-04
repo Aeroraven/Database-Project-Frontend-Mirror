@@ -11,7 +11,7 @@
 
     <v-main>
       <v-container fluid>
-        <router-view></router-view>
+        <page-container/>
       </v-container>
     </v-main>
 
@@ -24,12 +24,14 @@
 <script>
 import AppbarExt from './components/AppBar/AppbarExt.vue';
 import Navigator from './components/Navigatior/Navigator.vue';
+import PageContainer from './components/PageContainer.vue';
 
 export default {
   name: 'App',
   components:{
     Navigator,
     AppbarExt,
+    PageContainer,
   },
     
   data: () =>{
@@ -59,5 +61,8 @@ export default {
     position: fixed;
     right:20px;
 
+  }
+  #app{
+    user-select: none;
   }
 </style>

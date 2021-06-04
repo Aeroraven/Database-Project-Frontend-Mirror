@@ -7,6 +7,7 @@ import animated from 'animate.css'
 import Vuetify from './plugins/vuetify'
 import vuetify from './plugins/vuetify'
 import '@/assets/stylesheet/global.css'
+import '@/assets/stylesheet/fonts.css'
 
 Vue.use(Vuetify)
 Vue.use(animated)

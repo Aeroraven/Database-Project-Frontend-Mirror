@@ -56,3 +56,6 @@
 .zms-inlb{
     display: inline-block;
 }
+.zms-half-sec-delay {
+    --animate-duration: 0.5s;
+}

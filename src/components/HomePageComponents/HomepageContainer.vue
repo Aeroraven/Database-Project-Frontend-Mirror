@@ -1,8 +1,27 @@
 <template>
-  <div class="zms-home-container">
-      <homepage-welcome></homepage-welcome>
-      <homepage-notice></homepage-notice>
-      <homepage-overview></homepage-overview>>
+    <div class="zms-home-container">
+        <v-container fluid class="fill-height justify-center">
+            <v-row align="center" class="mx-0">
+                <v-col cols="12" lg="6" xl="8">
+                    <homepage-welcome></homepage-welcome>
+                </v-col>
+                <v-col cols="12" lg="6" xl="4">
+                    <homepage-account-overview/>
+                    <homepage-overview/>
+                </v-col>
+                <v-col cols="12" md="6" class="align-self-stretch">
+                    <homepage-work-overview></homepage-work-overview>
+                </v-col>
+                <v-col cols="12" md="6" class="align-self-stretch">
+                    <homepage-quick-launch></homepage-quick-launch>
+                </v-col>
+                <v-col cols="12" md="6" class="align-self-stretch">
+                    <homepage-notice></homepage-notice>
+                </v-col>
+            </v-row>
+      </v-container>
+      
+      
   </div>
 </template>
 
@@ -10,8 +29,11 @@
 import HomepageWelcome from '@/components/HomepageComponents/HomepageWelcome.vue'
 import HomepageNotice from './HomepageNotice.vue';
 import HomepageOverview from './HomepageOverview.vue';
+import HomepageWorkOverview from './HomepageWorkOverview.vue'
+import HomepageQuickLaunch from './HomepageQuickLaunch.vue';
+import HomepageAccountOverview from './HomepageAccountOverview.vue';
 export default {
-  components: {HomepageWelcome,HomepageNotice, HomepageOverview  },
+  components: {HomepageWelcome,HomepageNotice, HomepageOverview ,HomepageWorkOverview, HomepageQuickLaunch, HomepageAccountOverview },
   name: 'HomepageContainer',
   props:{
       drawer:Boolean,
