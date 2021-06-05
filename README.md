@@ -4,10 +4,27 @@
 
 1. 参看without-vuetify分支的readme.md
 
-   
+2. 目前分支中的vuetify.js中附带的reset.css等将css重置，可能有些组件的自定义css不生效(例如border-radius等)。（未使用vuetify前的代码在分支without-vuetify中，不过不太好看）
+
+3. 修改较多，如果有之前版本的建议执行下面命令
+
+   ```Shell
+   rmdir node_modules
+   npm install
+   ```
+
 
 
 ##### 更新记录
+
+更新 @ 2021-06-05 23:24 | hzw
+
+- 安装了 Vue-ECharts 和 @vue/composition-api，能够较好地实现图表功能
+- 增加了资金管理的部分页面，与资金管理的路由
+- 完成仓库管理界面的初步设计
+- 调整了Vuetify的i18n设置（本地化）
+
+
 
 更新 @ 2020-06-05 18:09 | hzw
 
@@ -36,4 +53,20 @@
 更新和备份 @ 2021-06-04 23:32 | hzw
 
 - 使用Vuetify重写了界面
+
 - 原有的未使用Vuetify的界面已经通过git放到新的branch里了
+
+  
+
+##### 参考内容
+
+1. Vue.js 
+
+2. [Vuetify]: https://github.com/vuetifyjs/vuetify	（组件库与排版，类似于element-ui，貌似更难用？）
+
+3. Material Design Icons （图标）
+
+4. [Animate.css]: https://github.com/animate-css/animate.css （过渡动画）
+
+5. [Penguin Statistics Frontend V2]: https://github.com/penguin-statistics/frontend-v2 （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
+
