@@ -62,11 +62,11 @@
 
 1. Vue.js 
 
-2. [Vuetify]: https://github.com/vuetifyjs/vuetify	（组件库与排版，类似于element-ui，貌似更难用？）
+2. [Vuetify](https://github.com/vuetifyjs/vuetify)	（组件库与排版，类似于element-ui，貌似更难用？）
 
 3. Material Design Icons （图标）
 
-4. [Animate.css]: https://github.com/animate-css/animate.css （过渡动画）
+4. [Animate.css](https://github.com/animate-css/animate.css) （过渡动画）
 
-5. [Penguin Statistics Frontend V2]: https://github.com/penguin-statistics/frontend-v2 （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
+5. [Penguin Statistics Frontend V2](https://github.com/penguin-statistics/frontend-v2) （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
 
