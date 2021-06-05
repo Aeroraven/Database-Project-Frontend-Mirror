@@ -36,10 +36,34 @@
           </v-btn>
           
         </div>
+
         <div class="zms-halfwidth zms-inlb">
-          <v-btn outlined block class="zms-fullwidth"  color="" style="border-color:#AAAAAA">
-            <v-icon>mdi-cog</v-icon>设置
-          </v-btn>
+          
+          <v-dialog v-model="dialog_setting" width="500">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn outlined block  class="zms-fullwidth" style="border-color:#AAAAAA" v-bind="attrs" v-on="on" light color="" @click="console.log(on+attrs);">
+                          <v-icon>mdi-cog</v-icon>设置
+                </v-btn>
+            </template>
+            <v-card :ripple="{class:null}">
+                <v-card-title class="text-h5 text--white" >
+                    <span class="text--white" style="">设置</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <setting-card/>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn  class="zms-fullwidth"  light color="primary" @click="dialog_setting=false;">
+                        <v-icon>mdi-close</v-icon>关闭
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+          </v-dialog>
         </div>
         
       </div>
@@ -47,10 +71,11 @@
 </template>
 
 <script>
+import SettingCard from '../CommonComponents/SettingCard.vue';
 import SlidebarHeadIcon from './SlidebarHeadIcon.vue';
 
 export default {
-  components: { SlidebarHeadIcon },
+  components: { SlidebarHeadIcon, SettingCard },
   name: 'Navigator',
   props:{
       drawer:Boolean,
@@ -61,6 +86,7 @@ export default {
       { title: 'About', icon: 'question_answer' },
     ],
     placeholders:[SlidebarHeadIcon],
+    dialog_setting:false,
   }),
   computed:{
     getNavigatorPrimaryItems(){

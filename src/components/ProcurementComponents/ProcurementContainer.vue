@@ -3,13 +3,13 @@
         <template>
             <v-tabs vertical background-color="primary"  dark v-model="tab">
                 <v-tab :key="1">
-                    <v-icon left>mdi-chart-bar</v-icon>统计分析
+                    <v-icon left>mdi-magnify</v-icon>采购总览
                 </v-tab>
                 <v-tab :key="2">
-                    <v-icon left>mdi-note-text</v-icon>流水记录
+                    <v-icon left>mdi-arrow-collapse-up</v-icon>发起采购
                 </v-tab>
                 <v-tab :key="3">
-                    <v-icon left>mdi-card-bulleted</v-icon>账户管理
+                    <v-icon left>mdi-checkbox-marked-circle-outline</v-icon>采购审批
                 </v-tab>
                 <!--
                 <v-tab :key="4">
@@ -38,20 +38,13 @@
 </template>
 
 <script>
-import EchartExample from '../DemoComponents/EchartExample.vue'
-import EchartLineChartExample from '../DemoComponents/EchartLineChartExample.vue'
-import BankAccountOverview from './BankAccountOverview.vue'
-import FlowRecord from './FlowRecord.vue'
 
 export default {
-    name: 'FundContainer',
+    name: 'ProcurementContainer',
     created(){
     },
     components:{
-        EchartExample,
-        EchartLineChartExample,
-        BankAccountOverview,
-        FlowRecord,
+        
     },data:()=>{
          return{
             tab:null,

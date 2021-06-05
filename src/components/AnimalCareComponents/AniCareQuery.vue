@@ -15,7 +15,13 @@
                             <v-text-field label="兽医名称" placeholder="请输入兽医名称" prepend-icon="mdi-doctor"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="患病日期" placeholder="请输入患病日期" prepend-icon="mdi-calendar-clock"  />
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="date" label="患病日期" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="date" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
                         </v-col>
                         
                     </v-row>

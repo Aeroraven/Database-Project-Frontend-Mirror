@@ -34,6 +34,7 @@
                             <v-card-actions>
                                 <v-btn color="primary" text>查看信息</v-btn>
                                 <v-btn color="primary" text>查看关联交易</v-btn>
+                                <v-btn color="primary" text>管理权限</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-col>
