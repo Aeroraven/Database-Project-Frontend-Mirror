@@ -1,5 +1,7 @@
 # zms-frontend 
 
+不要发起Pull Request
+
 ##### 运行方法
 
 1. 安装vue-cli3 （参考6.1的讲座，不要装成vue-cli2）
