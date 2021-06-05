@@ -12,6 +12,9 @@ import HomepageContainer from '../components/HomepageComponents/HomepageContaine
     components: {
         HomepageContainer
 
-    },
+    },created(){
+        this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.mainPage})
+        this.axios.get('http://localhost:11451/zms-api-test/test.php')
+    }
   }
 </script>

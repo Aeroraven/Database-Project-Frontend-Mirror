@@ -2,26 +2,10 @@
   <div class="zms-home-notice">
       <v-card  :ripple="false" elevation="10" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-account-circle</v-icon> 帐户信息
+                <v-icon>mdi-clock-check-outline</v-icon> 待办事项
             </div>
             <div class="zms-home-body">
-                <v-container>
-                    <v-row>
-                        <v-col cols="4">
-                            <v-img contain :src="avatarImg" aspect-ratio="16/9" height="100px" class="zms-img"></v-img>
-                        </v-col>
-                        <v-col cols="8">
-                            <b>张三</b> 1950000<br/>
-                            系统管理员<br/><br/>
-                            <v-btn  class="zms-fullwidth"  light color="primary" >
-                                <v-icon>mdi-cog</v-icon>设置
-                            </v-btn>&nbsp;
-                            <v-btn  class="zms-fullwidth"  light color="error" >
-                                <v-icon>mdi-exit-to-app</v-icon>退出
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-container>
+                
                 
             </div>
       </v-card>
@@ -32,20 +16,13 @@
 
 export default {
     components: {  },
-    name: 'HomepageAccountOverview',
+    name: 'HomepageTaskOverview',
     props:{
         drawer:Boolean,
     },
     methods:{
         
-    },created(){
-        let urlTemp = this.$store.state.sAsset_WelcomeIcon;
-        this.avatarImg = require("@/"+urlTemp)
-    },data:()=>{
-        return{
-            avatarImg:null,
-        }
-    },
+    }
 };
 </script>
 

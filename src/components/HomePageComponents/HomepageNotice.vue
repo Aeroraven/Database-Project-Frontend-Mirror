@@ -1,18 +1,54 @@
 <template>
   <div class="zms-home-notice">
-      <v-card  ripple="false" elevation="10" class="zms-card-noborder" >
+      <v-card  :ripple="false" elevation="10" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-information</v-icon> 园区通知
+                <v-icon>mdi-bell-alert</v-icon> 园区通知
             </div>
             <div class="zms-home-body">
-                <div>
-                    <v-chip class="ma-2" color="primary" ripple="false" label text-color="white"><v-icon left>mdi-label</v-icon>通知</v-chip>2020-2021（二）学期嘉定校区民族重新学习班上课时间一览 （3月15日已更新）
+                <div class="zms-notice"> 
+                    <v-chip class="ma-2" color="error" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-format-vertical-align-top</v-icon>置顶
+                    </v-chip>
+                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
                 </div>
-                <div>
-                    <v-chip class="ma-2" color="primary" ripple="false" label text-color="white"><v-icon left>mdi-label</v-icon>通知</v-chip>2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
+                <div class="zms-notice"> 
+                    <v-chip class="ma-2" color="success" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-music</v-icon>活动
+                    </v-chip>
+                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
+                </div>
+                <div class="zms-notice"> 
+                    <v-chip class="ma-2" color="success" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-music</v-icon>活动
+                    </v-chip>
+                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
+                </div>
+                <div class="zms-notice"> 
+                    <v-chip class="ma-2" color="warning" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-exclamation-thick</v-icon>重要
+                    </v-chip>
+                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
+                </div>
+                <div class="zms-notice"> 
+                    <v-chip class="ma-2" color="warning" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-exclamation-thick</v-icon>重要
+                    </v-chip>
+                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
+                </div>
+                <div class="zms-notice">
+                    <v-chip class="ma-2 " color="primary" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-information-outline</v-icon>通知
+                    </v-chip>
+                    2020-2021（二）学期嘉定校区民族重新学习班上课时间一览 （3月15日已更新）
+                </div>
+                <div class="zms-notice"> 
+                    <v-chip class="ma-2" color="primary" :ripple="false" label text-color="white">
+                        <v-icon left>mdi-information-outline</v-icon>通知
+                    </v-chip>
+                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
 
                 </div>
-
+                
             </div>
       </v-card>
   </div>
@@ -33,6 +69,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    .zms-notice{
+        overflow:hidden  ;
+        white-space:nowrap;    
+        text-overflow:ellipsis;     
+    }
     .zms-home-notice{
         margin:0px 20px 0px 20px;
         padding-top:10px;

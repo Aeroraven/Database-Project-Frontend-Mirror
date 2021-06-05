@@ -5,19 +5,17 @@
     </v-navigation-drawer>
     <v-app-bar app color="primary">
       <v-app-bar-nav-icon color="white"  @click="switchDrawer"></v-app-bar-nav-icon>
-      <v-app-bar-title :class="getAppbarStyleClass" v-html="getAppbarTitle"></v-app-bar-title>
+      <v-app-bar-title :class="getAppbarStyleClass" v-html="getAppbarTitle" class="zms-wider-letterspacing"></v-app-bar-title>
       <appbar-ext class="zms-right"></appbar-ext>
     </v-app-bar>
-
     <v-main>
       <v-container fluid>
         <page-container/>
       </v-container>
     </v-main>
 
-    <v-footer app>
-      <!-- -->
-    </v-footer>
+    <!--<v-footer app>
+    </v-footer>-->
   </v-app>
 </template>
 

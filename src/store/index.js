@@ -9,11 +9,13 @@ let store= new Vuex.Store({
         sAsset_HamburgerImg:'assets/top-navigation-bar-hamburger.png',
         sAsset_SlidebarHeadIcon:'assets/slide-bar-head-icon.png',
         sAsset_WelcomeIcon:'assets/welcome-icon.png',
+        sAsset_PageBackground:'assets/background-trial.jpg',
 
         //项目常量
         sProjectName:"ZMS 管理系统",
         sTopBarTitle:"首页",
         sPageName:{
+            mainPage:'首页',
             animalCare:'动物医疗管理',
             animalFeed:'动物喂养管理',
             animalInfo:'动物信息管理',

@@ -59,3 +59,19 @@
 .zms-half-sec-delay {
     --animate-duration: 0.5s;
 }
+.zms-background-wg{
+    background-color: #d0d0d0;
+    background-image: linear-gradient(135deg, #ffffff, #d5d5d5); 
+}
+.zms-wider-letterspacing{
+    letter-spacing: 1px;
+}
+.zms-vlist-group{
+    margin-top:5px !important;
+}
+.zms-nav-font{
+    font-size:14px;
+}
+.zms-pointer{
+    cursor:pointer;
+}

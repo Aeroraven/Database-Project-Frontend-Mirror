@@ -1,21 +1,37 @@
 <template>
   <div class="zms-home-notice">
-      <v-card  ripple="false" elevation="10" class="zms-card-noborder" >
+      <v-card  :ripple="false" elevation="10" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-information</v-icon> 快速导航
+                <v-icon>mdi-star-shooting</v-icon> 快速导航
             </div>
+            
             <div class="zms-home-body">
-                
-
+                <v-container fluid class="fill-height justify-center">
+                    <v-row align="center" class="mx-0">
+                        <v-col cols="12" md="6" class="align-self-stretch">
+                            <homepage-quick-launch-button icon="mdi-cat" title="动物管理" info="5 条新增信息"/>
+                        </v-col>
+                        <v-col cols="12" md="6" class="align-self-stretch">
+                            <homepage-quick-launch-button icon="mdi-account-edit" title="工作考核" info="1 条新增信息"/>
+                        </v-col>
+                        <v-col cols="12" md="6" class="align-self-stretch">
+                            <homepage-quick-launch-button icon="mdi-home" title="场馆信息" info="6 条新增信息"/>
+                        </v-col>
+                        <v-col cols="12" md="6" class="align-self-stretch">
+                            <homepage-quick-launch-button icon="mdi-comment-quote" title="反馈信息" info="11 条新增信息"/>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </div>
       </v-card>
   </div>
 </template>
 
 <script>
+import HomepageQuickLaunchButton from './HomepageQuickLaunchButton.vue';
 
 export default {
-    components: {  },
+    components: {HomepageQuickLaunchButton  },
     name: 'HomepageQuickLaunch',
     props:{
         drawer:Boolean,
@@ -27,6 +43,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    .zms-home-ql{
+        cursor:pointer;
+    }
+    .zms-ql-title-text-sub{
+        margin-top:10px;
+    }
+    .zms-ql-title-text{
+        font-size:20px;
+        font-weight: bold;
+        margin-top:20px;
+        display: block;
+    }
+    .zms-ql-title{
+        padding-top:20px;
+        padding-bottom:20px;
+        text-align: center;
+    }
+    .zms-ql-icon-xl{
+        transform: scaleX(150%) scaleY(150%)
+    }
+    .zms-ql-icon{
+        text-align: center;
+    }
     .zms-home-notice{
         margin:0px 20px 0px 20px;
         padding-top:10px;

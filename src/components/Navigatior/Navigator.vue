@@ -4,18 +4,24 @@
       <v-divider></v-divider>
       <div class="zms-navigator-body">
         <v-list dense nav class="zms-bold">
-          <v-list-group v-haptic v-for="item in getNavigatorPrimaryItems" :key="item.name" app link nav >
+          <v-list-item app link nav @click="routerGo('/')" class="zms-vlist-item">
+              <v-list-item-icon><v-icon>mdi-home</v-icon> </v-list-item-icon>
+              <v-list-item-content><v-list-item-title><span class="font-weight-bold zms-nav-font">首页</span></v-list-item-title>
+            </v-list-item-content>
+            
+          </v-list-item>
+          <v-list-group v-for="item in getNavigatorPrimaryItems" :key="item.name" app link nav class="zms-vlist-group">
             <template v-slot:activator   app link nav>
                 <v-list-item-icon>
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content >
-                  <v-list-item-title class="font-weight-bold">{{ item.name }}</v-list-item-title>
+                  <v-list-item-title class="font-weight-bold zms-nav-font"><span class=".zms-nav-font">{{ item.name }}</span></v-list-item-title>
                 </v-list-item-content>
             </template>
-            <v-list-item v-for="item2 in item.child" :key="item2.name" app link nav @click="routerGo(item2.route)">
+            <v-list-item v-for="item2 in item.child" :key="item2.name" app link nav @click="routerGo(item2.route)" class="zms-vlist-item">
               <v-list-item-content>
-                <v-list-item-title><span class="zms-nav-padding">{{ item2.name }}</span></v-list-item-title>
+                <v-list-item-title><span class="zms-nav-padding zms-nav-font">{{ item2.name }}</span></v-list-item-title>
               </v-list-item-content>
               <v-list-item-icon>
                 <v-icon>{{ item2.icon }}</v-icon>
