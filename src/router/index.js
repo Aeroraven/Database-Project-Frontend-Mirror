@@ -9,6 +9,11 @@ import AnimalReproductionManagement from '../views/AnimalReproductionManagement.
 import ComponentView from '../views/ComponentView.vue'
 import Login from '../views/Login.vue'
 import WarehouseManagement from '../views/WarehouseManagement.vue'
+import WarehouseItemManagement from '../views/WarehouseItemManagement.vue'
+import ProcurementManagement from '../views/ProcurementManagement.vue'
+import WarehouseInfoManagement from '../views/WarehouseInfoManagement.vue'
+import WarehouseFlowManagement from '../views/WarehouseFlowManagement.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,6 +61,26 @@ const routes = [
     path: '/warehouseManagement',
     name: 'WarehouseManagement',
     component: WarehouseManagement
+  },
+  {
+    path: '/warehouseManagement/itemManagement',
+    name: 'WarehouseItemManagement',
+    component: WarehouseItemManagement
+  },
+  {
+    path: '/warehouseManagement/infoManagement',
+    name: 'WarehouseInfoManagement',
+    component: WarehouseInfoManagement
+  },
+  {
+    path: '/warehouseManagement/flowManagement',
+    name: 'WarehouseFlowManagement',
+    component: WarehouseFlowManagement
+  },
+  {
+    path: '/procurementManagement',
+    name: 'ProcurementManagement',
+    component: ProcurementManagement
   },
   {
     path: '/about',

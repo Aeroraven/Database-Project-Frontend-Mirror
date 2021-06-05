@@ -56,8 +56,8 @@
 .zms-inlb{
     display: inline-block;
 }
-.zms-half-sec-delay {
-    --animate-duration: 0.5s;
+.zms-anim-shorter-delay {
+    --animate-duration: 0.7s;
 }
 .zms-background-wg{
     background-color: #d0d0d0;

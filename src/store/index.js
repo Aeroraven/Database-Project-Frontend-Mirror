@@ -22,7 +22,11 @@ let store= new Vuex.Store({
             animalInfo:'动物信息管理',
             animalRecipe:'动物食谱管理',
             animalReproduction:'动物繁育管理',
-            warehouseManagement:'仓库管理'
+            warehouseManagement:'仓库管理',
+            warehouseManagement_item:'货物信息管理',
+            warehouseManagement_info:'仓库信息管理',
+            warehouseManagement_flowRecord:'进出仓管理',
+            procurement:'采购管理'
         },
         sProjectFunctions:[
           //{name:'组件示例',route:'',icon:'mdi-puzzle',child:[
@@ -46,7 +50,7 @@ let store= new Vuex.Store({
           {name:'场馆管理',child:[],route:'',icon:'mdi-home'},
           {name:'财务管理',route:'',icon:'mdi-sack',child:[
             {name:'资金记录',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'采购管理',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'采购管理',route:'/procurementManagement',icon:'mdi-cart',child:[]},
           ]},
           {name:'仓库管理',route:'',icon:'mdi-database',child:[
             {name:'仓库管理',route:'/warehouseManagement',icon:'mdi-database',child:[]}

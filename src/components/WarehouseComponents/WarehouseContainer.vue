@@ -1,20 +1,41 @@
 <template>
     <div class="zms-warehouse zms-view-public">
-        这里放仓库管理www
+        <v-container fluid class="fill-height justify-center">
+            <v-row align="center" class="mx-0">
+                
+                <v-col cols="12" md="12" class="align-self-stretch">
+                    <warehouse-quick-launch/>
+                </v-col>
+                <v-col cols="12" md="12" class="align-self-stretch">
+                    <warehouse-stat/>
+                </v-col>
+                
+            </v-row>
+      </v-container>
+        
+        
     </div>
 </template>
 
 <script>
+import WarehouseQuickLaunch from './WarehouseQuickLaunch.vue'
+import WarehouseStat from './WarehouseStat.vue'
 
 export default {
     name: 'WarehouseContainer',
     created(){
     },
     components:{
+        WarehouseQuickLaunch,
+        WarehouseStat
         
     },data:()=>{
         return{
             tab:null,
+        }
+    },methods:{
+        routerGo(x){
+            this.$router.push(x);
         }
     }
   

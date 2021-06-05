@@ -2,8 +2,8 @@
   <div class="zms-wrapper" :style="slidebarStyle">
         <div class="zms-wrapper-inside">
             <transition 
-            enter-active-class="animate__animated animate__fadeIn animate__faster animate__delay-1s"
-            leave-active-class="animate__animated animate__fadeOut animate__faster ">
+            enter-active-class="animate__animated animate__fadeIn animate__faster zms-anim-shorter-delays animate__delay-1s "
+            leave-active-class="animate__animated animate__fadeOut  animate__faster ">
                 <router-view :key="$route.fullpath"/>
             </transition>
         </div>
@@ -50,7 +50,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    
+    .zms-anim-shorter-delays{
+        --animate-delay: 0.5s;
+    }
     .zms-wrapper{
         z-index:2;
         position:fixed;

@@ -1,6 +1,6 @@
 <template>
-    <v-card class="rounded zms-pointer">
-        <div class="zms-background-wg zms-ql-title">
+    <v-card class="rounded zms-pointer" >
+        <div class="zms-background-wg zms-ql-title" @click="routerGo(zmsroute)">
             <div class="zms-ql-icon">
                 <v-icon x-large class="zms-ql-icon-xl">{{icon}}</v-icon>
             </div>
@@ -20,9 +20,12 @@ export default {
         title:String,
         info:String,
         icon:String,
+        zmsroute:String,
     },
     methods:{
-        
+        routerGo(x){
+            this.$router.push(x);
+        }
     }
 };
 </script>
