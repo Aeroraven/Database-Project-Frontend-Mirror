@@ -16,6 +16,12 @@
 
 
 ##### 更新记录
+更新 @ 2021-06-06 2:00 | hzw
+- 调整采购管理页面
+- 调整主页
+- 使用VDatePicker替代了部分VTextFields
+- 减小了部分样式的对比度
+- 修正了部分错误
 
 更新 @ 2021-06-05 23:24 | hzw
 
@@ -60,13 +66,13 @@
 
 ##### 参考内容
 
-1. Vue.js 
+1. [Vue.js](https://github.com/vuejs/vue)
 
-2. [Vuetify]: https://github.com/vuetifyjs/vuetify	（组件库与排版，类似于element-ui，貌似更难用？）
+2. [Vuetify](https://github.com/vuetifyjs/vuetify)	（组件库与排版，类似于element-ui，貌似更难用？）
 
-3. Material Design Icons （图标）
+3. [Material Design Icons](https://github.com/google/material-design-icons) （图标）
 
-4. [Animate.css]: https://github.com/animate-css/animate.css （过渡动画）
+4. [Animate.css](https://github.com/animate-css/animate.css) （过渡动画）
 
-5. [Penguin Statistics Frontend V2]: https://github.com/penguin-statistics/frontend-v2 （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
+5. [Penguin Statistics Frontend V2](https://github.com/penguin-statistics/frontend-v2) （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
 
