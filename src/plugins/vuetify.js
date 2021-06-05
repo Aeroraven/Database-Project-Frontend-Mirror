@@ -3,6 +3,9 @@ import Vuetify from 'vuetify/lib/framework';
 
 Vue.use(Vuetify);
 
+//let x=Vue.component('VCard');
+//x.options.props.ripple.default=false;
+
 export default new Vuetify({
     theme: {
         themes: {

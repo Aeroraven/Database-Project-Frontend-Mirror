@@ -15,17 +15,19 @@ let store= new Vuex.Store({
         sProjectName:"ZMS 管理系统",
         sTopBarTitle:"首页",
         sPageName:{
+            login:'登录',
             mainPage:'首页',
             animalCare:'动物医疗管理',
             animalFeed:'动物喂养管理',
             animalInfo:'动物信息管理',
             animalRecipe:'动物食谱管理',
-            animalReproduction:'动物繁育管理'
+            animalReproduction:'动物繁育管理',
+            warehouseManagement:'仓库管理'
         },
         sProjectFunctions:[
-          {name:'组件示例',route:'',icon:'mdi-puzzle',child:[
-            {name:'组件示例',route:'/componentView',icon:'mdi-puzzle',child:[]}
-          ]},
+          //{name:'组件示例',route:'',icon:'mdi-puzzle',child:[
+          //  {name:'组件示例',route:'/componentView',icon:'mdi-puzzle',child:[]}
+          //]},
           {name:'动物管理',route:'',icon:'mdi-cat',child:[
             {name:'医疗管理',route:'/animalCareManagement',icon:'mdi-needle',child:[]},
             {name:'信息管理',route:'/animalInfoManagement',icon:'mdi-information-outline',child:[]},
@@ -46,7 +48,9 @@ let store= new Vuex.Store({
             {name:'资金记录',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
             {name:'采购管理',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
-          {name:'仓库管理',child:[],route:'',icon:'mdi-database'},
+          {name:'仓库管理',route:'',icon:'mdi-database',child:[
+            {name:'仓库管理',route:'/warehouseManagement',icon:'mdi-database',child:[]}
+          ]},
           {name:'员工管理',route:'',icon:'mdi-account-cog',child:[
             {name:'员工信息',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
             {name:'员工考核',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
@@ -54,8 +58,6 @@ let store= new Vuex.Store({
           {name:'导游管理',child:[],route:'',icon:'mdi-account-voice'},
           {name:'交通管理',child:[],route:'',icon:'mdi-car-hatchback'},
           {name:'便民服务',child:[],route:'',icon:'mdi-bus-stop-covered'},
-          
-
         ],
 
         //CSS相关定义

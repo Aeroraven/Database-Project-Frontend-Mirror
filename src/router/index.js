@@ -7,6 +7,8 @@ import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
 import AnimalRecipeManagement from '../views/AnimalRecipeManagement.vue'
 import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
 import ComponentView from '../views/ComponentView.vue'
+import Login from '../views/Login.vue'
+import WarehouseManagement from '../views/WarehouseManagement.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,6 +16,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/animalCareManagement',
@@ -44,6 +51,11 @@ const routes = [
     path: '/animalReproductionManagement',
     name: 'AnimalReproductionManagement',
     component: AnimalReproductionManagement
+  },
+  {
+    path: '/warehouseManagement',
+    name: 'WarehouseManagement',
+    component: WarehouseManagement
   },
   {
     path: '/about',

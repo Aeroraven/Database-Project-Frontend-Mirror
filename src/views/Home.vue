@@ -14,7 +14,7 @@ import HomepageContainer from '../components/HomepageComponents/HomepageContaine
 
     },created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.mainPage})
-        this.axios.get('http://localhost:11451/zms-api-test/test.php')
+        this.axios.get('http://localhost:11451/zms-api-test/test.php') //CORS Denied
     }
   }
 </script>

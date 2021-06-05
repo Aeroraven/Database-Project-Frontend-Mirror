@@ -1,6 +1,6 @@
 <template>
   <div class="zms-home-notice">
-      <v-card  :ripple="false" elevation="10" class="zms-card-noborder" >
+      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-clock-check-outline</v-icon> 待办事项
             </div>

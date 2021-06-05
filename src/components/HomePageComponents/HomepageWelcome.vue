@@ -1,6 +1,6 @@
 <template>
   <div class="zms-home-welcome">
-      <v-card outlined :ripple="false" class="zms-card-noborder" color="transparent">
+      <v-card outlined :ripple="{ class: null }" class="zms-card-noborder" color="transparent">
             <div class="zms-home-body">
                 <div class="zms-home-center">
                     <v-img contain :src="avatarImg" aspect-ratio="16/9" height="150px" class="zms-img"></v-img>
