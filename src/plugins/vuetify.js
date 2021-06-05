@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
+import zhHans from 'vuetify/es5/locale/zh-Hans'
 
 Vue.use(Vuetify);
 
@@ -7,18 +8,22 @@ Vue.use(Vuetify);
 //x.options.props.ripple.default=false;
 
 export default new Vuetify({
-    theme: {
-        themes: {
-          light: {
-            primary: '#1867C0',
-            secondary: '#2196f3',
-            accent: '#00bcd4',
-            error: '#f44336',
-            warning: '#ff5722',
-            info: '#03a9f4',
-            success: '#4caf50'
-            }
-          },
-        },
-      }
+  lang: {
+    locales: { zhHans },
+    current: 'zhHans',
+  },
+  theme: {
+      themes: {
+        light: {
+          primary: '#1867C0',
+          secondary: '#2196f3',
+          accent: '#00bcd4',
+          error: '#f44336',
+          warning: '#ff5722',
+          info: '#03a9f4',
+          success: '#4caf50'
+        }
+      },
+    },
+  }
 );

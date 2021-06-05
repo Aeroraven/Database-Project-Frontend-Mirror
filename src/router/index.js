@@ -13,6 +13,7 @@ import WarehouseItemManagement from '../views/WarehouseItemManagement.vue'
 import ProcurementManagement from '../views/ProcurementManagement.vue'
 import WarehouseInfoManagement from '../views/WarehouseInfoManagement.vue'
 import WarehouseFlowManagement from '../views/WarehouseFlowManagement.vue'
+import FundManagement from '../views/FundManagement.vue'
 
 Vue.use(VueRouter)
 
@@ -76,6 +77,11 @@ const routes = [
     path: '/warehouseManagement/flowManagement',
     name: 'WarehouseFlowManagement',
     component: WarehouseFlowManagement
+  },
+  {
+    path: '/fundManagement',
+    name: 'FundManagement',
+    component: FundManagement
   },
   {
     path: '/procurementManagement',
