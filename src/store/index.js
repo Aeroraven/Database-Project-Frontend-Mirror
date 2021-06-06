@@ -107,6 +107,9 @@ let store= new Vuex.Store({
             if(param.type=="success"){
               this._vm.$toast.success(param.info,toastConfig);
             }
+            if(param.type=="warning"){
+              this._vm.$toast.warning(param.info,toastConfig);
+            }
             if(param.type=="default"){
               this._vm.$toast.default(param.info,toastConfig);
             }

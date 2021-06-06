@@ -53,7 +53,17 @@
                                 </v-card-text>
                             </v-card>
                         </v-dialog>
-
+                        <v-dialog persistent v-model="submitStat" width="300">
+                            <v-card >
+                                <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
+                                <v-divider/>
+                                <br/>
+                                <v-card-text>
+                                    {{$t('animalCare.PleaseWait')}}<br/><br/>
+                                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                                </v-card-text>
+                            </v-card>
+                        </v-dialog>
                         
                         <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()">
@@ -66,6 +76,25 @@
             </div>
         </div>
         <v-divider/>
+        <v-dialog v-model="errorReturn" persistent width="500" >
+            <v-card color="" :ripple="{class:null}" >
+                <v-card-title class=" zms-strip-bg text-h5 text--white red " color="warning">
+                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{errorTitle}}</span>
+                </v-card-title>
+                <v-divider/>
+                <br/>
+                <v-card-text>
+                    <span class="zms-poptip-body">{{errorInfo}}</span><br/><br/>
+                </v-card-text>
+                <v-divider/>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
+                        <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <div class="zms-query-result">
             <v-icon color="primary">mdi-note-search</v-icon> <span class="zms-query-title">查询结果</span>
             <div class="zms-query-result-table">
@@ -117,7 +146,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="close">{{$t('common.cancel')}}</v-btn>
-                                <v-btn color="blue darken-1" text @click="close">{{$t('common.save')}}</v-btn>
+                                <v-btn color="blue darken-1" text @click="submitCareInfo(editedItem)">{{$t('common.save')}}</v-btn>
                                 </v-card-actions>
                             </v-card>
                             </v-dialog>
@@ -141,7 +170,7 @@
 </template>
 
 <script>
-import {getCareData} from '../../apis/animalCare'
+import {getCareData, updateCareInfo} from '../../apis/animalCare'
 export default {
     name: 'AnicareQuery',
     methods:{
@@ -152,7 +181,12 @@ export default {
                     getCareData().then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                        if(this.queryData.length>0){
+                            this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                        }else{
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
+                        }
+                        
                     })
                 },2000
             )
@@ -169,7 +203,45 @@ export default {
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
+        submitCareInfo(item){
+            this.submitStat=true;
+            setTimeout(
+                ()=>{
+                    updateCareInfo().then(response => {
+                        
+                        this.submitStat=false;
+                        if(response.data.statcode!=0){
+                            this.errorReturn=true;
+                        }
+                        if(response.data.statcode==1){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('animalCare.NonexistentAniID')
+                            return 0;
+                        }
+                        if(response.data.statcode==2){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('animalCare.NonexistentTypeID')
+                            return 0;
+                        }
+                        if(response.data.statcode==3){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('animalCare.NonexistentVetId')
+                            return 0;
+                        }
+                        this.submitSuccTip(this.$t('animalCare.SubmitComplete2'))
+                        this.close()
+                    })
+                },2000
+            )
+        },
+        submitSuccTip(x){
+            this.$store.dispatch('showToastNotify',{type:'success',info:x})
+        },
+        submitFailTip(x){
+            this.$store.dispatch('showToastNotify',{type:'error',info:x})
+        },
     },
+
     created(){
     },data:()=>{
         return{
@@ -186,7 +258,10 @@ export default {
             { text: '操作', value: 'actions', sortable: false }
             
         ],
-
+        submitStat:0,
+        errorReturn:false,
+        errorTitle:'',
+        errorInfo:'',
         pageCount:0,
         page:1,
         queryData:[],

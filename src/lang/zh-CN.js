@@ -3,9 +3,16 @@ export default {
     'animalCare_SubmitEmptyType':'疾病类型不能为空',
     'animalCare_SubmitVetName':'兽医名称不能为空',
     'animalCare_SubmitDate':'患病日期不能为空',
+    'warehouse':{
+        'Info':{
+            'queryDone':'仓库信息获取成功',
+        }
+    },
     'animalCare':{
         'title':'救助信息上报',
         'SubmitComplete':'记录提交成功！',
+        'SubmitComplete2':'记录修改成功！',
+        
         'Submitting':'正在提交',
         'PleaseWait':'请稍后',
         'NonexistentAniID':'填写的动物不存在或无效',
@@ -22,7 +29,8 @@ export default {
         'DateAhead':'设定的日期超前',
         'treatProg':'治疗过程',
         'currentStateW':'已经治愈',
-        'itemAlter':'修改信息'
+        'itemAlter':'修改信息',
+        'emptyInfo':'未找到符合条件的选项',
     },
     'common':{
         'confirm':'确认',

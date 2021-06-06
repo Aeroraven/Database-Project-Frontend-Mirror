@@ -15,3 +15,11 @@ export function createCareInfo(params) {
     params
   })
 }
+
+export function updateCareInfo(params) {
+  return request({
+    url: '/api/animalCare/updateCareInfo',
+    method: 'get',
+    params
+  })
+}

@@ -89,3 +89,19 @@ Mock.mock('/api/animalCare/getCareData','get',aniCareData)
 
 Mock.mock('/api/animalCare/createCareInfo','get',{data:{stat:'success',statcode:1},code:200})
 
+Mock.mock('/api/animalCare/updateCareInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+
+//Warehouse Data
+let warehouseData={
+  data:[
+    {id:'1144444',storage_name:'饲料仓库F213',storage_location:'黄渡理工大学 F楼213'},
+    {id:'1144445',storage_name:'医疗用具仓库2345',storage_location:'黄渡理工大学 创业谷2345'},
+    {id:'1144446',storage_name:'备用仓库D102',storage_location:'黄渡理工大学 D楼102'},
+    {id:'1144447',storage_name:'备用仓库G207',storage_location:'黄渡理工大学 G楼207'},
+    {id:'1144448',storage_name:'备用仓库G209',storage_location:'黄渡理工大学 G楼209'},
+  ],
+  code:200
+}
+
+Mock.mock('/api/warehouseRequest/getWarehouseInfo','get',warehouseData)
