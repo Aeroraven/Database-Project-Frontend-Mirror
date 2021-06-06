@@ -20,9 +20,12 @@ export default {
     props:{
         drawer:Boolean,
     },
-    methods:{
-        
-    }
+    data:()=>{
+        return{
+            currentTouristCnt:0,
+        }
+    },
+    
 };
 </script>
 

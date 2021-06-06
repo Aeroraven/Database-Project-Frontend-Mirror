@@ -43,6 +43,9 @@ export default {
     name: 'ProcurementContainer',
     created(){
     },
+    methods:{
+      
+    },
     components:{
         
     },data:()=>{

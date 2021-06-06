@@ -31,20 +31,32 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="error" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找负责项目
                             </v-btn>
                         </v-col>
-                        
+
+                        <v-dialog persistent v-model="queryLoaderDialog" width="300">
+                            <v-card color="">
+                                <v-card-title>正在查找</v-card-title>
+                                <v-divider/>
+                                <br/>
+                                <v-card-text>
+                                    请稍后<br/><br/>
+                                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                                </v-card-text>
+                            </v-card>
+                        </v-dialog>
+
                         
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()">
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
                         </v-col>
@@ -126,12 +138,27 @@
 </template>
 
 <script>
-
+import {getCareData} from '../../apis/animalCare'
 export default {
     name: 'AnicareQuery',
+    methods:{
+        fetchCareInfo(){
+            this.queryLoaderDialog=true;
+            setTimeout(
+                ()=>{
+                    getCareData().then(response => {
+                        this.queryData = response.data
+                        this.queryLoaderDialog=false;
+                    })
+                },2000
+            )
+            
+        }
+    },
     created(){
     },data:()=>{
         return{
+        queryLoaderDialog:false,
         headers:[
             {text: '动物编号', value: 'id'},
             {text: '疾病名称', value: 'disease_name'},
@@ -146,20 +173,8 @@ export default {
         ],
         pageCount:0,
         page:1,
-        queryData:[
-            {id:'1959001',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956001',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958001',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1959011',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956011',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958011',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1959021',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956021',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958021',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1959031',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956033',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958031',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-        ],editedIndex: -1,
+        queryData:[],
+        editedIndex: -1,
         editedItem: {
             name: '',
             calories: 0,

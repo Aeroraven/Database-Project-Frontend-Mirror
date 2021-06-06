@@ -31,6 +31,9 @@ export default {
     name: 'AniCareContainer',
     created(){
     },
+    methods:{
+          
+    },
     components:{
         AniCareQuery,
         AniCareCreate,
