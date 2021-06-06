@@ -11,8 +11,8 @@
                             <v-img contain :src="avatarImg" aspect-ratio="16/9" height="100px" class="zms-img"></v-img>
                         </v-col>
                         <v-col cols="8">
-                            <b>张三</b> 1950000<br/>
-                            系统管理员<br/><br/>
+                            <b>{{userInfo.name}}</b> {{userInfo.userid}}<br/>
+                            {{userInfo.permission}}<br/><br/>
                             <v-btn  class="zms-fullwidth"  light color="primary" >
                                 <v-icon>mdi-cog</v-icon>设置
                             </v-btn>&nbsp;
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-
+import {getUserInfo} from '../../apis/homepage'
 export default {
     components: {  },
     name: 'HomepageAccountOverview',
@@ -60,26 +60,31 @@ export default {
         drawer:Boolean,
     },
     methods:{
-        
+        fetchUserInfo(){
+            getUserInfo().then(response => {
+                this.userInfo=response.data
+            })
+        },
     },created(){
         let urlTemp = this.$store.state.sAsset_WelcomeIcon;
         this.avatarImg = require("@/"+urlTemp)
+        this.fetchUserInfo()
     },data:()=>{
         return{
             avatarImg:null,
             dialog_logout:false,
+            userInfo:{
+                userid:'---',
+                name:'---',
+                permission:'---',
+            }
         }
     },
 };
 </script>
 
 <style scoped lang="scss">
-    .zms-poptip-body{
-        margin-top:10px;
-        display:block;
-        color:#222222;
-        font-size:16px;
-    }
+    
     .zms-home-notice{
         margin:0px 20px 0px 20px;
         padding-top:10px;

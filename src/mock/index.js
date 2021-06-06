@@ -31,3 +31,30 @@ for(let i = 0; i < 10; i ++) { // 可自定义生成的个数
 }
 Mock.mock('/data/index', 'get', data) // 根据数据模板生成模拟数据
 Mock.mock('/data/index2', 'post', data)
+
+
+//Homepage Notice
+let homepageNoticeData={
+  data:[
+    { id:'100',level:'top',title:'园区员工考核将在2021年6月25日展开',content:'工作考核将在201年6月25日展开'  },
+    { id:'101',level:'notice',title:'动物园即将迎来新的成员Panpan',content:'动物园即将迎来新的成员Panpan'  },
+    { id:'102',level:'activity',title:'园区员工团建活动即将展开',content:'没有附加信息'  },
+    { id:'103',level:'important',title:'工作考核安排确认已经发布',content:'没有附加信息'  },
+    { id:'104',level:'notice',title:'这是一条新的通知',content:'没有附加信息'  },
+    { id:'105',level:'notice',title:'青年大学习优秀表彰',content:'没有附加信息'  },
+    { id:'106',level:'notice',title:'2021届毕业生上学信网最后一次核对学籍信息和毕业照片的通知',content:'没有附加信息'  },
+  ]
+  ,code:200
+}
+Mock.mock('/api/homepageRequests/getNotice', 'get', homepageNoticeData)
+
+//Homepage User
+let homepageUserData={
+  data:{
+    userid:'1930124',
+    name:'张三李四',
+    permission:'系统管理员',
+  }
+  ,code:200
+}
+Mock.mock('/api/homepageRequests/getUserInfo', 'get', homepageUserData)

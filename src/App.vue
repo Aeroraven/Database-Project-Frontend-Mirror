@@ -48,13 +48,16 @@ export default {
       }
     }
   },
+  created(){
+    return 0;
+  },
   methods:{
     switchDrawer(){
       this.drawer=!this.drawer;
     }
   },
   mounted(){
-    getList();
+    //getList();
   }
 };
 </script>
