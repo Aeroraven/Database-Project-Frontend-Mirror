@@ -12,7 +12,7 @@ import axios from 'axios'
 import 'echarts'
 import ECharts from 'vue-echarts'
 import { use } from 'echarts/core'
-
+import "./mock/index";
 import {
   SVGRenderer,
   CanvasRenderer
@@ -132,6 +132,7 @@ Vue.directive('ripple', Ripple);
 Vue.config.productionTip = false;
 
 Vue.component('v-chart', ECharts)
+
 
 Ripple.color = 'rgba(255, 255, 255, 0.25)';
 Ripple.zIndex = 55;

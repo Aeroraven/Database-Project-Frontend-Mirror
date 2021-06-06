@@ -4,9 +4,9 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  baseURL: process.env.VUE_APP_BASE_API,
+  withCredentials: true, 
+  timeout: 5000 
 })
 
 // request interceptor
@@ -26,7 +26,9 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
+    console.log ("请求已经响应")
     const res = response.data
+    console.log(response.data)
     if (res.code !== 20000) {
       console.log("ERROR 1")
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
