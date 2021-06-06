@@ -15,6 +15,7 @@
     "core-js": "^3.6.5",
     "echarts": "^5.1.1",
     "js-cookie": "^2.2.1",
+    "live2d-widget-model-koharu": "^1.0.5",
     "mockjs": "^1.1.0",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.0-rc.5",
