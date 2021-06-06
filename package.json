@@ -15,12 +15,13 @@
     "core-js": "^3.6.5",
     "echarts": "^5.1.1",
     "js-cookie": "^2.2.1",
-    "live2d-widget-model-koharu": "^1.0.5",
     "mockjs": "^1.1.0",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.0-rc.5",
+    "vue-i18n": "^8.24.4",
     "vue-ripple-directive": "^2.0.1",
     "vue-router": "^3.2.0",
+    "vue-toastification": "^1.7.11",
     "vue-waves": "^0.1.1",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"
@@ -39,7 +40,8 @@
     "sass-loader": "^10.0.0",
     "vue-cli-plugin-vuetify": "~2.4.1",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vuetify-loader": "^1.7.0",
+    "vuetify-message-snackbar": "^0.2.3"
   },
   "eslintConfig": {
     "root": true,

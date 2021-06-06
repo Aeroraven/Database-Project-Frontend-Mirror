@@ -85,11 +85,39 @@ let store= new Vuex.Store({
         },
         alterTopNavTitle(state,param){
             state.sTopBarTitle=param.title;
+        },
+        showToastNotify(state,param){
+            let toastConfig={
+              position: "top-center",
+              timeout: 1400,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: true,
+              hideProgressBar: false,
+              closeButton: true,
+              icon: true,
+              rtl: false
+            };
+            if(param.type=="error"){
+              this._vm.$toast.error(param.info,toastConfig);
+            }
+            if(param.type=="success"){
+              this._vm.$toast.success(param.info,toastConfig);
+            }
+            if(param.type=="default"){
+              this._vm.$toast.default(param.info,toastConfig);
+            }
         }
     },
     actions: {
         alterTopNavTitle({commit},param){
             commit('alterTopNavTitle',param)
+        },
+        showToastNotify({commit},param){
+            commit('showToastNotify',param)
         }
     },
     modules: {

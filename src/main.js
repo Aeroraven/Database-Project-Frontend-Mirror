@@ -13,6 +13,9 @@ import 'echarts'
 import ECharts from 'vue-echarts'
 import { use } from 'echarts/core'
 import "./mock/index";
+import Message from 'vuetify-message-snackbar';
+import VueI18n from 'vue-i18n'
+import LangZHCN from './lang/zh-CN'
 import {
   SVGRenderer,
   CanvasRenderer
@@ -125,23 +128,47 @@ use([
     TransformComponent
 ]);
 
-Vue.use(Vuetify)
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+const options = {
+  transition: "Vue-Toastification__fade",
+};
+Vue.use(VueI18n)
+const i18n = new VueI18n({
+  locale: 'zh-CN',    
+  
+  messages: {
+    'zh-CN':LangZHCN
+  } 
+})
+
+
+Vue.use(Toast, options);
+
+Vue.use(Vuetify);
+Vue.use(Message, {
+  closeButtonContent: '关闭',
+  autoTransitionSetting: true,
+});
+
+Vue.prototype.$message=Message
 Vue.prototype.axios = axios
 Vue.use(animated)
 Vue.directive('ripple', Ripple);
 Vue.config.productionTip = false;
-
 Vue.component('v-chart', ECharts)
 
 
 Ripple.color = 'rgba(255, 255, 255, 0.25)';
 Ripple.zIndex = 55;
-
 new Vue({
+  i18n,
   router,
   store,
   Vuetify,
   vuetify,
   axios,
+  
   render: h => h(App)
 }).$mount('#app')

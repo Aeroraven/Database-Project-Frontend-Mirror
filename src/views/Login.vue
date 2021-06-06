@@ -12,7 +12,7 @@ export default {
 
     },created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.login})
-        this.axios.get('http://localhost:11451/zms-api-test/test.php') //CORS Denied
+        //this.axios.get('http://localhost:11451/zms-api-test/test.php') //CORS Denied
     }
 }
 </script>

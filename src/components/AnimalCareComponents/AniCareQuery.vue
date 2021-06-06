@@ -149,10 +149,10 @@ export default {
                     getCareData().then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                     })
                 },2000
             )
-            
         }
     },
     created(){

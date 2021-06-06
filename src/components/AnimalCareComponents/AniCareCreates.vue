@@ -1,23 +1,63 @@
 <template>
     <div class="zms-anicare">
         <div class="zms-query-filter">
-            
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">救助信息上报</span>
+            <v-dialog persistent v-model="submitStat" width="300">
+                <v-card >
+                    <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
+                    <v-divider/>
+                    <br/>
+                    <v-card-text>
+                        {{$t('animalCare.PleaseWait')}}<br/><br/>
+                        <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+
+            <v-dialog v-model="noNoteWarning" persistent width="500" >
+                <v-card color="" :ripple="{class:null}" >
+                    <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3" color="warning">
+                        <v-icon color="white">mdi-alert</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('animalCare.NoNoteTitle')}}</span>
+                    </v-card-title>
+                    <v-divider/>
+                    <br/>
+                    <v-card-text>
+                        <span class="zms-poptip-body">{{$t('animalCare.NoNoteInfo')}}</span><br/><br/>
+                    </v-card-text>
+                    <v-divider/>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="noNoteWarning=false;submitCareInfo()">
+                            <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
+                        </v-btn>
+                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="noNoteWarning=false">
+                            <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('animalCare.title')}}</span>
             
             <div>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="动物编号" placeholder="请输入动物编号" prepend-icon="mdi-music-accidental-sharp"  />
+                            <v-text-field :label="$t('animalCare.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="疾病类型" placeholder="请输入疾病类型" prepend-icon="mdi-heart-pulse"  />
+                            <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')" prepend-icon="mdi-heart-pulse"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="兽医名称" placeholder="请输入兽医名称" prepend-icon="mdi-doctor"  />
+                            <v-text-field :label="$t('animalCare.vetName')" v-model="submitVetname" :placeholder="$t('common.pleaseInput')+$t('animalCare.vetName')" prepend-icon="mdi-doctor"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="患病日期" placeholder="请输入患病日期" prepend-icon="mdi-calendar-clock"  />
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="date" :label="$t('animalCare.illDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -26,8 +66,9 @@
                     counter
                     prepend-inner-icon="mdi-information" 
                     name="input-7-4"
-                    label="情况描述"
-                    placeholder="填写情况描述"
+                    :label="$t('animalCare.note')"
+                    :placeholder="$t('common.pleaseInput')+$t('animalCare.note')"
+                    v-model="submitNote"
                 >
                 </v-textarea>
                 <v-container>
@@ -39,8 +80,8 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
-                                <v-icon>mdi-arrow-collapse-up</v-icon>&nbsp;&nbsp;上报
+                            <v-btn :disabled="submitStat" block class="zms-width"  color="primary" @click="submitPrejudge()">
+                                <v-icon>mdi-arrow-collapse-up</v-icon>&nbsp;&nbsp;{{$t('common.report')}}
                             </v-btn>
                         </v-col>
                     </v-row>
@@ -51,14 +92,64 @@
 </template>
 
 <script>
+import { createCareInfo } from '../../apis/animalCare';
 
 export default {
     name: 'AniCareCreate',
     created(){
     },data:()=>{
         return{
+            submitId:null,
+            submitType:null,
+            submitVetname:null,
+            submitDate:null,
+            submitNote:null,
+            submitStat:false,
+            noNoteWarning:false,
         }
-    }  
+    } ,
+    methods:{
+        submitCareInfo(){
+            this.submitStat=true;
+            setTimeout(
+                ()=>{
+                    createCareInfo().then(response => {
+                        this.submitStat=false,
+                        this.submitSuccTip(this.$t('animalCare.SubmitComplete'))
+                    })
+                },2000
+            )
+        },
+        submitSuccTip(x){
+            this.$store.dispatch('showToastNotify',{type:'success',info:x})
+        },
+        submitFailTip(x){
+            this.$store.dispatch('showToastNotify',{type:'error',info:x})
+        },
+        submitPrejudge(){
+            if(this.submitId==null||this.submitId==undefined||this.submitId==0){
+                this.submitFailTip(this.$t('animalCare_SubmitEmptyId'))
+                return 0;
+            }
+            if(this.submitType==null||this.submitType==undefined||this.submitType==0){
+                this.submitFailTip(this.$t('animalCare_SubmitEmptyType'))
+                return 0;
+            }
+            if(this.submitVetname==null||this.submitVetname==undefined||this.submitVetname==0){
+                this.submitFailTip(this.$t('animalCare_SubmitVetName'))
+                return 0;
+            }
+            if(this.submitDate==null||this.submitDate==undefined||this.submitDate==0){
+                this.submitFailTip(this.$t('animalCare_SubmitDate'))
+                return 0;
+            }
+            if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
+                this.noNoteWarning=true;
+                return 0;
+            }
+            this.submitCareInfo();
+        }
+    }
 }
 </script>
 <style scoped lang="scss">

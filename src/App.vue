@@ -32,7 +32,6 @@ export default {
     AppbarExt,
     PageContainer,
   },
-    
   data: () =>{
     return{
       drawer: false,
@@ -49,7 +48,7 @@ export default {
     }
   },
   created(){
-    return 0;
+    
   },
   methods:{
     switchDrawer(){

@@ -40,6 +40,9 @@
 .zms-bold{
     font-weight: bold;
 }
+.zms-strip-bg{
+    background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 45px, rgba(255, 255, 255, 0.1) 45px, rgba(255, 255, 255, 0.1) 90px ) !important;
+}
 .zms-nav-padding{
     padding-left:50px;
 }

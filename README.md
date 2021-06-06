@@ -16,6 +16,16 @@
 
 
 ##### 更新记录
+更新 @ 2021-06-06 22:53 | hzw
+- 安装了vue-i18n(vue语言切换和国际化)、vue-toastification(作为element-ui的一个替代)、vuetify-message-snackbar。移除了live2d-widget (x。
+
+  - 可以将全局要用的信息放在/lang/zh-CN.js中
+  - 可以使用Vuex中的showToastNotify来显示通知条 (当前版本没有安装 element-ui，在npm install前使用Message等可能出错)
+
+- 优化了“救助信息上报”的界面与逻辑，使用vue-i18n重写了救助信息上报界面
+
+  
+
 更新 @ 2021-06-06 18:44 | hzw
 
 - 安装了js-cookie
@@ -82,4 +92,5 @@
 4. [Animate.css](https://github.com/animate-css/animate.css) （过渡动画）
 
 5. [Penguin Statistics Frontend V2](https://github.com/penguin-statistics/frontend-v2) （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
+6. [Vue Toastification](https://github.com/Maronato/vue-toastification)（模仿Element-UI的消息框）
 

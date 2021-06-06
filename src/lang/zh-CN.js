@@ -1,0 +1,26 @@
+export default { 
+    'animalCare_SubmitEmptyId':'动物编号不能为空',
+    'animalCare_SubmitEmptyType':'疾病类型不能为空',
+    'animalCare_SubmitVetName':'兽医名称不能为空',
+    'animalCare_SubmitDate':'患病日期不能为空',
+    'animalCare':{
+        'title':'救助信息上报',
+        'SubmitComplete':'记录提交成功！',
+        'Submitting':'正在提交',
+        'PleaseWait':'请稍后',
+        'NonexistentAniID':'动物不存在',
+        'NoNoteTitle':'情况描述缺失',
+        'NoNoteInfo':'确定不填写情况描述?',
+        'animalId':'动物编号',
+        'diseaseName':'疾病名称',
+        'vetName':'兽医名称',
+        'illDate':'患病日期',
+        'note':'情况描述'
+    },
+    'common':{
+        'confirm':'确认',
+        'cancel':'取消',
+        'pleaseInput':'请输入',
+        'report':'上报',
+    }
+}
