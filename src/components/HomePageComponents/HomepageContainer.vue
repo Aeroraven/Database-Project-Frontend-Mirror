@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import HomepageWelcome from '@/components/HomepageComponents/HomepageWelcome.vue'
+import HomepageWelcome from './HomepageWelcome.vue'
 import HomepageNotice from './HomepageNotice.vue';
 import HomepageOverview from './HomepageOverview.vue';
 import HomepageWorkOverview from './HomepageWorkOverview.vue'
