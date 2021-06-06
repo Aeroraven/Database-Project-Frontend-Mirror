@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import HomepageContainer from '../components/HomepageComponents/HomepageContainer.vue'
-
+  import HomepageContainer from '../components/HomepageComponents/HomepageContainer.vue'
   export default {
     name: 'Home',
     components: {

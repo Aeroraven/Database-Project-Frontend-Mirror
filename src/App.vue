@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { getList } from './apis/debug'
 import AppbarExt from './components/AppBar/AppbarExt.vue';
 import Navigator from './components/Navigatior/Navigator.vue';
 import PageContainer from './components/PageContainer.vue';
@@ -51,6 +52,9 @@ export default {
     switchDrawer(){
       this.drawer=!this.drawer;
     }
+  },
+  mounted(){
+    getList();
   }
 };
 </script>

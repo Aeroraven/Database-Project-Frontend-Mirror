@@ -24,10 +24,11 @@
 </template>
 
 <script>
+import AniCareCreate from './AniCareCreates.vue'
 import AniCareQuery from './AniCareQuery.vue'
-import AniCareCreate from './AniCareCreate.vue'
+
 export default {
-    name: 'AnicareContainer',
+    name: 'AniCareContainer',
     created(){
     },
     components:{
