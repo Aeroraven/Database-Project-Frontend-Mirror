@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import HomepageQuickLaunchButton from '@/components/HomepageComponents/HomepageQuickLaunchButton.vue';
+import HomepageQuickLaunchButton from '../HomepageComponents/HomepageQuickLaunchButton.vue';
 
 export default {
     components: {HomepageQuickLaunchButton  },

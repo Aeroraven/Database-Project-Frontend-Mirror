@@ -25,7 +25,7 @@
 
 <script>
 import AniCareQuery from './AniCareQuery.vue'
-import AniCareCreate from '@/components/AnimalCareComponents/AniCareCreate.vue'
+import AniCareCreate from './AniCareCreate.vue'
 export default {
     name: 'AnicareContainer',
     created(){

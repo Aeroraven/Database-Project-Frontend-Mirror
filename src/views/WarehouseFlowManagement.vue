@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import WarehouseFlow from '@/components/WarehouseComponents/WarehouseFlow.vue'
+import WarehouseFlow from '../components/WarehouseComponents/WarehouseFlow.vue'
 export default {
     name: 'WarehouseFlowManagement',
     created(){
