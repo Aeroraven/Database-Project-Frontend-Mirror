@@ -29,13 +29,18 @@ service.interceptors.response.use(
     console.log ("请求已经响应")
     const res = response.data
     console.log(response.data)
-    if (res.code !== 20000) {
+    
+    
+    
+    if (res.code === 20000) {
       console.log("ERROR 1")
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         console.log("ERROR 2")
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
+      console.log("返回")
+      console.log(res)
       return res
     }
   },

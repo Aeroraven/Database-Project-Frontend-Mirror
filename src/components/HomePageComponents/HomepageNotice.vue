@@ -5,65 +5,80 @@
                 <v-icon>mdi-bell-alert</v-icon> 园区通知
             </div>
             <div class="zms-home-body">
-                <div class="zms-notice"> 
-                    <v-chip class="ma-2" color="error" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-format-vertical-align-top</v-icon>置顶
+                <div class="zms-notice" v-for="item in this.notice" :key="item.id"> 
+                    <v-chip class="ma-2" :color="getNoticeTag(item).color" :ripple="false" label text-color="white">
+                        <v-icon left>{{getNoticeTag(item).icon}}</v-icon>{{getNoticeTag(item).capt}}
                     </v-chip>
-                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
+                    <v-dialog v-model="item.openStat" width="700">
+                        <template v-slot:activator="{ on, attrs }">
+                            <span v-bind="attrs" v-on="on">
+                                {{item.title}}
+                            </span>
+                        </template>
+                        <v-card :ripple="{class:null}">
+                            <v-card-title class="text-h6 text--white " color="error">
+                                <span >园区通知</span>
+                            </v-card-title>
+                            <v-divider/>
+                            <v-card-text>
+                                <span class="zms-poptip-body">
+                                <b>{{item.title}}</b><br/>
+                                <br/>
+                                {{item.content}}</span>
+                            </v-card-text>
+                            <v-divider></v-divider>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn  class="zms-fullwidth"  light color="primary" @click="item.openStat=false;">
+                                    <v-icon>mdi-check</v-icon>确认
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                 </div>
-                <div class="zms-notice"> 
-                    <v-chip class="ma-2" color="success" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-music</v-icon>活动
-                    </v-chip>
-                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
-                </div>
-                <div class="zms-notice"> 
-                    <v-chip class="ma-2" color="success" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-music</v-icon>活动
-                    </v-chip>
-                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
-                </div>
-                <div class="zms-notice"> 
-                    <v-chip class="ma-2" color="warning" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-exclamation-thick</v-icon>重要
-                    </v-chip>
-                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
-                </div>
-                <div class="zms-notice"> 
-                    <v-chip class="ma-2" color="warning" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-exclamation-thick</v-icon>重要
-                    </v-chip>
-                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
-                </div>
-                <div class="zms-notice">
-                    <v-chip class="ma-2 " color="primary" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-information-outline</v-icon>通知
-                    </v-chip>
-                    2020-2021（二）学期嘉定校区民族重新学习班上课时间一览 （3月15日已更新）
-                </div>
-                <div class="zms-notice"> 
-                    <v-chip class="ma-2" color="primary" :ripple="false" label text-color="white">
-                        <v-icon left>mdi-information-outline</v-icon>通知
-                    </v-chip>
-                    2021年国家公派研究生项目之线上Live申请经验分享会（第三场：11月27日晚）
-
-                </div>
-                
             </div>
       </v-card>
   </div>
 </template>
 
 <script>
-
+import {getNotice} from '../../apis/homepage'
 export default {
     components: {  },
     name: 'HomepageNotice',
+    data:()=>{
+        return{
+            notice:[]
+        }
+    },
     props:{
-        drawer:Boolean,
+        
     },
     methods:{
-        
+        fetchNotice(){
+            getNotice().then(response => {
+                this.notice = response.data
+                this.notice.openStat = false
+            })
+        },
+        getNoticeTag(x){
+            if(x.level=='top'){
+                return {
+                    'icon':'mdi-format-vertical-align-top',
+                    'capt':'置顶',
+                    'color':'error',
+                }
+            }else{
+                return {
+                    'icon':'mdi-information',
+                    'capt':'通知',
+                    'color':'primary',
+                }
+            }
+        }
+    },
+    created(){
+        this.fetchNotice();
     }
 };
 </script>
