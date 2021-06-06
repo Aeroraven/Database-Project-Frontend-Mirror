@@ -1,6 +1,7 @@
 <template>
     <div class="zms-anicare">
         <div class="zms-query-filter">
+            <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
                 <v-card >
                     <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
@@ -12,7 +13,7 @@
                     </v-card-text>
                 </v-card>
             </v-dialog>
-
+            <!-- 不写备注 -->
             <v-dialog v-model="noNoteWarning" persistent width="500" >
                 <v-card color="" :ripple="{class:null}" >
                     <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3" color="warning">
@@ -35,7 +36,26 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-
+            <!-- 提交错误 -->
+            <v-dialog v-model="errorReturn" persistent width="500" >
+                <v-card color="" :ripple="{class:null}" >
+                    <v-card-title class=" zms-strip-bg text-h5 text--white red " color="warning">
+                        <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{errorTitle}}</span>
+                    </v-card-title>
+                    <v-divider/>
+                    <br/>
+                    <v-card-text>
+                        <span class="zms-poptip-body">{{errorInfo}}</span><br/><br/>
+                    </v-card-text>
+                    <v-divider/>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
+                            <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('animalCare.title')}}</span>
             
             <div>
@@ -53,7 +73,7 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="date" :label="$t('animalCare.illDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    <v-text-field v-model="submitDate" :label="$t('animalCare.illDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                     </v-text-field>
                                 </template>
                                 <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
@@ -106,6 +126,10 @@ export default {
             submitNote:null,
             submitStat:false,
             noNoteWarning:false,
+            errorReturn:false,
+            errorTitle:'',
+            errorInfo:'',
+            menu2:false
         }
     } ,
     methods:{
@@ -114,7 +138,26 @@ export default {
             setTimeout(
                 ()=>{
                     createCareInfo().then(response => {
-                        this.submitStat=false,
+                        console.log(this.submitDate)
+                        this.submitStat=false;
+                        if(response.data.statcode!=0){
+                            this.errorReturn=true;
+                        }
+                        if(response.data.statcode==1){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('animalCare.NonexistentAniID')
+                            return 0;
+                        }
+                        if(response.data.statcode==2){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('animalCare.NonexistentTypeID')
+                            return 0;
+                        }
+                        if(response.data.statcode==3){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('animalCare.NonexistentVetId')
+                            return 0;
+                        }
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete'))
                     })
                 },2000
@@ -143,6 +186,18 @@ export default {
                 this.submitFailTip(this.$t('animalCare_SubmitDate'))
                 return 0;
             }
+            let year=this.submitDate.split("-")[0];
+            let month=this.submitDate.split("-")[1]-1;
+            let day=this.submitDate.split("-")[2];
+            let date1= new Date(year,month,day)
+            let date2 = new Date()
+            if(date1>date2){
+                console.log(date1)
+                console.log(date2)
+                this.submitFailTip(this.$t('animalCare.DateAhead'))
+                return 0;
+            }
+
             if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
                 this.noNoteWarning=true;
                 return 0;

@@ -8,19 +8,28 @@ export default {
         'SubmitComplete':'记录提交成功！',
         'Submitting':'正在提交',
         'PleaseWait':'请稍后',
-        'NonexistentAniID':'动物不存在',
+        'NonexistentAniID':'填写的动物不存在或无效',
+        'NonexistentTypeID':'填写的疾病不存在或无效',
+        'NonexistentVetID':'填写的兽医不存在或无效',
         'NoNoteTitle':'情况描述缺失',
         'NoNoteInfo':'确定不填写情况描述?',
         'animalId':'动物编号',
         'diseaseName':'疾病名称',
+        'drugName':'药物名称',
         'vetName':'兽医名称',
         'illDate':'患病日期',
-        'note':'情况描述'
+        'note':'情况描述',
+        'DateAhead':'设定的日期超前',
+        'treatProg':'治疗过程',
+        'currentStateW':'已经治愈',
+        'itemAlter':'修改信息'
     },
     'common':{
         'confirm':'确认',
         'cancel':'取消',
         'pleaseInput':'请输入',
         'report':'上报',
+        'error':'错误',
+        'save':'保存'
     }
 }

@@ -16,7 +16,20 @@
 
 
 ##### 更新记录
+更新 @ 2021-06-07 00:00 | hzw
+
+- 优化了动物医疗管理的界面和逻辑
+
+  - 增加了医疗信息修改界面
+
+  - 对于上报日期超前的请求，进行提示
+
+  - 增加上报错误返回提示
+  
+    
+
 更新 @ 2021-06-06 22:53 | hzw
+
 - 安装了vue-i18n(vue语言切换和国际化)、vue-toastification(作为element-ui的一个替代)、vuetify-message-snackbar。移除了live2d-widget (x。
 
   - 可以将全局要用的信息放在/lang/zh-CN.js中

@@ -87,5 +87,5 @@ let aniCareData={
 }
 Mock.mock('/api/animalCare/getCareData','get',aniCareData)
 
-Mock.mock('/api/animalCare/createCareInfo','get',{data:{stat:'success'},code:200})
+Mock.mock('/api/animalCare/createCareInfo','get',{data:{stat:'success',statcode:1},code:200})
 

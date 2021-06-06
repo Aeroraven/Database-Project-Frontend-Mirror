@@ -82,30 +82,33 @@
                     <v-toolbar flat color="white">
                         <v-toolbar-title>查询结果</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-dialog v-model="dialog" max-width="500px">
+                        <v-dialog v-model="dialog" persistent max-width="500px">
                         
-                        <v-card>
+                        <v-card :ripple="{class:null}">
                             <v-card-title>
-                            <span class="headline">5</span>
+                            <span class="headline">{{$t('animalCare.itemAlter')}}</span>
                             </v-card-title>
 
                             <v-card-text>
                             <v-container>
                                 <v-row>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['id']" label="Dessert name"></v-text-field>
+                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['disease_name']" label="Calories"></v-text-field>
+                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['veterinary_name']" label="Fat (g)"></v-text-field>
+                                    <v-text-field v-model="editedItem['veterinary_name']" :label="$t('animalCare.vetName')"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['drug']" label="Carbs (g)"></v-text-field>
+                                    <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['treatment_progress']" label="Protein (g)"></v-text-field>
+                                    <v-text-field v-model="editedItem['treatment_progress']" :label="$t('animalCare.treatProg')"></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="4">
+                                    <v-checkbox v-model="editedItem['current_state']" class="mx-2" :label="$t('animalCare.currentStateW')"></v-checkbox>
                                 </v-col>
                                 </v-row>
                             </v-container>
@@ -113,20 +116,20 @@
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+                                <v-btn color="blue darken-1" text @click="close">{{$t('common.cancel')}}</v-btn>
+                                <v-btn color="blue darken-1" text @click="close">{{$t('common.save')}}</v-btn>
                                 </v-card-actions>
                             </v-card>
                             </v-dialog>
                         </v-toolbar>
                     </template>
                     <template v-slot:[`item.actions`]="{ item }">
-                        <v-icon small class="mr-2" @click="console.log(item)">
+                        <v-icon small class="mr-2" @click="editItem(item)">
                             mdi-pencil
                         </v-icon>
-                        <v-icon small class="mr-2">
+                        <!--<v-icon small class="mr-2">
                             mdi-delete
-                        </v-icon>
+                        </v-icon>-->
                     </template>
                 </v-data-table>
             </div>
@@ -153,7 +156,19 @@ export default {
                     })
                 },2000
             )
-        }
+        },
+        close () {
+            this.dialog = false
+            this.$nextTick(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+            })
+        },
+        editItem (item) {
+            this.editedIndex = this.queryData.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
+        },
     },
     created(){
     },data:()=>{
@@ -171,6 +186,7 @@ export default {
             { text: '操作', value: 'actions', sortable: false }
             
         ],
+
         pageCount:0,
         page:1,
         queryData:[],
@@ -190,7 +206,8 @@ export default {
             protein: 0,
         }}
         
-    }
+    },
+    
   
 }
 </script>
