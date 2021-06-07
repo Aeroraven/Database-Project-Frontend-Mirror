@@ -117,3 +117,4 @@ let warehouseItem={
   code:200
 }
 Mock.mock('/api/warehouseRequest/getwareItemInfo','get',warehouseItem)
+Mock.mock('/api/warehouseRequest/updatewareItemInfo','get',{data:{stat:'success',statcode:1},code:200})

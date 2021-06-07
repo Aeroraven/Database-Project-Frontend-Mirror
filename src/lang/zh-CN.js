@@ -15,6 +15,17 @@ export default {
             'create':'添加仓库',
             'new':'新增仓库信息',
             'search':'正在查找仓库内物品'
+        },
+        'item':{
+            'type':'类型',
+            'name':'名称',
+            'id':'编号',
+            'guarDate':'保质日期',
+            'price':'单价',
+            'channel':'渠道',
+            'alter':'编辑物品信息',
+            'delete':'确定删除该物品',
+            'delete_content':'该删除过程将不可恢复！'
         }
     },
     'animalCare':{

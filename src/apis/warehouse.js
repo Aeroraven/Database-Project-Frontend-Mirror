@@ -23,3 +23,12 @@ export function getwareItemInfo(params) {
     })
 }
 
+
+export function updatewareItemInfo(params) {
+    return request({
+        url: '/api/warehouseRequest/updatewareItemInfo',
+        method: 'get',
+        params
+    })
+}
+

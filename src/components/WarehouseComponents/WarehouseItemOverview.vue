@@ -64,49 +64,54 @@
                     <v-toolbar flat color="white">
                         <v-toolbar-title>查询结果</v-toolbar-title>
                         <v-spacer></v-spacer>
-                        <v-dialog v-model="dialog" max-width="500px">
-                        
-                        <v-card>
-                            <v-card-title>
-                            <span class="headline">5</span>
-                            </v-card-title>
+                        <v-dialog v-model="dialog" max-width="600px" persistent>
+                            <v-card :ripple="{class:null}">
+                                <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
+                                    <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">
+                                        {{$t('warehouse.item.alter')}}
+                                    </span>
+                                </v-card-title>
 
-                            <v-card-text>
-                            <v-container>
-                                <v-row>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['item_id']" label="Dessert name"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['type']" label="Calories"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['name']" label="Fat (g)"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['quality_guarantee']" label="Carbs (g)"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['price']" label="Protein (g)"></v-text-field>
-                                </v-col>
-                                </v-row>
-                            </v-container>
-                            </v-card-text>
+                                    <v-card-text>
+                                        <v-container>
+                                            <v-row>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['item_id']" :label="$t('warehouse.item.id')"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['type']" :label="$t('warehouse.item.type')"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['name']" :label="$t('warehouse.item.name')"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['channel']" :label="$t('warehouse.item.channel')"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['price']" :label="$t('warehouse.item.price')"></v-text-field>
+                                            </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-card-text>
 
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-                                </v-card-actions>
-                            </v-card>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="close()">
+                                            <v-icon>mdi-close</v-icon>{{$t('common.cancel')}}
+                                        </v-btn>
+                                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="updateItemInfo()">
+                                            <v-icon>mdi-check</v-icon>{{$t('common.confirm')}}
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
                             </v-dialog>
                         </v-toolbar>
                     </template>
                     <template v-slot:[`item.actions`]="{ item }">
-                        <v-icon small class="mr-2" @click="console.log(item)">
+                        <v-icon small class="mr-2" @click="editItem(item)">
                             mdi-pencil
                         </v-icon>
-                        <v-icon small class="mr-2">
+                        <v-icon small class="mr-2" @click="deleteItem(item)">
                             mdi-delete
                         </v-icon>
                     </template>
@@ -127,12 +132,66 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+        <v-dialog persistent v-model="queryLoaderDialog2" width="300">
+            <v-card color="">
+                <v-card-title>正在提交</v-card-title>
+                <v-divider/>
+                <br/>
+                <v-card-text>
+                    请稍后<br/><br/>
+                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="errorReturn" persistent width="500" >
+            <v-card color="" :ripple="{class:null}" >
+                <v-card-title class=" zms-strip-bg text-h5 text--white red " color="warning">
+                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{errorTitle}}</span>
+                </v-card-title>
+                <v-divider/>
+                <br/>
+                <v-card-text>
+                    <span class="zms-poptip-body">{{errorInfo}}</span><br/><br/>
+                </v-card-text>
+                <v-divider/>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
+                        <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="deleteDialog" persistent width="600" >
+            <v-card color="" :ripple="{class:null}" >
+                <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3 " color="warning">
+                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('warehouse.item.delete')}}</span>
+                </v-card-title>
+                <v-divider/>
+                <br/>
+                <v-card-text>
+                    <span class="zms-poptip-body">{{$t('warehouse.item.delete_content')}}</span><br/><br/>
+                </v-card-text>
+                <v-divider/>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                        <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
+                    </v-btn>
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
+                        <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </div>
 
 </template>
 
 <script>
-import { getwareItemInfo } from '../../apis/warehouse';
+import { getwareItemInfo, updatewareItemInfo } from '../../apis/warehouse';
 
 export default {
     name: 'WarehouseItemOverview',
@@ -161,9 +220,23 @@ export default {
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
+        dialog:false,
         queryData:[],
         editedIndex: -1,
+        delIndex: -1,
+        queryLoaderDialog2:false,
+        deleteDialog:false,
+        errorReturn:false,
+        errorTitle:'',
+        errorInfo:'',
         editedItem: {
+            name: '',
+            calories: 0,
+            fat: 0,
+            carbs: 0,
+            protein: 0,
+        },
+        delItem: {
             name: '',
             calories: 0,
             fat: 0,
@@ -195,6 +268,45 @@ export default {
                     })
                 },2000
             )
+        },
+        updateItemInfo(){
+            this.queryLoaderDialog2=true;
+            setTimeout(
+                ()=>{
+                    updatewareItemInfo().then(response => {
+                        this.queryLoaderDialog2=false;
+                        if(response.data.statcode!=0){
+                            this.errorTitle=this.$t('common.error');
+                            this.errorInfo=this.$t('warehouse.Info.generalError')
+                            this.errorReturn=true;
+                            return 0;
+                        }
+                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                        this.close();
+                    })
+                },2000
+            )
+        },
+        close () {
+            this.dialog = false
+            this.deleteDialog=false
+            this.$nextTick(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+            this.delIndex = -1
+            this.delItem = Object.assign({}, this.defaultItem)
+            })
+        },
+        editItem (item) {
+            this.editedIndex = this.queryData.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
+        },
+        deleteItem (item) {
+            this.delIndex = this.queryData.indexOf(item)
+            this.delItem = Object.assign({}, item)
+            //this.dialog = true
+            this.deleteDialog=true
         },
     }
   
