@@ -263,7 +263,12 @@ export default {
         errorTitle:'',
         errorInfo:'',
         pageCount:0,
+        menu2:0,
+        on:0,
+        attrs:0,
         page:1,
+        dialog:0,
+        date:null,
         queryData:[],
         editedIndex: -1,
         editedItem: {

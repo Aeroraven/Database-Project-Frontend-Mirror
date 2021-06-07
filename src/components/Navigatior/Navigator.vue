@@ -19,14 +19,17 @@
                   <v-list-item-title class="font-weight-bold zms-nav-font"><span class=".zms-nav-font">{{ item.name }}</span></v-list-item-title>
                 </v-list-item-content>
             </template>
-            <v-list-item v-for="item2 in item.child" :key="item2.name" app link nav @click="routerGo(item2.route)" class="zms-vlist-item">
-              <v-list-item-content>
-                <v-list-item-title><span class="zms-nav-padding zms-nav-font">{{ item2.name }}</span></v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-icon>
-                <v-icon>{{ item2.icon }}</v-icon>
-              </v-list-item-icon>
-            </v-list-item>
+            <router-link v-for="item2 in item.child" :key="item2.name" :to="(item2.route==undefined)?'/':item2.route" style="text-decoration:none;">
+              <v-list-item  app link nav class="zms-vlist-item">
+                  <v-list-item-content>
+                    <v-list-item-title><span class="zms-nav-padding zms-nav-font">{{ item2.name }}</span></v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>{{ item2.icon }}</v-icon>
+                  </v-list-item-icon>
+              </v-list-item>
+            </router-link>
+            
           </v-list-group>
         </v-list>
         <hr/>

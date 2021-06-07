@@ -142,8 +142,6 @@ const i18n = new VueI18n({
     'zh-CN':LangZHCN
   } 
 })
-
-
 Vue.use(Toast, options);
 
 Vue.use(Vuetify);
