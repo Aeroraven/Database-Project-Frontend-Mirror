@@ -106,3 +106,14 @@ let warehouseData={
 
 Mock.mock('/api/warehouseRequest/getWarehouseInfo','get',warehouseData)
 Mock.mock('/api/warehouseRequest/updateWarehouseInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+let warehouseItem={
+  data:[
+    {item_id:'1956100',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
+    {item_id:'1956101',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
+    {item_id:'1956102',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
+    {item_id:'1956103',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
+  ],
+  code:200
+}
+Mock.mock('/api/warehouseRequest/getwareItemInfo','get',warehouseItem)

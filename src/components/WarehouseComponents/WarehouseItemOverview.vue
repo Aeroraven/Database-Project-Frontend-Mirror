@@ -25,20 +25,20 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="error" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找负责物品
                             </v-btn>
                         </v-col>
                         
                         
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
                         </v-col>
@@ -116,14 +116,30 @@
                 <v-pagination v-model="page" :length="pageCount"></v-pagination>
             </div>
         </div>
+        <v-dialog persistent v-model="queryLoaderDialog" width="300">
+            <v-card color="">
+                <v-card-title>正在查找</v-card-title>
+                <v-divider/>
+                <br/>
+                <v-card-text>
+                    请稍后<br/><br/>
+                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
+
 </template>
 
 <script>
+import { getwareItemInfo } from '../../apis/warehouse';
 
 export default {
     name: 'WarehouseItemOverview',
     created(){
+        if(this.$route.params.id!=undefined){
+            this.fetchItemInfo();
+        }
     },data:()=>{
         return{
         headers:[
@@ -142,14 +158,11 @@ export default {
             { text: '操作', value: 'actions', sortable: false }
             
         ],
+        queryLoaderDialog:false,
         pageCount:0,
         page:1,
-        queryData:[
-            {item_id:'1956100',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-            {item_id:'1956101',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-            {item_id:'1956102',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-            {item_id:'1956103',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-        ],editedIndex: -1,
+        queryData:[],
+        editedIndex: -1,
         editedItem: {
             name: '',
             calories: 0,
@@ -165,6 +178,24 @@ export default {
             protein: 0,
         }}
         
+    },methods:{
+        fetchItemInfo(){
+            this.queryLoaderDialog=true;
+            setTimeout(
+                ()=>{
+                    getwareItemInfo().then(response => {
+                        this.queryData = response.data
+                        this.queryLoaderDialog=false;
+                        if(this.queryData.length>0){
+                            this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                        }else{
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
+                        }
+                        
+                    })
+                },2000
+            )
+        },
     }
   
 }

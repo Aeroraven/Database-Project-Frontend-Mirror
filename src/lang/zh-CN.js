@@ -13,7 +13,8 @@ export default {
             'alterDone':'信息修改成功',
             'generalError':'信息修改失败',
             'create':'添加仓库',
-            'new':'新增仓库信息'
+            'new':'新增仓库信息',
+            'search':'正在查找仓库内物品'
         }
     },
     'animalCare':{

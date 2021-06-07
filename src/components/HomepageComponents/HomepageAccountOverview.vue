@@ -23,7 +23,7 @@
                                     </v-btn>
                                 </template>
                                 <v-card :ripple="{class:null}">
-                                    <v-card-title class="text-h5 text--white red" color="error">
+                                    <v-card-title class="text-h5 text--white red zms-strip-bg" color="error">
                                         <span class="text--white" style="color:#ffffff !important;">退出登录</span>
                                     </v-card-title>
 

@@ -17,7 +17,7 @@
                         </v-card-text>
                         
                         <v-card-actions>
-                            <!--<v-btn color="primary" text>查看信息</v-btn>-->
+                            <v-btn color="primary" text @click="gotoItem(item.sid)">查看仓库内物品</v-btn>
                             <v-btn color="primary" text @click="openDialog(item.sid)">编辑仓库信息</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -102,6 +102,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+        
         <v-dialog persistent v-model="submitStat" width="300">
             <v-card >
                 <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
@@ -205,6 +206,10 @@ export default {
             )
            
         },
+        gotoItem(x){
+            this.$store.dispatch('showToastNotify',{type:'default',info:this.$t('warehouse.Info.search')})
+            this.$router.push({name:'WarehouseItemManagement',params: {id:'11'}})
+        }
     }
 };
 </script>

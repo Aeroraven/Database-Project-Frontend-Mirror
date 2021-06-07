@@ -15,3 +15,11 @@ export function updateWarehouseInfo(params) {
         params
     })
 }
+export function getwareItemInfo(params) {
+    return request({
+        url: '/api/warehouseRequest/getwareItemInfo',
+        method: 'get',
+        params
+    })
+}
+

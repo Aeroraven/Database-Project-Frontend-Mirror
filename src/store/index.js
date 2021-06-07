@@ -111,7 +111,7 @@ let store= new Vuex.Store({
               this._vm.$toast.warning(param.info,toastConfig);
             }
             if(param.type=="default"){
-              this._vm.$toast.default(param.info,toastConfig);
+              this._vm.$toast(param.info,toastConfig);
             }
         }
     },
