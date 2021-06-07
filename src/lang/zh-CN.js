@@ -6,6 +6,14 @@ export default {
     'warehouse':{
         'Info':{
             'queryDone':'仓库信息获取成功',
+            'wareid':'仓库编号',
+            'wareLocation':'仓库位置',
+            'wareName':'仓库名称',
+            'alter':'编辑仓库信息',
+            'alterDone':'信息修改成功',
+            'generalError':'信息修改失败',
+            'create':'添加仓库',
+            'new':'新增仓库信息'
         }
     },
     'animalCare':{

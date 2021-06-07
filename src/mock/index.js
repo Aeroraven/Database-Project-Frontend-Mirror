@@ -105,3 +105,4 @@ let warehouseData={
 }
 
 Mock.mock('/api/warehouseRequest/getWarehouseInfo','get',warehouseData)
+Mock.mock('/api/warehouseRequest/updateWarehouseInfo','get',{data:{stat:'success',statcode:1},code:200})

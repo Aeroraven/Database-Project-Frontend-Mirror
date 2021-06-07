@@ -7,3 +7,11 @@ export function getWarehouseInfo(params) {
         params
     })
 }
+
+export function updateWarehouseInfo(params) {
+    return request({
+        url: '/api/warehouseRequest/updateWarehouseInfo',
+        method: 'get',
+        params
+    })
+}
