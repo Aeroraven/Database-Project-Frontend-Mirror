@@ -120,6 +120,24 @@ export default {
         'save':'Save',
         'homepage':'Home',
         'close':'Close',
-        'reload':'Reload'
+        'reload':'Reload',
+        'deletefilter':'Remove Filter',
+        'filterself':'Filter Items In Charge',
+        'finding':'Now Finding',
+        'pleasewait':'Please Wait',
+        'filter':'Filter',
+        'query_result':'Search Result',
+        'findSuccess':'Successfully fetched information',
+        'action':'Action',
+    },
+    'procure':{
+        'procid':'Proc.ID',
+        'proccontent':'Content',
+        'procname':'Name',
+        'procstat':'Status',
+        'procdate':'Date',
+        'initiator':'Initiator',
+        'inittime':'Initiation Date',
+        'emptyinfo':'No matching procurement details can be found',
     }
 }

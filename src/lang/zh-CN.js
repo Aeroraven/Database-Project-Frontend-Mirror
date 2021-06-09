@@ -119,6 +119,25 @@ export default {
         'save':'保存',
         'homepage':'首页',
         'close':'关闭',
-        'reload':'重载'
+        'reload':'重载',
+
+        'deletefilter':'删除过滤条件',
+        'filterself':'查找负责项目',
+        'finding':'正在查找',
+        'pleasewait':'请稍后',
+        'filter':'按条件查找',
+        'query_result':'查询结果',
+        'findSuccess':'信息查询成功',
+        'action':'操作',
+    },
+    'procure':{
+        'procid':'采购编号',
+        'procname':'采购内容',
+        'procstat':'采购状态',
+        'procdate':'采购时间',
+        'emptyinfo':'没有找到符合条件的项目',
+        'proccontent':'内容',
+        'initiator':'发起者',
+        'inittime':'发起时间',
     }
 }

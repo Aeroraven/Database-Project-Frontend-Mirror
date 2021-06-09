@@ -16,29 +16,25 @@
                     <v-icon left>mdi-key-variant</v-icon>权限管理
                 </v-tab>-->
             
-                <!--<v-tabs-items v-model="tab" color="transparent" class="rounded-lg">-->
+                <v-tabs-items v-model="tab" class="rounded-lg">
                 
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
-                        <echart-example/>
-                        <echart-line-chart-example/>
+                    <v-tab-item  class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
+                        <procurement-overview/>
                     </v-tab-item>
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="2">
-                        <flow-record/>
+                    <v-tab-item  class="rounded-lg zms-vert-tabitem" :key="2">
+                        
                     </v-tab-item>
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="3">
-                        <bank-account-overview/>
+                    <v-tab-item class="rounded-lg zms-vert-tabitem" :key="3">
+                        
                     </v-tab-item>
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="4">
-                        4
-                    </v-tab-item>
-                <!--</v-tabs-items>-->
+                </v-tabs-items>
             </v-tabs>
         </template>
     </div>
 </template>
 
 <script>
-
+import ProcurementOverview from './ProcurementOverview.vue'
 export default {
     name: 'ProcurementContainer',
     created(){
@@ -47,7 +43,7 @@ export default {
       
     },
     components:{
-        
+        ProcurementOverview
     },data:()=>{
          return{
             tab:null,

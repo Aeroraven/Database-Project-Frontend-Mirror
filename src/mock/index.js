@@ -118,3 +118,18 @@ let warehouseItem={
 }
 Mock.mock('/api/warehouseRequest/getwareItemInfo','get',warehouseItem)
 Mock.mock('/api/warehouseRequest/updatewareItemInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+
+let procOverview={
+  data:[
+    {id:'123',content:'饲料',stat:'审核中',initiator:'Flora',inittime:'2020-12-33'},
+    {id:'125',content:'饲料',stat:'审核中',initiator:'Flora',inittime:'2020-12-33'},
+    {id:'124',content:'饲料',stat:'审核中',initiator:'Flora',inittime:'2020-12-33'},
+    {id:'121',content:'饲料',stat:'审核中',initiator:'Flora',inittime:'2020-12-33'},
+    {id:'122',content:'饲料',stat:'审核中',initiator:'Flora',inittime:'2020-12-33'},
+    
+  ],
+  code:200
+}
+
+Mock.mock('/api/procManagement/getProcOverview','get',procOverview)
