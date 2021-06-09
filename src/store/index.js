@@ -78,7 +78,7 @@ let store= new Vuex.Store({
           {sw:'简体中文(zh-CN)',cd:'zh-CN',id:0},
           {sw:'English(en-US)',cd:'en-US',id:1}
         ],
-        defaultLang:0,
+        defaultLang:1,
     },
     mutations: {
         calloutSlideBar(){
