@@ -20,6 +20,12 @@
 
 
 ##### 更新记录
+更新 @ 2021-06-09 14:00 | hzw
+
+- 安装了vue-particle
+  - 基于vue-particle，增加了页面的背景动态效果
+- 增加夜间模式
+
 测试性修改 @ 2021-06-09 12:11 | Aeroraven
 
 - [DESCRIPTION] This commit contains **NO** update contributing to the managment system. It's just a reference for **customer front-end pages**.
