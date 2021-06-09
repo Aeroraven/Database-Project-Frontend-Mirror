@@ -2,7 +2,7 @@
   <div class="zms-home-notice">
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-clipboard-check-multiple</v-icon> 工作安排
+                <v-icon>mdi-clipboard-check-multiple</v-icon>{{$t('home.wkOv')}} 
             </div>
             <div class="zms-home-body">
                 <v-calendar :events='events' @change="getEvents"></v-calendar>

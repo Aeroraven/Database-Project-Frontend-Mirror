@@ -6,7 +6,7 @@
         <v-list dense nav class="zms-bold">
           <v-list-item app link nav @click="routerGo('/')" class="zms-vlist-item">
               <v-list-item-icon><v-icon>mdi-home</v-icon> </v-list-item-icon>
-              <v-list-item-content><v-list-item-title><span class="font-weight-bold zms-nav-font">首页</span></v-list-item-title>
+              <v-list-item-content><v-list-item-title><span class="font-weight-bold zms-nav-font">{{$t('common.homepage')}}</span></v-list-item-title>
             </v-list-item-content>
             
           </v-list-item>
@@ -16,13 +16,13 @@
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content >
-                  <v-list-item-title class="font-weight-bold zms-nav-font"><span class=".zms-nav-font">{{ item.name }}</span></v-list-item-title>
+                  <v-list-item-title class="font-weight-bold zms-nav-font"><span class=".zms-nav-font">{{ $t(item.name) }}</span></v-list-item-title>
                 </v-list-item-content>
             </template>
             <router-link v-for="item2 in item.child" :key="item2.name" :to="(item2.route==undefined)?'/':item2.route" style="text-decoration:none;">
               <v-list-item  app link nav class="zms-vlist-item">
                   <v-list-item-content>
-                    <v-list-item-title><span class="zms-nav-padding zms-nav-font">{{ item2.name }}</span></v-list-item-title>
+                    <v-list-item-title><span class="zms-nav-padding zms-nav-font">{{ $t(item2.name) }}</span></v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-icon>
                     <v-icon>{{ item2.icon }}</v-icon>
@@ -35,20 +35,20 @@
         <hr/>
         <div class="zms-halfwidth zms-inlb">
           <v-btn outlined block class="zms-fullwidth"  color="" style="border-color:#AAAAAA">
-            <v-icon>mdi-refresh</v-icon>重载
+            <v-icon>mdi-refresh</v-icon>{{$t('common.reload')}}
           </v-btn>
           
         </div>
       
         <div class="zms-halfwidth zms-inlb">
           <v-btn outlined block  class="zms-fullwidth" style="border-color:#AAAAAA" v-bind="attrs" v-on="on"  color="" @click="dialog_setting=true">
-            <v-icon>mdi-cog</v-icon>设置
+            <v-icon>mdi-cog</v-icon>{{$t('settings.title')}}
           </v-btn>
           <v-dialog v-model="dialog_setting" width="500">
             
             <v-card :ripple="{class:null}">
                 <v-card-title class="text-h5 text--white" >
-                    <span class="text--white" style="">设置</span>
+                    <span class="text--white" style="">{{$t('settings.title')}}</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -60,7 +60,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn  class="zms-fullwidth"  light color="primary" @click="dialog_setting=false;">
-                        <v-icon>mdi-close</v-icon>关闭
+                        <v-icon>mdi-close</v-icon>{{$t('common.close')}}
                     </v-btn>
                 </v-card-actions>
             </v-card>

@@ -16,6 +16,7 @@ import "./mock/index";
 import Message from 'vuetify-message-snackbar';
 import VueI18n from 'vue-i18n'
 import LangZHCN from './lang/zh-CN'
+import LangENUS from './lang/en-US'
 import VueParticles from 'vue-particles'
 Vue.use(VueParticles)
 
@@ -141,9 +142,9 @@ const options = {
 Vue.use(VueI18n)
 const i18n = new VueI18n({
   locale: 'zh-CN',    
-  
   messages: {
-    'zh-CN':LangZHCN
+    'zh-CN':LangZHCN,
+    'en-US':LangENUS
   } 
 })
 Vue.use(Toast, options);

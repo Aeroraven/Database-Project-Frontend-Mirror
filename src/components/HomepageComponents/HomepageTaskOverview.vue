@@ -2,7 +2,7 @@
   <div class="zms-home-notice">
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass" >
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-clock-check-outline</v-icon> 待办事项
+                <v-icon>mdi-clock-check-outline</v-icon> {{$t('home.wtTsk')}}
             </div>
             <div class="zms-home-body">
                 

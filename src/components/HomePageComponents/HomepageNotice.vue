@@ -2,7 +2,7 @@
   <div class="zms-home-notice">
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-bell-alert</v-icon> 园区通知
+                <v-icon>mdi-bell-alert</v-icon> {{$t('home.faclNotice')}}
             </div>
             <div class="zms-home-body">
                 <div class="zms-notice" v-for="item in this.notice" :key="item.id"> 
@@ -17,7 +17,7 @@
                         </template>
                         <v-card :ripple="{class:null}">
                             <v-card-title class="text-h6 text--white " color="error">
-                                <span >园区通知</span>
+                                <span >{{$t('home.faclNotice')}}</span>
                             </v-card-title>
                             <v-divider/>
                             <v-card-text>
@@ -30,7 +30,7 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn  class="zms-fullwidth"  light color="primary" @click="item.openStat=false;">
-                                    <v-icon>mdi-check</v-icon>确认
+                                    <v-icon>mdi-check</v-icon>{{$t('common.confirm')}}
                                 </v-btn>
                             </v-card-actions>
                         </v-card>

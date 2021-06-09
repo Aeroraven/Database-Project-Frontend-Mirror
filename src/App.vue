@@ -6,12 +6,12 @@
     </v-navigation-drawer>
     <v-app-bar app color="primary">
       <v-app-bar-nav-icon color="white"  @click="switchDrawer"></v-app-bar-nav-icon>
-      <v-app-bar-title :class="getAppbarStyleClass" v-html="getAppbarTitle" class="zms-wider-letterspacing"></v-app-bar-title>
+      <v-app-bar-title :class="getAppbarStyleClass" v-html="$t(getAppbarTitle)" class="zms-wider-letterspacing"></v-app-bar-title>
       <appbar-ext class="zms-right"></appbar-ext>
     </v-app-bar>
     <v-main>
       <v-container fluid>
-        <embedded-frame path="/live2d-gadget.html" v-if="allowL2D"/>
+        <embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>
         <page-container/>
       </v-container>
       
@@ -43,7 +43,7 @@ export default {
 
     return{
       drawer: false,
-      allowL2D:false,
+      allowL2D:true,
     }
   },
   computed:{

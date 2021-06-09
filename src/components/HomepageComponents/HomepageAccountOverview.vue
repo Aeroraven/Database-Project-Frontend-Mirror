@@ -2,7 +2,7 @@
   <div class="zms-home-notice">
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-account-circle</v-icon> 帐户信息
+                <v-icon>mdi-account-circle</v-icon> {{$t('home.accountOv')}}
             </div>
             <div class="zms-home-body">
                 <v-container>

@@ -2,7 +2,7 @@
   <div class="zms-home-notice">
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
-                <v-icon>mdi-star-shooting</v-icon> 快速导航
+                <v-icon>mdi-star-shooting</v-icon> {{$t('home.ql')}}
             </div>
             
             <div class="zms-home-body">
