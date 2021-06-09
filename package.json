@@ -14,7 +14,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "css-what": "^5.0.1",
-    "echarts": "^5.1.1",
+    "echarts": "^5.1.2",
     "element-ui": "^2.15.2",
     "js-cookie": "^2.2.1",
     "live2d-vue": "^0.2.5",
