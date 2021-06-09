@@ -10,10 +10,11 @@
     </v-app-bar>
     <v-main>
       <v-container fluid>
+        <embedded-frame path="/live2d-gadget.html" v-if="allowL2D"/>
         <page-container/>
       </v-container>
+      
     </v-main>
-
     <!--<v-footer app>
     </v-footer>-->
   </v-app>
@@ -22,6 +23,8 @@
 <script>
 import { getList } from './apis/debug'
 import AppbarExt from './components/AppBar/AppbarExt.vue';
+import EmbeddedFrame from './components/Gadgets/EmbeddedFrame.vue';
+//import Live2dGadget from './components/Gadgets/Live2dGadget.vue';
 import Navigator from './components/Navigatior/Navigator.vue';
 import PageContainer from './components/PageContainer.vue';
 
@@ -31,10 +34,15 @@ export default {
     Navigator,
     AppbarExt,
     PageContainer,
+    EmbeddedFrame,
+    //Live2dGadget,
   },
+    EmbeddedFrame,
   data: () =>{
+
     return{
       drawer: false,
+      allowL2D:false,
     }
   },
   computed:{
