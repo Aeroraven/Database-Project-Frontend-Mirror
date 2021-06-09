@@ -1,5 +1,5 @@
 <template>
-    <div class="zms-anicare">
+    <div class="zms-anicare" :class="nmNightClass">
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
             <div>
@@ -61,7 +61,7 @@
                     class="elevation-1"
                 >
                 <template v-slot:top>
-                    <v-toolbar flat color="white">
+                    <v-toolbar flat >
                         <v-toolbar-title>查询结果</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-dialog v-model="dialog" max-width="600px" persistent>
@@ -199,6 +199,20 @@ export default {
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();
         }
+    },computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
     },data:()=>{
         return{
         headers:[

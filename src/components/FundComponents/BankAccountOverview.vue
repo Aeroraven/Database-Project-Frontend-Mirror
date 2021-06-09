@@ -21,7 +21,7 @@
             <v-container>
                 <v-row>
                     <v-col cols="12" md="4" v-for="item in 5" :key="item" class="align-self-stretch">
-                        <v-card :ripple="{ class: null }" class="mx-auto" max-width="400">
+                        <v-card :class="cardNightClass" :ripple="{ class: null }" class="mx-auto" max-width="400">
                             <v-img class="white--text align-end" height="170px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
                                 <v-card-title>帐户 HelloWorld</v-card-title>
                             </v-img>
@@ -54,7 +54,21 @@ export default {
     },
     methods:{
         
-    }
+    },computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+    },
 };
 </script>
 

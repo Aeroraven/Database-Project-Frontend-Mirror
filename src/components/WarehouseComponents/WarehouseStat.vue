@@ -1,12 +1,12 @@
 <template>
-  <div class="zms-home-notice">
-      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" >
+  <div class="zms-home-notice" >
+      <v-card  :ripple="{ class: null }" :class="cardNightClass" elevation="10" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-chart-bar</v-icon> 数据统计
             </div>
             <div class="zms-home-body">
                 
-                <v-container class="grey lighten-5 justify-center">
+                <v-container class=" justify-center">
                     <v-row no-gutters>
                         <template v-for="n in 8">
                             <v-col :key="n" class="zms-center">
@@ -46,7 +46,15 @@ export default {
     },
     methods:{
         
-    }
+    },computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
+    },
 };
 </script>
 

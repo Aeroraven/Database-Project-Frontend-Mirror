@@ -1,5 +1,5 @@
 <template>
-    <div class="zms-anicare">
+    <div class="zms-anicare" :class="nmNightClass">
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
@@ -22,7 +22,7 @@
                     <v-divider/>
                     <br/>
                     <v-card-text>
-                        <span class="zms-poptip-body">{{$t('animalCare.NoNoteInfo')}}</span><br/><br/>
+                        <span class="zms-poptip-body" :class="txNightClass">{{$t('animalCare.NoNoteInfo')}}</span><br/><br/>
                     </v-card-text>
                     <v-divider/>
                     <v-card-actions>
@@ -45,7 +45,7 @@
                     <v-divider/>
                     <br/>
                     <v-card-text>
-                        <span class="zms-poptip-body">{{errorInfo}}</span><br/><br/>
+                        <span class="zms-poptip-body" :class="txNightClass">{{errorInfo}}</span><br/><br/>
                     </v-card-text>
                     <v-divider/>
                     <v-card-actions>
@@ -132,6 +132,20 @@ export default {
             menu2:false
         }
     } ,
+    computed:{
+        nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        txNightClass(){
+            return{
+                'zms-text-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
+    },
     methods:{
         submitCareInfo(){
             this.submitStat=true;

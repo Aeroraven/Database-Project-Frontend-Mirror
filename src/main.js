@@ -16,8 +16,9 @@ import "./mock/index";
 import Message from 'vuetify-message-snackbar';
 import VueI18n from 'vue-i18n'
 import LangZHCN from './lang/zh-CN'
-//import live2d from 'live2d-vue'
-//Vue.use(live2d)
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
+
 
 import {
   SVGRenderer,

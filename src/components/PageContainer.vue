@@ -8,10 +8,27 @@
             </transition>
         </div>
         <div class="zms-wrapper-background" :style="getBg">
-
-        </div>
-        <div class="zms-wrapper-background-sec" >
             
+        </div>
+        <div :class="getWrapClass" >
+            <vue-particles
+                color="#dedede"
+                :particleOpacity="0.7"
+                :particlesNumber="50"
+                shapeType="star"
+                :particleSize="4"
+                linesColor="#777777"
+                :linesWidth="1"
+                :lineLinked="true"
+                :lineOpacity="0.5"
+                :linesDistance="150"
+                :moveSpeed="1"
+                :hoverEffect="true"
+                hoverMode="grab"
+                :clickEffect="true"
+                clickMode="push"
+            >
+            </vue-particles>
         </div>
   </div>
 </template>
@@ -35,6 +52,12 @@ export default {
             return{
                 background:'url('+this.HeadImg+')  no-repeat bottom right ',
                 'background-size':'cover',
+            }
+        },
+        getWrapClass(){
+            return{
+                'zms-wrapper-background-sec':!this.$vuetify.theme.dark,
+                'zms-wrapper-background-sec-dark':this.$vuetify.theme.dark,
             }
         }
     },
@@ -87,6 +110,21 @@ export default {
        top:0px;
        bottom:0px;
        background-image: linear-gradient(0deg, #f0f0f09f, #f0f0f0,90%,#f0f0f0); 
+       height:100%;
+       transition: background-image 1s;
+
+       width:100%;
+    }
+    .zms-wrapper-background-sec-dark{
+       z-index: -1;
+       position:fixed;
+       left:0px;
+       right:0px;
+       top:0px;
+       bottom:0px;
+       background-image: linear-gradient(0deg, #2020209f, #202020,90%,#202020); 
+       transition: background-image 1s;
+
        height:100%;
        width:100%;
     }

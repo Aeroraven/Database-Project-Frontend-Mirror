@@ -1,10 +1,10 @@
 <template>
-  <div class="zms-home-notice">
-      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" >
+  <div class="zms-home-notice" >
+      <v-card  :ripple="{ class: null }" elevation="10" :class="cardNightClass" style="zms-transparent-bg" class="zms-card-noborder" >
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-star-shooting</v-icon> 快速导航
             </div>
-            <div class="zms-home-body">
+            <div class="zms-home-body" >
                 <v-container fluid class="fill-height justify-center">
                     <v-row align="center" class="mx-0">
                         <v-col cols="12" md="3" class="align-self-stretch">
@@ -42,7 +42,15 @@ export default {
         routerGo(x){
             this.$router.push(x);
         }
-    }
+    },computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
+    },
 };
 </script>
 
@@ -80,7 +88,7 @@ export default {
     }
     .zms-card-noborder{
         border-width: 0px;
-        background:-webkit-repeating-linear-gradient( 135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98) 45px, rgba(255, 255, 255, 0.9) 45px, rgba(255, 255, 255, 0.9) 90px ) !important;
+        //background:-webkit-repeating-linear-gradient( 135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98) 45px, rgba(255, 255, 255, 0.9) 45px, rgba(255, 255, 255, 0.9) 90px ) !important;
     
     }
     .zms-home-title2{

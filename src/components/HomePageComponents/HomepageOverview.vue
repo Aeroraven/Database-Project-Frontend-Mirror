@@ -1,14 +1,14 @@
 <template>
   <div class="zms-home-notice" >
-      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" >
+      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-chart-bar</v-icon> 园区概览
             </div>
             <div class="zms-home-body">
                 
-                <v-container class="grey lighten-5">
+                <v-container >
                     <v-row no-gutters>
-                        <template v-for="n in 8">
+                        <template v-for="n in 8" >
                             <v-col :key="n" class="zms-center">
                                 <span class="zms-stat" v-if="n==1">{{getCurrentTouristCnt}}</span>
                                 <span class="zms-stat" v-if="n==2">{{getStatData(2)}}</span>
@@ -110,7 +110,14 @@ export default {
             },1000
         )
     },computed:{
-        getCurrentTouristCnt(){return this.getStatData(1)}
+        getCurrentTouristCnt(){return this.getStatData(1)},
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
     }
 };
 </script>
@@ -142,6 +149,7 @@ export default {
         margin-right: 7%;
         padding-top:10px;
         padding-bottom: 10px;
+        background:transparent;
     }
     .zms-home-body2{
         margin-left:5%;

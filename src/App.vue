@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    
     <v-navigation-drawer v-model="drawer" absolute temporary app style="overflow:hidden;width:300px">
       <navigator></navigator>
     </v-navigation-drawer>

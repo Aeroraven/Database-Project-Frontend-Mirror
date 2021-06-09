@@ -1,6 +1,6 @@
 <template>
   <div class="zms-home-notice">
-      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" >
+      <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-bell-alert</v-icon> 园区通知
             </div>
@@ -54,6 +54,15 @@ export default {
     props:{
         
     },
+    computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
+    },
     methods:{
         fetchNotice(){
             getNotice().then(response => {
@@ -99,7 +108,7 @@ export default {
     }
     .zms-card-noborder{
         border-width: 0px;
-        background:-webkit-repeating-linear-gradient( 135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98) 45px, rgba(255, 255, 255, 0.9) 45px, rgba(255, 255, 255, 0.9) 90px ) !important;
+        //background:-webkit-repeating-linear-gradient( 135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98) 45px, rgba(255, 255, 255, 0.9) 45px, rgba(255, 255, 255, 0.9) 90px ) !important;
     
     }
     .zms-home-title2{

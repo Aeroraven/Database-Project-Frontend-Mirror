@@ -39,15 +39,13 @@
           </v-btn>
           
         </div>
-
+      
         <div class="zms-halfwidth zms-inlb">
-          
+          <v-btn outlined block  class="zms-fullwidth" style="border-color:#AAAAAA" v-bind="attrs" v-on="on"  color="" @click="dialog_setting=true">
+            <v-icon>mdi-cog</v-icon>设置
+          </v-btn>
           <v-dialog v-model="dialog_setting" width="500">
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn outlined block  class="zms-fullwidth" style="border-color:#AAAAAA" v-bind="attrs" v-on="on" light color="" @click="console.log(on+attrs);">
-                          <v-icon>mdi-cog</v-icon>设置
-                </v-btn>
-            </template>
+            
             <v-card :ripple="{class:null}">
                 <v-card-title class="text-h5 text--white" >
                     <span class="text--white" style="">设置</span>

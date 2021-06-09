@@ -1,5 +1,5 @@
 <template>
-    <div class="zms-anicare">
+    <div class="zms-anicare" :class="nmNightClass">
         <div class="zms-query-filter">
             <div>
                 <v-container>
@@ -57,7 +57,21 @@ export default {
     },data:()=>{
         return{
         }
-    }  
+    } , computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+    },
 }
 </script>
 <style scoped lang="scss">

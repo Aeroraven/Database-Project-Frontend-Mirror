@@ -6,7 +6,7 @@
         <v-container>
             <v-row>
                 <v-col cols="12" md="4" v-for="item in warehouseDetail" :key="item.id" class="align-self-stretch">
-                    <v-card :ripple="{ class: null }" class="mx-auto" max-width="400">
+                    <v-card  :class="cardNightClass" :ripple="{ class: null }" class="mx-auto" max-width="400">
                         <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
                             <v-card-title>{{item.storage_name}}</v-card-title>
                         </v-img>
@@ -29,7 +29,7 @@
 
         <v-dialog v-model="newDialog" persistent  max-width="600px">
             <v-card :ripple="{class:null}">
-                <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
+                <v-card-title  class=" zms-strip-bg text-h5 text--white primary " color="warning">
                     <v-icon color="white">mdi-plus-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('warehouse.Info.new')}}</span>
                 </v-card-title>
                 <v-card-text>
@@ -60,7 +60,7 @@
         </v-dialog>
 
         <v-dialog v-model="alterDialog" persistent  max-width="600px">
-            <v-card :ripple="{class:null}">
+            <v-card :ripple="{class:null}" >
                 <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
                     <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('warehouse.Info.alter')}}</span>
                 </v-card-title>
@@ -144,6 +144,20 @@ export default {
     props:{
         drawer:Boolean,
        
+    },computed:{
+        cardNightClass(){
+            return{
+                'zms-cardcolor-light':!this.$vuetify.theme.dark,
+                'zms-cardcolor-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
     },
     data:()=>{
         return{

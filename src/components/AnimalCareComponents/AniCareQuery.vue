@@ -1,7 +1,7 @@
 <template>
-    <div class="zms-anicare">
+    <div class="zms-anicare" :class="nmNightClass">
         <div class="zms-query-filter">
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
+            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title" >查询条件</span>
             <div>
                 <v-container>
                     <v-row>
@@ -84,7 +84,7 @@
                 <v-divider/>
                 <br/>
                 <v-card-text>
-                    <span class="zms-poptip-body">{{errorInfo}}</span><br/><br/>
+                    <span class="zms-poptip-body" :class="txNightClass">{{errorInfo}}</span><br/><br/>
                 </v-card-text>
                 <v-divider/>
                 <v-card-actions>
@@ -108,7 +108,7 @@
                     class="elevation-1"
                 >
                 <template v-slot:top>
-                    <v-toolbar flat color="white">
+                    <v-toolbar flat >
                         <v-toolbar-title>查询结果</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-dialog v-model="dialog" persistent max-width="500px">
@@ -173,6 +173,20 @@
 import {getCareData, updateCareInfo} from '../../apis/animalCare'
 export default {
     name: 'AnicareQuery',
+    computed:{
+        nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        txNightClass(){
+            return{
+                'zms-text-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
+    },
     methods:{
         fetchCareInfo(){
             this.queryLoaderDialog=true;

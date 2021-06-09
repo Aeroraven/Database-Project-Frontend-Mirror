@@ -1,6 +1,6 @@
 <template>
     <v-card class="rounded zms-pointer" >
-        <div class="zms-background-wg zms-ql-title" @click="routerGo(zmsroute)">
+        <div class=" zms-ql-title" :class="btnNightClass" @click="routerGo(zmsroute)">
             <div class="zms-ql-icon">
                 <v-icon x-large class="zms-ql-icon-xl">{{icon}}</v-icon>
             </div>
@@ -25,6 +25,14 @@ export default {
     methods:{
         routerGo(x){
             this.$router.push(x);
+        }
+    },computed:{
+        btnNightClass(){
+            return{
+                'zms-background-wg':!this.$vuetify.theme.dark,
+                'zms-background-wg-dark':this.$vuetify.theme.dark,
+                
+            }
         }
     }
 };

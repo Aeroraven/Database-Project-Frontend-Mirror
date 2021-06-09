@@ -1,6 +1,6 @@
 <template>
     <div class="zms-anicare">
-        <span class="zms-anicare-title zms-primary-color">
+        <span class="zms-anicare-title zms-primary-color" color="primary">
             <v-icon color="primary">mdi-needle</v-icon> 动物医疗管理
         </span>
         <ani-care-container/>
