@@ -104,7 +104,7 @@ export default {
 
 <style scoped lang="scss">
   .zms-navigator-container{
-    height:100%;
+    //height:100%;
     overflow:overlay;
     padding-bottom:300px;
   }

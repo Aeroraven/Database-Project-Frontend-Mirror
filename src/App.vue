@@ -1,7 +1,7 @@
 <template>
   <v-app>
     
-    <v-navigation-drawer v-model="drawer" absolute temporary app style="overflow:hidden;width:300px">
+    <v-navigation-drawer v-model="drawer" absolute temporary app style="width:300px">
       <navigator></navigator>
     </v-navigation-drawer>
     <v-app-bar app color="primary">
