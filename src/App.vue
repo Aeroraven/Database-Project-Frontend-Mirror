@@ -4,7 +4,7 @@
     <v-navigation-drawer v-model="drawer" absolute temporary app style="width:300px">
       <navigator></navigator>
     </v-navigation-drawer>
-    <v-app-bar app color="primary">
+    <v-app-bar app color="primary" v-if="showTopNavbar" transition="slide-x-transition"> 
       <v-app-bar-nav-icon color="white"  @click="switchDrawer"></v-app-bar-nav-icon>
       <v-app-bar-title :class="getAppbarStyleClass" v-html="$t(getAppbarTitle)" class="zms-wider-letterspacing"></v-app-bar-title>
       <appbar-ext class="zms-right"></appbar-ext>
@@ -54,10 +54,16 @@ export default {
       return {
         'zms-white':true
       }
+    },
+    showTopNavbar(){
+      if(this.$route.path.toLowerCase()!='/login'){
+        return true;
+      }
+      return false
     }
   },
   created(){
-    
+  
   },
   methods:{
     switchDrawer(){
