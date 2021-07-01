@@ -36,17 +36,6 @@
   - 基于vue-particle，增加了页面的背景动态效果
 - 增加夜间模式
 
-测试性修改 @ 2021-06-09 12:11 | Aeroraven
-
-- [DESCRIPTION] This commit contains **NO** update contributing to the managment system. It's just a reference for **customer front-end pages**.
-- [WARNING] This version might contains **SEVERE** vulnerabilities due to NPM dependencies.
-
-- Update Vue.js 2.0 to latest version
-- Introduce the Live2d character (Will not show automatically)
-  - Imported as static html pages with the support of iframe
-  - It's better to change the model from default cartoon character to animals like pandas. Replace the model in the directory `/public/static/live2d` and the corresponding model file in `/public/static/live2dx/waifu-tips.js` 
-  - Do not use `EmbeddedFrame` as iframe to load other static pages. Create a new component instead.
-
 
 
 修正 @ 2021-06-07 23:49 | hzw
