@@ -20,6 +20,13 @@
 
 
 ##### 更新记录
+更新 @ 2021-06-11~2021-07-01 
+
+- 更新依赖：`vuetify`,`element-ui`,`vue-i18n`,`postcss`,`vue-echarts`,`pug`,`echarts`
+  - 建议重新 `npm install`
+
+
+
 更新 @ 2021-06-10 | hzw
 
 - 修复错误：侧栏滚动条无法通过中键滚动的问题
@@ -143,14 +150,16 @@
 
 ##### 参考内容
 
-1. [Vue.js](https://github.com/vuejs/vue)
-
-2. [Vuetify](https://github.com/vuetifyjs/vuetify)	（组件库与排版，类似于element-ui，貌似更难用？）
-
+1. [Vue.js](https://github.com/vuejs/vue)  by Evan You
+   1. Vue Router
+   2. Vuex
+2. [Vuetify](https://github.com/vuetifyjs/vuetify) （组件库与排版，类似于element-ui，貌似更难用？）
 3. [Material Design Icons](https://github.com/google/material-design-icons) （图标）
-
 4. [Animate.css](https://github.com/animate-css/animate.css) （过渡动画）
-
 5. [Penguin Statistics Frontend V2](https://github.com/penguin-statistics/frontend-v2) （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
 6. [Vue Toastification](https://github.com/Maronato/vue-toastification)（模仿Element-UI的消息框）
+7. [Vue I18n](https://github.com/kazupon/vue-i18n) （本地化）
+8. [Vue-Echarts](https://github.com/ecomfe/vue-echarts) （图表）
+9. MockJS
+10. [Vue-Particles](https://github.com/creotip/vue-particles)（特效）
 
