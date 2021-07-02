@@ -68,6 +68,10 @@
     width:40%;
     
 }
+.zms-halfwidth2{
+    width:30%;
+    
+}
 .zms-inlb{
     display: inline-block;
 }
@@ -115,4 +119,23 @@
     margin-top:10px;
     display:block;
     font-size:16px;
+}
+
+.zms-poptip-body2{
+    display:block;
+    font-size:16px;
+}
+.zms-fixedimp{
+    position:sticky !important;
+}
+.zms-anisel-small{
+    font-size:7px;
+    opacity: 0.5;
+}
+.zms-anisel-bold{
+    font-weight: bold;
+}
+.zms-anisel-av{
+    font-size:16px;
+    
 }

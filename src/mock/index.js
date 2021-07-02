@@ -133,3 +133,25 @@ let procOverview={
 }
 
 Mock.mock('/api/procManagement/getProcOverview','get',procOverview)
+
+
+
+let animalList={
+  data:[
+    {id:'123',category:'Lion',name:'Lucida',gender:'Female',age:'17',faclId:'12345'},
+    {id:'124',category:'Lynx',name:'Kaltsit',gender:'Female',age:'17',faclId:'12345'},
+    {id:'125',category:'Snow Leopard',name:'Sliverash',gender:'Female',age:'17',faclId:'12345'},
+    {id:'126',category:'Feline',name:'Vanilla',gender:'Female',age:'17',faclId:'12345'},
+    {id:'127',category:'Red Fox',name:'Alisa',gender:'Female',age:'17',faclId:'12345'},
+    {id:'128',category:'Racoon Dog',name:'Sayu',gender:'Female',age:'17',faclId:'12345'},
+    {id:'129',category:'Giant Panda',name:'Pingping',gender:'Female',age:'17',faclId:'12345'},
+    {id:'130',category:'Feline',name:'Diona',gender:'Female',age:'17',faclId:'12345'},
+    {id:'131',category:'Feline',name:'Tio',gender:'Female',age:'17',faclId:'12345'},
+    {id:'132',category:'Squirrel',name:'Shaw',gender:'Female',age:'17',faclId:'12345'},
+    {id:'133',category:'Weasel',name:'Yuki',gender:'Female',age:'17',faclId:'12345'},
+    {id:'134',category:'Horse',name:'Platinum',gender:'Female',age:'17',faclId:'12345'},
+  ],
+  code:200
+}
+Mock.mock('/api/animalCore/getAnimalList','get',animalList)
+

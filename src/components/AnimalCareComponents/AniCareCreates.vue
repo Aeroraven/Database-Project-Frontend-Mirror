@@ -36,6 +36,8 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            <!-- 动物选择器 -->
+            <animal-selector ref='aniselector' @animalSelectorSelect="animalSelectorResponse(arguments)"></animal-selector>
             <!-- 提交错误 -->
             <v-dialog v-model="errorReturn" persistent width="500" >
                 <v-card color="" :ripple="{class:null}" >
@@ -62,7 +64,7 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalCare.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" prepend-icon="mdi-music-accidental-sharp"  />
+                            <v-text-field :label="$t('animalCare.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')" prepend-icon="mdi-heart-pulse"  />
@@ -98,6 +100,9 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
+                            <v-btn :disabled="submitStat" block class="zms-width"  color="primary" @click="calloutAnimalSelect()">
+                                <v-icon>mdi-paw</v-icon>&nbsp;&nbsp;{{$t('animalselector.externalUse')}}
+                            </v-btn>
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="submitStat" block class="zms-width"  color="primary" @click="submitPrejudge()">
@@ -113,9 +118,12 @@
 
 <script>
 import { createCareInfo } from '../../apis/animalCare';
-
+import AnimalSelector from '../CommonComponents/AnimalSelector.vue'
 export default {
     name: 'AniCareCreate',
+    components:{
+        AnimalSelector
+    },
     created(){
     },data:()=>{
         return{
@@ -147,6 +155,12 @@ export default {
         }
     },
     methods:{
+        animalSelectorResponse(arg){
+            this.submitId=arg[0];
+        },
+        calloutAnimalSelect(){
+            this.$refs.aniselector.show();
+        },
         submitCareInfo(){
             this.submitStat=true;
             setTimeout(

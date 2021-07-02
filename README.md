@@ -20,6 +20,18 @@
 
 
 ##### 更新记录
+更新 @ 2021-07-02 23:14 
+
+- 新增组件：动物实体选择(AnimalSelector)
+  - 避免用户直接输入动物编号的问题
+  - 使用事件`@animalSelectorSelect(arguments)`来获取用户输入的动物编号
+- 新增组件：等待进度条(PendingProgressCard)
+  - 避免代码冗余
+  - 使用属性`zmsShow`控制该卡片的显示和隐藏
+- 调整了动物医疗模块的部分设置
+
+
+
 更新 @ 2021-06-11~2021-07-01 
 
 - 更新依赖：`vuetify`,`element-ui`,`vue-i18n`,`postcss`,`vue-echarts`,`pug`,`echarts`

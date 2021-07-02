@@ -1,5 +1,7 @@
 <template>
+
     <div class="zms-anicare" :class="nmNightClass">
+        <animal-selector></animal-selector>
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title" >查询条件</span>
             <div>

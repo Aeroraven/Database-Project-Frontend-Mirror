@@ -129,6 +129,7 @@ export default {
         'query_result':'查询结果',
         'findSuccess':'信息查询成功',
         'action':'操作',
+        'return':'返回',
     },
     'procure':{
         'procid':'采购编号',
@@ -139,5 +140,31 @@ export default {
         'proccontent':'内容',
         'initiator':'发起者',
         'inittime':'发起时间',
+    },
+    'animalselector':{
+        'externalUse':'选择动物实体',
+        'title':'动物个体选择',
+        'animalStatus':'个体概览',
+        'animalList':'动物列表',
+        'category':'类别',
+        'faclLocation':'笼舍编号',
+        'age':'年龄',
+        'sex':'性别',
+        'filter':'筛选和搜索',
+        'search':'搜索',
+        'animalId':'ID',
+        'name':'名称',
+        'facl':'场馆ID',
+        'category2':'类别',
+        'successSearch':'信息获取成功',
+        'emptyInfo':'未找到符合要求的动物信息',
+        'notSelected':'您还没有选定任何的动物个体',
+        'selectDone':'选择成功',
+        'emptyTip':'点击搜索来查找符合要求的个体'
+    },
+    'pendingProg':{
+        'PleaseWait':'系统正在处理您提交的事务，请稍作等待...',
+        'Submitting':'事务正在处理'
     }
+    
 }

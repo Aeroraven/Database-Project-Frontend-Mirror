@@ -82,9 +82,9 @@ export default {
         }
     },
     'animalCare':{
-        'title':'救助信息上报',
-        'SubmitComplete':'记录提交成功！',
-        'SubmitComplete2':'记录修改成功！',
+        'title':'Initiate Succour Request',
+        'SubmitComplete':'Record submitted successfully!',
+        'SubmitComplete2':'Record has been modified successfully.',
         
         'Submitting':'Now submitting',
         'PleaseWait':'Please Wait',
@@ -129,6 +129,7 @@ export default {
         'query_result':'Search Result',
         'findSuccess':'Successfully fetched information',
         'action':'Action',
+        'return':'Return',
     },
     'procure':{
         'procid':'Proc.ID',
@@ -139,5 +140,30 @@ export default {
         'initiator':'Initiator',
         'inittime':'Initiation Date',
         'emptyinfo':'No matching procurement details can be found',
+    },
+    'animalselector':{
+        'externalUse':'Select Animal',
+        'title':'Animal Selection',
+        'animalStatus':'OVERVIEW',
+        'animalList':'ANIMAL LIST',
+        'category':'Category',
+        'faclLocation':'Facility ID',
+        'age':'Age',
+        'sex':'Gender',
+        'filter':'FILTER',
+        'search':'search',
+        'animalId':'ID',
+        'name':'Name',
+        'facl':'Facility ID',
+        'category2':'Category',
+        'successSearch':'Information has been fetched successfully',
+        'emptyInfo':'No matched items are found',
+        'notSelected':'You have not selected any animal entity yet!',
+        'selectDone':'The selection has been done successfully!',
+        'emptyTip':'Initiate search request to find animals'
+    },
+    'pendingProg':{
+        'PleaseWait':'The transaction is being processed. Please wait...',
+        'Submitting':'Transaction Processing'
     }
 }
