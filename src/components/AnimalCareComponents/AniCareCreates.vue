@@ -37,7 +37,10 @@
                 </v-card>
             </v-dialog>
             <!-- 动物选择器 -->
-            <animal-selector ref='aniselector' :zmsSelectorMode="0" @itemSelectorSelect="animalSelectorResponse(arguments)"></animal-selector>
+            <item-selector ref='aniselector' :zmsSelectorMode="0" @itemSelectorSelect="animalSelectorResponse(arguments)"></item-selector>
+            <!-- 员工选择器 -->
+            <item-selector ref='staselector' :zmsSelectorMode="1" @itemSelectorSelect="staffSelectorResponse(arguments)"></item-selector>
+            
             <!-- 提交错误 -->
             <v-dialog v-model="errorReturn" persistent width="500" >
                 <v-card color="" :ripple="{class:null}" >
@@ -67,10 +70,13 @@
                             <v-text-field :label="$t('animalCare.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')" prepend-icon="mdi-heart-pulse"  />
+                            <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
+                             prepend-icon="mdi-heart-pulse"   />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalCare.vetName')" v-model="submitVetname" :placeholder="$t('common.pleaseInput')+$t('animalCare.vetName')" prepend-icon="mdi-doctor"  />
+                            <v-text-field :label="$t('animalCare.vetName')" v-model="submitVetname"
+                             :placeholder="$t('common.pleaseInput')+$t('animalCare.vetName')" 
+                             prepend-icon="mdi-doctor" append-icon="mdi-magnify" @click:append="calloutStaffSelect"   />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
@@ -159,11 +165,11 @@
 
 <script>
 import { createCareInfo } from '../../apis/animalCare';
-import AnimalSelector from '../CommonComponents/AnimalSelector.vue'
+import ItemSelector from '../CommonComponents/ItemSelector.vue'
 export default {
     name: 'AniCareCreate',
     components:{
-        AnimalSelector
+        ItemSelector
     },
     created(){
     },data:()=>{
@@ -223,6 +229,12 @@ export default {
         },
         calloutAnimalSelect(){
             this.$refs.aniselector.show();
+        },
+        staffSelectorResponse(arg){
+            this.submitVetname=arg[0];
+        },
+        calloutStaffSelect(){
+            this.$refs.staselector.show();
         },
         submitCareInfo(){
             this.submitStat=true;
@@ -288,7 +300,6 @@ export default {
                 this.submitFailTip(this.$t('animalCare.DateAhead'))
                 return 0;
             }
-
             if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
                 this.noNoteWarning=true;
                 return 0;

@@ -166,7 +166,15 @@ export default {
         'invalidDeathToast':'Gone entities cannot be chosen'
     },
     'staffselector':{
-        'title':'Staff Selection'
+        'title':'Staff Selection',
+        'itemList':'STAFF LIST',
+        'position':'Position',
+        'gender':'Gender',
+        'age':'Age',
+        'park':'Park',
+        'employYear':'Hire Date',
+        'id':'ID',
+        'name':'Name',
     },
     'itemselector':{
         'title':'Warehouse Item Selection',
