@@ -142,3 +142,7 @@
 .zms-bold-font{
     font-weight: bold;
 }
+.zms-force-nowrap-e{
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
