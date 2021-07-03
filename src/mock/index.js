@@ -157,3 +157,17 @@ let animalList={
 }
 Mock.mock('/api/animalCore/getAnimalList','get',animalList)
 
+
+let staffList={
+  data:[
+    {id:'124',position:'Guard Dog',name:'Biden',gender:'Hermaphrodite',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'125',position:'Guard Dog',name:'Abe',gender:'Hermaphrodite',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'126',position:'Guard Dog',name:'Obama',gender:'Hermaphrodite',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'127',position:'Guard Dog',name:'Trump',gender:'Asexual',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'128',position:'Guard Dog',name:'Bush',gender:'Asexual',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'129',position:'Guard Dog',name:'Josh',gender:'Asexual',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+  ],
+  code:200
+}
+
+Mock.mock('/api/staffManagement/getStaffList','get',staffList)

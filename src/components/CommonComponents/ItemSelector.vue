@@ -30,6 +30,21 @@
                                                 <v-text-field :label="$t('animalselector.facl')" v-model="submitFacl" :placeholder="$t('common.pleaseInput')+$t('animalselector.facl')" prepend-icon="mdi-home"  />
                                             </v-col>
                                         </v-row>
+                                        <!--员工选择器-->
+                                        <v-row v-if="zmsSelectorMode===1">
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('staffselector.id')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('staffselector.id')" prepend-icon="mdi-identifier"  />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('staffselector.position')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('staffselector.position')" prepend-icon="mdi-tag-plus"  />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('staffselector.park')" v-model="submitItemName" :placeholder="$t('common.pleaseInput')+$t('staffselector.park')" prepend-icon="mdi-home"  />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('staffselector.name')" v-model="submitStaffInCharge" :placeholder="$t('common.pleaseInput')+$t('staffselector.name')" prepend-icon="mdi-tag"  />
+                                            </v-col>
+                                        </v-row>
                                         <!--物品选择器-->
                                         <v-row v-if="zmsSelectorMode===2">
                                             <v-col cols="12" sm="6" md="3">
@@ -88,6 +103,12 @@
                                                             &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
                                                             <span class='zms-anisel-small'>{{item.type}}</span></span>
                                                         </span>
+                                                        <!--员工选择器-->
+                                                        <span v-if="zmsSelectorMode===1">
+                                                            <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.id}}</span>
+                                                            &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
+                                                            <span class='zms-anisel-small'>{{item.position}} · {{item.park}}</span></span>
+                                                        </span>
                                                     </v-list-item-content>
                                                 </v-list-item>
 
@@ -143,6 +164,23 @@
                                                 </v-alert>
                                             </v-card-text>
                                         </div>
+                                        <!--Staff Selector-->
+                                        <div v-if="zmsSelectorMode===1">
+                                            <v-card-title>{{selectedItem.name}}</v-card-title>
+                                            <v-card-text>
+                                                <v-row align="center" class="mx-0">
+                                                    <v-rating :value="4.5" color="amber" dense half-increments readonly size="14" ></v-rating>
+                                                    <div class="grey--text ms-4"> 4.5 </div>
+                                                </v-row>
+                                                <div class="my-4 text-subtitle-1">
+                                                    <b>{{$t('staffselector.position')}}</b> : <span>{{selectedItem.position}}</span><br/>
+                                                    <b>{{$t('staffselector.gender')}}</b> : <span>{{selectedItem.gender}}</span><br/>
+                                                    <b>{{$t('staffselector.age')}}</b> : <span>{{selectedItem.age}}</span><br/>
+                                                    <b>{{$t('staffselector.park')}}</b> : <span>{{selectedItem.park}}</span><br/>
+                                                    <b>{{$t('staffselector.employYear')}}</b> : <span>{{selectedItem.employment_year}}</span><br/>
+                                                </div>
+                                            </v-card-text>
+                                        </div>
                                         <!--Item Selector-->
                                         <div v-if="zmsSelectorMode===2">
                                             <v-card-title>{{selectedItem.name}}</v-card-title>
@@ -189,6 +227,7 @@
 import PendingProgressCard from './PendingProgressCard.vue';
 import {getAnimalList} from '../../apis/animalCore'
 import {getwareItemInfo} from '../../apis/warehouse'
+import {getStaffList} from '../../apis/staffCore'
 import VueTyping from 'vue-typing'
 import AnimatedNumber from "animated-number-vue";
 
@@ -225,6 +264,9 @@ export default {
                 if(this.zmsSelectorMode===2){
                     return {item_id:'-',type:'-',name:'---',quality_guarantee:'-',channel:'-',staff_id:'-',cnt:'-',wareid:'-'}
                 }
+                if(this.zmsSelectorMode===1){
+                    return {id:'-',position:'-',name:'-',gender:'-',age:'-',wage:0,park:'-',employment_year:'-'}
+                }
                 
             }
             return this.zmsItem[this.zmsselectedItemIdx];
@@ -241,7 +283,9 @@ export default {
             //Staff Selector
             if(this.zmsSelectorMode===1){
                 return{
-                    'title':this.$t('staffselector.title')
+                    'title':this.$t('staffselector.title'),
+                    'leftList':this.$t('staffselector.itemList'),
+                    'listIconDefault':'mdi-account',
                 }
             }
             //Item Selector
@@ -287,6 +331,9 @@ export default {
             if(this.zmsSelectorMode===0){
                 this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].id);
             }
+            if(this.zmsSelectorMode===1){
+                this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].id);
+            }
             if(this.zmsSelectorMode===2){
                 this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].item_id);
             }
@@ -320,6 +367,22 @@ export default {
                 setTimeout(
                     ()=>{
                         getwareItemInfo().then(response => {
+                            this.zmsShowLoadingBar=false;
+                            this.zmsItem=response.data;
+                            console.log(response);
+                            if(this.zmsItem.length>0){
+                                this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalselector.successSearch')})
+                            }else{
+                                this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
+                            }
+                        })
+                    },2000
+                )
+            }
+            if(this.zmsSelectorMode===1){
+                setTimeout(
+                    ()=>{
+                        getStaffList().then(response => {
                             this.zmsShowLoadingBar=false;
                             this.zmsItem=response.data;
                             console.log(response);
