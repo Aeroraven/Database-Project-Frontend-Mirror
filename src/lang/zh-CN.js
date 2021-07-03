@@ -160,7 +160,9 @@ export default {
         'emptyInfo':'未找到符合要求的信息',
         'notSelected':'您还没有选定任何的个体',
         'selectDone':'选择成功',
-        'emptyTip':'点击搜索来查找符合要求的个体'
+        'emptyTip':'点击搜索来查找符合要求的个体',
+        'invalidDeath':'该动物已经辞世',
+        'invalidNoPermission':'您还不是该个体的负责人'
     },
     'pendingProg':{
         'PleaseWait':'系统正在处理您提交的事务，请稍作等待...',
