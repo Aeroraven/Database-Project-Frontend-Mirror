@@ -80,7 +80,7 @@
         <v-divider/>
         <v-dialog v-model="errorReturn" persistent width="500" >
             <v-card color="" :ripple="{class:null}" >
-                <v-card-title class=" zms-strip-bg text-h5 text--white red " color="warning">
+                <v-card-title class="zms-strip-bg text-h5 text--white red " color="warning">
                     <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{errorTitle}}</span>
                 </v-card-title>
                 <v-divider/>
@@ -109,62 +109,164 @@
                     @page-count="pageCount = $event"
                     class="elevation-1"
                 >
-                    <template v-slot:top>
+                    <template v-slot:top  >
                         <v-toolbar flat >
                             <v-toolbar-title>查询结果</v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <v-dialog v-model="dialog" persistent width="700">
-                                <v-card :ripple="{class:null}">
+                            <v-dialog   scrollable v-model="dialog" persistent max-width="700">
+                                <v-card class="zms-ignore-overflowx" :ripple="{class:null}">
+                                    
                                     <v-card-title class="zms-strip-bg text-h5 text--white primary " color="warning">
                                         <v-icon color="white">mdi-lead-pencil</v-icon>&nbsp;
-                                        <span class="text--white" style="color:#ffffff !important;">{{$t('animalCare.itemAlter')}}</span>
+                                        <span class="text--white" style="color:#ffffff !important;">{{$t('animalCare2.traceSuccour')}}</span>
                                     </v-card-title>
-                                    <v-stepper flat v-model="stepperCount">
+                                    <v-stepper class="zms-ignore-overflow" flat v-model="stepperCount" :value="stepperCount+1">
                                         <v-stepper-header flat>
-                                            <v-stepper-step :complete="1" :step="1">
+                                            <v-stepper-step :complete="1" step="1">
                                                 {{$t('animalCare2.alterStep1')}}
                                             </v-stepper-step>
-                                            <v-stepper-step :complete="0" :step="2">
+                                            <v-divider></v-divider>
+                                            <v-stepper-step :complete="0" step="2">
                                                 {{$t('animalCare2.alterStep2')}}
                                             </v-stepper-step>
-                                            <v-stepper-step :complete="0" :step="3">
+                                            <v-divider></v-divider>
+                                            <v-stepper-step :complete="0" step="3">
                                                 {{$t('animalCare2.alterStep3')}}
                                             </v-stepper-step>
                                         </v-stepper-header>
-                                        <v-card-text>
-                                            <v-container>
-                                                <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem['veterinary_name']" :label="$t('animalCare.vetName')"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem['treatment_progress']" :label="$t('animalCare.treatProg')"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-checkbox v-model="editedItem['current_state']" class="mx-2" :label="$t('animalCare.currentStateW')"></v-checkbox>
-                                                </v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-card-text>
+                                        <div>
+                                            <v-stepper-items>
+                                                <!--过程追踪-->
+                                                <v-stepper-content step="2" >
+                                                    <v-icon color="primary">mdi-pen</v-icon> <span class="zms-query-title" >{{$t('animalCare2.alterProcess')}}</span>
+                                                    <v-card-text  class="zms-ignore-overflowx"> 
+                                                        <v-container>
+                                                            <v-row>
+                                                                {{$t('animalCare2.traceProcessDescription2')}}
+                                                            </v-row>
+                                                            <v-row>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-text-field v-model="editedItem['veterinary_name']" disabled :label="$t('animalCare.vetName')"></v-text-field>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-text-field v-model="editedItem['treatment_progress']" :label="$t('animalCare.treatProg')"></v-text-field>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-checkbox v-model="editedItem['current_state']" class="mx-2" :label="$t('animalCare.currentStateW')"></v-checkbox>
+                                                                </v-col>
+                                                            </v-row>
+                                                            <v-row>
+                                                                <v-textarea
+                                                                    outlined
+                                                                    counter
+                                                                    prepend-inner-icon="mdi-information" 
+                                                                    name="input-7-4"
+                                                                    :label="$t('animalCare2.currentStatus')"
+                                                                    :placeholder="$t('common.pleaseInput')+$t('animalCare2.currentStatus')"
+                                                                    v-model="submitNote"
+                                                                >
+                                                                </v-textarea>
+                                                            </v-row>
+                                                        </v-container>
+                                                    </v-card-text>
+                                                    <v-divider/>
+                                                    <br/>
+
+                                                    <v-icon color="primary">mdi-pen</v-icon> <span class="zms-query-title" >{{$t('animalCare2.markComplete')}}</span>
+                                                    <br/><br/>
+                                                    <v-alert type="warning" class="zms-force-nowrap-e" text border="left">
+                                                        {{$t('animalCare2.closeReqWarning')}}
+                                                    </v-alert>
+                                                    <v-card-text>
+                                                        <v-container>
+                                                            <v-row>
+                                                                {{$t('animalCare2.closeReqDesc2')}}
+                                                            </v-row>
+                                                            <v-row>
+                                                                <v-col cols="12" sm="6" md="6">
+                                                                    <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                                        <template v-slot:activator="{ on, attrs }">
+                                                                            <v-text-field v-model="cureDate" :label="$t('anidmalCare2.cureDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                                            </v-text-field>
+                                                                        </template>
+                                                                        <v-date-picker color="primary" width="400" v-model="cureDate" @input="menu3 = false"></v-date-picker>
+                                                                    </v-menu>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="6">
+                                                                    <v-select v-model="completeType" :items="completeList" :label="$t('animalCare2.completeType')" prepend-icon="mdi-exclamation-thick"></v-select>
+                                                                </v-col>
+                                                            </v-row>
+                                                        </v-container>
+                                                    </v-card-text>
+                                                    <v-alert type="warning" class="zms-force-nowrap-e" text border="left">
+                                                        {{$t('animalCare2.closeReqWarning2')}}
+                                                    </v-alert>
+                                                    <v-card-text>
+                                                        <v-container>
+                                                            <v-row>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-btn class="zms-strip-bg-slim" block light color="error" @click="close">
+                                                                        <v-icon>mdi-close</v-icon>{{$t('common2.abort')}}
+                                                                    </v-btn>
+                                                                </v-col>
+                                                                <v-col cols="12" sm="6" md="4">
+                                                                    <v-btn class="zms-strip-bg-slim" block light color="success" @click="close">
+                                                                        <v-icon>mdi-check-bold</v-icon>{{$t('common2.complete')}}
+                                                                    </v-btn>
+                                                                </v-col>
+                                                            </v-row>
+                                                        </v-container>
+                                                    </v-card-text>
+                                                </v-stepper-content>
+                                                <!--已经治愈-->
+                                                <v-stepper-content step="3">
+                                                    <v-icon color="primary">mdi-information</v-icon> <span class="zms-query-title" >{{$t('animalCare2.processDone')}}</span>
+                                                    <br/><br/>
+                                                    <v-alert type="error" class="zms-force-nowrap-e" text border="left">
+                                                        {{$t('animalCare2.completeWork')}}
+                                                    </v-alert>
+                                                    <v-card-text>
+                                                        <v-container>
+                                                            <v-row>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItem['veterinary_name']" disabled :label="$t('animalCare.vetName')"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItem['drug']" disabled :label="$t('animalCare.drugName')"></v-text-field>
+                                                            </v-col>
+                                                            <v-col cols="12" sm="6" md="4">
+                                                                <v-text-field v-model="editedItem['treatment_progress']" disabled :label="$t('animalCare.treatProg')"></v-text-field>
+                                                            </v-col>
+                                                            </v-row>
+                                                        </v-container>
+                                                    </v-card-text>
+                                                </v-stepper-content>
+                                            </v-stepper-items>
+                                        </div>
                                     </v-stepper>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn  class="zms-halfwidth2" light color="primary" @click="close">
+                                        <v-btn  class="zms-halfwidth3" light color="primary" @click="close">
                                             <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
                                         </v-btn>
-                                        <v-btn  class="zms-halfwidth2" light color="success" @click="submitCareInfo(editedItem)">
+                                        <v-btn  class="zms-halfwidth3" light color="success" @click="submitCareInfo(editedItem)">
                                             <v-icon>mdi-check</v-icon>{{$t('common.save')}}
                                         </v-btn>
-                                    
                                     </v-card-actions>
                                 </v-card>
                             
@@ -221,7 +323,7 @@ export default {
                         }
                         
                     })
-                },2000
+                },1000
             )
         },
         close () {
@@ -278,7 +380,7 @@ export default {
     created(){
     },data:()=>{
         return{
-            stepperCount:1,
+            stepperCount:2,
             queryLoaderDialog:false,
             headers:[
                 {text: '动物编号', value: 'id'},
@@ -298,9 +400,11 @@ export default {
             errorInfo:'',
             pageCount:0,
             menu2:0,
+            menu3:0,
             on:0,
             attrs:0,
             page:1,
+            cureDate:0,
             dialog:0,
             date:null,
             queryData:[],
@@ -318,7 +422,19 @@ export default {
                 fat: 0,
                 carbs: 0,
                 protein: 0,
-            }
+            },
+            submitNote:'',
+            completeType:null,
+            completeList:[
+            'Completed - Cured',
+            'Completed - Observation Terminated',
+            'Aborted - Died',
+            'Aborted - Returned',
+            'Aborted - Insufficient Resources',
+            'Aborted - Lack of Finance',
+            'Aborted - Restricted by Technique',
+            'Aborted - Lent',
+            'Aborted - Other']
         }
         
         
@@ -350,5 +466,11 @@ export default {
     }
     .zms-query-result-table{
         margin-top:10px;
+    }
+    .zms-ignore-overflow{ 
+        overflow:scroll !important;
+    }
+    .zms-ignore-overflowx{ 
+        overflow:hidden !important;
     }
 </style>

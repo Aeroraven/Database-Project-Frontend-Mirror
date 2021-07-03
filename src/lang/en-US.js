@@ -212,5 +212,21 @@ export default {
         'alterStep1':'Submit',
         'alterStep2':'Process',
         'alterStep3':'Complete',
+        'traceSuccour':'Trace & Update Succour Information',
+        'alterProcess':'Update Process Info',
+        'processDone':'Treatment Completed',
+        'completeWork':'The process has been closed and cannot be edited.',
+        'markComplete':'Complete & Abort Request',
+        'closeReqWarning':'Contents below will only be saved when you close or complete the request.',
+        'closeReqWarning2':'Once the request is aborted or completed, it cannot be edited.',
+        'traceProcessDescription2':'If the stages or situations of the treatment shift, you can update the latest information by modifying the information below',
+        'closeReqDesc2':'If the animal has been cured or unfortunately bid farewell to the world, you can close the request here. If cure was performed successfully, click `Complete`. In other cases, click `Abort`.',
+        'currentStatus':'Current Status',
+        'cureDate':'Complete Date',
+        'completeType':'Complete Type',
+    },
+    'common2':{
+        'abort':'Abort',
+        'complete':'Complete'
     }
 }
