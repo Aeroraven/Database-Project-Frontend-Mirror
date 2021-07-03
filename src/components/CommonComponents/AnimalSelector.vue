@@ -120,7 +120,8 @@
                                                 </span> &nbsp;&nbsp;
                                                 <v-divider vertical></v-divider>
                                                 &nbsp;
-                                                {{selectedItem.name}}
+                                                &nbsp;
+                                                <vue-typing :text="selectedItem.name" :framerate="5" :cursorOptions="zmsVueTypingCursor" />
                                             </v-card-title>
                                             <v-card-text>
                                                 <v-row align="center" class="mx-0">
@@ -181,8 +182,9 @@
 import PendingProgressCard from './PendingProgressCard.vue';
 import {getAnimalList} from '../../apis/animalCore'
 import {getwareItemInfo} from '../../apis/warehouse'
+import VueTyping from 'vue-typing'
 export default {
-    components: {PendingProgressCard},
+    components: {PendingProgressCard,VueTyping},
     name: 'AnimalSelector',
     props:{
         zmsSelectorMode:Number, //0-动物查找，1-员工查找，2-物品查找
@@ -198,6 +200,7 @@ export default {
             ],
             submitStaffInCharge:null,
             submitItemName:null,
+            zmsVueTypingCursor:{ blinking: true, cursor: "|", color: "black", framerate: 5},
         }
     },
     computed:{
@@ -207,7 +210,7 @@ export default {
                     return {id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'}
                 }
                 if(this.zmsSelectorMode===2){
-                    return {item_id:'-',type:'-',name:'-',quality_guarantee:'-',channel:'-',staff_id:'-',cnt:'-',wareid:'-'}
+                    return {item_id:'-',type:'-',name:'---',quality_guarantee:'-',channel:'-',staff_id:'-',cnt:'-',wareid:'-'}
                 }
                 
             }
