@@ -69,7 +69,8 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.animalId')"
                             :hint="$t('animalCare2.chooseByMagnify')"
-                            readonly v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
+                            readonly v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
+                            prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
