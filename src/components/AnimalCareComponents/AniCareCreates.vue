@@ -58,7 +58,7 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('animalCare.title')}}</span>
+            <v-icon color="primary">mdi-upload-multiple</v-icon> <span class="zms-query-title">{{$t('animalCare.title')}}</span>
             <!--主请求部分-->
             <div>
                 <v-container>
@@ -93,11 +93,52 @@
                     v-model="submitNote"
                 >
                 </v-textarea>
+            </div>
+            <!--辅助请求部分-->
+            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('animalCare2.secondaryTitle')}}</span>
+            <br/><br/>
+            <v-alert type="info" text border="left">
+                {{$t('animalCare2.description')}}
+            </v-alert>
+            <div>
+                <v-container>
+                    <v-row>
+                        <v-col cols="12" sm="6" md="6">
+                            <v-combobox :hint="$t('animalCare2.custSymptoms')" v-model="illInput" clearable multiple :items="illList"
+                            :label="$t('animalCare2.symptoms')" prepend-icon="mdi-emoticon-sick"></v-combobox>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="6">
+                            <v-select :hint="$t('animalCare2.severityHint')" v-model="severeInput" :items="severityList" :label="$t('animalCare2.severity')" prepend-icon="mdi-exclamation-thick"></v-select>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="6" md="6">
+                            <v-slider prepend-icon="mdi-thermometer-lines" v-model="submitTemp" :label="$t('animalCare2.temperature')" max="5000" >
+                                <template v-slot:thumb-label="{ value }">
+                                    {{value/100}}
+                                </template>
+                            </v-slider>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="6">
+                            <v-slider prepend-icon="mdi-heart" v-model="submitHeartRate" :label="$t('animalCare2.heartRate')" max="400" >
+                                <template v-slot:thumb-label="{ value }">
+                                    {{value}}
+                                </template>
+                            </v-slider>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </div>
+            <!--菜单栏-->
+            <div>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
+                            <v-btn :disabled="submitStat" block class="zms-width"  color="primary" @click="generateAutoReport()">
+                                <v-icon>mdi-file-chart</v-icon>&nbsp;&nbsp;{{$t('animalCare2.generateDescription')}}
+                            </v-btn>
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="submitStat" block class="zms-width"  color="primary" @click="calloutAnimalSelect()">
@@ -105,14 +146,13 @@
                             </v-btn>
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="submitStat" block class="zms-width"  color="primary" @click="submitPrejudge()">
+                            <v-btn :disabled="submitStat" block class="zms-width"  color="success" @click="submitPrejudge()">
                                 <v-icon>mdi-arrow-collapse-up</v-icon>&nbsp;&nbsp;{{$t('common.report')}}
                             </v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
             </div>
-            <!--辅助请求部分-->
         </div>
     </div>
 </template>
@@ -138,7 +178,15 @@ export default {
             errorReturn:false,
             errorTitle:'',
             errorInfo:'',
-            menu2:false
+            menu2:false,
+            illList:['Headache','Fever','Trauma','Bacterial Infection',
+                'Fungal Infection','Organ Failure','Cancer','Respiratory Tract Infection'
+                ,'Food Poisoning'],
+            severityList:['Fatal','Severe','Moderate','Casual','Negligible'],
+            illInput:null,
+            submitTemp:3700,
+            submitHeartRate:60,
+            severeInput:"Moderate",
         }
     } ,
     computed:{
@@ -156,6 +204,20 @@ export default {
         }
     },
     methods:{
+        generateAutoReport(){
+            let st='';
+            if(this.illInput!=null&&this.illInput!=""){
+                st+='The animal has following symptoms:';
+                st+=this.illInput
+                st+='. '
+            }
+            st+='The physical temperature recorded is '+(this.submitTemp/100)+' centigrades'
+            st+='. The heart temperature recorded is '+(this.submitHeartRate)+' beats per minute'
+            st+='. The overall severity has been perceived as `'+this.severeInput+'`.'
+            this.submitNote=st;
+            this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalCare2.reportGenSuccessful')})
+            return st;
+        },
         animalSelectorResponse(arg){
             this.submitId=arg[0];
         },

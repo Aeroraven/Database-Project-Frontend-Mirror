@@ -189,5 +189,17 @@ export default {
     'animalCareMain':{
         'infoOverview':'information overview',
         'initiateRequest':'initiate succour'
+    },
+    'animalCare2':{
+        'secondaryTitle':'Detailed Report Options',
+        'generateDescription':'Generate Description',
+        'symptoms':'Symptoms',
+        'severity':'Severity',
+        'custSymptoms':'Hint: customize symptoms by pressing enter after inputing each',
+        'severityHint':'Choose the severity of the situation.',
+        'description':'The forms below are optional. These options are used to assist you construct a comprehensive description of the animal entity\'s situation. After completeing forms below, click on `Generate Description` to get a automatically generated description.',
+        'temperature':'Physical Temperature',
+        'heartRate':'Heart Rate',
+        'reportGenSuccessful':'Successfully generated succour description'
     }
 }
