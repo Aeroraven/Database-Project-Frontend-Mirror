@@ -56,7 +56,7 @@
     background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 45px, rgba(255, 255, 255, 0.1) 45px, rgba(255, 255, 255, 0.1) 90px ) !important;
 }
 .zms-strip-bg-slim{
-    background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 40px ) !important;
+    background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3) 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 40px ) !important;
 }
 .zms-nav-padding{
     padding-left:50px;
