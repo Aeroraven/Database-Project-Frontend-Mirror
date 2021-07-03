@@ -208,6 +208,9 @@ export default {
         'description':'The forms below are optional. These options are used to assist you construct a comprehensive description of the animal entity\'s situation. After completeing forms below, click on `Generate Description` to get a automatically generated description.',
         'temperature':'Physical Temperature',
         'heartRate':'Heart Rate',
-        'reportGenSuccessful':'Successfully generated succour description'
+        'reportGenSuccessful':'Successfully generated succour description',
+        'alterStep1':'Submit',
+        'alterStep2':'Process',
+        'alterStep3':'Complete',
     }
 }

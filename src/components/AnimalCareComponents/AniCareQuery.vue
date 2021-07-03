@@ -109,48 +109,65 @@
                     @page-count="pageCount = $event"
                     class="elevation-1"
                 >
-                <template v-slot:top>
-                    <v-toolbar flat >
-                        <v-toolbar-title>查询结果</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-dialog v-model="dialog" persistent max-width="500px">
-                        
-                        <v-card :ripple="{class:null}">
-                            <v-card-title>
-                            <span class="headline">{{$t('animalCare.itemAlter')}}</span>
-                            </v-card-title>
-
-                            <v-card-text>
-                            <v-container>
-                                <v-row>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['veterinary_name']" :label="$t('animalCare.vetName')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['treatment_progress']" :label="$t('animalCare.treatProg')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-checkbox v-model="editedItem['current_state']" class="mx-2" :label="$t('animalCare.currentStateW')"></v-checkbox>
-                                </v-col>
-                                </v-row>
-                            </v-container>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">{{$t('common.cancel')}}</v-btn>
-                                <v-btn color="blue darken-1" text @click="submitCareInfo(editedItem)">{{$t('common.save')}}</v-btn>
-                                </v-card-actions>
-                            </v-card>
+                    <template v-slot:top>
+                        <v-toolbar flat >
+                            <v-toolbar-title>查询结果</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                            <v-dialog v-model="dialog" persistent width="700">
+                                <v-card :ripple="{class:null}">
+                                    <v-card-title class="zms-strip-bg text-h5 text--white primary " color="warning">
+                                        <v-icon color="white">mdi-lead-pencil</v-icon>&nbsp;
+                                        <span class="text--white" style="color:#ffffff !important;">{{$t('animalCare.itemAlter')}}</span>
+                                    </v-card-title>
+                                    <v-stepper flat v-model="stepperCount">
+                                        <v-stepper-header flat>
+                                            <v-stepper-step :complete="1" :step="1">
+                                                {{$t('animalCare2.alterStep1')}}
+                                            </v-stepper-step>
+                                            <v-stepper-step :complete="0" :step="2">
+                                                {{$t('animalCare2.alterStep2')}}
+                                            </v-stepper-step>
+                                            <v-stepper-step :complete="0" :step="3">
+                                                {{$t('animalCare2.alterStep3')}}
+                                            </v-stepper-step>
+                                        </v-stepper-header>
+                                        <v-card-text>
+                                            <v-container>
+                                                <v-row>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="editedItem['veterinary_name']" :label="$t('animalCare.vetName')"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="editedItem['treatment_progress']" :label="$t('animalCare.treatProg')"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-checkbox v-model="editedItem['current_state']" class="mx-2" :label="$t('animalCare.currentStateW')"></v-checkbox>
+                                                </v-col>
+                                                </v-row>
+                                            </v-container>
+                                        </v-card-text>
+                                    </v-stepper>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn  class="zms-halfwidth2" light color="primary" @click="close">
+                                            <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
+                                        </v-btn>
+                                        <v-btn  class="zms-halfwidth2" light color="success" @click="submitCareInfo(editedItem)">
+                                            <v-icon>mdi-check</v-icon>{{$t('common.save')}}
+                                        </v-btn>
+                                    
+                                    </v-card-actions>
+                                </v-card>
+                            
                             </v-dialog>
                         </v-toolbar>
                     </template>
@@ -261,46 +278,49 @@ export default {
     created(){
     },data:()=>{
         return{
-        queryLoaderDialog:false,
-        headers:[
-            {text: '动物编号', value: 'id'},
-            {text: '疾病名称', value: 'disease_name'},
-            {text: '兽医名称', value: 'veterinary_name'},
-            {text: '药物名称', value: 'drug'},
-            {text: '治疗过程', value: 'treatment_progress'},
-            {text: '当前状态', value: 'current_state'},
-            {text: '患病时间', value: 'date_ill'},
-            {text: '治愈时间', value: 'date_cure'},
-            { text: '操作', value: 'actions', sortable: false }
-            
-        ],
-        submitStat:0,
-        errorReturn:false,
-        errorTitle:'',
-        errorInfo:'',
-        pageCount:0,
-        menu2:0,
-        on:0,
-        attrs:0,
-        page:1,
-        dialog:0,
-        date:null,
-        queryData:[],
-        editedIndex: -1,
-        editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
-        },
-        defaultItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
-        }}
+            stepperCount:1,
+            queryLoaderDialog:false,
+            headers:[
+                {text: '动物编号', value: 'id'},
+                {text: '疾病名称', value: 'disease_name'},
+                {text: '兽医名称', value: 'veterinary_name'},
+                {text: '药物名称', value: 'drug'},
+                {text: '治疗过程', value: 'treatment_progress'},
+                {text: '当前状态', value: 'current_state'},
+                {text: '患病时间', value: 'date_ill'},
+                {text: '治愈时间', value: 'date_cure'},
+                { text: '操作', value: 'actions', sortable: false }
+                
+            ],
+            submitStat:0,
+            errorReturn:false,
+            errorTitle:'',
+            errorInfo:'',
+            pageCount:0,
+            menu2:0,
+            on:0,
+            attrs:0,
+            page:1,
+            dialog:0,
+            date:null,
+            queryData:[],
+            editedIndex: -1,
+            editedItem: {
+                name: '',
+                calories: 0,
+                fat: 0,
+                carbs: 0,
+                protein: 0,
+            },
+            defaultItem: {
+                name: '',
+                calories: 0,
+                fat: 0,
+                carbs: 0,
+                protein: 0,
+            }
+        }
+        
         
     },
     
