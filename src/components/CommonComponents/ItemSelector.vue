@@ -239,7 +239,7 @@ export default {
         VueTyping,
         AnimatedNumber
     },
-    name: 'AnimalSelector',
+    name: 'ItemSelector',
     props:{
         zmsSelectorMode:Number, //0-动物查找，1-员工查找，2-物品查找
     },

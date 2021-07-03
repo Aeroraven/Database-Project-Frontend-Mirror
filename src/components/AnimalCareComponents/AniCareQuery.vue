@@ -180,7 +180,8 @@
                                                     </v-card-text>
                                                     <v-divider/>
                                                     <br/>
-
+                                                    
+                                                    <!--提交完成申请-->
                                                     <v-icon color="primary">mdi-pen</v-icon> <span class="zms-query-title" >{{$t('animalCare2.markComplete')}}</span>
                                                     <br/><br/>
                                                     <v-alert type="warning" class="zms-force-nowrap-e" text border="left">
@@ -210,16 +211,24 @@
                                                     <v-alert type="warning" class="zms-force-nowrap-e" text border="left">
                                                         {{$t('animalCare2.closeReqWarning2')}}
                                                     </v-alert>
+                                                    <!--确认提交提示框-->
+                                                    <alert-messagebox :alertTitle="$t('animalCare2.closeReqMsgTitle')" 
+                                                    :alertBody="$t('animalCare2.closeReqMsgBody')" 
+                                                    :alertLevel="`error`" ref="closeReqMsgbox"
+                                                    @alertConfirm="submitCloseReq"/>
+
+                                                    <pending-progress-card :zmsShow="completeSubmitWaitingBox"/>
+
                                                     <v-card-text>
                                                         <v-container>
                                                             <v-row>
                                                                 <v-col cols="12" sm="6" md="4">
-                                                                    <v-btn class="zms-strip-bg-slim" block light color="error" @click="close">
+                                                                    <v-btn class="zms-strip-bg-slim" block light color="error" @click="calloutCloseReqMsgbox">
                                                                         <v-icon>mdi-close</v-icon>{{$t('common2.abort')}}
                                                                     </v-btn>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="4">
-                                                                    <v-btn class="zms-strip-bg-slim" block light color="success" @click="close">
+                                                                    <v-btn class="zms-strip-bg-slim" block light color="success" @click="calloutCloseReqMsgbox">
                                                                         <v-icon>mdi-check-bold</v-icon>{{$t('common2.complete')}}
                                                                     </v-btn>
                                                                 </v-col>
@@ -286,13 +295,17 @@
             <div class="zms-query-pagination">
                 <v-pagination v-model="page" :length="pageCount"></v-pagination>
             </div>
+            
         </div>
     </div>
 </template>
 
 <script>
 import {getCareData, updateCareInfo} from '../../apis/animalCare'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
+import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 export default {
+  components: { AlertMessagebox, PendingProgressCard },
     name: 'AnicareQuery',
     computed:{
         nmNightClass(){
@@ -309,6 +322,12 @@ export default {
         }
     },
     methods:{
+        calloutCloseReqMsgbox(){
+            this.$refs.closeReqMsgbox.showAlert()
+        },
+        showcloseReqMsgbox(){
+            this.$refs.closeReqMsgbox.showAlert()
+        },
         fetchCareInfo(){
             this.queryLoaderDialog=true;
             setTimeout(
@@ -316,6 +335,23 @@ export default {
                     getCareData().then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
+                        if(this.queryData.length>0){
+                            this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                        }else{
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
+                        }
+                        
+                    })
+                },1000
+            )
+        },
+        submitCloseReq(){
+            this.completeSubmitWaitingBox=1;
+            setTimeout(
+                ()=>{
+                    getCareData().then(response => {
+                        this.completeSubmitWaitingBox=0;
+                        this.close();
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
@@ -424,6 +460,8 @@ export default {
                 protein: 0,
             },
             submitNote:'',
+            completeSubmitWaitingBox:0,
+            completeMsgboxModel:0,
             completeType:null,
             completeList:[
             'Completed - Cured',
