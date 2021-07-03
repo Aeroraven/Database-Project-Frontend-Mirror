@@ -279,7 +279,7 @@ export default {
             }
             if(this.zmsSelectorMode===0){
                 if(this.zmsItem[this.zmsselectedItemIdx].status=='died'){
-                    this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.invalidDeathToast')})
+                    this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.inva')})
                 
                 }
             }
