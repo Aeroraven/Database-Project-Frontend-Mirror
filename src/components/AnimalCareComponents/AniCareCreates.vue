@@ -37,7 +37,7 @@
                 </v-card>
             </v-dialog>
             <!-- 动物选择器 -->
-            <animal-selector ref='aniselector' @animalSelectorSelect="animalSelectorResponse(arguments)"></animal-selector>
+            <animal-selector ref='aniselector' :zmsSelectorMode="0" @itemSelectorSelect="animalSelectorResponse(arguments)"></animal-selector>
             <!-- 提交错误 -->
             <v-dialog v-model="errorReturn" persistent width="500" >
                 <v-card color="" :ripple="{class:null}" >

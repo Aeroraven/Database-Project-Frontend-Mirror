@@ -3,7 +3,8 @@
         <v-dialog scrollable v-model="zmsDisplay" persistent width="800" >
             <v-card color="" :ripple="{class:null}" >
                 <v-card-title class="zms-strip-bg text-h5 text--white primary " color="warning">
-                    <v-icon color="white">mdi-selection-search</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('animalselector.title')}}</span>
+                    <v-icon color="white">mdi-selection-search</v-icon>&nbsp;
+                    <span class="text--white" style="color:#ffffff !important;">{{wordlist.title}}</span>
                 </v-card-title>
                 <v-divider/>
                 <br/>
@@ -14,7 +15,8 @@
                                 <v-col>
                                     <v-subheader>{{$t('animalselector.filter')}}</v-subheader>
                                     <v-container>
-                                        <v-row>
+                                        <!--动物选择器-->
+                                        <v-row v-if="zmsSelectorMode===0">
                                             <v-col cols="12" sm="6" md="3">
                                                 <v-text-field :label="$t('animalselector.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalselector.animalId')" prepend-icon="mdi-identifier"  />
                                             </v-col>
@@ -26,6 +28,21 @@
                                             </v-col>
                                             <v-col cols="12" sm="6" md="3">
                                                 <v-text-field :label="$t('animalselector.facl')" v-model="submitFacl" :placeholder="$t('common.pleaseInput')+$t('animalselector.facl')" prepend-icon="mdi-home"  />
+                                            </v-col>
+                                        </v-row>
+                                        <!--物品选择器-->
+                                        <v-row v-if="zmsSelectorMode===2">
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('itemselector.itemid')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('itemselector.itemid')" prepend-icon="mdi-identifier"  />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('itemselector.category')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('itemselector.category')" prepend-icon="mdi-tag-plus"  />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('itemselector.name')" v-model="submitItemName" :placeholder="$t('common.pleaseInput')+$t('itemselector.name')" prepend-icon="mdi-tag"  />
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="3">
+                                                <v-text-field :label="$t('itemselector.staffInCharge')" v-model="submitStaffInCharge" :placeholder="$t('common.pleaseInput')+$t('itemselector.staffInCharge')" prepend-icon="mdi-account-key"  />
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -50,20 +67,32 @@
                             <v-divider></v-divider>
                             <v-row>
                                 <v-col>
-                                    <v-subheader>{{$t('animalselector.animalList')}}</v-subheader>
+                                    <v-subheader>{{wordlist.leftList}}</v-subheader>
                                     <div style="height:400px;overflow-y:scroll;">
                                         <v-list dense>
-                                            <v-list-item-group mandatory v-model="zmsSelectedAnimal" color="primary">
-                                                <v-list-item v-for="(item, i) in zmsAnimals" :key="i" @click="showAnimalDetail(i)">
+                                            <v-list-item-group mandatory v-model="zmsselectedItem" color="primary">
+                                                <v-list-item v-for="(item, i) in zmsItem" :key="i" @click="showAnimalDetail(i)">
                                                     <v-list-item-icon>
-                                                        <v-icon>mdi-paw</v-icon>
+                                                        <!--<v-icon>{{wordlist.listIconDefault}}</v-icon>-->
+                                                        <v-icon>{{getIconX(i)}}</v-icon>
                                                     </v-list-item-icon>
                                                     <v-list-item-content>
-                                                        <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.id}}</span> &nbsp;{{item.name}}&nbsp;&nbsp;<span class='zms-anisel-small'>{{item.category}}</span></span>
+                                                        <!--动物选择器-->
+                                                        <span v-if="zmsSelectorMode===0">
+                                                            <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.id}}</span>
+                                                            &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
+                                                            <span class='zms-anisel-small'>{{item.category}} · {{item.gender}}</span></span>
+                                                        </span>
+                                                        <!--物品选择器-->
+                                                        <span v-if="zmsSelectorMode===2">
+                                                            <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.item_id}}</span>
+                                                            &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
+                                                            <span class='zms-anisel-small'>{{item.type}}</span></span>
+                                                        </span>
                                                     </v-list-item-content>
                                                 </v-list-item>
 
-                                                <v-list-item v-if="zmsAnimals.length==0" disabled>
+                                                <v-list-item v-if="zmsItem.length==0" disabled>
                                                     <v-list-item-icon>
                                                         <v-icon>mdi-information</v-icon>
                                                     </v-list-item-icon>
@@ -82,21 +111,48 @@
                                         <template slot="progress">
                                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                                         </template>
-
                                         <v-img height="150" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-                                        <v-card-title>{{selectedAnimal.name}}</v-card-title>
-                                        <v-card-text>
-                                        <v-row align="center" class="mx-0">
-                                            <v-rating :value="4.5" color="amber" dense half-increments readonly size="14" ></v-rating>
-                                            <div class="grey--text ms-4"> 4.5 </div>
-                                        </v-row>
-                                        <div class="my-4 text-subtitle-1">
-                                            <b>{{$t('animalselector.category')}}</b> : <span>{{selectedAnimal.category}}</span><br/>
-                                            <b>{{$t('animalselector.faclLocation')}}</b> : <span>{{selectedAnimal.faclId}}</span><br/>
-                                            <b>{{$t('animalselector.age')}}</b> : <span>{{selectedAnimal.age}}</span><br/>
-                                            <b>{{$t('animalselector.sex')}}</b> : <span>{{selectedAnimal.gender}}</span><br/>
+                                        <!--Animal Selector-->
+                                        <div v-if="zmsSelectorMode===0">
+                                            <v-card-title>
+                                                <span class="primary--text zms-bold-font">
+                                                    #{{selectedItem.id}}
+                                                </span> &nbsp;&nbsp;
+                                                <v-divider vertical></v-divider>
+                                                &nbsp;
+                                                {{selectedItem.name}}
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-row align="center" class="mx-0">
+                                                    <v-rating :value="4.5" color="amber" dense half-increments readonly size="14" ></v-rating>
+                                                    <div class="grey--text ms-4"> 4.5 </div>
+                                                </v-row>
+                                                <div class="my-4 text-subtitle-1">
+                                                    <b>{{$t('animalselector.category')}}</b> : <span>{{selectedItem.category}}</span><br/>
+                                                    <b>{{$t('animalselector.faclLocation')}}</b> : <span>{{selectedItem.faclId}}</span><br/>
+                                                    <b>{{$t('animalselector.age')}}</b> : <span>{{selectedItem.age}}</span><br/>
+                                                    <b>{{$t('animalselector.sex')}}</b> : <span>{{selectedItem.gender}}</span><br/>
+                                                </div>
+                                            </v-card-text>
                                         </div>
-                                        </v-card-text>
+                                        <!--Item Selector-->
+                                        <div v-if="zmsSelectorMode===2">
+                                            <v-card-title>{{selectedItem.name}}</v-card-title>
+                                            <v-card-text>
+                                                <v-row align="center" class="mx-0">
+                                                    <v-rating :value="4.5" color="amber" dense half-increments readonly size="14" ></v-rating>
+                                                    <div class="grey--text ms-4"> 4.5 </div>
+                                                </v-row>
+                                                <div class="my-4 text-subtitle-1">
+                                                    <b>{{$t('itemselector.category')}}</b> : <span>{{selectedItem.type}}</span><br/>
+                                                    <b>{{$t('itemselector.stock')}}</b> : <span>{{selectedItem.cnt}}</span><br/>
+                                                    <b>{{$t('itemselector.channel')}}</b> : <span>{{selectedItem.channel}}</span><br/>
+                                                    <b>{{$t('itemselector.wareid')}}</b> : <span>{{selectedItem.wareid}}</span><br/>
+                                                    <b>{{$t('itemselector.staffInCharge')}}</b> : <span>{{selectedItem.staff_id}}</span><br/>
+                                                </div>
+                                            </v-card-text>
+                                        </div>
+                                        
                                     </v-card>
                                 </v-col>
                             </v-row>
@@ -124,6 +180,7 @@
 <script>
 import PendingProgressCard from './PendingProgressCard.vue';
 import {getAnimalList} from '../../apis/animalCore'
+import {getwareItemInfo} from '../../apis/warehouse'
 export default {
     components: {PendingProgressCard},
     name: 'AnimalSelector',
@@ -133,57 +190,127 @@ export default {
     data(){
         return{
             zmsDisplay:false,
-            zmsSelectedAnimal:{id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'},
-            zmsSelectedAnimalIdx:-1,
+            zmsselectedItem:{id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'},
+            zmsselectedItemIdx:-1,
             zmsShowLoadingBar:false,
-            zmsAnimals:[
+            zmsItem:[
                 
             ],
+            submitStaffInCharge:null,
+            submitItemName:null,
         }
     },
     computed:{
-        selectedAnimal(){
-            if(this.zmsSelectedAnimalIdx==-1){
-                return {id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'}
+        selectedItem(){
+            if(this.zmsselectedItemIdx==-1){
+                if(this.zmsSelectorMode===0){
+                    return {id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'}
+                }
+                if(this.zmsSelectorMode===2){
+                    return {item_id:'-',type:'-',name:'-',quality_guarantee:'-',channel:'-',staff_id:'-',cnt:'-',wareid:'-'}
+                }
+                
             }
-            return this.zmsAnimals[this.zmsSelectedAnimalIdx];
-        }
+            return this.zmsItem[this.zmsselectedItemIdx];
+        },
+        wordlist(){
+            //Animal Selector
+            if(this.zmsSelectorMode===0){
+                return{
+                    'title':this.$t('animalselector.title'),
+                    'leftList':this.$t('animalselector.animalList'),
+                    'listIconDefault':'mdi-paw',
+                }
+            }
+            //Staff Selector
+            if(this.zmsSelectorMode===1){
+                return{
+                    'title':this.$t('staffselector.title')
+                }
+            }
+            //Item Selector
+            if(this.zmsSelectorMode===2){
+                return{
+                    'title':this.$t('itemselector.title'),
+                    'leftList':this.$t('itemselector.itemList'),
+                    'listIconDefault':'mdi-cube-outline',
+                }
+            }
+            return{
+                'title':'Invalid Selector!'
+            }
+        },
+        getIconX(){
+            return (id)=>{
+                if(this.zmsSelectorMode===0){
+                    if(this.zmsItem[id].status=='died'){
+                        return 'mdi-skull'
+                    }
+                    return this.wordlist.listIconDefault;
+                }
+                return this.wordlist.listIconDefault;
+            }
+        },
     },
     methods:{
         emitConfirmSignal(){
-            if(this.zmsSelectedAnimalIdx==-1){
+            if(this.zmsselectedItemIdx===-1){
                 this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.notSelected')})
                 return;
             }
             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalselector.selectDone')})
-            this.$emit('animalSelectorSelect',this.zmsAnimals[this.zmsSelectedAnimalIdx].id);
+            if(this.zmsSelectorMode===0){
+                this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].id);
+            }
+            if(this.zmsSelectorMode===2){
+                this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].item_id);
+            }
             this.zmsDisplay=false;
         },
         show(){
-            this.zmsSelectedAnimal={};
-            this.zmsAnimals=[];
-            this.zmsSelectedAnimalIdx=-1;
+            this.zmsselectedItem={};
+            this.zmsItem=[];
+            this.zmsselectedItemIdx=-1;
             this.zmsDisplay=true;
         },
         beginSearch(){
             this.zmsShowLoadingBar=true;
-            setTimeout(
-                ()=>{
-                    getAnimalList().then(response => {
-                        this.zmsShowLoadingBar=false;
-                        this.zmsAnimals=response.data;
-                        console.log(response);
-                        if(this.zmsAnimals.length>0){
-                            this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalselector.successSearch')})
-                        }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
-                        }
-                    })
-                },2000
-            )
+            if(this.zmsSelectorMode===0){
+                setTimeout(
+                    ()=>{
+                        getAnimalList().then(response => {
+                            this.zmsShowLoadingBar=false;
+                            this.zmsItem=response.data;
+                            console.log(response);
+                            if(this.zmsItem.length>0){
+                                this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalselector.successSearch')})
+                            }else{
+                                this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
+                            }
+                        })
+                    },2000
+                )
+            }
+            if(this.zmsSelectorMode===2){
+                setTimeout(
+                    ()=>{
+                        getwareItemInfo().then(response => {
+                            this.zmsShowLoadingBar=false;
+                            this.zmsItem=response.data;
+                            console.log(response);
+                            if(this.zmsItem.length>0){
+                                this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalselector.successSearch')})
+                            }else{
+                                this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
+                            }
+                        })
+                    },2000
+                )
+            }
+            
         },
         showAnimalDetail(x){
-            this.zmsSelectedAnimalIdx=x;
+            this.zmsselectedItemIdx=x;
         }
     }
 };

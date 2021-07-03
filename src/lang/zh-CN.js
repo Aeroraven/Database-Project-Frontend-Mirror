@@ -157,8 +157,8 @@ export default {
         'facl':'场馆ID',
         'category2':'类别',
         'successSearch':'信息获取成功',
-        'emptyInfo':'未找到符合要求的动物信息',
-        'notSelected':'您还没有选定任何的动物个体',
+        'emptyInfo':'未找到符合要求的信息',
+        'notSelected':'您还没有选定任何的个体',
         'selectDone':'选择成功',
         'emptyTip':'点击搜索来查找符合要求的个体'
     },

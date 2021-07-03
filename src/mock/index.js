@@ -109,10 +109,10 @@ Mock.mock('/api/warehouseRequest/updateWarehouseInfo','get',{data:{stat:'success
 
 let warehouseItem={
   data:[
-    {item_id:'1956100',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-    {item_id:'1956101',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-    {item_id:'1956102',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-    {item_id:'1956103',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
+    {item_id:'1956100',type:'Food',name:'Feline Fodder',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
+    {item_id:'1956101',type:'Food',name:'Canine Fodder',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
+    {item_id:'1956102',type:'Food',name:'Amphibious Fodder',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
+    {item_id:'1956103',type:'Specimen',name:'Lizard Specimen',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
   ],
   code:200
 }
@@ -138,18 +138,20 @@ Mock.mock('/api/procManagement/getProcOverview','get',procOverview)
 
 let animalList={
   data:[
-    {id:'123',category:'Lion',name:'Lucida',gender:'Female',age:'17',faclId:'12345'},
-    {id:'124',category:'Lynx',name:'Kaltsit',gender:'Female',age:'17',faclId:'12345'},
-    {id:'125',category:'Snow Leopard',name:'Sliverash',gender:'Female',age:'17',faclId:'12345'},
-    {id:'126',category:'Feline',name:'Vanilla',gender:'Female',age:'17',faclId:'12345'},
-    {id:'127',category:'Red Fox',name:'Alisa',gender:'Female',age:'17',faclId:'12345'},
-    {id:'128',category:'Racoon Dog',name:'Sayu',gender:'Female',age:'17',faclId:'12345'},
-    {id:'129',category:'Giant Panda',name:'Pingping',gender:'Female',age:'17',faclId:'12345'},
-    {id:'130',category:'Feline',name:'Diona',gender:'Female',age:'17',faclId:'12345'},
-    {id:'131',category:'Feline',name:'Tio',gender:'Female',age:'17',faclId:'12345'},
-    {id:'132',category:'Squirrel',name:'Shaw',gender:'Female',age:'17',faclId:'12345'},
-    {id:'133',category:'Weasel',name:'Yuki',gender:'Female',age:'17',faclId:'12345'},
-    {id:'134',category:'Horse',name:'Platinum',gender:'Female',age:'17',faclId:'12345'},
+    {id:'122',category:'Snail',name:'Biden',gender:'Hermaphrodite',age:'17',faclId:'12345',status:'died'},
+    {id:'123',category:'Lion',name:'Lucida',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'124',category:'Lynx',name:'Kaltsit',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'125',category:'Snow Leopard',name:'Sliverash',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'126',category:'Feline',name:'Vanilla',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'127',category:'Red Fox',name:'Alisa',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'128',category:'Racoon Dog',name:'Sayu',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'129',category:'Giant Panda',name:'Pingping',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'130',category:'Feline',name:'Diona',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'131',category:'Feline',name:'Tio',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'132',category:'Squirrel',name:'Shaw',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'133',category:'Weasel',name:'Yuki',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'134',category:'Horse',name:'Platinum',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'135',category:'Celine',name:'Trump',gender:'Female',age:'17',faclId:'12345',status:'died'},
   ],
   code:200
 }
