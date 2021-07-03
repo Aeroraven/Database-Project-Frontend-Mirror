@@ -165,5 +165,9 @@ export default {
     'pendingProg':{
         'PleaseWait':'The transaction is being processed. Please wait...',
         'Submitting':'Transaction Processing'
+    },
+    'viewTitles':{
+        'animalCareMan':'Animal Medical Care Management'
     }
+    
 }
