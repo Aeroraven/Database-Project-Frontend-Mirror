@@ -160,7 +160,10 @@ export default {
         'emptyInfo':'No matched items are found',
         'notSelected':'You have not selected any entity yet!',
         'selectDone':'The selection has been done successfully!',
-        'emptyTip':'Initiate search request to find items'
+        'emptyTip':'Initiate search request to find items',
+        'invalidDeath':'The animal has passed away.',
+        'invalidNoPermission':'Only the custodian can perform operations',
+        'invalidDeathToast':'Gone entities cannot be chosen'
     },
     'staffselector':{
         'title':'Staff Selection'
@@ -182,6 +185,9 @@ export default {
     },
     'viewTitles':{
         'animalCareMan':'Animal Medical Care Management'
+    },
+    'animalCareMain':{
+        'infoOverview':'information overview',
+        'initiateRequest':'initiate succour'
     }
-    
 }
