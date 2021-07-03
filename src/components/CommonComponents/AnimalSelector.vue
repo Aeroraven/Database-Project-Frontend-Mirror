@@ -73,7 +73,6 @@
                                             <v-list-item-group mandatory v-model="zmsselectedItem" color="primary">
                                                 <v-list-item v-for="(item, i) in zmsItem" :key="i" @click="showAnimalDetail(i)">
                                                     <v-list-item-icon>
-                                                        <!--<v-icon>{{wordlist.listIconDefault}}</v-icon>-->
                                                         <v-icon>{{getIconX(i)}}</v-icon>
                                                     </v-list-item-icon>
                                                     <v-list-item-content>
@@ -116,7 +115,7 @@
                                         <div v-if="zmsSelectorMode===0">
                                             <v-card-title>
                                                 <span class="primary--text zms-bold-font">
-                                                    #{{selectedItem.id}}
+                                                    #<animated-number :formatValue="formatToInt" :value="selectedItem.id" :duration="300"/>
                                                 </span> &nbsp;&nbsp;
                                                 <v-divider vertical></v-divider>
                                                 &nbsp;
@@ -134,6 +133,14 @@
                                                     <b>{{$t('animalselector.age')}}</b> : <span>{{selectedItem.age}}</span><br/>
                                                     <b>{{$t('animalselector.sex')}}</b> : <span>{{selectedItem.gender}}</span><br/>
                                                 </div>
+                                                <!--无效选择-动物已经不存在-->
+                                                <v-alert type="error" text border="left" v-if="selectedItem.status==='died'">
+                                                    {{$t('animalselector.invalidDeath')}}
+                                                </v-alert>
+                                                <!--无效选择-无权负责-->
+                                                <v-alert type="error" text border="left" v-if="0">
+                                                    {{$t('animalselector.invalidNoPermission')}}
+                                                </v-alert>
                                             </v-card-text>
                                         </div>
                                         <!--Item Selector-->
@@ -183,8 +190,14 @@ import PendingProgressCard from './PendingProgressCard.vue';
 import {getAnimalList} from '../../apis/animalCore'
 import {getwareItemInfo} from '../../apis/warehouse'
 import VueTyping from 'vue-typing'
+import AnimatedNumber from "animated-number-vue";
+
 export default {
-    components: {PendingProgressCard,VueTyping},
+    components: {
+        PendingProgressCard,
+        VueTyping,
+        AnimatedNumber
+    },
     name: 'AnimalSelector',
     props:{
         zmsSelectorMode:Number, //0-动物查找，1-员工查找，2-物品查找
@@ -256,10 +269,19 @@ export default {
         },
     },
     methods:{
+        formatToInt(value) {
+            return `${value.toFixed(0)}`;
+        },
         emitConfirmSignal(){
             if(this.zmsselectedItemIdx===-1){
                 this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.notSelected')})
                 return;
+            }
+            if(this.zmsSelectorMode===0){
+                if(this.zmsItem[this.zmsselectedItemIdx].status=='died'){
+                    this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.invalidDeathToast')})
+                    return;
+                }
             }
             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalselector.selectDone')})
             if(this.zmsSelectorMode===0){
