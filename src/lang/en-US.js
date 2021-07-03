@@ -224,11 +224,15 @@ export default {
         'currentStatus':'Current Status',
         'cureDate':'Complete Date',
         'completeType':'Complete Type',
+        'chooseByMagnify':'The entry cannot be input via keys.Click the magnifier icon to choose items',
+        'emptyCureDate':'The complete date cannot be empty',
+        'dateAhead':'We cannot predict the future. Check your date input.',
         'closeReqMsgTitle':'Close Succour Request',
         'closeReqMsgBody':'Are you sure to abort the succour request or mark it completed. Once the operation is done, further alterations to the entry is forbidden, which means it will be readonly. This operation cannot be undone, if you are sure what you are doing, click `Confirm`. Otherwise, click `Cancel`',
     },
     'common2':{
         'abort':'Abort',
-        'complete':'Complete'
+        'complete':'Complete',
+        'transactionDone':'The transaction has been done.'
     }
 }

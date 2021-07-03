@@ -196,7 +196,7 @@
                                                                 <v-col cols="12" sm="6" md="6">
                                                                     <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                                                         <template v-slot:activator="{ on, attrs }">
-                                                                            <v-text-field v-model="cureDate" :label="$t('anidmalCare2.cureDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                                            <v-text-field v-model="cureDate" :label="$t('animalCare2.cureDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                                                             </v-text-field>
                                                                         </template>
                                                                         <v-date-picker color="primary" width="400" v-model="cureDate" @input="menu3 = false"></v-date-picker>
@@ -346,6 +346,22 @@ export default {
             )
         },
         submitCloseReq(){
+            if(this.cureDate==null||this.cureDate==0){
+                this.submitFailTip(this.$t('animalCare2.emptyCureDate'))
+                return 0;
+            }
+            let year=this.cureDate.split("-")[0];
+            let month=this.cureDate.split("-")[1]-1;
+            let day=this.cureDate.split("-")[2];
+            let date1= new Date(year,month,day)
+            let date2 = new Date()
+            if(date1>date2){
+                console.log(date1)
+                console.log(date2)
+                this.submitFailTip(this.$t('animalCare2.dateAhead'))
+                return 0;
+            }
+
             this.completeSubmitWaitingBox=1;
             setTimeout(
                 ()=>{
@@ -353,7 +369,7 @@ export default {
                         this.completeSubmitWaitingBox=0;
                         this.close();
                         if(this.queryData.length>0){
-                            this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                            this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
@@ -440,7 +456,7 @@ export default {
             on:0,
             attrs:0,
             page:1,
-            cureDate:0,
+            cureDate:null,
             dialog:0,
             date:null,
             queryData:[],
