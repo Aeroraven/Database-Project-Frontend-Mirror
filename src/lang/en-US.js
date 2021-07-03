@@ -158,9 +158,23 @@ export default {
         'category2':'Category',
         'successSearch':'Information has been fetched successfully',
         'emptyInfo':'No matched items are found',
-        'notSelected':'You have not selected any animal entity yet!',
+        'notSelected':'You have not selected any entity yet!',
         'selectDone':'The selection has been done successfully!',
-        'emptyTip':'Initiate search request to find animals'
+        'emptyTip':'Initiate search request to find items'
+    },
+    'staffselector':{
+        'title':'Staff Selection'
+    },
+    'itemselector':{
+        'title':'Warehouse Item Selection',
+        'itemList':'ITEM LIST',
+        'category':'Category',
+        'stock':'Current Stock',
+        'channel':'Channel',
+        'wareid':'Warehouse',
+        'staffInCharge':'Custodian',
+        'itemid':'ID',
+        'name':'Name'
     },
     'pendingProg':{
         'PleaseWait':'The transaction is being processed. Please wait...',
