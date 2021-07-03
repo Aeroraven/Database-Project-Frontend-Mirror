@@ -154,20 +154,22 @@
                                                     <b>{{$t('animalselector.age')}}</b> : <span>{{selectedItem.age}}</span><br/>
                                                     <b>{{$t('animalselector.sex')}}</b> : <span>{{selectedItem.gender}}</span><br/>
                                                 </div>
-                                                <!--无效选择-动物已经不存在-->
-                                                <v-alert type="error" text border="left" v-if="selectedItem.status==='died'">
-                                                    {{$t('animalselector.invalidDeath')}}
-                                                </v-alert>
-                                                <!--无效选择-无权负责-->
-                                                <v-alert type="error" text border="left" v-if="0">
-                                                    {{$t('animalselector.invalidNoPermission')}}
-                                                </v-alert>
+                                                <v-expand-x-transition>
+                                                    <!--无效选择-动物已经不存在-->
+                                                    <v-alert type="error" class="zms-force-nowrap-e" text border="left" v-if="selectedItem.status==='died'">
+                                                        {{$t('animalselector.invalidDeath')}}
+                                                    </v-alert>
+                                                    <!--无效选择-无权负责-->
+                                                    <v-alert type="error" class="zms-force-nowrap-e" text border="left" v-if="0">
+                                                        {{$t('animalselector.invalidNoPermission')}}
+                                                    </v-alert>
+                                                </v-expand-x-transition>
                                             </v-card-text>
                                         </div>
                                         <!--Staff Selector-->
                                         <div v-if="zmsSelectorMode===1">
                                             <v-card-title>{{selectedItem.name}}</v-card-title>
-                                            <v-card-text>
+                                            <v-card-text >
                                                 <v-row align="center" class="mx-0">
                                                     <v-rating :value="4.5" color="amber" dense half-increments readonly size="14" ></v-rating>
                                                     <div class="grey--text ms-4"> 4.5 </div>
