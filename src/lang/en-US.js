@@ -208,6 +208,27 @@ export default {
         'description':'The forms below are optional. These options are used to assist you construct a comprehensive description of the animal entity\'s situation. After completeing forms below, click on `Generate Description` to get a automatically generated description.',
         'temperature':'Physical Temperature',
         'heartRate':'Heart Rate',
-        'reportGenSuccessful':'Successfully generated succour description'
+        'reportGenSuccessful':'Successfully generated succour description',
+        'alterStep1':'Submit',
+        'alterStep2':'Process',
+        'alterStep3':'Complete',
+        'traceSuccour':'Trace & Update Succour Information',
+        'alterProcess':'Update Process Info',
+        'processDone':'Treatment Completed',
+        'completeWork':'The process has been closed and cannot be edited.',
+        'markComplete':'Complete & Abort Request',
+        'closeReqWarning':'Contents below will only be saved when you close or complete the request.',
+        'closeReqWarning2':'Once the request is aborted or completed, it cannot be edited.',
+        'traceProcessDescription2':'If the stages or situations of the treatment shift, you can update the latest information by modifying the information below',
+        'closeReqDesc2':'If the animal has been cured or unfortunately bid farewell to the world, you can close the request here. If cure was performed successfully, click `Complete`. In other cases, click `Abort`.',
+        'currentStatus':'Current Status',
+        'cureDate':'Complete Date',
+        'completeType':'Complete Type',
+        'closeReqMsgTitle':'Close Succour Request',
+        'closeReqMsgBody':'Are you sure to abort the succour request or mark it completed. Once the operation is done, further alterations to the entry is forbidden, which means it will be readonly. This operation cannot be undone, if you are sure what you are doing, click `Confirm`. Otherwise, click `Cancel`',
+    },
+    'common2':{
+        'abort':'Abort',
+        'complete':'Complete'
     }
 }
