@@ -59,7 +59,7 @@
                 </v-card>
             </v-dialog>
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('animalCare.title')}}</span>
-            
+            <!--主请求部分-->
             <div>
                 <v-container>
                     <v-row>
@@ -112,6 +112,7 @@
                     </v-row>
                 </v-container>
             </div>
+            <!--辅助请求部分-->
         </div>
     </div>
 </template>
