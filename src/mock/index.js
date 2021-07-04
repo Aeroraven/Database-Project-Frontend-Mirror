@@ -186,3 +186,48 @@ let employeeData={
 
 Mock.mock('/api/employeeRequest/getWarehouseInfo','get',employeeData)
 Mock.mock('/api/employeeRequest/updateWarehouseInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+
+//Animal show
+let aniShowData={
+  data:[
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈',price:'30元'},
+  ],
+  code:200
+}
+Mock.mock('/api/animalShow/getShowData','get',aniShowData)
+
+Mock.mock('/api/animalShow/createShowInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/animalShow/updateShowInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+//Training
+let trainingData={
+  data:[
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+    {show_id:'123123' , show_name:'钻火圈',amount:'10',animal_id:'A123',principal_name:'女武神',show_site:'大熊猫馆',show_time:'2012-01-01',show_props:'火圈'},
+  ],
+  code:200
+}
+Mock.mock('/api/Training/getTrainingData','get',trainingData)
+
+Mock.mock('/api/Training/createTrainingInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/Training/updateTrainingInfo','get',{data:{stat:'success',statcode:0},code:200})

@@ -20,6 +20,9 @@ import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
 import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
 import EmployeeCheck from '../views/EmployeeCheck'
 import AdmissionTicket from '../views/AdmissionTickets.vue'
+import ShowInformationManagement from '../views/ShowInformationManagement.vue'
+import TrainingManagement from '../views/TrainingManagement.vue'
+import ShowTicketManagement from '../views/ShowTicketManagement.vue'
 
 Vue.use(VueRouter)
 
@@ -131,6 +134,22 @@ const routes = [
     name: 'AdmissionTicket',
     component: AdmissionTicket,
   },
+  {
+    path: '/showInformationManagement',
+    name: 'ShowInformationManagement',
+    component: ShowInformationManagement
+  },
+  {
+    path: '/trainingManagement',
+    name: 'TrainingManagement',
+    component: TrainingManagement
+  },
+  {
+    path: '/ticketManagement/showTicketManagement',
+    name: 'ShowTicketManagement',
+    component: ShowTicketManagement
+  },
+
 ]
 
 const router = new VueRouter({
