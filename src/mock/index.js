@@ -299,3 +299,16 @@ Mock.mock('/api/fundManagement/getAccountList','get',accountListData);
 
 Mock.mock('/api/fundManagement/deleteFlowEntry','get',{data:{stat:'success',statcode:0},code:200})
 Mock.mock('/api/fundManagement/updateFlowEntry','get',{data:{stat:'success',statcode:0},code:200})
+
+let flowList={
+  data:[
+    {fund_acc_id:'192ACFB7',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFB8',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFB9',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFBA',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFBB',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFBC',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'}
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getFlowEntries','get',flowList);

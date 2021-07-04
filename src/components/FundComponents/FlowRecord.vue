@@ -29,6 +29,8 @@
         <pending-progress-card :zmsPendingList="pendingList2" :zmsShow="pendingShow2"/>
         <!--事务进行提示框/查询-->
         <pending-progress-card :zmsPendingList="pendingList3" :zmsShow="pendingShow3"/>
+        <!--事务进行提示框/账户查询-->
+        <pending-progress-card :zmsPendingList="pendingList4" :zmsShow="pendingShow4"/>
     
         <v-container>
             <v-row>
@@ -43,7 +45,7 @@
             </v-row>
             <v-row>
                 <v-col lg="3" xl="3">
-                    <v-card class="zms-special-card">
+                    <v-card class="zms-special-card" :ripple="{class:null}"> 
                         <div class="zms-query-filter">
                             <div>
                                 <v-container>
@@ -87,7 +89,8 @@
                                         
                                         
                                         <v-col cols="12">
-                                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                                            <v-btn v-ripple block class="zms-width"  color="primary" 
+                                            @click="fetchFlowEntries">
                                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                                             </v-btn>
                                         </v-col>
@@ -131,21 +134,34 @@
                                                         <span class="zms-query-title">{{$t('fund.basicInfo')}}</span>
                                                     </v-row>
                                                     <v-row>
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field v-model="editedItem['id']" label="Dessert name"></v-text-field>
+                                                        <v-col cols="12" sm="6" md="3">
+                                                            <v-text-field v-model="editedItem['fund_acc_id']" disabled :label="$t('fund.id')" prepend-icon="mdi-identifier"></v-text-field>
                                                         </v-col>
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field v-model="editedItem['disease_name']" label="Calories"></v-text-field>
+                                                        <v-col cols="12" sm="6" md="3">
+                                                            <v-text-field v-model="editedItem['name']" :label="$t('fund.name')" prepend-icon="mdi-tag"></v-text-field>
                                                         </v-col>
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field v-model="editedItem['veterinary_name']" label="Fat (g)"></v-text-field>
+                                                        <v-col cols="12" sm="6" md="3">
+
+                                                            <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                                <template v-slot:activator="{ on, attrs }">
+                                                                    <v-text-field v-model="editedItem['transaction_time']" :label="$t('fund.tranTime')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                                    </v-text-field>
+                                                                </template>
+                                                                <v-date-picker color="primary" width="400" v-model="editedItem['transaction_time']" @input="menu3 = false"></v-date-picker>
+                                                            </v-menu>
+                                                            
                                                         </v-col>
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field v-model="editedItem['drug']" label="Carbs (g)"></v-text-field>
+                                                        <v-col cols="12" sm="6" md="3">
+                                                            <v-text-field v-model="editedItem['type']" :label="$t('fund.type')" prepend-icon="mdi-tag-plus"></v-text-field>
                                                         </v-col>
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field v-model="editedItem['treatment_progress']" label="Protein (g)"></v-text-field>
+                                                        <v-col cols="12" sm="6" md="3">
+                                                            <v-text-field v-model="editedItem['amount']" :label="$t('fund.amount')" prepend-icon="mdi-currency-cny"></v-text-field>
                                                         </v-col>
+                                                        <v-col cols="12" sm="6" md="3">
+                                                            <v-select v-model="editedItem['bank_acc_id']" :items="accountList" :label="$t('fund.bankaccid')"
+                                                             prepend-icon="mdi-card-account-details"></v-select>
+                                                        </v-col>
+                                                        
                                                     </v-row>
                                                     <v-divider/>
                                                     <v-row>
@@ -177,7 +193,7 @@
                                                 <v-btn  class="zms-halfwidth3" light color="primary" @click="close">
                                                     <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
                                                 </v-btn>
-                                                <v-btn  class="zms-halfwidth3" light color="success" @click="close">
+                                                <v-btn  class="zms-halfwidth3" light color="success" @click="updateEntry">
                                                     <v-icon>mdi-check</v-icon>{{$t('common.save')}}
                                                 </v-btn>
                                             </v-card-actions>
@@ -209,7 +225,7 @@
 import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 import ItemSelector from '../CommonComponents/ItemSelector.vue'
-import {deleteFlowEntry,updateFlowEntry} from '../../apis/fund'
+import {deleteFlowEntry,updateFlowEntry,getFlowEntries,getAccountList} from '../../apis/fund'
 export default {
     name: 'FlowRecord',
     components:{
@@ -219,7 +235,42 @@ export default {
     },
     created(){
     },
+    mounted(){
+        this.fetchAccountList();
+        
+        
+    },
     methods:{
+        fetchAccountList(){
+            this.pendingShow4=1;
+            setTimeout(
+                ()=>{
+                    getAccountList().then(response=>{
+                        this.fetchFlowEntries();
+                        this.accountList.splice(0,this.accountList.length)
+                        let i=0
+                        for(;i<this.accountList.length;i++){
+                            this.accountList.push(null)
+                            this.$set(this.accountList,i,response.data.id)
+                            console.log("FFFFFF")
+                        }
+                        this.pendingShow4=0;
+                    }),3000
+                }
+            )
+        },
+        fetchFlowEntries(){
+            this.pendingShow3=1;
+            setTimeout(
+                ()=>{
+                    getFlowEntries().then(response=>{
+                        this.pendingShow3=0
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                        this.queryData=response.data
+                    })
+                },1000
+            )
+        },
         close () {
             this.dialog = false
             this.$nextTick(() => {
@@ -232,7 +283,7 @@ export default {
         },
         transferSecond(x){
             this.transferTo=x[0]
-            this.$refs.permission_transfer_box.show()
+            this.$refs.permission_transfer_box.showAlert()
         },
         transferFinal(){
             this.pendingShow2=1
@@ -240,12 +291,26 @@ export default {
                 ()=>{
                     updateFlowEntry().then(response=>{
                         this.pendingShow2=0
+                        this.close()
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                    })
+                },1000
+            )
+        },
+        updateEntry(){
+            this.pendingShow2=1
+            setTimeout(
+                ()=>{
+                    updateFlowEntry().then(response=>{
+                        this.pendingShow2=0
+                        this.close()
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                     })
                 },1000
             )
         },
         editItem (item) {
+            //this.fetchAccountList()
             let x=0
             if(x){
                 this.$refs.operator_mismatch_box.showAlert();
@@ -254,11 +319,13 @@ export default {
             this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
+
         },
         deleteItem (item) {
             this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.$refs.delete_entry_box.showAlert()
+            
         },
         deleteEntry(){
             this.pendingShow=1
@@ -266,6 +333,7 @@ export default {
                 ()=>{
                     deleteFlowEntry().then(response=>{
                         this.pendingShow=0
+                        this.fetchFlowEntries();
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                     })
                 },1000
@@ -276,14 +344,12 @@ export default {
         cardNightClass(){
             return{
                 'zms-cardcolor-light':!this.$vuetify.theme.dark,
-                'zms-cardcolor-dark':this.$vuetify.theme.dark,
-                
+                'zms-cardcolor-dark':this.$vuetify.theme.dark, 
             }
         },
         nmNightClass(){
             return{
                 'zms-background-nm-dark':this.$vuetify.theme.dark,
-                
             }
         },
     },
@@ -298,7 +364,6 @@ export default {
             {text: '账户', value: 'bank_acc_id'},
             {text: '处理人', value: 'staff_id'},
             { text: '操作', value: 'actions', sortable: false }
-            
         ],
         pageCount:0,
         page:1,
@@ -307,15 +372,16 @@ export default {
         pendingShow:0,
         pendingList2:[this.$t('fund.updateRecordTran')],
         pendingShow2:0,
+        pendingList3:[this.$t('fund.fetchRecordTran')],
+        pendingShow3:0,
+        pendingList4:[this.$t('fund.fetchAccountTran')],
+        pendingShow4:0,
+        accountList:[],
         dialog:0,
-        queryData:[
-            {fund_acc_id:'192ACFB7',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
-            {fund_acc_id:'192ACFB8',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
-            {fund_acc_id:'192ACFB9',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
-            {fund_acc_id:'192ACFBA',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
-            {fund_acc_id:'192ACFBB',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
-            {fund_acc_id:'192ACFBC',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'}
-        ],
+        menu3:0,
+        menu2:0,
+        date:null,
+        queryData:[],
         editedIndex: -1,
         editedItem: {
             name: '',
@@ -331,10 +397,7 @@ export default {
             carbs: 0,
             protein: 0,
         }}
-        
-        
     }
-  
 }
 </script>
 <style scoped lang="scss">

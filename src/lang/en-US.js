@@ -279,7 +279,14 @@ export default {
         'basicInfo':'Basic Information',
         'permissionTransferDetail':'If the actual manage work of the entry has already been handed over to your colleague, you can transfer the permission to him/her.',
         'updateRecordTran':'Commit entry update request',
-        
+        'fetchRecordTran':'Fetch fund flow entries',
+        'id':'ID',
+        'name':'Name',
+        'tranTime':'Transaction Time',
+        'type':'Type',
+        'amount':'Amount',
+        'bankaccid':'Bank Account ID',
+        'fetchAccountTran':'Fetch account list',
         
     }
 }

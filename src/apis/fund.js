@@ -69,3 +69,11 @@ export function updateFlowEntry(params) {
         params
     })
 }
+
+export function getFlowEntries(params) {
+    return request({
+        url: '/api/fundManagement/getFlowEntries',
+        method: 'get',
+        params
+    })
+}
