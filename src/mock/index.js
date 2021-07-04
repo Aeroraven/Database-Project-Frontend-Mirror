@@ -231,3 +231,84 @@ Mock.mock('/api/Training/getTrainingData','get',trainingData)
 Mock.mock('/api/Training/createTrainingInfo','get',{data:{stat:'success',statcode:1},code:200})
 
 Mock.mock('/api/Training/updateTrainingInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+//Fund
+let accountIncOv={
+  data:[
+    {name:'A',value:4400},
+    {name:'B',value:5400},
+    {name:'C',value:6400},
+    {name:'D',value:7400},
+    {name:'E',value:8400},
+    {name:'F',value:9400},
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getAccountIncomesOverview','get',accountIncOv);
+Mock.mock('/api/fundManagement/getAccountExpenseOverview','get',accountIncOv);
+
+let accountIncOv2={
+  data:[
+    {name:'AX',value:1400},
+    {name:'BX',value:5400},
+    {name:'CX',value:6400},
+    {name:'DX',value:7400},
+    {name:'EX',value:8400},
+    {name:'FX',value:9400},
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getCategoryIncomesOverview','get',accountIncOv2);
+Mock.mock('/api/fundManagement/getCategoryExpenseOverview','get',accountIncOv2);
+
+
+let accountBalOv={
+  data:{
+    values:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292],
+    date:['1','2','3','4','5','6','7','8','9','10','11']
+  },
+  code:200
+}
+Mock.mock('/api/fundManagement/getOverallBalanceShift','get',accountBalOv);
+
+let accountBalOv2={
+  data:{
+    date:['1','2','3','4','5','6','7','8','9','10','11'],
+    values:[
+      {name:'A',data:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292],type:'line'},
+      {name:'B',data:[0, 2900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292],type:'line'},
+      {name:'C',data:[0, 3900, 1245, 1530, 4400,4176, 4111, 1689, 1856, 1495, 3333],type:'line'},
+      {name:'D',data:[0, 4900, 3400, 3400, 4400, 1376, 1511, 1689, 1856, 1495, 1292],type:'line'},
+    ]
+  },
+  code:200
+}
+Mock.mock('/api/fundManagement/getAccountBalanceShift','get',accountBalOv2);
+
+let accountListData={
+  data:[
+    {id:'1',name:'A'},
+    {id:'3',name:'B'},
+    {id:'2',name:'C'},
+    {id:'4',name:'D'},
+    {id:'5',name:'E'},
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getAccountList','get',accountListData);
+
+Mock.mock('/api/fundManagement/deleteFlowEntry','get',{data:{stat:'success',statcode:0},code:200})
+Mock.mock('/api/fundManagement/updateFlowEntry','get',{data:{stat:'success',statcode:0},code:200})
+
+let flowList={
+  data:[
+    {fund_acc_id:'192ACFB7',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFB8',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFB9',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFBA',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFBB',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'},
+    {fund_acc_id:'192ACFBC',name:'测试',transaction_time:'1970-01-01',type:'A',amount:'112233.00',bank_acc_id:'#1',staff_id:'9A7C'}
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getFlowEntries','get',flowList);
