@@ -12,16 +12,16 @@
                     <v-icon left>mdi-card-bulleted</v-icon>账户管理
                 </v-tab>
                 
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
-                        <flow-statistics/>
+                <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
+                    <flow-statistics/>
 
-                    </v-tab-item>
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="2">
-                        <flow-record/>
-                    </v-tab-item>
-                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="3">
-                        <bank-account-overview/>
-                    </v-tab-item>
+                </v-tab-item>
+                <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="2">
+                    <flow-record/>
+                </v-tab-item>
+                <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="3">
+                    <bank-account-overview @searchRelatedTransactions="tackleRelatedTrans(arguments)"/>
+                </v-tab-item>
             </v-tabs>
         </template>
     </div>
@@ -36,6 +36,12 @@ import FlowStatistics from './FlowStatistics.vue'
 export default {
     name: 'FundContainer',
     created(){
+        
+    },
+    methods:{
+        tackleRelatedTrans(x){
+            this.tab=1
+        }
     },
     components:{
         EchartExample,
@@ -44,7 +50,7 @@ export default {
         FlowRecord,
         FlowStatistics
     },data:()=>{
-         return{
+        return{
             tab:null,
         }
     }
