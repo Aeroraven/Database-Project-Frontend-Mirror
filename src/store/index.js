@@ -45,13 +45,13 @@ let store= new Vuex.Store({
             {name:'navbar.anifeedManage',route:'/animalFeedManagement',icon:'mdi-food-variant',child:[]},
             {name:'navbar.anibreedManage',route:'/animalReproductionManagement',icon:'mdi-baby-bottle-outline',child:[]},
           ]},
-          {name:'navbar.anishowManage',route:'',icon:'mdi-radio',child:[
-            {name:'navbar.anishowinfManage',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'navbar.anitrainManage',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+          {name:'navbar.anishowManage',route:'/showInformationManagement',icon:'mdi-radio',child:[
+            {name:'navbar.anishowinfManage',route:'/showInformationManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.anitrainManage',route:'/trainingManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.ticketManage',route:'',icon:'mdi-ticket',child:[
-            {name:'navbar.shwtckMan',route:'/ticketManagement/AdmissionTickets',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'navbar.admtckMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.shwtckMan',route:'/ticketManagement/showTicketManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.admtckMan',route:'/ticketManagement/AdmissionTickets',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.faclMan',child:[],route:'',icon:'mdi-home'},
           {name:'navbar.fundMan',route:'',icon:'mdi-sack',child:[
