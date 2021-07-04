@@ -246,17 +246,20 @@ export default {
             setTimeout(
                 ()=>{
                     getAccountList().then(response=>{
+                        console.log("XXXXXXXXXXXXXXXXXX")
+                        console.log(response)
                         this.fetchFlowEntries();
                         this.accountList.splice(0,this.accountList.length)
                         let i=0
-                        for(;i<this.accountList.length;i++){
+                        for(;i<response.data.length;i++){
                             this.accountList.push(null)
-                            this.$set(this.accountList,i,response.data.id)
+                            this.$set(this.accountList,i,response.data[i].id)
                             console.log("FFFFFF")
                         }
                         this.pendingShow4=0;
-                    }),3000
-                }
+                        console.log(this.accountList)
+                    })
+                },3000
             )
         },
         fetchFlowEntries(){
