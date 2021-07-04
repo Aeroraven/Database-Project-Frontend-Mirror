@@ -171,3 +171,18 @@ let staffList={
 }
 
 Mock.mock('/api/staffManagement/getStaffList','get',staffList)
+
+
+let employeeData={
+  data:[
+    {id:'1144444',storage_name:'飞禽馆',storage_location:'黄渡理工大学 F楼213'},
+    {id:'1144445',storage_name:'猛禽馆',storage_location:'黄渡理工大学 创业谷2345'},
+    {id:'1144446',storage_name:'灵长类馆',storage_location:'黄渡理工大学 D楼102'},
+    {id:'1144447',storage_name:'海洋区',storage_location:'黄渡理工大学 G楼207'},
+    {id:'1144448',storage_name:'草食动物馆',storage_location:'黄渡理工大学 G楼209'},
+  ],
+  code:200
+}
+
+Mock.mock('/api/employeeRequest/getWarehouseInfo','get',employeeData)
+Mock.mock('/api/employeeRequest/updateWarehouseInfo','get',{data:{stat:'success',statcode:1},code:200})

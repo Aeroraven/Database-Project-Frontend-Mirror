@@ -14,6 +14,12 @@ import ProcurementManagement from '../views/ProcurementManagement.vue'
 import WarehouseInfoManagement from '../views/WarehouseInfoManagement.vue'
 import WarehouseFlowManagement from '../views/WarehouseFlowManagement.vue'
 import FundManagement from '../views/FundManagement.vue'
+import EmployeeManagement from '../views/EmployeeManagement.vue'
+import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
+import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
+import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
+import EmployeeCheck from '../views/EmployeeCheck'
+import AdmissionTicket from '../views/AdmissionTickets.vue'
 
 Vue.use(VueRouter)
 
@@ -92,7 +98,39 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  },
+  {
+    path: '/employeeManagement',
+    name: 'WarehouseManagement',
+    component: EmployeeManagement
+  },
+
+  {
+    path: '/employeeManagement/flowManagement',
+    name: 'WarehouseFlowManagement',
+    component: EmployeeFlowManagement
+  },
+  {
+    path: '/employeeManagement/infoManagement',
+    name: 'WarehouseInfoManagement',
+    component: EmployeeInfoManagement,
+  },
+  {
+    path: '/employeeManagement/itemManagement',
+    name: 'EmployeeItemManagement',
+    component: EmployeeItemManagement,
+  },
+  {
+    path: '/employeeManagement/check',
+    name: 'EmployeeItemManagement',
+    component: EmployeeCheck,
+  },
+
+  {
+    path: '/ticketsManagement/AdmissionTickets',
+    name: 'AdmissionTicket',
+    component: AdmissionTicket,
+  },
 ]
 
 const router = new VueRouter({
