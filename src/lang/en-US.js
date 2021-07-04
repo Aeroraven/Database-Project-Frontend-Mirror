@@ -236,6 +236,28 @@ export default {
     'common2':{
         'abort':'Abort',
         'complete':'Complete',
-        'transactionDone':'The transaction has been done.'
+        'transactionDone':'The transaction has been done.',
+        'filter':'Filter'
+    },
+    'fund':{
+        'selectCond':'Analysis Option',
+        'analysisOverview':'Analysis Overview',
+        'startDate':'Start Date',
+        'endDate':'End Date',
+        'selectedAccounts':'Selected Account',
+        'byAccounts':'By account',
+        'byCategory':'By category',
+        'cateIncome':'Income Statistics (by Category)',
+        'cateExpense':'Expenditure Statistics (by Category)',
+        'accIncome':'Income Statistics (by Account)',
+        'accExpense':'Expenditure Statistics (by Account)',
+        'inexOverview':'Income & Expenditure Overview',
+        'balanceShift':'Overall Balance Shift Trend',
+        'balanceShiftPerAccount':'Balance Shift Trends (By Account)',
+        'fetchIncomeDataAc':'Fetch Income Data (By Account)',
+        'fetchExpenseDataAc':'Fetch Expenditure Data (By Account)',
+        'fetchIncExpData':'Fetch Income & Expenditure Data',
+        'fetchBalanceShift':'Fetch Balance Shift Data',
+        'fetchBalanceShiftAc':'Fetch Balance Shift Data (By Account)',
     }
 }

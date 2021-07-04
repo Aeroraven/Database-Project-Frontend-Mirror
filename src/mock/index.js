@@ -231,3 +231,35 @@ Mock.mock('/api/Training/getTrainingData','get',trainingData)
 Mock.mock('/api/Training/createTrainingInfo','get',{data:{stat:'success',statcode:1},code:200})
 
 Mock.mock('/api/Training/updateTrainingInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+//Fund
+let accountIncOv={
+  data:[
+    {id:'A',value:'4400'},
+    {id:'B',value:'5400'},
+    {id:'C',value:'6400'},
+    {id:'D',value:'7400'},
+    {id:'E',value:'8400'},
+    {id:'F',value:'9400'},
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getAccountIncomesOverview','get',accountIncOv);
+Mock.mock('/api/fundManagement/getAccountExpenseOverview','get',accountIncOv);
+
+let accountBalOv={
+  data:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292],
+  code:200
+}
+Mock.mock('/api/fundManagement/getOverallBalanceShift','get',accountBalOv);
+
+let accountBalOv2={
+  data:[
+    {id:'A',data:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]},
+    {id:'B',data:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]},
+    {id:'C',data:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]},
+    {id:'D',data:[0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]},
+  ],
+  code:200
+}
+Mock.mock('/api/fundManagement/getAccountBalanceShift','get',accountBalOv2);
