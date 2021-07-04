@@ -109,10 +109,10 @@ Mock.mock('/api/warehouseRequest/updateWarehouseInfo','get',{data:{stat:'success
 
 let warehouseItem={
   data:[
-    {item_id:'1956100',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-    {item_id:'1956101',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-    {item_id:'1956102',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
-    {item_id:'1956103',type:'饲料',name:'饲料',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12'},
+    {item_id:'1956100',type:'Food',name:'Feline Fodder',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
+    {item_id:'1956101',type:'Food',name:'Canine Fodder',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
+    {item_id:'1956102',type:'Food',name:'Amphibious Fodder',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
+    {item_id:'1956103',type:'Specimen',name:'Lizard Specimen',quality_guarantee:'2049-10-10',channel:'黄渡镇',staff_id:'1930101',cnt:'12',wareid:'0'},
   ],
   code:200
 }
@@ -138,20 +138,51 @@ Mock.mock('/api/procManagement/getProcOverview','get',procOverview)
 
 let animalList={
   data:[
-    {id:'123',category:'Lion',name:'Lucida',gender:'Female',age:'17',faclId:'12345'},
-    {id:'124',category:'Lynx',name:'Kaltsit',gender:'Female',age:'17',faclId:'12345'},
-    {id:'125',category:'Snow Leopard',name:'Sliverash',gender:'Female',age:'17',faclId:'12345'},
-    {id:'126',category:'Feline',name:'Vanilla',gender:'Female',age:'17',faclId:'12345'},
-    {id:'127',category:'Red Fox',name:'Alisa',gender:'Female',age:'17',faclId:'12345'},
-    {id:'128',category:'Racoon Dog',name:'Sayu',gender:'Female',age:'17',faclId:'12345'},
-    {id:'129',category:'Giant Panda',name:'Pingping',gender:'Female',age:'17',faclId:'12345'},
-    {id:'130',category:'Feline',name:'Diona',gender:'Female',age:'17',faclId:'12345'},
-    {id:'131',category:'Feline',name:'Tio',gender:'Female',age:'17',faclId:'12345'},
-    {id:'132',category:'Squirrel',name:'Shaw',gender:'Female',age:'17',faclId:'12345'},
-    {id:'133',category:'Weasel',name:'Yuki',gender:'Female',age:'17',faclId:'12345'},
-    {id:'134',category:'Horse',name:'Platinum',gender:'Female',age:'17',faclId:'12345'},
+    {id:'122',category:'Snail',name:'Biden',gender:'Hermaphrodite',age:'17',faclId:'12345',status:'died'},
+    {id:'123',category:'Lion',name:'Lucida',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'124',category:'Lynx',name:'Kaltsit',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'125',category:'Snow Leopard',name:'Sliverash',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'126',category:'Feline',name:'Vanilla',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'127',category:'Red Fox',name:'Alisa',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'128',category:'Racoon Dog',name:'Sayu',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'129',category:'Giant Panda',name:'Pingping',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'130',category:'Feline',name:'Diona',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'131',category:'Feline',name:'Tio',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'132',category:'Squirrel',name:'Shaw',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'133',category:'Weasel',name:'Yuki',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'134',category:'Horse',name:'Platinum',gender:'Female',age:'17',faclId:'12345',status:'alive'},
+    {id:'135',category:'Celine',name:'Trump',gender:'Female',age:'17',faclId:'12345',status:'died'},
   ],
   code:200
 }
 Mock.mock('/api/animalCore/getAnimalList','get',animalList)
 
+
+let staffList={
+  data:[
+    {id:'124',position:'Guard Dog',name:'Biden',gender:'Hermaphrodite',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'125',position:'Guard Dog',name:'Abe',gender:'Hermaphrodite',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'126',position:'Guard Dog',name:'Obama',gender:'Hermaphrodite',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'127',position:'Guard Dog',name:'Trump',gender:'Asexual',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'128',position:'Guard Dog',name:'Bush',gender:'Asexual',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+    {id:'129',position:'Guard Dog',name:'Josh',gender:'Asexual',age:'17',wage:123,park:'Texas',employment_year:'2021'},
+  ],
+  code:200
+}
+
+Mock.mock('/api/staffManagement/getStaffList','get',staffList)
+
+
+let employeeData={
+  data:[
+    {id:'1144444',storage_name:'飞禽馆',storage_location:'黄渡理工大学 F楼213'},
+    {id:'1144445',storage_name:'猛禽馆',storage_location:'黄渡理工大学 创业谷2345'},
+    {id:'1144446',storage_name:'灵长类馆',storage_location:'黄渡理工大学 D楼102'},
+    {id:'1144447',storage_name:'海洋区',storage_location:'黄渡理工大学 G楼207'},
+    {id:'1144448',storage_name:'草食动物馆',storage_location:'黄渡理工大学 G楼209'},
+  ],
+  code:200
+}
+
+Mock.mock('/api/employeeRequest/getWarehouseInfo','get',employeeData)
+Mock.mock('/api/employeeRequest/updateWarehouseInfo','get',{data:{stat:'success',statcode:1},code:200})

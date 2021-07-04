@@ -3,10 +3,10 @@
         <template>
             <v-tabs fixed-tabs background-color="primary" class="rounded" dark v-model="tab">
                 <v-tab :key="1">
-                    救护信息概览
+                    {{$t('animalCareMain.infoOverview')}}
                 </v-tab>
                 <v-tab :key="2">
-                    填报救助信息
+                    {{$t('animalCareMain.initiateRequest')}}
                 </v-tab>
                 
             </v-tabs>

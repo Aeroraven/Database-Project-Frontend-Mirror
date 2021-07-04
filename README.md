@@ -2,11 +2,7 @@
 
 ##### 运行方法
 
-1. 参看without-vuetify分支的readme.md
-
-2. 目前分支中的vuetify.js中附带的reset.css等将css重置，可能有些组件的自定义css不生效(例如border-radius等)。（未使用vuetify前的代码在分支without-vuetify中，不过不太好看）
-
-3. 对于不生效的CSS，试着加下 !important。
+1. 新功能可以新建一个分支，完成后再merge到develop分支里
 
 4. 静态页面直接放在public文件夹下
 
@@ -20,11 +16,34 @@
 
 
 ##### 更新记录
+更新 @ 2021-07-03 16:58
+
+- 更新组件：实体选择(AnimalSelector)
+
+  - 支持选择员工
+  - 调整样式
+
+- 继续完善了动物医疗管理的部分内容
+
+  
+
+更新 @ 2021-07-03 11:20
+
+- 更新组件：实体选择(AnimalSelector)
+
+  - 支持选择物品
+
+  - 调整样式
+
+  - 使用`zmsSelectorMode`指定要选择的类型（动物、员工、物品）
+
+    
+
 更新 @ 2021-07-02 23:14 
 
 - 新增组件：动物实体选择(AnimalSelector)
   - 避免用户直接输入动物编号的问题
-  - 使用事件`@animalSelectorSelect(arguments)`来获取用户输入的动物编号
+  - 使用事件`@itemSelectorSelect(arguments)`来获取用户输入的动物编号
 - 新增组件：等待进度条(PendingProgressCard)
   - 避免代码冗余
   - 使用属性`zmsShow`控制该卡片的显示和隐藏

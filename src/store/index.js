@@ -28,6 +28,11 @@ let store= new Vuex.Store({
             warehouseManagement_flowRecord:'topbar.warehouseManagement_flowRecord',
             fundManagement:'topbar.fundManagement',
             procurement:'topbar.procurement',
+            employeeManagement:'员工管理',
+            employeeManagement_flowRecord:'新增员工信息',
+            employeeManagement_info:'员工信息管理',
+            EmployeeItemManagement_item:'员工部门信息管理',
+            EmployeeManagement_check:'员工考核'
         },
         sProjectFunctions:[
           //{name:'组件示例',route:'',icon:'mdi-puzzle',child:[
@@ -45,7 +50,7 @@ let store= new Vuex.Store({
             {name:'navbar.anitrainManage',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.ticketManage',route:'',icon:'mdi-ticket',child:[
-            {name:'navbar.shwtckMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.shwtckMan',route:'/ticketManagement/AdmissionTickets',icon:'assets/slide-bar-animal-manage.png',child:[]},
             {name:'navbar.admtckMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.faclMan',child:[],route:'',icon:'mdi-home'},
@@ -57,8 +62,8 @@ let store= new Vuex.Store({
             {name:'navbar.wareMan',route:'/warehouseManagement',icon:'mdi-database',child:[]}
           ]},
           {name:'navbar.perMan',route:'',icon:'mdi-account-cog',child:[
-            {name:'navbar.perinfMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'navbar.perChkMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.perinfMan',route:'/employeeManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.perChkMan',route:'/employeeManagement/check',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.guidMan',child:[],route:'',icon:'mdi-account-voice'},
           {name:'navbar.trafMan',child:[],route:'',icon:'mdi-car-hatchback'},

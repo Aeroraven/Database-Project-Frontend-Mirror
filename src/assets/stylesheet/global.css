@@ -55,6 +55,9 @@
 .zms-strip-bg{
     background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 45px, rgba(255, 255, 255, 0.1) 45px, rgba(255, 255, 255, 0.1) 90px ) !important;
 }
+.zms-strip-bg-slim{
+    background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3) 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 40px ) !important;
+}
 .zms-nav-padding{
     padding-left:50px;
 }
@@ -71,6 +74,9 @@
 .zms-halfwidth2{
     width:30%;
     
+}
+.zms-halfwidth3{
+    width:20%;
 }
 .zms-inlb{
     display: inline-block;
@@ -138,4 +144,11 @@
 .zms-anisel-av{
     font-size:16px;
     
+}
+.zms-bold-font{
+    font-weight: bold;
+}
+.zms-force-nowrap-e{
+    white-space:nowrap;
+    text-overflow: ellipsis;
 }

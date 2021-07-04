@@ -158,9 +158,34 @@ export default {
         'category2':'Category',
         'successSearch':'Information has been fetched successfully',
         'emptyInfo':'No matched items are found',
-        'notSelected':'You have not selected any animal entity yet!',
+        'notSelected':'You have not selected any entity yet!',
         'selectDone':'The selection has been done successfully!',
-        'emptyTip':'Initiate search request to find animals'
+        'emptyTip':'Initiate search request to find items',
+        'invalidDeath':'The animal has passed away.',
+        'invalidNoPermission':'Only the custodian can perform operations',
+        'invalidDeathToast':'Gone entities cannot be chosen'
+    },
+    'staffselector':{
+        'title':'Staff Selection',
+        'itemList':'STAFF LIST',
+        'position':'Position',
+        'gender':'Gender',
+        'age':'Age',
+        'park':'Park',
+        'employYear':'Hire Date',
+        'id':'ID',
+        'name':'Name',
+    },
+    'itemselector':{
+        'title':'Warehouse Item Selection',
+        'itemList':'ITEM LIST',
+        'category':'Category',
+        'stock':'Current Stock',
+        'channel':'Channel',
+        'wareid':'Warehouse',
+        'staffInCharge':'Custodian',
+        'itemid':'ID',
+        'name':'Name'
     },
     'pendingProg':{
         'PleaseWait':'The transaction is being processed. Please wait...',
@@ -168,6 +193,49 @@ export default {
     },
     'viewTitles':{
         'animalCareMan':'Animal Medical Care Management'
+    },
+    'animalCareMain':{
+        'infoOverview':'information overview',
+        'initiateRequest':'initiate succour'
+    },
+    'animalCare2':{
+        'secondaryTitle':'Detailed Report Options',
+        'generateDescription':'Generate Description',
+        'symptoms':'Symptoms',
+        'severity':'Severity',
+        'custSymptoms':'Hint: customize symptoms by pressing enter after inputing each',
+        'severityHint':'Choose the severity of the situation.',
+        'description':'The forms below are optional. These options are used to assist you construct a comprehensive description of the animal entity\'s situation. After completeing forms below, click on `Generate Description` to get a automatically generated description.',
+        'temperature':'Physical Temperature',
+        'heartRate':'Heart Rate',
+        'reportGenSuccessful':'Successfully generated succour description',
+        'alterStep1':'Submit',
+        'alterStep2':'Process',
+        'alterStep3':'Complete',
+        'traceSuccour':'Trace & Update Succour Information',
+        'alterProcess':'Update Process Info',
+        'processDone':'Treatment Completed',
+        'completeWork':'The process has been closed and cannot be edited.',
+        'markComplete':'Complete & Abort Request',
+        'closeReqWarning':'Contents below will only be saved when you close or complete the request.',
+        'closeReqWarning2':'Once the request is aborted or completed, it cannot be edited.',
+        'traceProcessDescription2':'If the stages or situations of the treatment shift, you can update the latest information by modifying the information below',
+        'closeReqDesc2':'If the animal has been cured or unfortunately bid farewell to the world, you can close the request here. If cure was performed successfully, click `Complete`. In other cases, click `Abort`.',
+        'currentStatus':'Current Status',
+        'cureDate':'Complete Date',
+        'completeType':'Complete Type',
+        'emptyCompleteType':'Complete type cannot be empty',
+        'chooseByMagnify':'The entry cannot be input via keys.Click the magnifier icon to choose items',
+        'emptyCureDate':'The complete date cannot be empty',
+        'dateAhead':'We cannot predict the future. Check your date input.',
+        'closeReqMsgTitle':'Close Succour Request',
+        'closeReqMsgBody':'Are you sure to abort the succour request or mark it completed. Once the operation is done, further alterations to the entry is forbidden, which means it will be readonly. This operation cannot be undone, if you are sure what you are doing, click `Confirm`. Otherwise, click `Cancel`',
+        'overviewFirstFind':'Click `Filter` to find succour entries corresponding to your requirement.',
+        'traceProcessDescription3':'The information below recorded the treatment success or abortion information.'
+    },
+    'common2':{
+        'abort':'Abort',
+        'complete':'Complete',
+        'transactionDone':'The transaction has been done.'
     }
-    
 }
