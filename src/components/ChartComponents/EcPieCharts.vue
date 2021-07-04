@@ -42,6 +42,7 @@ export default {
             _this.option.resize()
             console.log("Triggered");
         }
+        this.applyChanges();
     },
     methods:{
         applyChanges(){
@@ -49,6 +50,8 @@ export default {
             this.option.legend.data=this.zmsChartLegend
             this.option.series[0].name=this.zmsChartTitle
             this.option.series[0].data=this.zmsChartData
+            console.log("####")
+            console.log(this.zmsChartLegend)
         }
     },
     data() {

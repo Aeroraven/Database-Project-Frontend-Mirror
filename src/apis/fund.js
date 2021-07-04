@@ -14,6 +14,22 @@ export function getAccountExpenseOverview(params) {
         params
     })
 }
+
+export function getCategoryIncomesOverview(params) {
+    return request({
+        url: '/api/fundManagement/getCategoryIncomesOverview',
+        method: 'get',
+        params
+    })
+}
+export function getCategoryExpenseOverview(params) {
+    return request({
+        url: '/api/fundManagement/getCategoryExpenseOverview',
+        method: 'get',
+        params
+    })
+}
+
 export function getOverallBalanceShift(params) {
     return request({
         url: '/api/fundManagement/getOverallBalanceShift',
@@ -29,4 +45,27 @@ export function getAccountBalanceShift(params) {
     })
 }
 
+export function getAccountList(params) {
+    return request({
+        url: '/api/fundManagement/getAccountList',
+        method: 'get',
+        params
+    })
+}
 
+
+export function deleteFlowEntry(params) {
+    return request({
+        url: '/api/fundManagement/deleteFlowEntry',
+        method: 'get',
+        params
+    })
+}
+
+export function updateFlowEntry(params) {
+    return request({
+        url: '/api/fundManagement/updateFlowEntry',
+        method: 'get',
+        params
+    })
+}

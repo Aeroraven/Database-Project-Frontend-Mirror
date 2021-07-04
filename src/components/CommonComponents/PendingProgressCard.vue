@@ -65,6 +65,14 @@ export default {
     methods:{
         show(){
             this.zmsDisplay=true;
+            let i=0
+        },
+        reset(){
+            let i=0
+            for(;i<this.zmsPendingList.length;i++){
+                this.$set(this.zmsPendingStatus,i,0)
+                console.log('RESET')
+            }
         },
         complete(x){
             this.$set(this.zmsPendingStatus,x,1);

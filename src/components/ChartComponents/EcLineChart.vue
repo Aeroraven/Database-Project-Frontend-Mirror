@@ -35,6 +35,7 @@ export default {
         zmsChartTitle:String,
         zmsChartLegend:Array,
         zmsChartData:Array,
+        zmsChartXAxis:Array,
     },
     mounted(){
         let _this = this;
@@ -47,8 +48,8 @@ export default {
         applyChanges(){
             this.option.title.text=this.zmsChartTitle;
             this.option.legend.data=this.zmsChartLegend
-            this.option.series[0].name=this.zmsChartTitle
-            this.option.series[0].data=this.zmsChartData
+            this.option.series=this.zmsChartData
+            this.option.xAxis.data=this.zmsChartXAxis
         }
     },
     data() {
@@ -70,7 +71,7 @@ export default {
                 xAxis: {
                     type: 'category',   // 还有其他的type，可以去官网喵两眼哦
                     data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],   // x轴数据
-                    name: '日期',   // x轴名称
+                    name: 'Date',   // x轴名称
                     // x轴名称样式
                     nameTextStyle: {
                         fontWeight: 600,
@@ -79,7 +80,7 @@ export default {
                 },
                 yAxis: {
                     type: 'value',
-                    name: '纵轴名称',   // y轴名称
+                    name: 'Amount',   // y轴名称
                     // y轴名称样式
                     nameTextStyle: {
                         fontWeight: 600,

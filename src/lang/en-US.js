@@ -259,5 +259,27 @@ export default {
         'fetchIncExpData':'Fetch Income & Expenditure Data',
         'fetchBalanceShift':'Fetch Balance Shift Data',
         'fetchBalanceShiftAc':'Fetch Balance Shift Data (By Account)',
+        'incomeOverview':'Income Chart',
+        'expenseOverview':'Expense Chart',
+        'account':'Account',
+        'category':'Category',
+        'balanceShiftChartTitle':'Overall Balance Change',
+        'findAccounts':'Find Available Accounts',
+        'DateAhead':'We still cannot predict the future!',
+        'endDateTooEarly':'Start date should not exceed end date',
+        'deleteRecord':'Are you sure to delete the record. Once the transaction is committed, it cannot be rolled back.',
+        'deleteRecordTitle':'Entry Deletion',
+        'deleteRecordTran':'Commit entry deletion request',
+        'modifyEntry':'Entry Details & Modification',
+        'operatorMismatch':'Only the operator can perform further alterations on this entry. If you find anything incorrect, contact with the operator to rectify the mistake. Or you can ask the operator to transfer the permission to you.',
+        'operatorMismatchTitle':'Permission Denied',
+        'permissionTransfer':'Once the operator privilege is transfered to other user, you lose all rights to perform any futher alterations on this entry.',
+        'permissionTransferTitle':'Permission Transfer',
+        'permissionTransferPref':'The recipient\'s staff id is ',
+        'basicInfo':'Basic Information',
+        'permissionTransferDetail':'If the actual manage work of the entry has already been handed over to your colleague, you can transfer the permission to him/her.',
+        'updateRecordTran':'Commit entry update request',
+        
+        
     }
 }

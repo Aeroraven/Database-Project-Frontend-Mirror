@@ -36,6 +36,7 @@ export default {
         zmsChartTitle:String,
         zmsChartLegend:Array,
         zmsChartData:Array,
+        zmsChartXAxis:Array,
     },
     mounted(){
         let _this = this;
@@ -43,13 +44,29 @@ export default {
             _this.option.resize()
             console.log("Triggered");
         }
+        //this.applyChanges()
     },
     methods:{
         applyChanges(){
             this.option.title.text=this.zmsChartTitle;
-            this.option.legend.data=this.zmsChartLegend
-            this.option.series[0].name=this.zmsChartTitle
-            this.option.series[0].data=this.zmsChartData
+            this.option.xAxis.data=this.zmsChartXAxis
+            this.option.xAxis.data.splice(this.option.xAxis.data.length-1,1)
+            let incomes=[],expense=[]
+            let i=0
+            for(;i<this.zmsChartData.length;i++){
+                incomes.push(null)
+                this.$set(incomes,i,this.zmsChartData[i+1]-this.zmsChartData[i])
+                if(incomes[i]<0){
+                    this.$set(incomes,i,'-')
+                }
+                expense.push(null)
+                this.$set(expense,i,-this.zmsChartData[i+1]+this.zmsChartData[i])
+                if(expense[i]<=0){
+                    this.$set(expense,i,'-')
+                }
+            }
+            this.option.series[1].data=incomes
+            this.option.series[2].data=expense
         }
     },
     data() {

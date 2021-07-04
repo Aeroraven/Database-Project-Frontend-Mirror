@@ -40,8 +40,9 @@
             <v-row>
                 <v-spacer/>
                 <v-col cols="12" sm="6" md="3">
-                    <v-btn :disabled="submitStat" block class="zms-width"  color="success">
-                        <v-icon>mdi-arrow-collapse-up</v-icon>&nbsp;&nbsp;{{$t('common2.filter')}}
+                    <v-btn block class="zms-width"  color="success" 
+                    @click="initiateFilter">
+                        <v-icon>mdi-filter-plus</v-icon>&nbsp;&nbsp;{{$t('common2.filter')}}
                     </v-btn>
                 </v-col>
             </v-row>
@@ -52,7 +53,9 @@
             <v-icon color="primary">mdi-upload-multiple</v-icon>
             <span class="zms-query-titlex ">{{$t('fund.inexOverview')}}</span><br/>
         </div>
-        <flow-statistics-pie-overview @zmsComplete="completeTask(0)"/>
+        <flow-statistics-pie-overview 
+        ref='flowstat_bk1'
+        @zmsComplete="completeTask(0)"/>
         
         <br/><br/>
         <v-divider/>
@@ -61,7 +64,9 @@
             <span class="zms-query-titlex ">{{$t('fund.balanceShift')}}</span><br/>
         </div>
         <div>
-            <flow-statistics-balance-shift-trend @zmsComplete="completeTask(1)"/>
+            <flow-statistics-balance-shift-trend 
+            ref='flowstat_bk2'
+            @zmsComplete="completeTask(1)"/>
         </div>
 
         <br/><br/>
@@ -71,7 +76,9 @@
             <span class="zms-query-titlex ">{{$t('fund.balanceShiftPerAccount')}}</span><br/>
         </div>
         <div>
-            <flow-statistics-balance-shift-details @zmsComplete="completeTask(2)"/>
+            <flow-statistics-balance-shift-details
+            ref='flowstat_bk3'
+             @zmsComplete="completeTask(2)"/>
         </div>
     </div>
 </template>
@@ -82,9 +89,14 @@ import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 import FlowStatisticsBalanceShiftDetails from './FlowStatisticsBalanceShiftDetails.vue'
 import FlowStatisticsBalanceShiftTrend from './FlowStatisticsBalanceShiftTrend.vue'
 import FlowStatisticsPieOverview from './FlowStatisticsPieOverview.vue'
+import {getAccountList} from '../../apis/fund'
 export default{
     components: { EcPieCharts, FlowStatisticsPieOverview, EcWaterfallBarChart, FlowStatisticsBalanceShiftDetails, FlowStatisticsBalanceShiftTrend, PendingProgressCard },
     name:'FlowStatistics',
+    mounted(){
+        this.fetchAccountList()
+    },
+    
     data(){
         return {
             submitBeginDate:'2021-07-01',
@@ -98,18 +110,73 @@ export default{
             showPendingList:[
                 this.$t('fund.fetchIncExpData'),
                 this.$t('fund.fetchBalanceShift'),
-                this.$t('fund.fetchBalanceShiftAc')
+                this.$t('fund.fetchBalanceShiftAc'),
+                this.$t('fund.findAccounts')
             ],
             showPendingCnt:0
         }
     },
     methods:{
+        fetchAccountList(){
+            setTimeout(
+                ()=>{
+                    getAccountList().then(response=>{
+                        this.accountList.splice(0,this.accountList.length)
+                        let i=0;
+                        for(;i<response.data.length;i++){
+                            this.accountList.push(null)
+                            this.$set(this.accountList,i,'('+response.data[i].id+')'+response.data[i].name)
+                        }
+                        console.log("xxxxx")
+                        console.log(this.accountList)
+                        this.showPendingCnt++;
+                        this.completeTask(4)
+                    }),3000
+                }
+            )
+        },
+        submitFailTip(x){
+            this.$store.dispatch('showToastNotify',{type:'error',info:x})
+        },
+        initiateFilter(){
+            let year0=this.submitEndDate.split("-")[0];
+            let month0=this.submitEndDate.split("-")[1]-1;
+            let day0=this.submitEndDate.split("-")[2];
+            let date0= new Date(year0,month0,day0)
+
+            let year1=this.submitBeginDate.split("-")[0];
+            let month1=this.submitBeginDate.split("-")[1]-1;
+            let day1=this.submitBeginDate.split("-")[2];
+            let date1= new Date(year1,month1,day1)
+            let date2 = new Date()
+            if(date1>date2){
+                this.submitFailTip(this.$t('fund.DateAhead'))
+                return 0;
+            }
+            if(date0>date2){
+                this.submitFailTip(this.$t('fund.DateAhead'))
+                return 0;
+            }
+            if(date1>date0){
+                this.submitFailTip(this.$t('fund.endDateTooEarly'))
+                return 0;
+            }
+            this.showPending=1
+            this.showPendingCnt=0
+            this.$refs.pending.reset();
+            this.$refs.flowstat_bk1.loadData();
+            this.$refs.flowstat_bk2.loadData();
+            this.$refs.flowstat_bk3.loadData();
+            this.fetchAccountList()
+        },
         completeTask(x){
             this.$refs.pending.complete(x);
             console.log('complete')
             this.showPendingCnt++;
-            if(this.showPendingCnt===3){
+            if(this.showPendingCnt===4){
                 this.showPending=0;
+                this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+            
             }
         }
     }
