@@ -127,7 +127,7 @@ const routes = [
   },
 
   {
-    path: '/ticketsManagement/Admissiontickets',
+    path: '/ticketsManagement/AdmissionTickets',
     name: 'AdmissionTicket',
     component: AdmissionTicket,
   },

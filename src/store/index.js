@@ -50,7 +50,7 @@ let store= new Vuex.Store({
             {name:'navbar.anitrainManage',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.ticketManage',route:'',icon:'mdi-ticket',child:[
-            {name:'navbar.shwtckMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.shwtckMan',route:'/ticketManagement/AdmissionTickets',icon:'assets/slide-bar-animal-manage.png',child:[]},
             {name:'navbar.admtckMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
           ]},
           {name:'navbar.faclMan',child:[],route:'',icon:'mdi-home'},
