@@ -287,6 +287,7 @@ export default {
         'amount':'Amount',
         'bankaccid':'Bank Account ID',
         'fetchAccountTran':'Fetch account list',
+        'searchRelatedTrans':'Now searching related transactions...',
         
     }
 }

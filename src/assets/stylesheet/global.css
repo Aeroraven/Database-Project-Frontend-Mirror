@@ -158,3 +158,19 @@
     position:relative;
     top:3px;
 }
+/* Overriding Vue-particle Button Styles*/
+.particles , .particles-wrapper{
+    width:100%;
+    height:100%;
+}
+.particles-button , .btn-cls{
+    height:100%;
+}
+
+.vue-particle-effect-button .particles-button {
+    background: #003472;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: 0;
+  }
