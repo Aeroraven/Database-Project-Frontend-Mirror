@@ -288,6 +288,9 @@ export default {
         'bankaccid':'Bank Account ID',
         'fetchAccountTran':'Fetch account list',
         'searchRelatedTrans':'Now searching related transactions...',
-        
+    },
+    'lock':{
+        'locked':'Locked !',
+        'lockedDesc':'Input account\'s password to quit locked status'
     }
 }

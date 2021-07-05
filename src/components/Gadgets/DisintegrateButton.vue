@@ -4,8 +4,21 @@
     :options="btnOps" cls="btn-cls" style="height:100%;width:100%"
     ref="particle_btn_body">
         <div @click="allowProp" ref="parent_prop">
-            <div @click="forbiddenEventPropagation" class="zms-lock-screen">
-                What
+            <div @click="forbiddenEventPropagation" class="zms-strip-bg-s zms-lock-screen">
+                <div class="zms-lock-wrapper">
+                    <v-icon
+                        x-large
+                        color="white"
+                        class="zms-magnify"
+                    >mdi-lock</v-icon>
+                    <br/>
+                    <span class="zms-lock-title">
+                        {{$t('lock.locked')}}
+                    </span>
+                    <span>
+                        {{$t('lock.lockedDesc')}}
+                    </span>
+                </div>
             </div>
         </div>
     </ParticleEffectButton>
@@ -46,9 +59,6 @@ export default {
                 size: 6,
                 particlesAmountCoefficient: 7,
                 oscillationCoefficient: 0,
-                //color: function () {
-                //    return Math.random() < 0.5 ? this.colorPreset.cl : "#ff0000";
-                //},
                 color:'#44cef6',
                 onComplete: () => {
                     console.log("Complete")
@@ -85,5 +95,19 @@ export default {
       z-index:99999999999;
       //background-color:#000000;
       cursor:default;
+    }
+    .zms-lock-wrapper{
+        text-align: center;
+        width:100%;
+    }
+    .zms-magnify{
+        transform: scaleX(300%) scaleY(300%) scaleZ(300%);
+        margin-top:150px;
+        margin-bottom:50px;
+    }
+    .zms-lock-title{
+        font-size:30px;
+        display: block;
+        font-family: "benderregular";
     }
 </style>

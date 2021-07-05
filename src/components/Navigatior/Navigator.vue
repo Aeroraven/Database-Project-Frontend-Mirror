@@ -80,6 +80,7 @@ export default {
   name: 'Navigator',
   props:{
       drawer:Boolean,
+      lock:Boolean
   },
   data: () => ({
     items: [
