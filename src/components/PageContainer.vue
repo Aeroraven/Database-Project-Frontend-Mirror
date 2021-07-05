@@ -7,7 +7,7 @@
                 <router-view :key="$route.fullpath"/>
             </transition>
         </div>
-        <div class="zms-wrapper-background":style="getBg">
+        <div class="zms-wrapper-background" :style="getBg">
             
         </div>
         <div :class="getWrapClass" >

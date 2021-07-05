@@ -31,8 +31,8 @@
                                 <div><b>{{$t('fund.owner')}}</b>{{`: `+accountList[item-1].owner}}</div>
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn color="primary" @click="gotoItem(item)" text>查看关联交易</v-btn>
-                                <v-btn color="primary" text>管理权限</v-btn>
+                                <v-btn color="primary" @click="gotoItem(item)" text>{{$t('fund.viewRelatedTransactions')}}</v-btn>
+                                <v-btn color="primary" @click="fetchAuthList" text>{{$t('fund.authorization')}}</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -77,16 +77,92 @@
                     </v-btn>
                 </template>
             </alert-messagebox>
+            <!--授权查询-->
+            <pending-progress-card :zmsShow="pendingBoxAuthFetch" :zmsPendingList="pendingBoxAuthFetchList"/>
+            <pending-progress-card :zmsShow="pendingBoxAuthOp" :zmsPendingList="pendingBoxAuthOpList"/>
+
+            <item-selector ref='staselector' :zmsSelectorMode="1" @itemSelectorSelect="staffSelectorResponse(arguments)"></item-selector>
+                
+            <!--取消授权提示-->
+            <alert-messagebox :alertTitle="$t('fund.revokeAuthBoxTitle')" 
+            :alertBody="$t('fund.revokeAuthBox')" 
+            :alertLevel="`warning`" ref="revoke_auth_msgbox"
+            @alertConfirm="revokeAuthSingle"/>
+
+            <!--授权提示-->
+            <alert-messagebox :alertTitle="$t('fund.grantAuthBoxTitle')" 
+            :alertBody="$t('fund.grantAuthBox')" 
+            :alertLevel="`warning`" ref="grant_auth_msgbox"
+            @alertConfirm="grantAuthSingle"/>
+
+            <alert-messagebox :alertMode="`new`" :alertCustomizeToolbox="true"
+            :alertLevel="`info`" ref="authorize_box" :alertTitle="$t('fund.authorization')"
+            :alertWidth="`700`" :alertIcon="`mdi-key-chain`">
+                <template v-slot:body>
+                    <v-icon color="primary">mdi-plus-thick</v-icon>
+                    <span class="zms-query-titlex">{{$t('fund.authorizationStatus')}}</span>
+                    <!--带权限员工列表-->
+                    <v-container>
+                        <v-row>
+                            <v-col>
+                                <v-subheader>{{$t('fund.authorizedUsers')}}</v-subheader>
+                                <div style="height:400px;overflow-y:scroll;">
+                                    <v-list dense>
+                                        <v-list-item-group mandatory v-model="zmsselectedItem" color="primary">
+                                            <v-list-item v-for="(item, i) in authList" :key="i">
+                                                <v-list-item-icon>
+                                                    <v-icon>mdi-account</v-icon>
+                                                </v-list-item-icon>
+                                                <v-list-item-content>
+                                                    <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.id}}</span>
+                                                    &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
+                                                    <span class='zms-anisel-small'>{{item.position}} · {{item.park}}</span></span>
+                                                </v-list-item-content>
+                                            </v-list-item>
+
+                                            <v-list-item v-if="authList.length==0" disabled>
+                                                <v-list-item-icon>
+                                                    <v-icon>mdi-information</v-icon>
+                                                </v-list-item-icon>
+                                                <v-list-item-content>
+                                                    <small>{{$t('animalselector.emptyTip')}}</small>
+                                                </v-list-item-content>
+                                            </v-list-item>
+                                        </v-list-item-group>
+                                    </v-list>
+                                </div>
+                            </v-col>
+                            <v-col>
+                                <v-subheader>{{$t('fund.authOps')}}</v-subheader>
+                                <v-btn block @click="revokeFirst" color="error" class="zms-strip-bg-slim">
+                                    <v-icon>mdi-lock-off</v-icon>&nbsp;{{$t('fund.revoke')}}
+                                </v-btn>
+                                <br/>
+                                <v-btn block @click="grantFirst" color="success" class="zms-strip-bg-slim">
+                                    <v-icon>mdi-key-plus</v-icon>&nbsp;{{$t('fund.grant')}}
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                    <!--列表结束-->
+                </template>
+                <template v-slot:toolbar>
+                    <v-btn class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="closeAuthBox">
+                        <v-icon>mdi-check</v-icon>{{$t('common2.applyChange')}}
+                    </v-btn>
+                </template>
+            </alert-messagebox>
         </div>
   </div>
 </template>
 
 <script>
+import ItemSelector from '../CommonComponents/ItemSelector.vue'
 import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
-import {addBankAccount,getAccountList} from '../../apis/fund.js'
+import {addBankAccount,getAccountList,getAuthList,revokeBankAccAuth,grantBankAccAuth} from '../../apis/fund.js'
 export default {
-    components: {  AlertMessagebox,PendingProgressCard },
+    components: {  AlertMessagebox,PendingProgressCard,ItemSelector },
     name: 'BankAccountOverview',
     props:{
         drawer:Boolean,
@@ -103,10 +179,17 @@ export default {
                 note:null
             },
             accountList:[],
+            zmsselectedItem:null,
+            zmsItem:[],
+            authList:[],
             pendingBoxNewAccount:0,
             pendingBoxNewAccountList:[this.$t('fund.newBankAccountTran')],
             pendingBoxAccountFetch:0,
-            pendingBoxAccountFetchList:[this.$t('fund.fetchAccountTran')]
+            pendingBoxAccountFetchList:[this.$t('fund.fetchAccountTran')],
+            pendingBoxAuthFetch:0,
+            pendingBoxAuthFetchList:[this.$t('fund.fetchAuthListTran')],
+            pendingBoxAuthOp:0,
+            pendingBoxAuthOpList:[this.$t('fund.alertingAuthListTran')]
         }
     },
     methods:{
@@ -117,8 +200,60 @@ export default {
         calloutNewBankAccountBox(){
             this.$refs.new_bank_account_box.showAlert()
         },
+        calloutAuthBox(){
+            this.$refs.authorize_box.showAlert()
+        },
         closeNewBanAccBox(){
             this.$refs.new_bank_account_box.clickCancel()
+        },
+        closeAuthBox(){
+            this.$refs.authorize_box.clickCancel()
+        },
+        revokeFirst(){
+            this.$refs.revoke_auth_msgbox.showAlert();
+        },
+        staffSelectorResponse(x){
+            this.$refs.grant_auth_msgbox.showAlert()
+        },
+        grantFirst(){
+            this.$refs.staselector.show()
+        },
+        grantAuthSingle(){
+            this.pendingBoxAuthOp=1
+            setTimeout(
+                ()=>{
+                    grantBankAccAuth().then(response=>{
+                        this.pendingBoxAuthOp=0;
+                        this.fetchAuthList();
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                    })
+                },1000
+            )
+        },
+        revokeAuthSingle(){
+            this.pendingBoxAuthOp=1
+            setTimeout(
+                ()=>{
+                    revokeBankAccAuth().then(response=>{
+                        this.pendingBoxAuthOp=0;
+                        this.fetchAuthList();
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                    })
+                },1000
+            )
+        },
+        fetchAuthList(){
+            this.pendingBoxAuthFetch=1
+            setTimeout(
+                ()=>{
+                    getAuthList().then(response=>{
+                        this.pendingBoxAuthFetch=0;
+                        this.authList=response.data
+                        this.calloutAuthBox()
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                    })
+                },1000
+            )
         },
         fetchAccountList(){
             this.pendingBoxAccountFetch=1
@@ -149,7 +284,6 @@ export default {
             return{
                 'zms-cardcolor-light':!this.$vuetify.theme.dark,
                 'zms-cardcolor-dark':this.$vuetify.theme.dark,
-                
             }
         },
         nmNightClass(){
