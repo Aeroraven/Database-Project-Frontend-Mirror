@@ -238,7 +238,8 @@ export default {
         'complete':'Complete',
         'transactionDone':'The transaction has been done.',
         'filter':'Filter',
-        'applyChange':'Apply'
+        'applyChange':'Apply',
+        'submit':'Submit',
     },
     'fund':{
         'selectCond':'Analysis Option',
@@ -332,6 +333,14 @@ export default {
         'price':'Price per Item',
         'addToSchedList':'Add to Schedule',
         'havntSelectAny':'You have not selected any items yet',
-        'removeFrSchedList':'Remove from list'
+        'removeFrSchedList':'Remove from list',
+        'itemAdded':'Added new item',
+        'itemRemoved':'Item removed',
+        'qtyNeedNum':'Quantity should be a positive integer',
+        'priceNeedNum':'Price should be a number',
+        'nameNeedNonempty':'Name should not be empty',
+        'submitPurchase':'Are you sure to initiate the purchase request?',
+        'submitPurchaseTitle':'Initiate Purchasing Request',
+        'submitProcTran':'Commit purchase create request'
     }
 }

@@ -7,3 +7,11 @@ export function getProcOverview(params) {
         params
     })
 }
+
+export function createNewProc(params) {
+    return request({
+        url: '/api/procManagement/createNewProc',
+        method: 'get',
+        params
+    })
+}
