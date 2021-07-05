@@ -77,3 +77,36 @@ export function getFlowEntries(params) {
         params
     })
 }
+
+export function addBankAccount(params) {
+    return request({
+        url: '/api/fundManagement/addBankAccount',
+        method: 'get',
+        params
+    })
+}
+
+export function getAuthList(params) {
+    return request({
+        url: '/api/fundManagement/getAuthList',
+        method: 'get',
+        params
+    })
+}
+
+
+export function revokeBankAccAuth(params) {
+    return request({
+        url: '/api/fundManagement/revokeBankAccAuth',
+        method: 'get',
+        params
+    })
+}
+
+export function grantBankAccAuth(params) {
+    return request({
+        url: '/api/fundManagement/revokeBankAccAuth',
+        method: 'get',
+        params
+    })
+}

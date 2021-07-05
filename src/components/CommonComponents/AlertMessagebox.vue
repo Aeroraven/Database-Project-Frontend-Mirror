@@ -1,8 +1,8 @@
 <template>
-    <v-dialog v-model="zmsShowAlert" persistent width="600" >
+    <v-dialog v-model="zmsShowAlert" persistent :width="alertWidth" >
         <v-card color="" :ripple="{class:null}" >
             <v-card-title class=" zms-strip-bg text-h5 text--white darken-3" :class="headBannerClass" color="warning">
-                <v-icon color="white">mdi-alert</v-icon>&nbsp;
+                <v-icon color="white">{{alertIcon}}</v-icon>&nbsp;
                 <span class="text--white" style="color:#ffffff !important;">
                     {{alertTitle}}
                 </span>
@@ -10,17 +10,24 @@
             <v-divider/>
             <br/>
             <v-card-text>
-                <span class="zms-poptip-body" :class="txNightClass">{{alertBody}}</span><br/><br/>
+                <span class="zms-poptip-body" :class="txNightClass" v-if="alertMode=='traditional'">
+                    {{alertBody}}
+                </span>
+                <span class="" :class="txNightClass" v-else>
+                    <slot name="body"></slot>
+                </span>
+                <br/><br/>
             </v-card-text>
             <v-divider/>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="clickCancel">
+                <v-btn v-if="!alertCustomizeToolbox"  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="clickCancel">
                     <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
                 </v-btn>
-                <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="clickConfirm">
+                <v-btn v-if="!alertCustomizeToolbox"  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="clickConfirm">
                     <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                 </v-btn>
+                <slot name="toolbar" v-if="alertCustomizeToolbox"></slot>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -48,7 +55,23 @@ export default {
         alertTitle:String,
         alertBody:String,
         alertLevel:String,
-        alertModel:Object
+        alertModel:Object,
+        alertMode:{
+            type:String,
+            default:()=>"traditional"
+        },
+        alertIcon:{
+            type:String,
+            default:()=>"mdi-alert"
+        },
+        alertCustomizeToolbox:{
+            type:Boolean,
+            default:()=>false
+        },
+        alertWidth:{
+            type:String,
+            default:()=>"600"
+        }
     },
     data(){
         return{

@@ -287,11 +287,11 @@ Mock.mock('/api/fundManagement/getAccountBalanceShift','get',accountBalOv2);
 
 let accountListData={
   data:[
-    {id:'1',name:'A'},
-    {id:'3',name:'B'},
-    {id:'2',name:'C'},
-    {id:'4',name:'D'},
-    {id:'5',name:'E'},
+    {id:'1',name:'A',balance:4400,owner:'1ACF'},
+    {id:'3',name:'B',balance:7344,owner:'1ACF'},
+    {id:'2',name:'C',balance:5422,owner:'1ACF'},
+    {id:'4',name:'D',balance:1222,owner:'1ACF'},
+    {id:'5',name:'E',balance:9399,owner:'1ACF'},
   ],
   code:200
 }
@@ -312,3 +312,7 @@ let flowList={
   code:200
 }
 Mock.mock('/api/fundManagement/getFlowEntries','get',flowList);
+Mock.mock('/api/fundManagement/addBankAccount','get',flowList);
+Mock.mock('/api/fundManagement/getAuthList','get',staffList)
+Mock.mock('/api/fundManagement/revokeBankAccAuth','get',{data:{stat:'success',statcode:1},code:200})
+Mock.mock('/api/fundManagement/grantBankAccAuth','get',{data:{stat:'success',statcode:1},code:200})

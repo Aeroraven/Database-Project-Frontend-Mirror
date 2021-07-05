@@ -10,11 +10,13 @@
        class="zms-right"></appbar-ext>
     </v-app-bar>
     <v-main>
-      <div class="wrap zms-reject-mouse">
+      
+      <div class="wrap" :class="zmsLock">
+        
         <disintegrate-button 
         @disbtn_complete_all="unlockLockBtn"
         @disbtn_complete="switchLock2"
-        ref="disint_btn" class="zms-lock-screen " :class="zmsLock"/>
+        ref="disint_btn" class="zms-lock-screen " />
       </div>
       <v-container fluid>
         <embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>
