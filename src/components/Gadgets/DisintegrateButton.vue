@@ -1,0 +1,89 @@
+<template>
+    <div>
+    <ParticleEffectButton :visible.sync="btnOps.visible" :animating.sync="btnOps.animating"
+    :options="btnOps" cls="btn-cls" style="height:100%;width:100%"
+    ref="particle_btn_body">
+        <div @click="allowProp" ref="parent_prop">
+            <div @click="forbiddenEventPropagation" class="zms-lock-screen">
+                What
+            </div>
+        </div>
+    </ParticleEffectButton>
+  </div>
+</template>
+
+<script>
+import ParticleEffectButton from "vue-particle-effect-buttons"
+
+export default {
+    name:'DisintegrateButton',
+    methods:{
+        switchState(){
+            if(!this.btnOps.visible){
+                this.btnOps.visible=!this.btnOps.visible
+            }else{
+                //I wonder if there is a way to avoid performing operations to DOMs
+                let x=document.getElementsByClassName('particles-button')
+                x[0].click();
+            }
+        },
+        forbiddenEventPropagation(){
+            event.stopImmediatePropagation()
+        },
+        allowProp(){
+            console.log('Hl')
+        }
+    },
+    data() {
+        return {
+            colorPreset:{
+                cl:'#44cef6'
+            },
+            btnOps: {
+                duration:1500,
+                type: "triangle",
+                easing: "easeOutQuart",
+                size: 6,
+                particlesAmountCoefficient: 7,
+                oscillationCoefficient: 0,
+                //color: function () {
+                //    return Math.random() < 0.5 ? this.colorPreset.cl : "#ff0000";
+                //},
+                color:'#44cef6',
+                onComplete: () => {
+                    console.log("Complete")
+                    console.log(this.btnOps.visible)
+                    if(this.btnOps.visible===false)
+                    {
+                        console.log("ACTIVATE")
+                        this.$emit('disbtn_complete')
+                    }
+                    this.$emit('disbtn_complete_all')
+                },
+                onBegin: () => {
+                    console.log("begin");
+                    console.log("=")
+                    console.log(this.btnOps.visible)
+                },
+                visible: false,
+                animating: false
+            },
+        }
+    },
+    components: {
+        ParticleEffectButton
+    }
+};
+</script>
+<style scoped lang="scss">
+    .zms-lock-screen {
+      position:absolute;
+      left:0px;
+      right:0px;
+      top:0px;
+      bottom:0px;
+      z-index:99999999999;
+      //background-color:#000000;
+      cursor:default;
+    }
+</style>

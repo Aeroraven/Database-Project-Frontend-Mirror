@@ -36,8 +36,9 @@ import HomepageWorkOverview from './HomepageWorkOverview.vue'
 import HomepageQuickLaunch from './HomepageQuickLaunch.vue';
 import HomepageAccountOverview from './HomepageAccountOverview.vue';
 import HomepageTaskOverview from './HomepageTaskOverview.vue';
+import DisintegrateButton from '../Gadgets/DisintegrateButton.vue';
 export default {
-  components: {HomepageWelcome,HomepageNotice, HomepageOverview ,HomepageWorkOverview, HomepageQuickLaunch, HomepageAccountOverview, HomepageTaskOverview },
+  components: {HomepageWelcome,HomepageNotice, HomepageOverview ,HomepageWorkOverview, HomepageQuickLaunch, HomepageAccountOverview, HomepageTaskOverview, DisintegrateButton },
   name: 'HomepageContainer',
   props:{
       drawer:Boolean,
