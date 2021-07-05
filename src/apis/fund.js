@@ -77,3 +77,11 @@ export function getFlowEntries(params) {
         params
     })
 }
+
+export function addBankAccount(params) {
+    return request({
+        url: '/api/fundManagement/addBankAccount',
+        method: 'get',
+        params
+    })
+}

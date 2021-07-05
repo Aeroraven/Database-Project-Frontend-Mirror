@@ -101,7 +101,7 @@
                         </div>
                     </v-card>
                 </v-col>
-                <v-divider/>
+                <v-divider vertical/>
                 <v-col lg="9" xl="9">
                     <div class="zms-query-result">
                         <div class="zms-query-result-table">
