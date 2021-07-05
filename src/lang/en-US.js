@@ -122,7 +122,7 @@ export default {
         'close':'Close',
         'reload':'Reload',
         'deletefilter':'Remove Filter',
-        'filterself':'Filter Items In Charge',
+        'filterself':'Items In Charge',
         'finding':'Now Finding',
         'pleasewait':'Please Wait',
         'filter':'Filter',
@@ -315,5 +315,14 @@ export default {
     'lock':{
         'locked':'Locked !',
         'lockedDesc':'Input account\'s password to quit locked status'
+    },
+    'proc2':{
+        'modifyEntry':'View Purchasing Detail',
+        'noModifyTip':'To modify entries, please choose `Purchasing Approval` menu',
+        'id':'ID',
+        'content':'Content',
+        'stat':'Status',
+        'initiator':'Initiator',
+        'inittime':'Initiation Time',
     }
 }
