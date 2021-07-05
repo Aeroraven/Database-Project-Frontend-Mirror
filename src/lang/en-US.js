@@ -324,5 +324,14 @@ export default {
         'stat':'Status',
         'initiator':'Initiator',
         'inittime':'Initiation Time',
+        'addprocContent':'Add Item',
+        'procList':'Scheduled Purchasing List',
+        'submitOverview':'Purchasing Overview',
+        'name':'Name',
+        'quantity':'Quantity',
+        'price':'Price per Item',
+        'addToSchedList':'Add to Schedule',
+        'havntSelectAny':'You have not selected any items yet',
+        'removeFrSchedList':'Remove from list'
     }
 }

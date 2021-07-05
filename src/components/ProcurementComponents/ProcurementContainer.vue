@@ -22,7 +22,8 @@
                         <procurement-overview/>
                     </v-tab-item>
                     <v-tab-item  class="rounded-lg zms-vert-tabitem" :key="2">
-                        
+                        <procurement-initiation/>
+
                     </v-tab-item>
                     <v-tab-item class="rounded-lg zms-vert-tabitem" :key="3">
                         
@@ -35,6 +36,7 @@
 
 <script>
 import ProcurementOverview from './ProcurementOverview.vue'
+import ProcurementInitiation from './ProcurementInitiation.vue'
 export default {
     name: 'ProcurementContainer',
     created(){
@@ -43,7 +45,8 @@ export default {
       
     },
     components:{
-        ProcurementOverview
+        ProcurementOverview,
+        ProcurementInitiation
     },data:()=>{
          return{
             tab:null,
