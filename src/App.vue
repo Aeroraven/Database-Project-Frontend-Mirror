@@ -120,6 +120,15 @@ export default {
   .zms-hidden{
     display: none;
   }
+  .wrap{
+    position: absolute;
+    bottom:0px;
+    top:0px;
+    left:0px;
+    right:0px;
+    z-index: 99999999;
+    overflow: hidden;
+  }
   #app{
     user-select: none;
   }
