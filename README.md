@@ -9,7 +9,6 @@
 5. 修改较多，如果有之前版本的建议执行下面命令
 
    ```Shell
-   rmdir node_modules
    npm install
    ```
 
