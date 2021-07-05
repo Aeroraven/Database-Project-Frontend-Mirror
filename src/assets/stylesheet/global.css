@@ -52,6 +52,9 @@
 .zms-bold{
     font-weight: bold;
 }
+.zms-strip-bg-s{
+    background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07) 45px, rgba(255, 255, 255, 0.05) 45px, rgba(255, 255, 255, 0.05) 90px ) !important;
+}
 .zms-strip-bg{
     background:-webkit-repeating-linear-gradient( 135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 45px, rgba(255, 255, 255, 0.1) 45px, rgba(255, 255, 255, 0.1) 90px ) !important;
 }
@@ -158,17 +161,24 @@
     position:relative;
     top:3px;
 }
+.zms-reject-mouse{
+    pointer-events: none;
+}
+
+
 /* Overriding Vue-particle Button Styles*/
 .particles , .particles-wrapper{
     width:100%;
     height:100%;
+    
 }
 .particles-button , .btn-cls{
     height:100%;
 }
 
 .vue-particle-effect-button .particles-button {
-    background: #003472;
+    background:  linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146));
+    background-color: rgb(0, 78, 146);
     color: #fff;
     padding: 1rem 2rem;
     border-radius: 5px;

@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" absolute temporary app style="width:300px">
-      <navigator></navigator>
+    <v-navigation-drawer :class="rejectMouse" v-model="drawer" absolute temporary app style="width:300px">
+      <navigator :lock="locked"></navigator>
     </v-navigation-drawer>
     <v-app-bar app color="primary" v-if="showTopNavbar" transition="slide-x-transition"> 
       <v-app-bar-nav-icon color="white"  @click="switchDrawer"></v-app-bar-nav-icon>
@@ -10,11 +10,11 @@
        class="zms-right"></appbar-ext>
     </v-app-bar>
     <v-main>
-      <div class="wrap">
+      <div class="wrap zms-reject-mouse">
         <disintegrate-button 
         @disbtn_complete_all="unlockLockBtn"
         @disbtn_complete="switchLock2"
-        ref="disint_btn" class="zms-lock-screen" :class="zmsLock"/>
+        ref="disint_btn" class="zms-lock-screen " :class="zmsLock"/>
       </div>
       <v-container fluid>
         <embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>
@@ -57,6 +57,11 @@ export default {
   
     
   computed:{
+    rejectMouse(){
+      return{
+        'zms-reject-mouse':this.locked
+      }
+    },
     zmsLock(){
         return{
           'zms-hidden':this.locked==false
@@ -82,6 +87,9 @@ export default {
   },
   methods:{
     switchDrawer(){
+      if(this.locked){
+        return 0;
+      }
       this.drawer=!this.drawer;
     },
     switchLock(){
@@ -119,6 +127,15 @@ export default {
   }
   .zms-hidden{
     display: none;
+  }
+  .wrap{
+    position: absolute;
+    bottom:0px;
+    top:0px;
+    left:0px;
+    right:0px;
+    z-index: 99999999;
+    overflow: hidden;
   }
   #app{
     user-select: none;
