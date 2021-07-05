@@ -316,3 +316,5 @@ Mock.mock('/api/fundManagement/addBankAccount','get',flowList);
 Mock.mock('/api/fundManagement/getAuthList','get',staffList)
 Mock.mock('/api/fundManagement/revokeBankAccAuth','get',{data:{stat:'success',statcode:1},code:200})
 Mock.mock('/api/fundManagement/grantBankAccAuth','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/procManagement/createNewProc','get',{data:{stat:'success',statcode:1},code:200})

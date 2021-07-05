@@ -167,7 +167,9 @@
     pointer-events: none;
 }
 
-
+.zms-bender{
+    font-family: benderregular;
+}
 /* Overriding Vue-particle Button Styles*/
 .particles , .particles-wrapper{
     width:100%;
