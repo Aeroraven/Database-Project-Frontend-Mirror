@@ -18,6 +18,9 @@ import VueI18n from 'vue-i18n'
 import LangZHCN from './lang/zh-CN'
 import LangENUS from './lang/en-US'
 import VueParticles from 'vue-particles'
+import VueParticlesBg from "particles-bg-vue";
+
+Vue.use(VueParticlesBg);
 Vue.use(VueParticles)
 
 

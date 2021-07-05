@@ -7,10 +7,16 @@
                 <router-view :key="$route.fullpath"/>
             </transition>
         </div>
-        <div class="zms-wrapper-background" :style="getBg">
+        <div class="zms-wrapper-background":style="getBg">
             
         </div>
         <div :class="getWrapClass" >
+            <particles-bg 
+            class="zms-particle-bg"
+            type="square"
+            num=10 
+            :bg="true"/>
+                    
             <vue-particles
                 color="#dedede"
                 :particleOpacity="0.7"
