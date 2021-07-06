@@ -13,10 +13,10 @@
                 <span class="zms-poptip-body" :class="txNightClass" v-if="alertMode=='traditional'">
                     <!--SweetAlert2风格的图标 Thanks to ZY-->
                     <div class="zms-swal2" v-if="this.alertLevel==='success'">
-                        <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;"><div class="swal2-success-circular-line-left" :class="swalNightClass"></div>
+                         <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;"><div class="swal2-success-circular-line-left" :style="swalNightStyle"></div>
                             <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
-                            <div class="swal2-success-ring"></div> <div class="swal2-success-fix" :class="swalNightClass"></div>
-                            <div class="swal2-success-circular-line-right" :class="swalNightClass"></div>
+                            <div class="swal2-success-ring"></div> <div class="swal2-success-fix" :style="swalNightStyle"></div>
+                            <div class="swal2-success-circular-line-right" :style="swalNightStyle"></div>
                         </div>
                     </div>
                     <div class="zms-swal2" v-if="this.alertLevel==='error'">
@@ -134,9 +134,20 @@ export default {
                 'zms-swal-correct-light':!this.$vuetify.theme.dark,
                 'zms-swal-correct-dark':this.$vuetify.theme.dark,
             }
+        },
+        swalNightStyle(){
+            if(!this.$vuetify.theme.dark){
+                return{
+                    'background-color':'rgb(255,255,255)'
+                }
+            }
+            else{
+                return{
+                    'background-color':'rgb(30,30,30)'
+                }
+            }
         }
     },
-
 }
 </script>
 <style scoped>
