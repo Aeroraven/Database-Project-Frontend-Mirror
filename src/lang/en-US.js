@@ -363,5 +363,10 @@ export default {
     'ware2':{
         'createDate':'Operation Date',
         'newWareOp':'New Warehouse Operation'
+    },
+    'common3':{
+        'transactionDone':'Congratulations! The transaction you submitted has already done!',
+        'transactionDoneTitle':'Success',
+        'transactionFail':'We encountered a fatal mistake that prevents the commit of the transaction. The reason is as follows:'
     }
 }

@@ -181,6 +181,11 @@
     font-size:20px;
     font-weight: bold;
 }
+.zms-swal2{
+    margin-bottom: 25px;
+    margin-top:-4px;
+    
+}
 /* Overriding Vue-particle Button Styles*/
 .particles , .particles-wrapper{
     width:100%;

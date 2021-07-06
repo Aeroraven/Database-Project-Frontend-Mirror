@@ -10,9 +10,7 @@
        class="zms-right"></appbar-ext>
     </v-app-bar>
     <v-main>
-      
       <div class="wrap" :class="zmsLock">
-        
         <disintegrate-button 
         @disbtn_complete_all="unlockLockBtn"
         @disbtn_complete="switchLock2"
@@ -22,10 +20,7 @@
         <embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>
         <page-container/>
       </v-container>
-      
     </v-main>
-    <!--<v-footer app>
-    </v-footer>-->
   </v-app>
 </template>
 
@@ -101,6 +96,8 @@ export default {
       console.log('AAAAAAAAAAAA')
       console.log(this.$i18n.locale)
     }
+    //Debug
+    //this.$swal('Oops...', 'Something went wrong!', 'success')
   },
   methods:{
     switchDrawer(){

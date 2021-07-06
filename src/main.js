@@ -19,11 +19,12 @@ import LangZHCN from './lang/zh-CN'
 import LangENUS from './lang/en-US'
 import VueParticles from 'vue-particles'
 import VueParticlesBg from "particles-bg-vue";
-
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
-
+Vue.use(VueSweetalert2);
+Vue.use(ElementUI)
 Vue.use(VueParticlesBg);
 Vue.use(VueParticles)
 
