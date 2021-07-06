@@ -9,7 +9,6 @@
                         </v-row>
                         <br/><br/>
                         <v-row>
-                           
                             <v-card flat :ripple="{class:null}">
                                 <v-container>
                                     <v-row>
@@ -47,7 +46,7 @@
                         </v-row>
                         <br/><br/>
                         <v-row>
-                            <v-col  cols="12">
+                            <v-col cols="12">
                                 <div style="height:400px;overflow-y:scroll;">
                                     <v-list dense>
                                         <v-list-item-group  v-model="zmsselectedItem" color="primary">

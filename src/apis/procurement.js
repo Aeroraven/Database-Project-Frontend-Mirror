@@ -15,3 +15,20 @@ export function createNewProc(params) {
         params
     })
 }
+
+export function getPendingRequests(params) {
+    return request({
+        url: '/api/procManagement/getPendingRequests',
+        method: 'get',
+        params
+    })
+}
+
+
+export function changeProcStatus(params) {
+    return request({
+        url: '/api/procManagement/changeProcStatus',
+        method: 'get',
+        params
+    })
+}
