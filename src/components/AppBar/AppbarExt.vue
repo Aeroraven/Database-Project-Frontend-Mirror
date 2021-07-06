@@ -28,6 +28,7 @@ export default {
     methods:{
       switchNightMode(){
         this.$vuetify.theme.dark=!this.$vuetify.theme.dark
+        localStorage.setItem('zmsAppearance.darkMode',this.$vuetify.theme.dark)
       },
       switchLock(){
         this.$emit('lockPress')

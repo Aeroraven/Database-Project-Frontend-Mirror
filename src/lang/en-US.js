@@ -351,5 +351,13 @@ export default {
         'approve':'Approve',
         'deny':'Reject',
         'submitApproveTran':'Update request approval progress',       
+    },
+    'setting2':{
+        'privacySetting':'Privacy Settings',
+        'lsClearDescription':'If you want to remove all preference settings, including region configurations, and apperance settings, you can select the option `Clear Local Cache`. This operation cannot be undone.',
+        'lsCleared':'Information stored in LocalStorage is removed',
+        'clearData':'Clear Local Cache',
+        'clearDataMsgTitle':'Clear Local Cache',
+        'clearDataMsg':'Clear all information stored in local storage? All preference settings will be lost after this operation.'
     }
 }

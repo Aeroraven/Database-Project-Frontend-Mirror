@@ -85,7 +85,22 @@ export default {
     }
   },
   created(){
-  
+    //Apply Dark Mode
+    let darkMode = localStorage.getItem('zmsAppearance.darkMode')
+    if(isNaN(darkMode)||darkMode==''||darkMode==='false'){
+      this.$vuetify.theme.dark=false;
+    }
+    if(darkMode==='true'){
+      this.$vuetify.theme.dark=true
+    }
+    //Default Lang Setting
+    let defLang=localStorage.getItem('zmsAppearance.lang')
+    if(!isNaN(defLang)&&defLang!=''){
+      this.$store.state.defaultLang=parseInt(defLang)
+      this.$i18n.locale=this.$store.state.langOpts[this.$store.state.defaultLang].cd
+      console.log('AAAAAAAAAAAA')
+      console.log(this.$i18n.locale)
+    }
   },
   methods:{
     switchDrawer(){
