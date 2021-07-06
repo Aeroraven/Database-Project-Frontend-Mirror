@@ -359,5 +359,9 @@ export default {
         'clearData':'Clear Local Cache',
         'clearDataMsgTitle':'Clear Local Cache',
         'clearDataMsg':'Clear all information stored in local storage? All preference settings will be lost after this operation.'
+    },
+    'ware2':{
+        'createDate':'Operation Date',
+        'newWareOp':'New Warehouse Operation'
     }
 }
