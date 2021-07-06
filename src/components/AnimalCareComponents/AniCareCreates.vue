@@ -1,5 +1,21 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
+        <!--事务成功进度条-->
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionDoneTitle')"
+        :alertBody="$t('common3.transactionDone')"
+        :alertLevel="`success`"
+        :alertOnlyConfirm="true"
+        ref="commit_done" />
+
+        <!--事务失败提示框-->
+        <alert-messagebox
+        :alertTitle="errorTitle"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
@@ -170,10 +186,12 @@
 <script>
 import { createCareInfo } from '../../apis/animalCare';
 import ItemSelector from '../CommonComponents/ItemSelector.vue'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
     name: 'AniCareCreate',
     components:{
-        ItemSelector
+        ItemSelector,
+        AlertMessagebox
     },
     created(){
     },data:()=>{
@@ -248,24 +266,28 @@ export default {
                         console.log(this.submitDate)
                         this.submitStat=false;
                         if(response.data.statcode!=0){
-                            this.errorReturn=true;
+                            //this.errorReturn=true;
                         }
                         if(response.data.statcode==1){
                             this.errorTitle=this.$t('common.error');
                             this.errorInfo=this.$t('animalCare.NonexistentAniID')
+                            this.$refs.error_done.showAlert()
                             return 0;
                         }
                         if(response.data.statcode==2){
                             this.errorTitle=this.$t('common.error');
                             this.errorInfo=this.$t('animalCare.NonexistentTypeID')
+                            this.$refs.error_done.showAlert()
                             return 0;
                         }
                         if(response.data.statcode==3){
                             this.errorTitle=this.$t('common.error');
                             this.errorInfo=this.$t('animalCare.NonexistentVetId')
+                            this.$refs.error_done.showAlert()
                             return 0;
                         }
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete'))
+                        this.$refs.commit_done.showAlert()
                     })
                 },2000
             )

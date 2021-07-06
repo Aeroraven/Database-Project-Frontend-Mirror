@@ -73,7 +73,6 @@ export default {
             return{
                 'zms-cardcolor-light':!this.$vuetify.theme.dark,
                 'zms-cardcolor-dark':this.$vuetify.theme.dark,
-                
             }
         },
         nmNightClass(){

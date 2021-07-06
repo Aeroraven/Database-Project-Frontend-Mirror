@@ -44,11 +44,13 @@
           <v-btn outlined block  class="zms-fullwidth" style="border-color:#AAAAAA" v-bind="attrs" v-on="on"  color="" @click="dialog_setting=true">
             <v-icon>mdi-cog</v-icon>{{$t('settings.title')}}
           </v-btn>
-          <v-dialog v-model="dialog_setting" width="500">
-            
+          <v-dialog v-model="dialog_setting" width="700">
             <v-card :ripple="{class:null}">
-                <v-card-title class="text-h5 text--white" >
-                    <span class="text--white" style="">{{$t('settings.title')}}</span>
+                <v-card-title class=" zms-strip-bg text-h5 text--white darken-3 blue" color="warning">
+                  <v-icon color="white">mdi-cog</v-icon>&nbsp;
+                  <span class="text--white" style="color:#ffffff !important;">
+                      {{$t('settings.title')}}
+                  </span>
                 </v-card-title>
 
                 <v-card-text>
