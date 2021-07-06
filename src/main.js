@@ -20,6 +20,10 @@ import LangENUS from './lang/en-US'
 import VueParticles from 'vue-particles'
 import VueParticlesBg from "particles-bg-vue";
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 Vue.use(VueParticlesBg);
 Vue.use(VueParticles)
 
