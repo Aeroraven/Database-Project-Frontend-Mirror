@@ -11,11 +11,7 @@
                 <v-tab :key="3">
                     <v-icon left>mdi-checkbox-marked-circle-outline</v-icon>采购审批
                 </v-tab>
-                <!--
-                <v-tab :key="4">
-                    <v-icon left>mdi-key-variant</v-icon>权限管理
-                </v-tab>-->
-            
+                           
                 <v-tabs-items v-model="tab" class="rounded-lg">
                 
                     <v-tab-item  class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
@@ -23,10 +19,9 @@
                     </v-tab-item>
                     <v-tab-item  class="rounded-lg zms-vert-tabitem" :key="2">
                         <procurement-initiation/>
-
                     </v-tab-item>
                     <v-tab-item class="rounded-lg zms-vert-tabitem" :key="3">
-                        
+                        <procurement-approve/>
                     </v-tab-item>
                 </v-tabs-items>
             </v-tabs>
@@ -37,6 +32,7 @@
 <script>
 import ProcurementOverview from './ProcurementOverview.vue'
 import ProcurementInitiation from './ProcurementInitiation.vue'
+import ProcurementApprove from './ProcurementApprove.vue'
 export default {
     name: 'ProcurementContainer',
     created(){
@@ -46,7 +42,8 @@ export default {
     },
     components:{
         ProcurementOverview,
-        ProcurementInitiation
+        ProcurementInitiation,
+        ProcurementApprove
     },data:()=>{
          return{
             tab:null,

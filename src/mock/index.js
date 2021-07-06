@@ -318,3 +318,52 @@ Mock.mock('/api/fundManagement/revokeBankAccAuth','get',{data:{stat:'success',st
 Mock.mock('/api/fundManagement/grantBankAccAuth','get',{data:{stat:'success',statcode:1},code:200})
 
 Mock.mock('/api/procManagement/createNewProc','get',{data:{stat:'success',statcode:1},code:200})
+
+let procOverviewX={
+  data:[
+    {
+      id:'123',
+      name:'abcde',
+      content:[
+        {
+          name:'kkp',
+          price:2,
+          qty:4,
+        },
+        {
+          name:'frp',
+          price:2,
+          qty:4,
+        }
+      ],
+      stat:'Pending',
+      initiator:'Flora',
+      inittime:'2020-12-33',
+      totalprice:16
+    },
+    {
+      id:'124',
+      name:'abcde',
+      content:[
+        {
+          name:'kkp',
+          price:2,
+          qty:4,
+        },
+        {
+          name:'frp',
+          price:2,
+          qty:4,
+        }
+      ],
+      stat:'Pending',
+      initiator:'Flora',
+      inittime:'2020-12-33',
+      totalprice:16
+    },
+  ],
+  code:200
+}
+
+Mock.mock('/api/procManagement/getPendingRequests','get',procOverviewX)
+Mock.mock('/api/procManagement/changeProcStatus','get',{data:{stat:'success',statcode:1},code:200})

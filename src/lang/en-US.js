@@ -341,6 +341,15 @@ export default {
         'nameNeedNonempty':'Name should not be empty',
         'submitPurchase':'Are you sure to initiate the purchase request?',
         'submitPurchaseTitle':'Initiate Purchasing Request',
-        'submitProcTran':'Commit purchase create request'
+        'submitProcTran':'Commit purchase create request',
+        'pendinglst':'Pending List',
+        'approvOverview':'Request Overview',
+        'noPendingItems':'No pending requests currently',
+        'fetchPendingTran':'Fetch pending requests',
+        'purchaseItemList':'Item List',
+        'totalprice':'Aggregate',
+        'approve':'Approve',
+        'deny':'Reject',
+        'submitApproveTran':'Update request approval progress',       
     }
 }

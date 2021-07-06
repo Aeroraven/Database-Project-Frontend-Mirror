@@ -170,6 +170,17 @@
 .zms-bender{
     font-family: benderregular;
 }
+.zms-vertical-col-height{
+    height:75px !important;
+}
+.zms-fontlarge{
+    font-size:25px;
+    font-weight: bold;
+}
+.zms-fontlargex{
+    font-size:20px;
+    font-weight: bold;
+}
 /* Overriding Vue-particle Button Styles*/
 .particles , .particles-wrapper{
     width:100%;
