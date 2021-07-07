@@ -22,6 +22,17 @@
 
 ##### 更新记录
 
+更新 @ 2021-07-08 0:00
+
+- 优化UI
+  - 更改了英文（PTSans）和中文字体（SourceHanSans）
+  - 调整了侧栏字体和下边距
+  - 调整了按钮字体
+  - 修复scoped缺失导致的input额外下划线的问题
+- Vuetify：I‘m !important. （被!important整吐了）
+
+
+
 更新 @ 2021-07-06 23:30 
 
 - 更新组件：提示框（AlertMessagebox）
