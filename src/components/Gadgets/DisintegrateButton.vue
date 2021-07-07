@@ -9,7 +9,9 @@
                 <div class="zms-lock-wrapper zms-lock-wrapper-dbtn">
                     <particles-bg 
                     class="zms-particle-bg zms-particle-bg-dbtn"
-                    type="lines"
+                    type="thick"
+                    :num="25"
+                    color="#000000"
                     :bg="true"
                     :canvas.sync="canvasObject"/>
 

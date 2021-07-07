@@ -10,10 +10,10 @@
           margin-top:20px;
           display:block;
           ' >LOGIN</span>
-          <img src="/a.png"/>
+          
           <form>
             <label>User:</label> &nbsp;<input type="input" class="input" value="123"/>
-
+            <el-button class="style_a">这个是一个按钮</el-button>
           </form>
         </div>
 
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     input{
       border-bottom:black 1px solid
     }
@@ -63,6 +63,12 @@ export default {
       font-weight: normal;
       padding-top:10px;
       padding-bottom:40px
+    }
+    .style_a{
+      position:relative;
+      bottom:-70px;
+      background-color: #a6ce39;
+      font-size:14px;
     }
     .box-card{
         height:520px;

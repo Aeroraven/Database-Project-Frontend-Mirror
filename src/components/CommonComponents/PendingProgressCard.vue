@@ -1,7 +1,11 @@
 <template>
     <v-dialog persistent v-model="zmsShow" width="400">
         <v-card >
-            <v-card-title>{{$t('pendingProg.Submitting')}}</v-card-title>
+            <v-card-title>
+                <span class="zms-pending-title">
+                    {{$t('pendingProg.Submitting')}}
+                </span>
+            </v-card-title>
             <v-divider/>
             <br/>
             <v-card-text>
