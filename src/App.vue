@@ -135,7 +135,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-  $body-font-family: 'PTSans';
+  $body-font-family: 'PTSans','HanSans';
   .v-application {
       font-family: $body-font-family, sans-serif !important;
   }

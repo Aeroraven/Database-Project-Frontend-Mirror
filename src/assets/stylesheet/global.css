@@ -204,3 +204,16 @@
     border-radius: 5px;
     border: 0;
   }
+
+/* Overriding Vuetify Styles*/
+.v-btn{
+    font-family: 'PTSans','HanSansX' !important;
+    font-weight: bold;
+}
+.v-btn--text{
+    font-weight: bold;
+}
+/* ZMS Penging Box */
+.zms-pending-title{
+    font-weight: bold !important;
+}

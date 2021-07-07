@@ -51,3 +51,30 @@
     font-weight: bold;
     src:url('../../assets/fonts/MyriadB.ttf')
 }
+@font-face {
+    font-family: 'Deng';
+    src:url('../../assets/fonts/Deng.ttf')
+}
+@font-face {
+    font-family: 'Deng';
+    font-weight: bold;
+    src:url('../../assets/fonts/Dengb.ttf')
+}
+@font-face {
+    font-family: 'HanSans';
+    src:url('../../assets/fonts/HanSans.ttf')
+}
+@font-face {
+    font-family: 'HanSans';
+    font-weight: bold;
+    src:url('../../assets/fonts/HanSansB.otf')
+}
+@font-face {
+    font-family: 'HanSansX';
+    src:url('../../assets/fonts/HanSans.ttf')
+}
+@font-face {
+    font-family: 'HanSansX';
+    font-weight: bold;
+    src:url('../../assets/fonts/HanSans.ttf')
+}
