@@ -109,11 +109,11 @@ export default {
   .zms-navigator-container{
     //height:100%;
     overflow:overlay;
-    padding-bottom:300px;
+    padding-bottom:200px;
   }
   .zms-navigator-pri-item{
     border-radius:15px;
-    font-size:15px;
+    font-size:17px;
     font-weight: bold;
   }
 </style>

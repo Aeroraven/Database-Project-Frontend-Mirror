@@ -11,3 +11,43 @@
     font-family: 'Novecento';
     src:url('../../assets/fonts/Novecento.otf')
 }
+
+@font-face {
+    font-family: 'ReemKufi';
+    src:url('../../assets/fonts/ReemKufi.ttf')
+}
+@font-face {
+    font-family: 'Quicksand';
+    src:url('../../assets/fonts/Quicksand.ttf')
+}
+@font-face {
+    font-family: 'Jost';
+    src:url('../../assets/fonts/Jost.ttf')
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src:url('../../assets/fonts/Ubuntu-Regular.ttf')
+}
+@font-face {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    src:url('../../assets/fonts/Ubuntu-Bold.ttf')
+}
+@font-face {
+    font-family: 'PTSans';
+    src:url('../../assets/fonts/PTSans-Regular.ttf')
+}
+@font-face {
+    font-family: 'PTSans';
+    font-weight: bold;
+    src:url('../../assets/fonts/PTSans-Bold.ttf')
+}
+@font-face {
+    font-family: 'Myriad';
+    src:url('../../assets/fonts/Myriad.ttf')
+}
+@font-face {
+    font-family: 'Myriad';
+    font-weight: bold;
+    src:url('../../assets/fonts/MyriadB.ttf')
+}

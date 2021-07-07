@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer :class="rejectMouse" v-model="drawer" absolute temporary app style="width:300px">
+    <v-navigation-drawer :class="rejectMouse" v-model="drawer" absolute temporary app style="width:350px">
       <navigator :lock="locked"></navigator>
     </v-navigation-drawer>
     <v-app-bar app color="primary" v-if="showTopNavbar" transition="slide-x-transition"> 
@@ -135,6 +135,10 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+  $body-font-family: 'PTSans';
+  .v-application {
+      font-family: $body-font-family, sans-serif !important;
+  }
   .zms-right{
     position: fixed;
     right:20px;
