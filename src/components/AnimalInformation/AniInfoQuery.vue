@@ -1,7 +1,8 @@
 <template>
     <div class="zms-animalinfo">
         <div class="zms-animalinfo-query-filter">
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
+            <v-icon color="primary">mdi-filter-plus</v-icon> 
+            <span class="zms-query-title">查询条件</span>
             <div>
                 <v-container>
                     <v-row>
@@ -32,7 +33,7 @@
                         
                         
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                            <v-btn v-ripple block class="zms-width"  color="primary" @click="searchInfo">
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
                         </v-col>
@@ -174,6 +175,7 @@
         </div>
 
         <v-divider/>
+        <pending-progress-card :zmsShow="show"/>
         <div class="zms-animalinfo-query-result">
             <v-icon color="primary">mdi-note-search</v-icon> 
             <span class="zms-animalinfo-query-title">查询结果</span>
@@ -181,12 +183,44 @@
                 <v-data-table
                     :headers="headers"
                     :items="queryData"
+                    show-expand
                     :page.sync="page"
-                    :items-per-page="5"
+                    :items-per-page="10"
                     hide-default-footer
                     @page-count="pageCount = $event"
                     class="elevation-1"
                 >
+                    <template v-slot:[`item.actions`]="{ item }">
+                        <v-icon
+                            small
+                            class="mr-2"
+                            @click="editItem(item)"
+                        >
+                            mdi-pencil
+                        </v-icon>
+                        <v-icon
+                            small
+                            @click="deleteItem(item)"
+                        >
+                            mdi-delete
+                        </v-icon>
+                    </template>
+                    <template v-slot:expanded-item="{ headers, item }">
+                        <td :colspan="headers.length">
+                             <v-row>
+                                 <v-col cols="12" md="4">
+                                     放照片 {{ item.photo }}
+                                 </v-col>
+                                 <v-col cols="12" md="8">
+                
+                                     出生日期：{{item.birth_date}}<br>
+                                     身高体长：{{item.body_length}}<br>
+                                     繁殖情况：{{item.breed_condition}}
+
+                                 </v-col>
+                             </v-row>
+                        </td>
+                    </template>
                 </v-data-table>
             </div>
             <div class="zms-query-pagination">
@@ -198,43 +232,95 @@
 
 <script>
 import PopUp from './PopUp.vue'
+import {getinformation} from '../../apis/animalInfo'
+import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 export default {
+    components: { PendingProgressCard,PopUp },
     name: 'AnicareQuery',
-    components:PopUp,
     created(){
     },
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
+    },
+    methods: {
+        searchInfo(){
+            this.show=true
+            setTimeout(
+                ()=>{
+                    getinformation().then(response=>{
+                        this.queryData = response.data
+                        this.show=false
+                    })
+                },2000
+            )
+        },
+        editItem (item) {
+            this.editedIndex = this.desserts.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
+        },
+
+        deleteItem (item) {
+            this.editedIndex = this.desserts.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialogDelete = true
+        },
+
+        deleteItemConfirm () {
+            this.desserts.splice(this.editedIndex, 1)
+            this.closeDelete()
+        },
+
+        close () {
+            this.dialog = false
+            this.$nextTick(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+            })
+        },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        } else {
+          this.desserts.push(this.editedItem)
+        }
+        this.close()
+      },
+    },
+  
     data:()=>{
         
         return{
         headers:[
-            {text: '编号', value: 'id'},
+            {text: '编号', value: 'ani_id'},
             {text: '物种', value: 'species'},
-            {text: '姓名', value: 'name'},
-            {text: '性别', value: 'gender'},
-            {text: '出生日期', value: 'date_of_birth'},
-            {text: '年龄', value: 'age'},
-            {text: '身高/体长', value: 'height'},
+            {text: '姓名', value: 'ani_name'},
+            {text: '性别', value: 'ani_gender'},
+            {text: '年龄', value: 'ani_age'},
             {text: '体重', value: 'weight'},
-            {text: '健康状态', value: 'health_condition'},
-            {text: '照片', value: 'photo'},
-            {text: '繁殖情况', value: 'breed_condition'}
+            {text: '健康状态', value: 'physical_condition'},
+            { text: 'Actions', value: 'actions', sortable: false },
+    
         ],
+        show:false,
         pageCount:0,
         page:1,
-        queryData:[
-            {id:'1959001',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956001',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958001',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1959011',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956011',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958011',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1959021',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956021',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958021',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1959031',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1956033',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-            {id:'1958031',disease_name:'xxx',veterinary_name:'李四',drug:'浓硫酸',treatment_progress:'无',current_state:'治愈',date_ill:'2020-01-01',date_cure:'2028-02-02'},
-        ],editedIndex: -1,
+        queryData:[],
+        editedIndex: -1,
         editedItem: {
             name: '',
             calories: 0,
@@ -257,6 +343,7 @@ export default {
     }
   
 }
+
 </script>
 <style scoped lang="scss">
     .zms-animalinfo-query-pagination{

@@ -367,3 +367,21 @@ let procOverviewX={
 
 Mock.mock('/api/procManagement/getPendingRequests','get',procOverviewX)
 Mock.mock('/api/procManagement/changeProcStatus','get',{data:{stat:'success',statcode:1},code:200})
+
+let animalInfo={
+  code:200,
+  data:[
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+  {ani_id:'1959001',species:'xxx',ani_name:'李四',ani_gender:'雌性',birth_date:'2020-02-22',ani_age:'7',body_length:'1.2',weight:'120',physical_condition:'健康',breed_situation:'无',photo:'123rfdsd'},
+]
+}
+Mock.mock('/api/animalInfo/getinformation','get',animalInfo)

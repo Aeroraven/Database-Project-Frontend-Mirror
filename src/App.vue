@@ -96,9 +96,16 @@ export default {
     }
     //Default Lang Setting
     let defLang=localStorage.getItem('zmsAppearance.lang')
-    if(!isNaN(defLang)&&defLang!=''){
+    if(!isNaN(defLang)&&defLang!=''&&!isNaN(parseInt(defLang))){
       this.$store.state.defaultLang=parseInt(defLang)
-      this.$i18n.locale=this.$store.state.langOpts[this.$store.state.defaultLang].cd
+      console.log(defLang)
+      console.log(this.$store.state.defaultLang)
+      if(Object.prototype.hasOwnProperty.call(this.$store.state.langOpts[this.$store.state.defaultLang],'cd')){
+        this.$i18n.locale=this.$store.state.langOpts[this.$store.state.defaultLang].cd
+      }else{
+        this.$i18n.locale='en-US'
+      }
+      
       console.log('AAAAAAAAAAAA')
       console.log(this.$i18n.locale)
     }
