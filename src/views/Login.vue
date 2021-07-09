@@ -1,6 +1,6 @@
 <template>
 <div>
-    
+    <!--
     <div class="app" style='text-align: center;font-family:Novecento'>
         <div class="box-card" shadow="always">
           <span
@@ -38,14 +38,18 @@
         clickMode="push"
       >
         </vue-particles>
-    </div> 
+    </div> -->
+    <dynamic-title/>
 </div>
 </template>
 
 
 <script>
+import DynamicTitle from '../components/Gadgets/DynamicTitle.vue'
 export default {
-
+  components:{
+    DynamicTitle
+  }
 }
 </script>
 

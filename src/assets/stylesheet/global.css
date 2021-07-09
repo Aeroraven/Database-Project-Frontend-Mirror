@@ -217,3 +217,33 @@
 .zms-pending-title{
     font-weight: bold !important;
 }
+/* ZMS Loading Page */
+
+.slideshow_append{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:white;
+    z-index: 99999;
+    font-size:30px;
+    opacity: 0.8;
+    font-family: Quicksand !important;
+}
+.slideshow{
+    /*I am !important*/
+    font-family: Jost !important;
+}
+
+/* Router Transition */
+.slide-fade-enter-active {
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.slide-fade-leave-active {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateY(1.5vh);
+    opacity: 0;
+}

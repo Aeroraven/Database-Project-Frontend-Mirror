@@ -368,5 +368,8 @@ export default {
         'transactionDone':'Congratulations! The transaction you submitted has already done!',
         'transactionDoneTitle':'Success',
         'transactionFail':'We encountered a fatal mistake that prevents the commit of the transaction. The reason is as follows:'
+    },
+    'gadget':{
+        'loading':'Loading. Please Wait...'
     }
 }
