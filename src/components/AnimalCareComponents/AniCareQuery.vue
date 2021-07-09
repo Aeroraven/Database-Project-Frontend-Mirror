@@ -123,11 +123,14 @@
                     :headers="headers"
                     :items="queryData"
                     :page.sync="page"
+                    
                     :items-per-page="5"
                     hide-default-footer
                     @page-count="pageCount = $event"
                     class="elevation-1"
                 >
+                    
+
                     <template v-slot:top  >
                         <v-toolbar flat >
                             <v-toolbar-title>查询结果</v-toolbar-title>
@@ -368,7 +371,6 @@ export default {
         txNightClass(){
             return{
                 'zms-text-dark':this.$vuetify.theme.dark,
-                
             }
         }
     },
