@@ -1,5 +1,10 @@
 <template>
   <v-app>
+    <v-fab-transition>
+      <div class="wrap" v-if="showLoadingComponent">
+        <dynamic-title/>
+      </div>
+    </v-fab-transition>
     <v-navigation-drawer :class="rejectMouse" v-model="drawer" absolute temporary app style="width:350px">
       <navigator :lock="locked"></navigator>
     </v-navigation-drawer>
@@ -16,6 +21,7 @@
         @disbtn_complete="switchLock2"
         ref="disint_btn" class="zms-lock-screen " />
       </div>
+      
       <v-container fluid>
         <embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>
         <page-container/>
@@ -31,6 +37,7 @@ import EmbeddedFrame from './components/Gadgets/EmbeddedFrame.vue';
 import Navigator from './components/Navigatior/Navigator.vue';
 import PageContainer from './components/PageContainer.vue';
 import DisintegrateButton from './components/Gadgets/DisintegrateButton.vue';
+import DynamicTitle from './components/Gadgets/DynamicTitle.vue';
 
 export default {
   name: 'App',
@@ -39,20 +46,19 @@ export default {
     AppbarExt,
     PageContainer,
     EmbeddedFrame,
+    DynamicTitle,
     DisintegrateButton
   },
     EmbeddedFrame,
   data: () =>{
-
     return{
       drawer: false,
       allowL2D:true,
       locked:false,
-      lockStatus:false
+      lockStatus:false,
+      showLoadingComponent:true,
     }
   },
-  
-    
   computed:{
     rejectMouse(){
       return{
@@ -96,8 +102,12 @@ export default {
       console.log('AAAAAAAAAAAA')
       console.log(this.$i18n.locale)
     }
-    //Debug
-    //this.$swal('Oops...', 'Something went wrong!', 'success')
+    //Hide Loading Wrapper
+    setTimeout(
+      ()=>{
+        this.showLoadingComponent=false
+      },5000
+    )
   },
   methods:{
     switchDrawer(){

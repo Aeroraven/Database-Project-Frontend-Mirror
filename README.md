@@ -22,6 +22,14 @@
 
 ##### 更新记录
 
+更新 @ 2021-07-09 15:11
+
+- 优化UI
+  - 增加加载页面（参考[Citrus-vuetify](https://github.com/Yiuman/citrus-vuetify)）
+  - 优化路由过渡动画（参考[Penguin Statistics](https://github.com/penguin-statistics/frontend-v2)）
+
+
+
 更新 @ 2021-07-08 0:00
 
 - 优化UI

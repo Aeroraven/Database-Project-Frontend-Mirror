@@ -23,6 +23,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import AnimatedVue from 'animated-vue'
+import 'animate.css/animate.css'
+
+Vue.use(AnimatedVue)
 Vue.use(VueSweetalert2);
 Vue.use(ElementUI)
 Vue.use(VueParticlesBg);
