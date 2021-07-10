@@ -10,7 +10,14 @@
     </v-navigation-drawer>
     <v-app-bar app color="primary" v-if="showTopNavbar" transition="slide-x-transition"> 
       <v-app-bar-nav-icon color="white"  @click="switchDrawer"></v-app-bar-nav-icon>
-      <v-app-bar-title :class="getAppbarStyleClass" v-html="$t(getAppbarTitle)" class="zms-wider-letterspacing"></v-app-bar-title>
+      
+      <vue-typing 
+      :text="$t(getAppbarTitle)" 
+      :rewrite="true"  
+      class="zms-wider-letterspacing zms-app-barx"  
+      :class="getAppbarStyleClass"  
+      :framerate="2" :cursorOptions="zmsVueTypingCursor" />
+      
       <appbar-ext @lockPress="switchLock()"
        class="zms-right"></appbar-ext>
     </v-app-bar>
@@ -38,7 +45,7 @@ import Navigator from './components/Navigatior/Navigator.vue';
 import PageContainer from './components/PageContainer.vue';
 import DisintegrateButton from './components/Gadgets/DisintegrateButton.vue';
 import DynamicTitle from './components/Gadgets/DynamicTitle.vue';
-
+import VueTyping from 'vue-typing'
 export default {
   name: 'App',
   components:{
@@ -47,7 +54,8 @@ export default {
     PageContainer,
     EmbeddedFrame,
     DynamicTitle,
-    DisintegrateButton
+    DisintegrateButton,
+    VueTyping
   },
     EmbeddedFrame,
   data: () =>{
@@ -57,6 +65,7 @@ export default {
       locked:false,
       lockStatus:false,
       showLoadingComponent:true,
+      zmsVueTypingCursor:{ blinking: true, cursor: "|", color: "black", framerate: 5},
     }
   },
   computed:{
@@ -174,5 +183,8 @@ export default {
   }
   #app{
     user-select: none;
+  }
+  .zms-app-barx{
+    font-size:21px;
   }
 </style>

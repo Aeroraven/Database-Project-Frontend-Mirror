@@ -7,10 +7,12 @@
             <div class="zms-home-body">
                 <v-container>
                     <v-row>
-                        <v-col cols="4">
-                            <v-img contain :src="avatarImg" aspect-ratio="16/9" height="100px" class="zms-img"></v-img>
+                        <v-col cols="3">
+                            <v-avatar size="112" color="grey">
+                                <v-img contain :src="avatarImg" aspect-ratio="16/9" height="100px" class="zms-img zms-img-demo"></v-img>
+                            </v-avatar>
                         </v-col>
-                        <v-col cols="8">
+                        <v-col cols="9">
                             <b>{{userInfo.name}}</b> {{userInfo.userid}}<br/>
                             {{userInfo.permission}}<br/><br/>
                             <v-btn  class="zms-fullwidth"  light color="primary" >
@@ -98,7 +100,7 @@ export default {
         margin:0px 20px 0px 20px;
         padding-top:10px;
         padding-bottom: 10px;
-        }
+    }
     .zms-home-center{
         text-align: center;
     }
@@ -123,5 +125,8 @@ export default {
         margin-right: 5%;
         padding-top:20px;
         padding-bottom: 10px;
+    }
+    .zms-img-demo{
+        filter:brightness(19200%)  saturate(0%)
     }
 </style>

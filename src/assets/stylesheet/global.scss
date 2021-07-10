@@ -6,10 +6,11 @@
     height: 1px;
 }
 .zms-cardcolor-light{
-    background:-webkit-repeating-linear-gradient( 135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98) 45px, rgba(255, 255, 255, 0.9) 45px, rgba(255, 255, 255, 0.9) 90px ) !important;
+    //background:-webkit-repeating-linear-gradient( 135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98) 45px, rgba(255, 255, 255, 0.9) 45px, rgba(255, 255, 255, 0.9) 90px ) !important;
 }
 .zms-cardcolor-dark{
-    background:-webkit-repeating-linear-gradient( 135deg, #26292bfa, #26292bfa 45px, #373c3de6 45px, #373c3de6 90px ) !important;
+    background-color: #333333 !important;
+    //background:-webkit-repeating-linear-gradient( 135deg, #26292bfa, #26292bfa 45px, #373c3de6 45px, #373c3de6 90px ) !important;
 }
 .zms-text-dark{
     color:#dddddd;
