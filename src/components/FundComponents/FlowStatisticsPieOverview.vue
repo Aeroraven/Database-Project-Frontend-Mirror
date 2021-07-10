@@ -16,7 +16,7 @@
                 <v-tab-item :value="`tab-1`">
                     <v-container>
                         <v-row>
-                            <v-col>
+                            <v-col cols="12" md="6" sm="6" xl="6" lg="6">
                                 <div class="zms-qtx-adjust">
                                     
                                     <span class="zms-query-titlex primary--text">{{$t('fund.accIncome')}}</span><br/>
@@ -28,7 +28,7 @@
                                 :zmsChartData="accIncomeData"/>
                             </v-col>
                             <v-divider vertical class="zms-vert-divider-adjust"/>
-                            <v-col>
+                            <v-col cols="12" md="6" sm="6" xl="6" lg="6">
                                 <div class="zms-qtx-adjust">
                                     <span class="zms-query-titlex primary--text">{{$t('fund.accExpense')}}</span><br/>
                                 </div>
@@ -44,7 +44,7 @@
                 <v-tab-item :value="`tab-2`">
                     <v-container>
                         <v-row>
-                            <v-col>
+                            <v-col cols="12" md="6" sm="6" xl="6" lg="6">
                                 <div class="zms-qtx-adjust">
                                     
                                     <span class="zms-query-titlex primary--text">{{$t('fund.cateIncome')}}</span><br/>
@@ -57,7 +57,7 @@
                                 />
                             </v-col>
                             <v-divider vertical/>
-                            <v-col>
+                            <v-col cols="12" md="6" sm="6" xl="6" lg="6">
                                 <div class="zms-qtx-adjust">
                                     <span class="zms-query-titlex primary--text">{{$t('fund.cateExpense')}}</span><br/>
                                 </div>
@@ -201,6 +201,6 @@ export default{
     }
     .zms-vert-divider-adjust{
         position:relative;
-        padding-right:20px !important;
+        padding-right:0 !important;
     }
 </style>
