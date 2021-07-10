@@ -2,10 +2,10 @@
     <div class="zms-home-container">
         <v-container fluid class="fill-height justify-center">
             <v-row align="center" class="mx-0">
-                <v-col cols="12" lg="6" xl="7" class="zms-top-align">
+                <v-col cols="12" lg="6" xl="6" class="zms-top-align">
                     <homepage-welcome/>
                 </v-col>
-                <v-col cols="12" lg="6" xl="5" class="zms-top-align">
+                <v-col cols="12" lg="6" xl="6" class="zms-top-align">
                     <homepage-account-overview/>
                     <homepage-overview/>
                 </v-col>

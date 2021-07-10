@@ -5,7 +5,7 @@
         color="transparent" >
             <div :style="getBg" class="zms-home-welcome-wrapper">
             </div>
-            <div class="zms-home-welcome-wrapperx ">
+            <div :class="cardNightClassX">
             </div>
             <div class="zms-home-body">
                 
@@ -51,7 +51,12 @@ export default {
             return{
                 'zms-cardcolor-light':!this.$vuetify.theme.dark,
                 'zms-cardcolor-dark':this.$vuetify.theme.dark,
-                
+            }
+        },
+        cardNightClassX(){
+            return{
+                'zms-home-welcome-wrapperx':!this.$vuetify.theme.dark,
+                'zms-home-welcome-wrapperx-dark':this.$vuetify.theme.dark,
             }
         },
         getBg(){
@@ -83,6 +88,13 @@ export default {
         width:100%;
         height:100%;
         background-color:#ffffffcc;
+    }
+    .zms-home-welcome-wrapperx-dark {
+        z-index: 1;
+        position:absolute;
+        width:100%;
+        height:100%;
+        background-color:#000000cc;
     }
     .zms-home-notice{
         margin:0px 20px 0px 20px;

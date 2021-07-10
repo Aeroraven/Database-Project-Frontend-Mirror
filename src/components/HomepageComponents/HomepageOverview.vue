@@ -9,13 +9,15 @@
                 <v-container >
                     <v-row no-gutters>
                         <template v-for="n in 8" >
-                            <v-col :key="n" class="zms-center">
-                                <span class="zms-stat" v-if="n==1">{{getCurrentTouristCnt}}</span>
-                                <span class="zms-stat" v-if="n==2">{{getStatData(2)}}</span>
-                                <span class="zms-stat" v-if="n==3">{{getStatData(3)}}</span>
-                                <span class="zms-stat" v-if="n==4">{{getStatData(4)}}</span>
-
-                                
+                            <v-col :key="n" class="zms-center zms-x">
+                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==1">{{getCurrentTouristCnt}}</span>
+                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==2">{{getStatData(2)}}</span>
+                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==3">{{getStatData(3)}}</span>
+                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==4">{{getStatData(4)}}</span>
+                                <span v-if="n<=4">
+                                    <br/>
+                                    <v-progress-linear :color="cx(n)"  height="15" value="60" striped rounded/>
+                                </span>
                                 <span v-if="n>4">{{getStatCaption(n-4)}}</span>
                             </v-col>
                             <v-responsive
@@ -48,6 +50,34 @@ export default {
         }
     },
     methods:{
+        cx(i){
+            if(i==1){
+                return 'red darken-3'
+            }
+            if(i==2){
+                return 'green darken-3'
+            }
+            if(i==3){
+                return 'amber darken-3'
+            }
+            if(i==4){
+                return 'blue darken-3'
+            }
+        },
+        cxt(i){
+            if(i==1){
+                return 'red--text'
+            }
+            if(i==2){
+                return 'green--text'
+            }
+            if(i==3){
+                return 'orange--text'
+            }
+            if(i==4){
+                return 'blue--text'
+            }
+        },
         fetchCurrentTouristCnt(){
             getCurrentTourists().then(response => {
                 this.currentTouristCnt = response.data.cnt
@@ -156,5 +186,11 @@ export default {
         margin-right: 5%;
         padding-top:20px;
         padding-bottom: 10px;
+    }
+    .zms-x{
+        margin-right:25px;
+    }
+    .zms-font-bold{
+        font-weight: bold;
     }
 </style>
