@@ -6,7 +6,7 @@ import Ripple from 'vue-ripple-directive';
 import animated from 'animate.css'
 import Vuetify from './plugins/vuetify'
 import vuetify from './plugins/vuetify'
-import '@/assets/stylesheet/global.css'
+import '@/assets/stylesheet/global.scss'
 import '@/assets/stylesheet/fonts.css'
 import axios from 'axios'
 import 'echarts'
