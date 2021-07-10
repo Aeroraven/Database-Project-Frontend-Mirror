@@ -10,6 +10,7 @@ let store= new Vuex.Store({
         sAsset_SlidebarHeadIcon:'assets/slide-bar-head-icon.png',
         sAsset_WelcomeIcon:'assets/welcome-icon.png',
         sAsset_PageBackground:'assets/background-trial.jpg',
+        sAsset_PageBackground2:'assets/background-trial-2.jpg',
 
         //项目常量
         sProjectName:"ZMS 管理系统",

@@ -98,7 +98,7 @@ export default {
         margin:0px 20px 0px 20px;
         padding-top:10px;
         padding-bottom: 10px;
-        }
+    }
     .zms-home-center{
         text-align: center;
     }

@@ -2,10 +2,10 @@
     <div class="zms-home-container">
         <v-container fluid class="fill-height justify-center">
             <v-row align="center" class="mx-0">
-                <v-col cols="12" lg="6" xl="8">
+                <v-col cols="12" lg="6" xl="7" class="zms-top-align">
                     <homepage-welcome/>
                 </v-col>
-                <v-col cols="12" lg="6" xl="4">
+                <v-col cols="12" lg="6" xl="5" class="zms-top-align">
                     <homepage-account-overview/>
                     <homepage-overview/>
                 </v-col>
@@ -16,11 +16,15 @@
                     <homepage-quick-launch/>
                 </v-col>
                 <v-col cols="12" md="6" class="align-self-stretch">
-                    <homepage-work-overview/>
+                    <homepage-task-overview/>
                 </v-col>
                 <v-col cols="12" md="6" class="align-self-stretch">
                     <homepage-task-overview/>
                 </v-col>
+                <!--<v-col cols="12" md="6" class="align-self-stretch">
+                    <homepage-work-overview/>
+                </v-col>-->
+                
             </v-row>
       </v-container>
       
@@ -56,5 +60,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+    .zms-top-align{
+        vertical-align: top;
+    }
 </style>

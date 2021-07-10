@@ -14,6 +14,10 @@
                             <span v-bind="attrs" v-on="on">
                                 {{item.title}}
                             </span>
+                            
+                            <span v-bind="attrs" v-on="on">
+                                ({{item.time}})  &nbsp;&nbsp;&nbsp;
+                            </span>
                         </template>
                         <v-card :ripple="{class:null}">
                             <v-card-title class="text-h6 text--white " color="error">
@@ -120,7 +124,8 @@ export default {
         margin-left:7%;
         margin-right: 7%;
         padding-top:10px;
-        padding-bottom: 10px;
+        padding-bottom: 30px;
+
     }
     .zms-home-body2{
         margin-left:5%;

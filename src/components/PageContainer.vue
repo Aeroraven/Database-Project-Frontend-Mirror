@@ -12,11 +12,11 @@
             
         </div>
         <div :class="getWrapClass" >
-            <particles-bg 
+            <!--<particles-bg 
             class="zms-particle-bg"
             type="square"
             num=10 
-            :bg="true"/>
+            :bg="true"/>-->
                     
             <vue-particles
                 color="#dedede"
