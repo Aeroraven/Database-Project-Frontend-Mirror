@@ -103,7 +103,7 @@ export default {
 
 <style scoped lang="scss">
     .zms-poptip-bodyx{
-        color:#111111;
+        //color:#111111;
         padding-top:20px;
         padding-bottom: 40px;
         line-height: 150%;
@@ -136,7 +136,7 @@ export default {
         margin-right: 7%;
         padding-top:10px;
         padding-bottom: 30px;
-        color:#111111;
+        //color:#111111;
 
     }
     .zms-poptip-bodyxa{
@@ -147,7 +147,7 @@ export default {
         margin-right: 5%;
         padding-top:20px;
         padding-bottom: 10px;
-        color:#111111;
+        //color:#111111;
     }
     .zms-sharp{
         font-weight: bold;
