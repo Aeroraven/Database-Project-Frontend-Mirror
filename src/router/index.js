@@ -18,7 +18,7 @@ import EmployeeManagement from '../views/EmployeeManagement.vue'
 import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
 import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
 import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
-import EmployeeCheck from '../views/EmployeeCheck'
+import EmployeeCheck from '../views/EmployeeCheck.vue'
 import AdmissionTicket from '../views/AdmissionTickets.vue'
 import ShowInformationManagement from '../views/ShowInformationManagement.vue'
 import TrainingManagement from '../views/TrainingManagement.vue'
@@ -154,7 +154,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  //base: process.env.BASE_URL,
+  base: process.env.BASE_URL,
   //base:'/Hello_World/ZMSDev',
   routes
 })
