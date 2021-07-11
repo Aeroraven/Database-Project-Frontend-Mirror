@@ -37,7 +37,7 @@ const options = {
 };
 Vue.use(VueI18n)
 const i18n = new VueI18n({
-  locale: 'en-US',    
+  locale: 'zh-CN',    
   messages: {
     'zh-CN':LangZHCN,
     'en-US':LangENUS
