@@ -30,7 +30,7 @@
       </div>
       
       <v-container fluid>
-        <!--<embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>-->
+        <embedded-frame path="/live2d-gadget.html" v-if="this.$store.state.bUseL2D"/>
         <page-container/>
       </v-container>
     </v-main>

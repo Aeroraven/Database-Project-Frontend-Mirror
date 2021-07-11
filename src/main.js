@@ -5,8 +5,8 @@ import store from './store'
 import Ripple from 'vue-ripple-directive';
 import animated from 'animate.css'
 import vuetify from './plugins/vuetify'
-import '@/assets/stylesheet/global.scss'
-import '@/assets/stylesheet/fonts.css'
+import './assets/stylesheet/global.scss'
+import './assets/stylesheet/fonts.css'
 import axios from 'axios'
 import 'echarts'
 import ECharts from 'vue-echarts'
@@ -24,17 +24,14 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import AnimatedVue from 'animated-vue'
 import 'animate.css/animate.css'
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 Vue.use(AnimatedVue)
 Vue.use(VueSweetalert2);
 Vue.use(ElementUI)
 Vue.use(VueParticlesBg);
 Vue.use(VueParticles)
-
-
-import Toast from "vue-toastification";
-import "vue-toastification/dist/index.css";
-
 const options = {
   transition: "Vue-Toastification__fade",
 };
@@ -47,21 +44,16 @@ const i18n = new VueI18n({
   } 
 })
 Vue.use(Toast, options);
-
-Vue.use(Vuetify);
 Vue.use(Message, {
   closeButtonContent: '关闭',
   autoTransitionSetting: true,
 });
-
 Vue.prototype.$message=Message
 Vue.prototype.axios = axios
 Vue.use(animated)
 Vue.directive('ripple', Ripple);
 Vue.config.productionTip = false;
 Vue.component('v-chart', ECharts)
-
-
 Ripple.color = 'rgba(255, 255, 255, 0.25)';
 Ripple.zIndex = 55;
 new Vue({
@@ -70,6 +62,5 @@ new Vue({
   store,
   vuetify,
   axios,
-  
   render: h => h(App)
 }).$mount('#app')
