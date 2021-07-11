@@ -111,8 +111,10 @@ export default {
       console.log(this.$store.state.defaultLang)
       if(Object.prototype.hasOwnProperty.call(this.$store.state.langOpts[this.$store.state.defaultLang],'cd')){
         this.$i18n.locale=this.$store.state.langOpts[this.$store.state.defaultLang].cd
+        console.log(this.$store.state.langOpts[this.$store.state.defaultLang].cd)
+        console.log('AAAAA')
       }else{
-        this.$i18n.locale='en-US'
+        this.$i18n.locale='zh-CN'
       }
       
       console.log('AAAAAAAAAAAA')
