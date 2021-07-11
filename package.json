@@ -1,5 +1,5 @@
 {
-  "name": "tj-zms-frontend",
+  "name": "demo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -75,7 +75,12 @@
     },
     "rules": {
       "vue/no-unused-components": "off",
-      "no-unused-vars": "off"
+      "no-unused-vars": "off",
+      "no-": "off",
+      "no-debugger":"off",
+      "no-console": "off",
+      "no-empty":"off"
+      
     }
   },
   "browserslist": [

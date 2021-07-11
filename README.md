@@ -29,12 +29,21 @@
 - 员工信息录入的性别使用下拉框选择，而不是输入框。（Issue #59）
 - 门票管理路由配置不正确或页面缺失。（Issue #58）
 - 演出票信息管理的标题字体未正确配置。（Issue #57）
-- Webpack未正确配置，浏览器无法运行build版本。（Issue #56）【严重】
+- <s>Webpack未正确配置，浏览器无法运行build版本。（Issue #56）【严重】</s>【已修复】
 - 首页太难看，需要优化。（Issue #55）
 
 
 
 ##### 更新记录
+
+修复 @ 2021-07-11 13:18
+
+- 本地化：
+  - 推进中文翻译进度
+- 问题修复：
+  - 修复了 Issue #56 的问题
+
+
 
 更新 @ 2021-07-09 15:11
 
@@ -294,4 +303,3 @@
 8. [Vue-Echarts](https://github.com/ecomfe/vue-echarts) （图表）
 9. MockJS
 10. [Vue-Particles](https://github.com/creotip/vue-particles)（特效）
-
