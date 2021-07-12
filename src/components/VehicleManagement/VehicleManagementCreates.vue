@@ -1,4 +1,3 @@
-
 <template>
     <div class="zms-aniShow" :class="nmNightClass">
         <div class="zms-query-filter">
@@ -117,7 +116,7 @@
 import { createVehicleManagementInfo } from '../../apis/vehicleManagement'
 
 export default {
-    name: 'trainingCreate',
+    name: 'VehicleManagementCreates',
     created(){
     },data:()=>{
         return{

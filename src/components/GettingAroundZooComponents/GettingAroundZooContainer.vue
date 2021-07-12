@@ -3,10 +3,10 @@
         <template>
             <v-tabs fixed-tabs background-color="primary" class="rounded" dark v-model="tab">
                 <v-tab :key="1">
-                    园内交通信息概览
+                    园内交通流水查询
                 </v-tab>
                 <v-tab :key="2">
-                    填报园内交通信息
+                    修改园内交通信息
                 </v-tab>
                 
             </v-tabs>
@@ -15,7 +15,8 @@
                   <getting-around-zoo-query/>
                 </v-tab-item>
                 <v-tab-item color="transparent" class="rounded-lg" :key="2">
-                   <getting-around-zoo-create/>
+                  <!-- <getting-around-zoo-create/> -->
+                  <getting-around-zoo-motify/>
                </v-tab-item>
                 
             </v-tabs-items>
@@ -26,6 +27,7 @@
 <script>
 import GettingAroundZooCreate from './GettingAroundZooCreates.vue'
 import GettingAroundZooQuery from './GettingAroundZooQuery.vue'
+import GettingAroundZooMotify from './GettingAroundZooMotify.vue'
 
 export default {
     name: 'GettingAroundZooContainer',
@@ -37,6 +39,8 @@ export default {
     components:{
         GettingAroundZooQuery,
         GettingAroundZooCreate,
+        GettingAroundZooMotify,
+
     },data:()=>{
         return{
             tab:null,

@@ -388,7 +388,7 @@ export default {
     'gadget':{
         'loading':'加载中，请稍后...'
     },
-    'animalShow':{
+   'animalShow':{
         'title':'演出信息上报',
         'SubmitComplete':'记录提交成功！',
         'SubmitComplete2':'记录修改成功！',
@@ -495,10 +495,10 @@ export default {
         'delete':'删除',  
         'delete_content':'该删除过程将不可恢复',
         'emptyInfo':'未找到符合条件的选项',
-
+        
         'Submitting':'正在提交',
         'PleaseWait':'请稍后',
-        'NonexistentAniID':'填写的动物不存在或无效',
+        'NonexistentAniID':'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       填写的动物不存在或无效',
         'NonexistentTypeID':'填写的场馆不存在或无效',
         'NonexistentVetID':'填写的负责人不存在或无效',
         'NoNoteTitle':'情况描述缺失',
@@ -512,14 +512,14 @@ export default {
         'title':'交通信息上报',
         'SubmitComplete':'记录提交成功！',
         'SubmitComplete2':'记录修改成功！',
-
+        
         'ID':'交通工具编号',
         'vehicle_category':'交通工具类别',
         'departure_interval':'发车频率',
         'trans_duration':'车程时长',
         'price':'票价',
         'boarding_location':'上车地点',
-
+        
 
         'submit_Empty_ID':'交通工具编号无效',
         'submit_Empty_vehicle_category':'交通工具类别无效',
@@ -544,17 +544,15 @@ export default {
         'note':'情况描述',
         'DateAhead':'设定的日期超前',
         'treatProg':'治疗过程',
-        'currentStateW':'治愈',
-        'itemAlter':'信息编辑',
-        'emptyInfo':'无法查找到相应的信息',
         'currentStateW':'已经治愈',
     },
     'gettingAroundZoo':{
         'title':'园内交通信息上报',
         'SubmitComplete':'记录提交成功！',
         'SubmitComplete2':'记录修改成功！',
-
+        
         'ID':'交通工具编号',
+        'tour_id':'客户编号',
         'vehicle_category':'交通工具类别',
         'price':'票价',
         'ticket_type':'票种',
@@ -562,7 +560,7 @@ export default {
         'age_limit':'年龄限制',
         'weight_limit':'体重限制',
         'rental_duration':'乘坐时长',
-
+        
         'submit_Empty_ID':'交通工具编号无效',
         'submit_Empty_vehicle_category':'交通工具类别无效',
         'submit_Empty_price':'票价无效',
@@ -594,7 +592,7 @@ export default {
         'title':'便民服务信息上报',
         'SubmitComplete':'记录提交成功！',
         'SubmitComplete2':'记录修改成功！',
-
+       
         'ID':'便民服务编号',
         'name':'便民服务名称',
         'position':'位置',
@@ -609,7 +607,7 @@ export default {
         'delete':'删除',  
         'delete_content':'该删除过程将不可恢复',
         'emptyInfo':'未找到符合条件的选项',
-
+        
         'tour_id':'游客编号',
         'vehicle_category':'交通工具类别',
         'Price':'票价',

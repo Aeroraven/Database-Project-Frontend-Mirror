@@ -1,4 +1,4 @@
-+<template>
+<template>
     <div class="zms-convenienceService" :class="nmNightClass">
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
@@ -189,7 +189,7 @@
 import { getConvenienceServiceData, updateConvenienceServiceInfo } from '../../apis/convenienceService';
 
 export default {
-    name: 'WarehouseItemOverview',
+    name: 'ConvenienceServiceQuery',
     created(){
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();
@@ -262,7 +262,15 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getConvenienceServiceData().then(response => {
+                    getConvenienceServiceData(
+                        {
+                            name:this.submit_name,
+                            ID:this.submit_ID,
+                            position:this.submit_position,
+                            intro:this.submit_intro,
+                        }
+
+                    ).then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
@@ -275,11 +283,20 @@ export default {
                 },2000
             )
         },
-        updateItemInfo(){
+        updateItemInfo(
+
+        ){
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updateConvenienceServiceInfo().then(response => {
+                    updateConvenienceServiceInfo(
+                        {
+                            name:this.editedItem['ID'],
+                            ID:this.editedItem['name'],
+                            position:this.editedItem['position'],
+                            intro:this.editedItem['intro'],
+                        }
+                    ).then(response => {
                         this.queryLoaderDialog2=false;
                         if(response.data.statcode!=0){
                             this.errorTitle=this.$t('common.error');
