@@ -9,14 +9,18 @@ import WarehouseItemManagement from '../views/WarehouseItemManagement.vue'
 import WarehouseInfoManagement from '../views/WarehouseInfoManagement.vue'
 import WarehouseFlowManagement from '../views/WarehouseFlowManagement.vue'
 import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
-import ShowTicketManagement from '../views/ShowTicketManagement.vue'
-import ShowInformationManagement from '../views/ShowInformationManagement.vue'
-import TrainingManagement from '../views/TrainingManagement.vue'
 import EmployeeManagement from '../views/EmployeeManagement.vue'
 import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
 import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
 import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
 import EmployeeCheck from '../views/EmployeeCheck.vue'
+import ShowInformationManagement from '../views/ShowInformationManagement.vue'
+import TrainingManagement from '../views/TrainingManagement.vue'
+import ShowTicketManagement from '../views/ShowTicketManagement.vue'
+import VehicleManagement from '../views/VehicleManagement.vue'
+import GettingAroundZoo from '../views/GettingAroundZoo.vue'
+import ConvenienceService from '../views/ConvenienceService.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -66,21 +70,6 @@ const routes = [
     component: AnimalInfoManagement
   },
   {
-    path: '/ticketManagement/showTicketManagement',
-    name: 'ShowTicketManagement',
-    component: ShowTicketManagement
-  },
-  {
-    path: '/showInformationManagement',
-    name: 'ShowInformationManagement',
-    component: ShowInformationManagement
-  },
-  {
-    path: '/trainingManagement',
-    name: 'TrainingManagement',
-    component: TrainingManagement
-  },
-  {
     path: '/employeeManagement',
     name: 'Adddssx',
     component: EmployeeManagement
@@ -105,6 +94,38 @@ const routes = [
     path: '/employeeManagement/check',
     name: 'sdwfff',
     component: EmployeeCheck,
+  },
+  {
+    path: '/showInformationManagement',
+    name: 'ShowInformationManagement',
+    component: ShowInformationManagement
+  },
+  {
+    path: '/trainingManagement',
+    name: 'TrainingManagement',
+    component: TrainingManagement
+  },
+  {
+    path: '/showTicketManagement',
+    name: 'ShowTicketManagement',
+    component: ShowTicketManagement
+  },
+  {
+    path: '/vehicleManagement',
+    name: 'VehicleManagement',
+    component: VehicleManagement
+  },
+  
+  {
+    path: '/gettingAroundZoo',
+    name: 'GettingAroundZoo',
+    component: GettingAroundZoo
+  },
+
+  {
+    path: '/convenienceService',
+    name: 'ConvenienceService',
+    component:  ConvenienceService
   },
 
 ]

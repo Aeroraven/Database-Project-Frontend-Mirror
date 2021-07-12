@@ -385,3 +385,65 @@ let animalInfo={
 ]
 }
 Mock.mock('/api/animalInfo/getinformation','get',animalInfo)
+
+//LXQ
+Mock.mock('/api/animalShow/createShowInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+Mock.mock('/api/animalShow/updateShowInfo','get',{data:{stat:'success',statcode:0},code:200})
+Mock.mock('/api/Training/getTrainingData','get',trainingData)
+Mock.mock('/api/Training/updateTrainingInfo','get',{data:{stat:'success',statcode:0},code:200})
+Mock.mock('/api/showTicketManagement/deleteShowTicketFlowInfoInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+let showTicketData={
+  data:[ {show_id:'131313',Price:'200',Ticket_type:'儿童票',Amount:'131'},
+    {show_id:'131313',Price:'200',Ticket_type:'儿童票',Amount:'131'},
+    {show_id:'131313',Price:'200',Ticket_type:'儿童票',Amount:'131'},
+    {show_id:'131313',Price:'200',Ticket_type:'儿童票',Amount:'131'},
+    {show_id:'131313',Price:'200',Ticket_type:'儿童票',Amount:'131'},
+  ],
+  code:200
+}
+Mock.mock('/api/showTicketManagement/getShowTicketData','get',showTicketData)
+Mock.mock( '/api/showTicketManagement/updateShowTicketInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+let vehicleManagementData={
+  data:[{ID:'123123',vehicle_category:'131313',departure_interval:'1234',trans_duration:'200',price:'大象馆',boarding_location:'儿童票'},
+    {ID:'123123',vehicle_category:'131313',departure_interval:'1234',trans_duration:'200',price:'大象馆',boarding_location:'儿童票'},
+    {ID:'123123',vehicle_category:'131313',departure_interval:'1234',trans_duration:'200',price:'大象馆',boarding_location:'儿童票'},
+    {ID:'123123',vehicle_category:'131313',departure_interval:'1234',trans_duration:'200',price:'大象馆',boarding_location:'儿童票'},
+    {ID:'123123',vehicle_category:'131313',departure_interval:'1234',trans_duration:'200',price:'大象馆',boarding_location:'儿童票'},
+  ],
+  code:200
+}
+Mock.mock('/api/vehicleManagement/getVehicleManagementData','get',vehicleManagementData)
+Mock.mock('/api/vehicleManagement/createVehicleManagementInfo','get',{data:{stat:'success',statcode:0},code:200})
+Mock.mock('/api/vehicleManagement/updateVehicleManagementInfo','get',{data:{stat:'success',statcode:0},code:200})
+//GettingAroundZoo 
+let gettingAroundZooData={
+  data:[{ID:'123123' ,vehicle_category:'1234',price:'200',ticket_type:'大象馆',deposit:'儿童票',age_limit:'12',weight_limit:'80kg',rental_duration:'2h'},
+    {ID:'123123' ,vehicle_category:'1234',price:'200',ticket_type:'大象馆',deposit:'儿童票',age_limit:'12',weight_limit:'80kg',rental_duration:'2h'},
+    {ID:'123123' ,vehicle_category:'1234',price:'200',ticket_type:'大象馆',deposit:'儿童票',age_limit:'12',weight_limit:'80kg',rental_duration:'2h'},
+    {ID:'123123' ,vehicle_category:'1234',price:'200',ticket_type:'大象馆',deposit:'儿童票',age_limit:'12',weight_limit:'80kg',rental_duration:'2h'},
+    {ID:'123123' ,vehicle_category:'1234',price:'200',ticket_type:'大象馆',deposit:'儿童票',age_limit:'12',weight_limit:'80kg',rental_duration:'2h'},
+    {ID:'123123' ,vehicle_category:'1234',price:'200',ticket_type:'大象馆',deposit:'儿童票',age_limit:'12',weight_limit:'80kg',rental_duration:'2h'},
+  ],
+  code:200
+}
+Mock.mock('/api/gettingAroundZoo/getGettingAroundZooData','get',gettingAroundZooData)
+Mock.mock('/api/gettingAroundZoo/createGettingAroundZooInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+let convenienceServiceData={
+  data:[{ID:'123123' ,name:'ATM' ,position:'At the gate of the zoo',intro:'1234'},
+    {ID:'123123' ,name:'ATM' ,position:'At the gate of the zoo',intro:'1234'},
+    {ID:'123123' ,name:'ATM' ,position:'At the gate of the zoo',intro:'1234'},
+    {ID:'123123' ,name:'ATM' ,position:'At the gate of the zoo',intro:'1234'},
+    {ID:'123123' ,name:'ATM' ,position:'At the gate of the zoo',intro:'1234'},
+
+  ],
+  code:200
+}
+Mock.mock('/api/convenienceService/getConvenienceServiceData','get',convenienceServiceData)
+
+Mock.mock('/api/convenienceService/createConvenienceServiceInfo','get',{data:{stat:'success',statcode:0},code:200})
+Mock.mock( '/api/convenienceService/updateConvenienceServiceInfo','get',{data:{stat:'success',statcode:0},code:200})
+
