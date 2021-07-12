@@ -1,61 +1,23 @@
 <template>
-    <div class="zms-anicare" :class="nmNightClass">
+    <div class="zms-convenienceService" :class="nmNightClass">
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
             <div>
-                <v-container>
-                    <v-row>
+                 <v-container>
+                   <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.ID')" v-model="submit_id" :placeholder="$t('common.pleaseInput')+$t('training.ID')" prepend-icon="mdi-music-accidental-sharp"  />
+                            <v-text-field :label="$t('convenienceService.name')" v-model="submit_name" :placeholder="$t('common.pleaseInput')+$t('convenienceService.name')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('convenienceService.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('convenienceService.ID')" prepend-icon="el-icon-link" />
+                        </v-col>
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('convenienceService.position')" v-model="submit_position" :placeholder="$t('common.pleaseInput')+$t('convenienceService.position')" prepend-icon="el-icon-location-information"  />
+                        </v-col>         
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.animalID')" v-model="submit_animalID" :placeholder="$t('common.pleaseInput')+$t('training.animalID')" prepend-icon="el-icon-view"  />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.trainer_id')" v-model="submit_trainer_id" :placeholder="$t('common.pleaseInput')+$t('training.trainer_id')" prepend-icon="el-icon-s-custom"  />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.train_site')" v-model="submit_train_site" :placeholder="$t('common.pleaseInput')+$t('training.train_site')" prepend-icon="el-icon-position"  />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submit_training_date" :label="$t('training.training_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
-                                    </v-text-field>
-                                </template>
-                                <v-date-picker color="primary" width="400" v-model="submit_training_date" @input="menu2 = false"></v-date-picker>
-                            </v-menu>
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                             <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submit_start_time" :label="$t('training.start_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
-                                    </v-text-field>
-                                </template>
-                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_start_time" @input="menu3 = false"></v-time-picker>
-                            </v-menu>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                             <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submit_end_time" :label="$t('training.end_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
-                                    </v-text-field>
-                                </template>
-                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_end_time" @input="menu4 = false"></v-time-picker>
-                            </v-menu>
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.skill')" v-model="submit_skill" :placeholder="$t('common.pleaseInput')+$t('training.skill')" prepend-icon="el-icon-unlock"  />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.props')" v-model="submit_props" :placeholder="$t('common.pleaseInput')+$t('training.props')" prepend-icon="el-icon-baseball"  />
-                        </v-col>
-
-                      
+                            <v-text-field :label="$t('convenienceService.intro')" v-model="submit_intro" :placeholder="$t('common.pleaseInput')+$t('convenienceService.intro')" prepend-icon="mdi-information"  />
+                        </v-col> 
                     </v-row>
-                  
-                </v-container>
-                <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
@@ -65,18 +27,18 @@
                             </v-btn>
                         </v-col>
 
-                      <v-col cols="12" sm="6" md="3">
+                        <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
                         </v-col>
                         
                         
-                        <!-- <v-col cols="12" sm="6" md="3">
+                       <!-- <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
-                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找 
+                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
-                        </v-col>--> 
+                        </v-col>  -->
                     </v-row>
                 </v-container>
                 
@@ -103,43 +65,26 @@
                             <v-card :ripple="{class:null}">
                                 <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
                                     <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">
-                                        {{$t('training.itemAlter')}}
+                                        {{$t('convenienceService.itemAlter')}}
                                     </span>
                                 </v-card-title>
 
                                      <v-card-text>
                                         <v-container>
                                         <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['ID']"  :label="$t('training.ID')"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['animalID']" :label="$t('training.animalID')"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['skill']" :label="$t('training.skill')"></v-text-field>
-                                        </v-col>
-                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['trainer_id']"  :label="$t('training.trainer_id')"></v-text-field>
-                                        </v-col>
                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['train_site']"  :label="$t('training.train_site')"></v-text-field>
+                                            <v-text-field v-model="editedItem['ID']" :label="$t('convenienceService.ID')"></v-text-field>
                                         </v-col>
-                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['training_date']"  :label="$t('training.training_date')"></v-text-field>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="editedItem['name']"  :label="$t('convenienceService.name')"></v-text-field>
                                         </v-col>
-                                          <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['start_time']"  :label="$t('training.start_time')"></v-text-field>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="editedItem['position']" :label="$t('convenienceService.position')"></v-text-field>
                                         </v-col>
-                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['end_time']"  :label="$t('training.end_time')"></v-text-field>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field v-model="editedItem['intro']" :label="$t('convenienceService.intro')"></v-text-field>
                                         </v-col>
-                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['props']"  :label="$t('training.props')"></v-text-field>
-                                        </v-col>
-                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['remarks']"  :label="$t('training.trainer_id')"></v-text-field>
-                                        </v-col>
+                                        
                                         </v-row>
                                         </v-container>
                                     </v-card-text>
@@ -216,12 +161,12 @@
         <v-dialog v-model="deleteDialog" persistent width="600" >
             <v-card color="" :ripple="{class:null}" >
                 <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3 " color="warning">
-                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('training.delete')}}</span>
+                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('convenienceService.delete')}}</span>
                 </v-card-title>
                 <v-divider/>
                 <br/>
                 <v-card-text>
-                    <span class="zms-poptip-body">{{$t('training.delete_content')}}</span><br/><br/>
+                    <span class="zms-poptip-body">{{$t('convenienceService.delete_content')}}</span><br/><br/>
                 </v-card-text>
                 <v-divider/>
                 <v-card-actions>
@@ -241,7 +186,7 @@
 </template>
 
 <script>
-import { getTrainingData, updateTrainingInfo } from '../../apis/training';
+import { getConvenienceServiceData, updateConvenienceServiceInfo } from '../../apis/convenienceService';
 
 export default {
     name: 'WarehouseItemOverview',
@@ -265,31 +210,18 @@ export default {
         },
     },data:()=>{
         return{
-            submit_id:null,
-            submit_animalID:null,
-            submit_trainer_id:null,
-            submit_train_site:null,
-            submit_training_date:null,
-            submit_start_time:null,
-            submit_end_time:null,
-            submit_skill:null,
-            submit_props:null,
-            submitNote:null,     
+        submit_name:null,
+        submit_ID:null,
+        submit_position:null,
+        submit_intro:null,
 
-        headers:[   
-            {text: '训练编号', value: 'ID'},
-            {text: '动物编号', value: 'animalID'},
-            {text: '训练员工编号', value: 'trainer_id'},
-            {text: '训练地点', value: 'train_site'},
-            {text: '训练时间', value: 'training_date'},
-            {text: '开始时间', value: 'start_time'},
-            {text: '结束时间', value: 'end_time'},
-            {text: '训练技能', value: 'skill'},
-            {text: '训练道具', value: 'props'},
-            {text: '备注信息', value: 'remarks'},
+        headers:[
+            {text: '便民服务编号', value: 'ID'},
+            {text: '便民服务名称', value: 'name'},
+            {text: '位置', value: 'position'},
+            {text: '简介', value: 'intro'},
             {text: '操作', value: 'actions', sortable: false }
-
-            
+         
         ],
         queryLoaderDialog:false,
         pageCount:0,
@@ -330,13 +262,13 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getTrainingData().then(response => {
+                    getConvenienceServiceData().then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('training.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('convenienceService.emptyInfo')})
                         }
                         
                     })
@@ -347,7 +279,7 @@ export default {
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updateTrainingInfo().then(response => {
+                    updateConvenienceServiceInfo().then(response => {
                         this.queryLoaderDialog2=false;
                         if(response.data.statcode!=0){
                             this.errorTitle=this.$t('common.error');
@@ -362,18 +294,10 @@ export default {
             )
         },
         deleteItemInfo(){
-           
-            this.submit_id=null;
-            this.submit_animalID=null;
-            this.submit_trainer_id=null;
-            this.submit_train_site=null;
-            this.submit_training_date=null;
-            this.submit_start_time=null;
-            this.submit_end_time=null;
-            this.submit_skill=null;
-            this.submit_props=null;
-            this.submit_remarks=null;
-
+            this.submit_name=null;
+            this.submit_ID=null;
+            this.submit_position=null;
+            this.submit_intro=null;
         },
         close () {
             this.dialog = false
@@ -408,7 +332,7 @@ export default {
     .zms-query-result{
         margin-top:20px;
     }
-    .zms-anicare{
+    .zms-convenienceService{
         padding-left:50px;
         padding-right:50px;
         padding-top:20px;

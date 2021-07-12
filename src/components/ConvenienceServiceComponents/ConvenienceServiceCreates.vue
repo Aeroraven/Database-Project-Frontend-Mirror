@@ -1,14 +1,14 @@
 <template>
-    <div class="zms-showTicketManagement" :class="nmNightClass">
+    <div class="zms-convenienceService" :class="nmNightClass">
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
                 <v-card >
-                    <v-card-title>{{$t('showTicketManagement.Submitting')}}</v-card-title>
+                    <v-card-title>{{$t('convenienceService.Submitting')}}</v-card-title>
                     <v-divider/>
                     <br/>
                     <v-card-text>
-                        {{$t('showTicketManagement.PleaseWait')}}<br/><br/>
+                        {{$t('convenienceService.PleaseWait')}}<br/><br/>
                         <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
                     </v-card-text>
                 </v-card>
@@ -17,17 +17,17 @@
             <v-dialog v-model="noNoteWarning" persistent width="500" >
                 <v-card color="" :ripple="{class:null}" >
                     <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3" color="warning">
-                        <v-icon color="white">mdi-alert</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('showTicketManagement.NoNoteTitle')}}</span>
+                        <v-icon color="white">mdi-alert</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('convenienceService.NoNoteTitle')}}</span>
                     </v-card-title>
                     <v-divider/>
                     <br/>
                     <v-card-text>
-                        <span class="zms-poptip-body" :class="txNightClass">{{$t('showTicketManagement.NoNoteInfo')}}</span><br/><br/>
+                        <span class="zms-poptip-body" :class="txNightClass">{{$t('convenienceService.NoNoteInfo')}}</span><br/><br/>
                     </v-card-text>
                     <v-divider/>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="noNoteWarning=false;submitShowInfo()">
+                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="noNoteWarning=false;submitConvenienceService()">
                             <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                         </v-btn>
                         <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="noNoteWarning=false">
@@ -47,7 +47,7 @@
                     <v-card-text>
                         <span class="zms-poptip-body" :class="txNightClass">{{errorInfo}}</span><br/><br/>
                     </v-card-text>
-                    <v-divider/>
+                    <v-divider/>                         
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
@@ -56,38 +56,33 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('showTicketManagement.title')}}</span>
+            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('convenienceService.title')}}</span>
             
             <div>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('convenienceService.name')" v-model="submit_name" :placeholder="$t('common.pleaseInput')+$t('convenienceService.name')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Price')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Price')" prepend-icon="el-icon-coin"  />
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('convenienceService.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('convenienceService.ID')" prepend-icon="el-icon-link" />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Ticket_type')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Ticket_type')" prepend-icon="el-icon-tickets"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Amount')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Amount')" prepend-icon="el-icon-s-operation"  />
-                        </v-col>
-                    
-
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('convenienceService.position')" v-model="submit_position" :placeholder="$t('common.pleaseInput')+$t('convenienceService.position')" prepend-icon="el-icon-location-information"  />
+                        </v-col>         
+                        
                     </v-row>
                 </v-container>
-              
-               <!-- <v-textarea
+                 <v-textarea
                     outlined
                     counter
                     prepend-inner-icon="mdi-information" 
                     name="input-7-4"
-                    :label="$t('animalShow.note')"
-                    :placeholder="$t('common.pleaseInput')+$t('animalShow.note')"
-                    v-model="submitNote"
-                >
-                </v-textarea>--> 
+                    :label="$t('convenienceService.intro')"
+                    :placeholder="$t('common.pleaseInput')+$t('convenienceService.intro')"
+                    v-model="submit_intro"
+                > 
+                </v-textarea>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
@@ -109,17 +104,17 @@
 </template>
 
 <script>
-import { createShowTicketInfo } from '../../apis/showTicketManagement';
+import { createConvenienceServiceInfo } from '../../apis/convenienceService';
 
 export default {
-    name: 'AniShowCreate',
+    name: 'trainingCreate',
     created(){
     },data:()=>{
         return{
-            submitId:null,
-            submitType:null,
-            submitPrincipalName:null,
-            submitDate:null,
+            submit_name:null,
+            submit_ID:null,
+            submit_position:null,
+            submit_intro:null,
             submitNote:null,
             submitStat:false,
             noNoteWarning:false,
@@ -144,11 +139,12 @@ export default {
         }
     },
     methods:{
-        submitShowInfo(){
+        submitConvenienceService(){
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createShowTicketInfo().then(response => {
+                    createConvenienceServiceInfo().then(response => {
+                        
                         console.log(this.submitDate)
                         this.submitStat=false;
                         if(response.data.statcode!=0){
@@ -156,20 +152,20 @@ export default {
                         }
                         if(response.data.statcode==1){
                             this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentAniID')
+                            this.errorInfo=this.$t('convenienceService.NonexistentAniID')
                             return 0;
                         }
                         if(response.data.statcode==2){
                             this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentTypeID')
+                            this.errorInfo=this.$t('convenienceService.NonexistentTypeID')
                             return 0;
                         }
                         if(response.data.statcode==3){
                             this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentVetId')
+                            this.errorInfo=this.$t('convenienceService.NonexistentVetId')
                             return 0;
                         }
-                        this.submitSuccTip(this.$t('animalShow.SubmitComplete'))
+                        this.submitSuccTip(this.$t('convenienceService.SubmitComplete'))
                     })
                 },2000
             )
@@ -181,39 +177,23 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submitId==null||this.submitId==undefined||this.submitId==0){
-                this.submitFailTip(this.$t('animalShow_SubmitEmptyId'))
+            if(this.submit_name==null||this.submit_name==undefined||this.submit_name==0){
+                this.submitFailTip(this.$t('convenienceService.submit_Empty_name'))
+                return 0;
+            }   
+            if(this.submit_ID==null||this.submit_ID==undefined||this.submit_ID==0){
+                this.submitFailTip(this.$t('convenienceService.submit_Empty_ID'))
                 return 0;
             }
-            if(this.submitType==null||this.submitType==undefined||this.submitType==0){
-                this.submitFailTip(this.$t('animalShow_SubmitEmptyType'))
+            if(this.submit_position==null||this.submit_position==undefined||this.submit_position==0){
+                this.submitFailTip(this.$t('convenienceService.submit_Empty_position'))
                 return 0;
             }
-            if(this.submitPrincipalName==null||this.submitPrincipalName==undefined||this.submitPrincipalName==0){
-                this.submitFailTip(this.$t('animalShow_SubmitPrincipalName'))
+            if(this.submit_intro==null||this.submit_intro==undefined||this.submit_intro==0){
+                this.submitFailTip(this.$t('convenienceService.submit_Empty_intro'))
                 return 0;
             }
-            if(this.submitDate==null||this.submitDate==undefined||this.submitDate==0){
-                this.submitFailTip(this.$t('animalShow_SubmitDate'))
-                return 0;
-            }
-            let year=this.submitDate.split("-")[0];
-            let month=this.submitDate.split("-")[1]-1;
-            let day=this.submitDate.split("-")[2];
-            let date1= new Date(year,month,day)
-            let date2 = new Date()
-            if(date1>date2){
-                console.log(date1)
-                console.log(date2)
-                this.submitFailTip(this.$t('animalShow.DateAhead'))
-                return 0;
-            }
-
-            if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
-                this.noNoteWarning=true;
-                return 0;
-            }
-            this.submitShowInfo();
+            this.submitConvenienceService();
         }
     }
 }
@@ -226,7 +206,7 @@ export default {
     .zms-query-result{
         margin-top:20px;
     }
-    .zms-showTicketManagement{
+    .zms-convenienceService{
         padding-left:50px;
         padding-right:50px;
         padding-top:20px;
