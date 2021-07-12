@@ -1,10 +1,9 @@
 <template>
   <div class="zms-wrapper" :style="slidebarStyle">
         <div class="zms-wrapper-inside">
-            <!--<transition 
+            <transition 
             enter-active-class="animate__animated animate__fadeIn animate__faster zms-anim-shorter-delays animate__delay-1s "
-            leave-active-class="animate__animated animate__fadeOut  animate__faster ">-->
-            <transition name="slide-fade" mode="out-in">
+            leave-active-class="animate__animated animate__fadeOut  animate__faster ">
                 <router-view :key="$route.fullpath"/>
             </transition>
         </div>
@@ -12,12 +11,6 @@
             
         </div>
         <div :class="getWrapClass" >
-            <!--<particles-bg 
-            class="zms-particle-bg"
-            type="square"
-            num=10 
-            :bg="true"/>-->
-                    
             <vue-particles
                 color="#dedede"
                 :particleOpacity="0.7"

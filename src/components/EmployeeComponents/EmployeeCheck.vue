@@ -5,18 +5,48 @@
             <div>
                 <v-container>
                     <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="员工工号" placeholder="请输入工号" prepend-icon="mdi-music-accidental-sharp"  />
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field label="员工工号" placeholder="请输入工号" prepend-icon="el-icon-notebook-2"  />
+                        </v-col> -->
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('employeecheck.item.employee_id')" v-model="eId" :placeholder="$t('common.pleaseInput')+$t('employeecheck.item.employee_id')" prepend-icon="el-icon-files"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="考核人员" placeholder="请输入考核人姓名" prepend-icon="mdi-tag"  />
+                            <v-text-field :label="$t('employeecheck.item.manager_id')" v-model="mId" :placeholder="$t('common.pleaseInput')+$t('employeecheck.item.manager_id')" prepend-icon="el-icon-document-copy"  />
+                        </v-col>
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field label="考核人员" placeholder="请输入考核人姓名" prepend-icon="el-icon-data-analysis"  />
+                        </v-col> -->
+                        <v-col cols="12" sm="6" md="3">
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="assessmentDate" :label="$t('employeecheck.item.assessment_time')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="assessmentDate" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
+                        </v-col>
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('employeecheck.item.assessment_grade')" v-model="grade" :placeholder="$t('common.pleaseInput')+$t('employeecheck.item.assessment_grade')" prepend-icon="el-icon-s-shop"  />
+                        </v-col> -->
+                        <v-col
+        class="d-flex"
+        cols="12"
+        sm="6"
+        md="3"
+      >
+        <v-select
+          :items="gradeitems"
+          label="考核等级"
+          v-model="grade"
+        ></v-select>
+      </v-col>
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field label="考核时间" placeholder="请输入考核时间" prepend-icon="el-icon-reading"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="考核时间" placeholder="请输入考核时间" prepend-icon="mdi-form-textbox"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="考核等级" placeholder="请输入考核等级" prepend-icon="mdi-account-key"  />
-                        </v-col>
+                            <v-text-field label="考核等级" placeholder="请输入考核等级" prepend-icon="el-icon-data-board"  />
+                        </v-col> -->
                         
                     </v-row>
                 </v-container>
@@ -32,7 +62,7 @@
 
                         <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
-                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找员工
+                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找员工考核信息
                             </v-btn>
                         </v-col>
                         
@@ -68,30 +98,45 @@
                             <v-card :ripple="{class:null}">
                                 <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
                                     <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">
-                                        {{$t('warehouse.item.alter')}}
+                                        {{$t('employeecheck.item.alter')}}
                                     </span>
                                 </v-card-title>
 
                                     <v-card-text>
-                                        <v-container>
+                                        <v-card>
+                                        <v-container fluid>
                                             <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['item_id']" :label="$t('warehouse.item.id')"></v-text-field>
+                                                <v-text-field v-model="editedItem['employee_id']" :label="$t('employeecheck.item.employee_id')"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['type']" :label="$t('warehouse.item.type')"></v-text-field>
+                                                <v-text-field v-model="editedItem['manager_id']" :label="$t('employeecheck.item.manager_id')"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['name']" :label="$t('warehouse.item.name')"></v-text-field>
+                                                <v-text-field v-model="editedItem['assessment_time']" :label="$t('employeecheck.item.assessment_time')"></v-text-field>
                                             </v-col>
+                                            <!-- <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['assessment_grade']" :label="$t('employeecheck.item.assessment_grade')"></v-text-field>
+                                            </v-col> -->
+  <v-col
+        class="d-flex"
+        cols="12"
+        sm="6"
+        md="4"
+      >
+        <v-select
+          :items="gradeitems"
+          label="考核等级"
+          v-model="editedItem['assessment_grade']"
+        ></v-select>
+      </v-col>
+
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['channel']" :label="$t('warehouse.item.channel')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['price']" :label="$t('warehouse.item.price')"></v-text-field>
+                                                <v-text-field v-model="editedItem['remarks']" :label="$t('employeecheck.item.remarks')"></v-text-field>
                                             </v-col>
                                             </v-row>
                                         </v-container>
+                                        </v-card>
                                     </v-card-text>
 
                                     <v-card-actions>
@@ -166,12 +211,12 @@
         <v-dialog v-model="deleteDialog" persistent width="600" >
             <v-card color="" :ripple="{class:null}" >
                 <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3 " color="warning">
-                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('warehouse.item.delete')}}</span>
+                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('employeecheck.item.delete')}}</span>
                 </v-card-title>
                 <v-divider/>
                 <br/>
                 <v-card-text>
-                    <span class="zms-poptip-body">{{$t('warehouse.item.delete_content')}}</span><br/><br/>
+                    <span class="zms-poptip-body">{{$t('employeecheck.item.delete_content')}}</span><br/><br/>
                 </v-card-text>
                 <v-divider/>
                 <v-card-actions>
@@ -191,7 +236,7 @@
 </template>
 
 <script>
-import { getwareItemInfo, updatewareItemInfo } from '../../apis/employee';
+import { getwareItemInfo, updatewareItemInfo } from '../../apis/employeecheck.js';
 
 export default {
     name: 'WarehouseItemOverview',
@@ -216,11 +261,11 @@ export default {
     },data:()=>{
         return{
         headers:[
-            {text: '工作人员工号', value: 'item_id'},
-            {text: '管理人员工号', value: 'type'},
-            {text: '考核时间', value: 'name'},
-            {text: '考核等级', value: 'quality_guarantee'},
-            {text: '备注信息', value: 'cnt'},
+            {text: '工作人员工号', value: 'employee_id'},
+            {text: '管理人员工号', value: 'manager_id'},
+            {text: '考核时间', value: 'assessment_time'},
+            {text: '考核等级', value: 'assessment_grade'},
+            {text: '备注信息', value: 'remarks'},
             // {text: '职务', value: 'price'},
             // //{text: '目标', value: 'target'},
             // {text: '园区', value: 'channel'},
@@ -229,8 +274,20 @@ export default {
             // {text: '入职年份', value: 'staff_id'},
             // //{text: '备注', value: 'remark'},
             // { text: '操作', value: 'actions', sortable: false }
+             { text: '操作', value: 'actions', sortable: false }
             
         ],
+
+         eId:null,//员工工号
+            mId:null,//管理人员工号
+            Date:null,//考核时间
+            grade:null,//考核等级
+            note:null,//备注信息
+            Type:null,
+            assessmentDate:null,
+            gradeitems: ['1', '2', '3', '4','5'],
+      value: ['foo', 'bar', 'fizz', 'buzz'],
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,

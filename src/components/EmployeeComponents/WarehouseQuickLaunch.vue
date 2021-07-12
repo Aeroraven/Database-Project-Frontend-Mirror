@@ -21,7 +21,7 @@
                         </v-col>
                         <v-col cols="12" md="3" class="align-self-stretch">
                             <homepage-quick-launch-button icon="mdi-cart" title="离职员工信息" info="记录已离职员工信息"
-                            zmsroute='/procurementManagement' />
+                            zmsroute='/employeeOutManagement' />
                         </v-col>
                     </v-row>
                 </v-container>

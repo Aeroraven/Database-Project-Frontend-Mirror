@@ -11,17 +11,27 @@
                 <v-tab :key="3">
                     <v-icon left>mdi-card-bulleted</v-icon>账户管理
                 </v-tab>
+                <!--
+                <v-tab :key="4">
+                    <v-icon left>mdi-key-variant</v-icon>权限管理
+                </v-tab>-->
+            
+                <!--<v-tabs-items v-model="tab" color="transparent" class="rounded-lg">-->
                 
-                <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
-                    <flow-statistics/>
-
-                </v-tab-item>
-                <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="2">
-                    <flow-record/>
-                </v-tab-item>
-                <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="3">
-                    <bank-account-overview @searchRelatedTransactions="tackleRelatedTrans(arguments)"/>
-                </v-tab-item>
+                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem  zms-transparent-bg" :key="1">
+                        <echart-example/>
+                        <echart-line-chart-example/>
+                    </v-tab-item>
+                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="2">
+                        <flow-record/>
+                    </v-tab-item>
+                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="3">
+                        <bank-account-overview/>
+                    </v-tab-item>
+                    <v-tab-item color="transparent" class="rounded-lg zms-vert-tabitem" :key="4">
+                        4
+                    </v-tab-item>
+                <!--</v-tabs-items>-->
             </v-tabs>
         </template>
     </div>
@@ -32,25 +42,18 @@ import EchartExample from '../DemoComponents/EchartExample.vue'
 import EchartLineChartExample from '../DemoComponents/EchartLineChartExample.vue'
 import BankAccountOverview from './BankAccountOverview.vue'
 import FlowRecord from './FlowRecord.vue'
-import FlowStatistics from './FlowStatistics.vue'
+
 export default {
     name: 'FundContainer',
     created(){
-        
-    },
-    methods:{
-        tackleRelatedTrans(x){
-            this.tab=1
-        }
     },
     components:{
         EchartExample,
         EchartLineChartExample,
         BankAccountOverview,
         FlowRecord,
-        FlowStatistics
     },data:()=>{
-        return{
+         return{
             tab:null,
         }
     }

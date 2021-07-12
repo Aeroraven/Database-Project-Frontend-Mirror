@@ -14,24 +14,15 @@
                             <span v-bind="attrs" v-on="on">
                                 {{item.title}}
                             </span>
-                            
-                            <span v-bind="attrs" v-on="on">
-                                ({{item.time}})  &nbsp;&nbsp;&nbsp;
-                            </span>
                         </template>
                         <v-card :ripple="{class:null}">
-                            <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
-                                    <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">
-                                        {{$t('home.faclNotice')}}
-                                    </span>
-                                </v-card-title>
+                            <v-card-title class="text-h6 text--white " color="error">
+                                <span >{{$t('home.faclNotice')}}</span>
+                            </v-card-title>
                             <v-divider/>
                             <v-card-text>
-                                <span class="zms-poptip-body zms-poptip-bodyx">
-
-                                <b class="zms-poptip-bodyxa"><span class="zms-sharp primary--text">#</span> {{item.title}}</b> 
-                                <br/>{{item.time}} - {{item.initiator}}<br/>
-                                <v-divider/>
+                                <span class="zms-poptip-body">
+                                <b>{{item.title}}</b><br/>
                                 <br/>
                                 {{item.content}}</span>
                             </v-card-text>
@@ -102,12 +93,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .zms-poptip-bodyx{
-        //color:#111111;
-        padding-top:20px;
-        padding-bottom: 40px;
-        line-height: 150%;
-    }
     .zms-notice{
         overflow:hidden  ;
         white-space:nowrap;    
@@ -135,22 +120,12 @@ export default {
         margin-left:7%;
         margin-right: 7%;
         padding-top:10px;
-        padding-bottom: 30px;
-        //color:#111111;
-
-    }
-    .zms-poptip-bodyxa{
-        font-size:20px !important;
+        padding-bottom: 10px;
     }
     .zms-home-body2{
         margin-left:5%;
         margin-right: 5%;
         padding-top:20px;
         padding-bottom: 10px;
-        //color:#111111;
-    }
-    .zms-sharp{
-        font-weight: bold;
-        font-size:25px;
     }
 </style>
