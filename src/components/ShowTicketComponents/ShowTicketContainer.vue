@@ -3,10 +3,10 @@
         <template>
             <v-tabs fixed-tabs background-color="primary" class="rounded" dark v-model="tab">
                 <v-tab :key="1">
-                    演出门票流水查询
+                    演出门票概览
                 </v-tab>
                 <v-tab :key="2">
-                    修改演出门票信息
+                    填报演出门票
                 </v-tab>
                 
             </v-tabs>
@@ -15,8 +15,7 @@
                   <show-ticket-query/>
                 </v-tab-item>
                 <v-tab-item color="transparent" class="rounded-lg" :key="2">
-                 <!--  <show-ticket-create/> -->
-                  <show-ticket-motify/>
+                   <show-ticket-create/>
                </v-tab-item>
                 
             </v-tabs-items>
@@ -27,7 +26,6 @@
 <script>
 import ShowTicketCreate from './ShowTicketCreates.vue'
 import ShowTicketQuery from './ShowTicketQuery.vue'
-import ShowTicketMotify from './ShowTicketMotify.vue'
 
 export default {
     name: 'ShowTicketContainer',
@@ -39,8 +37,6 @@ export default {
     components:{
         ShowTicketQuery,
         ShowTicketCreate,
-        ShowTicketMotify,
-
     },data:()=>{
         return{
             tab:null,

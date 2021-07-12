@@ -1,14 +1,14 @@
 <template>
-    <div class="zms-showTicketManagement" :class="nmNightClass">
+    <div class="zms-aniShow" :class="nmNightClass">
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
                 <v-card >
-                    <v-card-title>{{$t('showTicketManagement.Submitting')}}</v-card-title>
+                    <v-card-title>{{$t('animalShow.Submitting')}}</v-card-title>
                     <v-divider/>
                     <br/>
                     <v-card-text>
-                        {{$t('showTicketManagement.PleaseWait')}}<br/><br/>
+                        {{$t('animalShow.PleaseWait')}}<br/><br/>
                         <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
                     </v-card-text>
                 </v-card>
@@ -17,12 +17,12 @@
             <v-dialog v-model="noNoteWarning" persistent width="500" >
                 <v-card color="" :ripple="{class:null}" >
                     <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3" color="warning">
-                        <v-icon color="white">mdi-alert</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('showTicketManagement.NoNoteTitle')}}</span>
+                        <v-icon color="white">mdi-alert</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('animalShow.NoNoteTitle')}}</span>
                     </v-card-title>
                     <v-divider/>
                     <br/>
                     <v-card-text>
-                        <span class="zms-poptip-body" :class="txNightClass">{{$t('showTicketManagement.NoNoteInfo')}}</span><br/><br/>
+                        <span class="zms-poptip-body" :class="txNightClass">{{$t('animalShow.NoNoteInfo')}}</span><br/><br/>
                     </v-card-text>
                     <v-divider/>
                     <v-card-actions>
@@ -56,29 +56,35 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('showTicketManagement.title')}}</span>
+            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">{{$t('animalTrainingManagement.title')}}</span>
             
             <div>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('animalTrainingManagement.show_name')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalTrainingManagement.show_name')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Price')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Price')" prepend-icon="el-icon-coin"  />
+                            <v-text-field :label="$t('animalTrainingManagement.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalTrainingManagement.animalId')" prepend-icon="el-icon-link"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Ticket_type')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Ticket_type')" prepend-icon="el-icon-tickets"  />
+                            <v-text-field :label="$t('animalTrainingManagement.Show_site')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalTrainingManagement.Show_site')" prepend-icon="el-icon-position"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Amount')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Amount')" prepend-icon="el-icon-s-operation"  />
+                            <v-text-field :label="$t('animalTrainingManagement.PrincipalName')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('animalTrainingManagement.PrincipalName')" prepend-icon="el-icon-s-custom"  />
                         </v-col>
-                    
-
+                        <v-col cols="12" sm="6" md="3">
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submitDate" :label="$t('animalTrainingManagement.illDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
+                        </v-col>
                     </v-row>
                 </v-container>
-              
-               <!-- <v-textarea
+                <v-textarea
                     outlined
                     counter
                     prepend-inner-icon="mdi-information" 
@@ -87,7 +93,7 @@
                     :placeholder="$t('common.pleaseInput')+$t('animalShow.note')"
                     v-model="submitNote"
                 >
-                </v-textarea>--> 
+                </v-textarea>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
@@ -109,7 +115,7 @@
 </template>
 
 <script>
-import { createShowTicketInfo } from '../../apis/showTicketManagement';
+import { createShowInfo } from '../../apis/animalShow';
 
 export default {
     name: 'AniShowCreate',
@@ -148,7 +154,7 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createShowTicketInfo().then(response => {
+                    createShowInfo().then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
                         if(response.data.statcode!=0){
@@ -226,7 +232,7 @@ export default {
     .zms-query-result{
         margin-top:20px;
     }
-    .zms-showTicketManagement{
+    .zms-aniShow{
         padding-left:50px;
         padding-right:50px;
         padding-top:20px;
