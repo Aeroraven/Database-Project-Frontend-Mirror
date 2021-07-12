@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        这里放动物信息管理
+        <ani-info-container/>
     </div>
 </template>
 
