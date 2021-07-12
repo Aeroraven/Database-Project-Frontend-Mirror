@@ -1,5 +1,11 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
         <v-container>
             <v-row>
                 <v-col cols="12" sm="3" md="3" xl="3" lg="3">
@@ -191,12 +197,15 @@
                 </v-col>
             </v-row>
         </v-container>
+        
     </div>
 </template>
 
 <script>
 import {getProcOverview} from '../../apis/procurement'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
+  components: { AlertMessagebox },
     name: 'AnicareQuery',
     computed:{
         nmNightClass(){
@@ -237,8 +246,11 @@ export default {
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
-                        
-                    })
+                    }).catch( err => {
+                        this.queryLoaderDialog=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },2000
             )
         },

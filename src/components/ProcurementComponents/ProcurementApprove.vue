@@ -5,6 +5,13 @@
         <!--审核提交-->
         <pending-progress-card :zmsPendingList="pendingList2" :zmsShow="pendingShow2"/>
 
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <v-container>
             <v-row>
                 <v-col sm="3" md="3" xl="3" lg="3" cols="12">
@@ -129,9 +136,10 @@
 <script>
 import {getPendingRequests,changeProcStatus} from '../../apis/procurement'
 import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default{
     name:'ProcurementApprove',
-    components:{PendingProgressCard},
+    components:{PendingProgressCard,AlertMessagebox},
     data(){
         return{
             zmsItem:[],
@@ -166,7 +174,11 @@ export default{
                         this.zmsItem=response.data
                         this.pendingShow=0
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingShow=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },500
             )
         },
@@ -182,7 +194,11 @@ export default{
                         this.itemInitiator=null
                         this.itemPrice=null
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingShow2=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },500
             )
         }

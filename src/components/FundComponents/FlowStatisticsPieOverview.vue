@@ -1,5 +1,14 @@
 <template>
     <div>
+        <!--事务失败提示框-->
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
+
         <v-card :ripple="{class:null}">
             <v-tabs v-model="sortTypeTab">
                 <v-tabs-slider/>
@@ -78,8 +87,9 @@
 <script>
 import EcPieCharts from '../ChartComponents/EcPieCharts.vue'
 import {getAccountIncomesOverview,getAccountExpenseOverview,getCategoryIncomesOverview,getCategoryExpenseOverview} from '../../apis/fund'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default{
-    components: { EcPieCharts },
+    components: { EcPieCharts,AlertMessagebox },
     name:'FlowStatisticsPieOverview',
     data(){
         return {
@@ -92,8 +102,10 @@ export default{
             cateIncomeLegends:[],
             cateIncomeData:[],
             cateExpenseLegends:[],
-            cateExpenseData:[]
-
+            cateExpenseData:[],
+            beginDate:'2000-00-00',
+            endDate:'2100-00-00',
+            cardArray:['1','4'],
         }
     },
     created(){
@@ -111,7 +123,13 @@ export default{
             this.completeStat=0;
             setTimeout(
                 ()=>{
-                    getAccountIncomesOverview().then(response => {
+                    getAccountIncomesOverview(
+                        {
+                            'begin_date':this.beginDate,
+                            'end_date':this.endDate,
+                            'card_array':this.cardArray,
+                        }
+                    ).then(response => {
                         this.completeStat++;
                         this.accIncomeLegends.splice(0,this.accIncomeLegends.length)
                         let i=0;
@@ -127,12 +145,23 @@ export default{
                         this.checkComplete();
                         this.$refs.ec_acc_income.applyChanges();
                         
-                    })
+                    }).catch( err => {
+                        this.completeStat++;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.checkComplete();
+                    });
                 },1000
             )
             setTimeout(
                 ()=>{
-                    getAccountExpenseOverview().then(response => {
+                    getAccountExpenseOverview(
+                        {
+                            'begin_date':this.beginDate,
+                            'end_date':this.endDate,
+                            'card_array':this.cardArray,
+                        }
+                    ).then(response => {
                         this.completeStat++;
                         this.accExpenseLegends.splice(0,this.accExpenseLegends.splice)
                         let i=0;
@@ -146,12 +175,23 @@ export default{
                         this.checkComplete();
                         this.$refs.ec_acc_expense.applyChanges();
                         
-                    })
+                    }).catch( err => {
+                        this.completeStat++;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.checkComplete();
+                    });
                 },1000
             )
             setTimeout(
                 ()=>{
-                    getCategoryIncomesOverview().then(response => {
+                    getCategoryIncomesOverview(
+                        {
+                            'begin_date':this.beginDate,
+                            'end_date':this.endDate,
+                            'card_array':this.cardArray,
+                        }
+                    ).then(response => {
                         this.completeStat++;
                         this.cateIncomeLegends.splice(0,this.cateIncomeLegends.length)
                         let i=0;
@@ -167,12 +207,23 @@ export default{
                         this.checkComplete();
                         this.$refs.ec_cate_income.applyChanges();
                         
-                    })
+                    }).catch( err => {
+                        this.completeStat++;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.checkComplete();
+                    });
                 },1000
             )
             setTimeout(
                 ()=>{
-                    getCategoryExpenseOverview().then(response => {
+                    getCategoryExpenseOverview(
+                        {
+                            'begin_date':this.beginDate,
+                            'end_date':this.endDate,
+                            'card_array':this.cardArray,
+                        }
+                    ).then(response => {
                         this.completeStat++;
                         this.cateExpenseLegends.splice(0,this.cateExpenseLegends.length)
                         let i=0;
@@ -186,7 +237,12 @@ export default{
                         this.checkComplete();
                         this.$refs.ec_cate_expense.applyChanges();
                         
-                    })
+                    }).catch( err => {
+                        this.completeStat++;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.checkComplete();
+                    });
                 },1000
             )
         }

@@ -1,5 +1,12 @@
 <template>
     <div>
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+        
         <v-container>
             <v-row>
                 <v-col>
@@ -230,7 +237,11 @@ export default{
                     createNewProc().then(response=>{
                         this.pendingShow=0
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingShow=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },

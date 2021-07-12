@@ -1,5 +1,12 @@
 <template>
     <div class="zms-home-notices">
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+        <!---->
         <v-dialog scrollable v-model="zmsDisplay" persistent width="800" >
             <v-card color="" :ripple="{class:null}" >
                 <v-card-title class="zms-strip-bg text-h5 text--white primary " color="warning">
@@ -227,6 +234,7 @@
 
 <script>
 import PendingProgressCard from './PendingProgressCard.vue';
+import AlertMessagebox from './AlertMessagebox.vue'
 import {getAnimalList} from '../../apis/animalCore'
 import {getwareItemInfo} from '../../apis/warehouse'
 import {getStaffList} from '../../apis/staffCore'
@@ -237,7 +245,8 @@ export default {
     components: {
         PendingProgressCard,
         VueTyping,
-        AnimatedNumber
+        AnimatedNumber,
+        AlertMessagebox
     },
     name: 'ItemSelector',
     props:{
@@ -361,8 +370,12 @@ export default {
                             }else{
                                 this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
                             }
-                        })
-                    },2000
+                        }).catch( err => {
+                            this.zmsShowLoadingBar=false;
+                            this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                            this.$refs.error_done.showAlert();
+                        });
+                    },1000
                 )
             }
             if(this.zmsSelectorMode===2){
@@ -377,8 +390,12 @@ export default {
                             }else{
                                 this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
                             }
-                        })
-                    },2000
+                        }).catch( err => {
+                            this.zmsShowLoadingBar=false;
+                            this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                            this.$refs.error_done.showAlert();
+                        });
+                    },1000
                 )
             }
             if(this.zmsSelectorMode===1){
@@ -393,8 +410,12 @@ export default {
                             }else{
                                 this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalselector.emptyInfo')})
                             }
-                        })
-                    },2000
+                        }).catch( err => {
+                            this.zmsShowLoadingBar=false;
+                            this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                            this.$refs.error_done.showAlert();
+                        });
+                    },1000
                 )
             }
             

@@ -1,5 +1,12 @@
 <template>
     <div>
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <ec-waterfall-bar-chart
         ref="ec_balance_shift"
         :zmsChartTitle="$t('fund.balanceShiftChartTitle')"
@@ -10,8 +17,9 @@
 <script>
 import EcWaterfallBarChart from '../ChartComponents/EcWaterfallBarChart.vue'
 import {getOverallBalanceShift} from '../../apis/fund'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default{
-    components: { EcWaterfallBarChart },
+    components: { EcWaterfallBarChart, AlertMessagebox },
     name:'FlowStatisticsBalanceShift',
     data(){
         return {
@@ -53,8 +61,13 @@ export default{
                         this.completeStat++;
                         this.checkComplete();
                         this.$refs.ec_balance_shift.applyChanges();
-                    })
-                },2000
+                    }).catch( err => {
+                        this.completeStat++;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.checkComplete();
+                    });
+                },1000
             )
         }
     }
