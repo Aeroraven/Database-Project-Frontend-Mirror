@@ -1,17 +1,14 @@
 <template>
     <div class="home">
-        <ani-info-container/>
+        这里放动物信息管理
     </div>
 </template>
 
 <script>
-import  AniInfoContainer from  '../components/AnimalInformation/AniInfoContainer.vue'
 
 export default {
     name: 'AnimalInfoManagement',
-    components:{
-        AniInfoContainer,
-    }, created(){
+    created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.animalInfo})
     }
 }

@@ -1,0 +1,18 @@
+<template>
+    <div class="home">
+        这里放动物喂养管理
+    </div>
+</template>
+
+<script>
+
+export default {
+    name: 'AnimalFeedManagement',
+    created(){
+        this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.animalFeed})
+    }
+}
+</script>
+<style scoped lang="scss">
+
+</style>

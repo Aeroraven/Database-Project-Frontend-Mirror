@@ -4,13 +4,16 @@
             <v-icon color="primary">el-icon-tickets</v-icon> 演出信息管理
         </span>
         <ani-show-info-container/>
-            
+        <!-- <ani-show-new/>
+ -->        
         
     </div>
 </template>
 
 <script>
 import AniShowInfoContainer from '../components/AnimalShowsComponents/AniShowInfoContainer.vue'
+ // import AniShowNew from '../components/AnimalShowsComponents/AniShowNew.vue'
+
 export default {
     name: 'AnimalShowInfoManagement',
     created(){
@@ -18,6 +21,8 @@ export default {
     },
     components:{
        AniShowInfoContainer,
+        //AniShowNew
+       
     },methods:{
         routerGo(x){
             this.$router.push(x);
