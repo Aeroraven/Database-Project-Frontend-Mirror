@@ -47,7 +47,7 @@
                     <v-card-text>
                         <span class="zms-poptip-body" :class="txNightClass">{{errorInfo}}</span><br/><br/>
                     </v-card-text>
-                    <v-divider/>
+                    <v-divider/>                        
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
@@ -62,37 +62,64 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.show_name')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('training.show_name')" prepend-icon="el-icon-view"  />
+                            <v-text-field :label="$t('training.ID')" v-model="submit_id" :placeholder="$t('common.pleaseInput')+$t('training.ID')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('training.animalId')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('training.animalID')" v-model="submit_animalID" :placeholder="$t('common.pleaseInput')+$t('training.animalID')" prepend-icon="el-icon-view"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.Show_site')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('training.Show_site')" prepend-icon="el-icon-position"  />
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('training.trainer_id')" v-model="submit_trainer_id" :placeholder="$t('common.pleaseInput')+$t('training.trainer_id')" prepend-icon="el-icon-s-custom"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.PrincipalName')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('training.PrincipalName')" prepend-icon="el-icon-s-custom"  />
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('training.train_site')" v-model="submit_train_site" :placeholder="$t('common.pleaseInput')+$t('training.train_site')" prepend-icon="el-icon-position"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submitDate" :label="$t('training.TrainingDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    <v-text-field v-model="submit_training_date" :label="$t('training.training_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                     </v-text-field>
                                 </template>
-                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker color="primary" width="400" v-model="submit_training_date" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
+                        <v-col cols="12" sm="6" md="3">
+                             <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submit_start_time" :label="$t('training.start_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
+                                    </v-text-field>
+                                </template>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_start_time" @input="menu3 = false"></v-time-picker>
+                            </v-menu>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="3">
+                             <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submit_end_time" :label="$t('training.end_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
+                                    </v-text-field>
+                                </template>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_end_time" @input="menu4 = false"></v-time-picker>
+                            </v-menu>
+                        </v-col>
+                       
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('training.skill')" v-model="submit_skill" :placeholder="$t('common.pleaseInput')+$t('training.skill')" prepend-icon="el-icon-unlock"  />
+                        </v-col>
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('training.props')" v-model="submit_props" :placeholder="$t('common.pleaseInput')+$t('training.props')" prepend-icon="el-icon-baseball"  />
+                        </v-col>
+
+                      
                     </v-row>
                 </v-container>
-                <v-textarea
+                 <v-textarea
                     outlined
                     counter
                     prepend-inner-icon="mdi-information" 
                     name="input-7-4"
-                    :label="$t('training.note')"
-                    :placeholder="$t('common.pleaseInput')+$t('training.note')"
-                    v-model="submitNote"
-                >
+                    :label="$t('training.remarks')"
+                    :placeholder="$t('common.pleaseInput')+$t('training.remarks')"
+                    v-model="submit_remarks"
+                > 
                 </v-textarea>
                 <v-container>
                     <v-row>
@@ -118,15 +145,23 @@
 import { createTrainingInfo } from '../../apis/training';
 
 export default {
-    name: 'trainingCreate',
+    name: 'TrainingCreates',
     created(){
     },data:()=>{
         return{
-            submitId:null,
-            submitType:null,
-            submitPrincipalName:null,
-            submitDate:null,
+            submit_id:null,
+            submit_animalID:null,
+            submit_trainer_id:null,
+            submit_train_site:null,
+            submit_training_date:null,
+            submit_start_time:null,
+            submit_end_time:null,
+            submit_skill:null,
+            submit_props:null,
+            submit_remarks:null,
+
             submitNote:null,
+
             submitStat:false,
             noNoteWarning:false,
             errorReturn:false,
@@ -181,45 +216,61 @@ export default {
             )
         },
         submitSuccTip(x){
-            this.$store.dispatch('trainingToastNotify',{type:'success',info:x})
+            this.$store.dispatch('showToastNotify',{type:'success',info:x})
         },
         submitFailTip(x){
-            this.$store.dispatch('trainingToastNotify',{type:'error',info:x})
+            this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submitId==null||this.submitId==undefined||this.submitId==0){
-                this.submitFailTip(this.$t('training_SubmitEmptyId'))
+            if(this.submit_id==null||this.submit_id==undefined||this.submit_id==0){
+                this.submitFailTip(this.$t('training.submit_Empty_id'))
                 return 0;
             }
-            if(this.submitType==null||this.submitType==undefined||this.submitType==0){
-                this.submitFailTip(this.$t('training_SubmitEmptyType'))
+            if(this.submit_animalID==null||this.submit_animalID==undefined||this.submit_animalID==0){
+                this.submitFailTip(this.$t('training.submit_Empty_animalID'))
                 return 0;
             }
-            if(this.submitPrincipalName==null||this.submitPrincipalName==undefined||this.submitPrincipalName==0){
-                this.submitFailTip(this.$t('training_SubmitPrincipalName'))
+            if(this.submit_trainer_id==null||this.submit_trainer_id==undefined||this.submit_trainer_id==0){
+                this.submitFailTip(this.$t('training.submit_Empty_trainer_id'))
                 return 0;
             }
-            if(this.submitDate==null||this.submitDate==undefined||this.submitDate==0){
-                this.submitFailTip(this.$t('training_SubmitDate'))
+            if(this.submit_train_site==null||this.submit_train_site==undefined||this.submit_train_site==0){
+                this.submitFailTip(this.$t('training.submit_Empty_train_site'))
                 return 0;
             }
-            let year=this.submitDate.split("-")[0];
-            let month=this.submitDate.split("-")[1]-1;
-            let day=this.submitDate.split("-")[2];
-            let date1= new Date(year,month,day)
-            let date2 = new Date()
-            if(date1>date2){
-                console.log(date1)
-                console.log(date2)
-                this.submitFailTip(this.$t('animalshow.DateAhead'))
+            if(this.submit_training_date==null||this.submit_training_date==undefined||this.submit_training_date==0){
+                this.submitFailTip(this.$t('training.submit_Empty_training_date'))
                 return 0;
             }
+            if(this.submit_start_time==null||this.submit_start_time==undefined||this.submit_start_time==0){
+                this.submitFailTip(this.$t('training.submit_Empty_start_time'))
+                return 0;
+            }
+            if(this.submit_end_time==null||this.submit_end_time==undefined||this.submit_end_time==0){
+                this.submitFailTip(this.$t('training.submit_Empty_end_time'))
+                return 0;
+            }
+            if(this.submit_skill==null||this.submit_skill==undefined||this.submit_skill==0){
+                this.submitFailTip(this.$t('training.submit_Empty_show_skill'))
+                return 0;
+            }
+            if(this.submit_props==null||this.submit_props==undefined||this.submit_props==0){
+                this.submitFailTip(this.$t('training.submit_Empty_show_props'))
+                return 0;
+            }
+            let time1=this.submit_start_time;
+            let time2=this.submit_end_time;
+            if(time1>time2){
+                this.submitFailTip(this.$t('training.DateAhead'))
+                return 0;
+            }
+
 
             if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
                 this.noNoteWarning=true;
                 return 0;
             }
-            this.submitShowInfo();
+            this.submitTrainingInfo();
         }
     }
 }

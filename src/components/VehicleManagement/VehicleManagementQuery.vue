@@ -8,7 +8,7 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('vehicleManagement.ID')" v-model="submit_Id" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.ID')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <v-col cols="12" sm="6" md="3"> 
                             <v-text-field :label="$t('vehicleManagement.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.vehicle_category')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
@@ -203,7 +203,7 @@
 import { getVehicleManagementData, updateVehicleManagementInfo } from '../../apis/vehicleManagement';
 
 export default {
-    name: 'WarehouseItemOverview',
+    name: 'VehicleManagementQuery',
     created(){
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();

@@ -61,30 +61,53 @@
             <div>
                 <v-container>
                     <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalShow.show_name')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_name')" prepend-icon="el-icon-view"  />
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('animalShow.show_id')" v-model="submit_show_id" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_id')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalShow.animalId')" v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalShow.animalId')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('animalShow.show_name')" v-model="submit_show_name" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_name')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalShow.Show_site')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalShow.Show_site')" prepend-icon="el-icon-position"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalShow.PrincipalName')" v-model="submitPrincipalName" :placeholder="$t('common.pleaseInput')+$t('animalShow.PrincipalName')" prepend-icon="el-icon-s-custom"  />
+                            <v-text-field :label="$t('animalShow.principal_id')" v-model="submit_principal_id" :placeholder="$t('common.pleaseInput')+$t('animalShow.principal_id')" prepend-icon="el-icon-s-custom"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submitDate" :label="$t('animalShow.illDate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    <v-text-field v-model="submit_show_date" :label="$t('animalShow.show_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                     </v-text-field>
                                 </template>
-                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker color="primary" width="400" v-model="submit_show_date" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
+                        <v-col cols="12" sm="6" md="3">
+                             <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submit_start_time" :label="$t('animalShow.start_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
+                                    </v-text-field>
+                                </template>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_start_time" @input="menu3 = false"></v-time-picker>
+                            </v-menu>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="3">
+                             <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submit_end_time" :label="$t('animalShow.end_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
+                                    </v-text-field>
+                                </template>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_end_time" @input="menu4 = false"></v-time-picker>
+                            </v-menu>
+                        </v-col>
+                       
+                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('animalShow.show_site')" v-model="submit_show_site" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_site')" prepend-icon="el-icon-position"  />
+                        </v-col>
+                          <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('animalShow.show_props')" v-model="submit_show_props" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_props')" prepend-icon="el-icon-box"  />
+                        </v-col>
+                  
                     </v-row>
                 </v-container>
-                <v-textarea
+                <!-- <v-textarea
                     outlined
                     counter
                     prepend-inner-icon="mdi-information" 
@@ -92,8 +115,8 @@
                     :label="$t('animalShow.note')"
                     :placeholder="$t('common.pleaseInput')+$t('animalShow.note')"
                     v-model="submitNote"
-                >
-                </v-textarea>
+                > 
+                </v-textarea>-->
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
@@ -118,15 +141,19 @@
 import { createShowInfo } from '../../apis/animalShow';
 
 export default {
-    name: 'AniShowCreate',
+    name: 'AniShowInfoCreates',
     created(){
     },data:()=>{
         return{
-            submitId:null,
-            submitType:null,
-            submitPrincipalName:null,
-            submitDate:null,
-            submitNote:null,
+            submit_show_id:null,
+            submit_show_name:null,
+            submit_principal_id:null,
+            submit_show_date:null,
+            submit_start_time:null,
+            submit_end_time:null,
+            submit_show_site:null,
+            submit_show_props:null,
+
             submitStat:false,
             noNoteWarning:false,
             errorReturn:false,
@@ -154,8 +181,19 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createShowInfo().then(response => {
-                        console.log(this.submitDate)
+                    createShowInfo(
+                        {
+                        show_id:this.submit_show_id,
+                        show_name:this.submit_show_name,
+                        principal_id :this.submit_principal_id,
+                        show_date:this.submit_show_date,
+                        start_time:this.submit_start_time,
+                        submit_end_time:this.submit_end_time,
+                        show_site:this.submit_show_site,
+                        show_props:this.submit_show_props,
+                        }
+                    ).then(response => {
+                        console.log(this.submit_show_date)
                         this.submitStat=false;
                         if(response.data.statcode!=0){
                             this.errorReturn=true;
@@ -187,38 +225,50 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submitId==null||this.submitId==undefined||this.submitId==0){
-                this.submitFailTip(this.$t('animalShow_SubmitEmptyId'))
+            if(this.submit_show_id==null||this.submit_show_id==undefined||this.submit_show_id==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_show_id'))
                 return 0;
             }
-            if(this.submitType==null||this.submitType==undefined||this.submitType==0){
-                this.submitFailTip(this.$t('animalShow_SubmitEmptyType'))
+            if(this.submit_show_name==null||this.submit_show_name==undefined||this.submit_show_name==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_show_name'))
                 return 0;
             }
-            if(this.submitPrincipalName==null||this.submitPrincipalName==undefined||this.submitPrincipalName==0){
-                this.submitFailTip(this.$t('animalShow_SubmitPrincipalName'))
+            if(this.submit_principal_id==null||this.submit_principal_id==undefined||this.submit_principal_id==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_principal_id'))
                 return 0;
             }
-            if(this.submitDate==null||this.submitDate==undefined||this.submitDate==0){
-                this.submitFailTip(this.$t('animalShow_SubmitDate'))
+            if(this.submit_show_date==null||this.submit_show_date==undefined||this.submit_show_date==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_show_date'))
                 return 0;
             }
-            let year=this.submitDate.split("-")[0];
-            let month=this.submitDate.split("-")[1]-1;
-            let day=this.submitDate.split("-")[2];
-            let date1= new Date(year,month,day)
-            let date2 = new Date()
-            if(date1>date2){
-                console.log(date1)
-                console.log(date2)
+            if(this.submit_start_time==null||this.submit_start_time==undefined||this.submit_start_time==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_start_time'))
+                return 0;
+            }
+            if(this.submit_end_time==null||this.submit_end_time==undefined||this.submit_end_time==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_end_time'))
+                return 0;
+            }
+            if(this.submit_show_site==null||this.submit_show_site==undefined||this.submit_show_site==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_show_site'))
+                return 0;
+            }
+            if(this.submit_show_props==null||this.submit_show_date==undefined||this.submit_show_props==0){
+                this.submitFailTip(this.$t('animalShow.submit_Empty_show_props'))
+                return 0;
+            }
+              
+            let time1=this.submit_start_time;
+            let time2=this.submit_end_time;
+            if(time1>time2){
                 this.submitFailTip(this.$t('animalShow.DateAhead'))
                 return 0;
             }
 
-            if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
+           /*  if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
                 this.noNoteWarning=true;
                 return 0;
-            }
+            } */
             this.submitShowInfo();
         }
     }

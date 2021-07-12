@@ -12,12 +12,17 @@
             </v-tabs>
             <v-tabs-items v-model="tab" color="transparent" class="rounded-lg">
                 <v-tab-item color="transparent" class="rounded-lg  zms-transparent-bg" :key="1">
-                  <ani-show-info-query/>
+                <!--    <ani-show-temp/> -->
+
+                  <ani-show-info-query/> 
                 </v-tab-item>
                 <v-tab-item color="transparent" class="rounded-lg" :key="2">
                    <ani-show-info-create/>
                </v-tab-item>
-                
+               <v-tab-item color="transparent" class="rounded-lg" :key="2">
+               
+               </v-tab-item>
+
             </v-tabs-items>
         </template>
     </div>
@@ -28,7 +33,7 @@ import AniShowInfoCreate from './AniShowInfoCreates.vue'
 import AniShowInfoQuery from './AniShowInfoQuery.vue'
 
 export default {
-    name: 'AniCareContainer',
+    name: 'AniShowInfoContainer',
     created(){
     },
     methods:{
@@ -37,6 +42,8 @@ export default {
     components:{
         AniShowInfoQuery,
         AniShowInfoCreate,
+      //  AniShowTemp,
+
     },data:()=>{
         return{
             tab:null,

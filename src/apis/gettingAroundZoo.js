@@ -23,3 +23,19 @@ export function updateGettingAroundZooInfo(params) {
     params
   })
 }
+
+export function getGettingAroundZooFlowInfo(params) {
+  return request({
+    url: '/api/gettingAroundZoo/getGettingAroundZooFlowInfo',
+    method: 'get',
+    params
+  })
+}
+
+export function deleteGettingAroundZooFlowInfo(params) {
+  return request({
+    url: '/api/gettingAroundZoo/deleteGettingAroundZooFlowInfo',
+    method: 'get',
+    params
+  })
+} 

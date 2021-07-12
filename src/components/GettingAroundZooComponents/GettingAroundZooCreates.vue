@@ -1,4 +1,3 @@
-
 <template>
     <div class="zms-aniShow" :class="nmNightClass">
         <div class="zms-query-filter">
@@ -66,6 +65,9 @@
                             <v-text-field :label="$t('gettingAroundZoo.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.ID')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('gettingAroundZoo.tour_id')" v-model="submit_tour_id" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.tour_id')" prepend-icon="el-icon-link"  />
+                        </v-col> 
+                        <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.vehicle_category')" prepend-icon="el-icon-link"  />
                         </v-col> 
                         <v-col cols="12" sm="6" md="3">
@@ -123,11 +125,12 @@
 import { createGettingAroundZooInfo } from '../../apis/gettingAroundZoo';
 
 export default {
-    name: 'GettingAroundZooCreate',
+    name: 'GettingAroundZooCreates',
     created(){
     },data:()=>{
         return{
             submit_ID:null,
+            submit_tour_id:null,
             submit_vehicle_category:null,
             submit_price:null,
             submit_ticket_type:null,
@@ -164,7 +167,20 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createGettingAroundZooInfo().then(response => {
+                    createGettingAroundZooInfo(
+                       {
+                            ID:this.submit_ID,
+                            tour_id:this.submit_tour_id,
+                            vehicle_category:this.submit_vehicle_category,
+                            price:this.submit_price,
+                            ticket_type:this.submit_ticket_type,
+                            deposit:this.submit_deposit,
+                            age_limit:this.submit_age_limit,
+                            weight_limit:this.submit_weight_limit,
+                            rental_duration:this.submit_rental_duration,
+                       }
+
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
                         if(response.data.statcode!=0){
