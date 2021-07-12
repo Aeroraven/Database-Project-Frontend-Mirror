@@ -5,48 +5,52 @@
             <div>
                 <v-container>
                     <v-row>
-                        <!-- <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="员工工号" placeholder="请输入工号" prepend-icon="el-icon-notebook-2"  />
-                        </v-col> -->
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('employeecheck.item.employee_id')" v-model="eId" :placeholder="$t('common.pleaseInput')+$t('employeecheck.item.employee_id')" prepend-icon="el-icon-files"  />
+                        <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('admissionTicketsManagement.admis_type')" v-model="Type" :placeholder="$t('common.pleaseInput')+$t('admissionTicketsManagement.admis_type')" prepend-icon="el-icon-files"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('employeecheck.item.manager_id')" v-model="mId" :placeholder="$t('common.pleaseInput')+$t('employeecheck.item.manager_id')" prepend-icon="el-icon-document-copy"  />
+                            <v-text-field :label="$t('admissionTicketsManagement.admis_price')" v-model="Price" :placeholder="$t('common.pleaseInput')+$t('admissionTicketsManagement.admis_price')" prepend-icon="el-icon-coin"  />
                         </v-col>
-                        <!-- <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="考核人员" placeholder="请输入考核人姓名" prepend-icon="el-icon-data-analysis"  />
+                       
+
+
+                         <v-col cols="12" sm="6" md="3">
+                             <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="Start_time" :label="$t('admissionTicketsManagement.admis_starttime')"   prepend-icon="el-icon-time" readonly v-bind="attrs" v-on="on" >
+                                    </v-text-field>
+                                </template>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="Start_time" @input="menu3 = false"></v-time-picker>
+                            </v-menu>
+                        </v-col>
+<!--                            
+    <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('admissionTicketsManagement.admis_starttime')" v-model="submitStart_time" :placeholder="$t('common.pleaseInput')+$t('admissionTicketsManagement.starttime')" prepend-icon="el-icon-time"  />
                         </v-col> -->
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('admissionTicketsManagement.admis_endtime')" v-model="submitEnd_time" :placeholder="$t('common.pleaseInput')+$t('admissionTicketsManagement.admis_endtime')" prepend-icon="el-icon-time"  />
+                        </v-col> -->
+                        <v-col cols="12" sm="6" md="3">
+                             <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="End_time" :label="$t('admissionTicketsManagement.admis_endtime')"   prepend-icon="el-icon-time" readonly v-bind="attrs" v-on="on" >
+                                    </v-text-field>
+                                </template>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="End_time" @input="menu3 = false"></v-time-picker>
+                            </v-menu>
+                        </v-col>
+                        
+                        
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="assessmentDate" :label="$t('employeecheck.item.assessment_time')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    <v-text-field v-model="enterdate" :label="$t('admissionTicketsManagement.admis_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                     </v-text-field>
                                 </template>
-                                <v-date-picker color="primary" width="400" v-model="assessmentDate" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker color="primary" width="400" v-model="enterdate" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
-                        <!-- <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('employeecheck.item.assessment_grade')" v-model="grade" :placeholder="$t('common.pleaseInput')+$t('employeecheck.item.assessment_grade')" prepend-icon="el-icon-s-shop"  />
-                        </v-col> -->
-                        <v-col
-        class="d-flex"
-        cols="12"
-        sm="6"
-        md="3"
-      >
-        <v-select
-          :items="gradeitems"
-          label="考核等级"
-          v-model="grade"
-        ></v-select>
-      </v-col>
-                        <!-- <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="考核时间" placeholder="请输入考核时间" prepend-icon="el-icon-reading"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="考核等级" placeholder="请输入考核等级" prepend-icon="el-icon-data-board"  />
-                        </v-col> -->
+
                         
                     </v-row>
                 </v-container>
@@ -62,7 +66,7 @@
 
                         <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
-                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找员工考核信息
+                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找门票记录
                             </v-btn>
                         </v-col>
                         
@@ -98,45 +102,44 @@
                             <v-card :ripple="{class:null}">
                                 <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
                                     <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">
-                                        {{$t('employeecheck.item.alter')}}
+                                        {{$t('admissTickets.item.alter')}}
                                     </span>
                                 </v-card-title>
 
                                     <v-card-text>
-                                        <v-card>
-                                        <v-container fluid>
+                                        <v-container>
                                             <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['employee_id']" :label="$t('employeecheck.item.employee_id')"></v-text-field>
+                                                <v-text-field v-model="editedItem['admis_id']" :label="$t('admissionTicketsManagement.admis_id')"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['manager_id']" :label="$t('employeecheck.item.manager_id')"></v-text-field>
+                                                <v-text-field v-model="editedItem['admistour_id']" :label="$t('admissionTicketsManagement.admistour_id')"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['assessment_time']" :label="$t('employeecheck.item.assessment_time')"></v-text-field>
+                                                <v-text-field v-model="editedItem['admis_type']" :label="$t('admissionTicketsManagement.admis_type')"></v-text-field>
                                             </v-col>
-                                            <!-- <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['assessment_grade']" :label="$t('employeecheck.item.assessment_grade')"></v-text-field>
-                                            </v-col> -->
-  <v-col
-        class="d-flex"
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <v-select
-          :items="gradeitems"
-          label="考核等级"
-          v-model="editedItem['assessment_grade']"
-        ></v-select>
-      </v-col>
-
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['remarks']" :label="$t('employeecheck.item.remarks')"></v-text-field>
+                                                <v-text-field v-model="editedItem['admis_price']" :label="$t('admissionTicketsManagement.admis_price')"></v-text-field>
                                             </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['admis_starttime']" :label="$t('admissionTicketsManagement.admis_starttime')"></v-text-field>
+                                            </v-col>
+                                             <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['admis_endtime']" :label="$t('admissionTicketsManagement.admis_endtime')"></v-text-field>
+                                            </v-col>
+                                           
+                                           
+                                            <v-col cols="12" sm="6" md="3">
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="editedItem['admis_date']" :label="$t('admissionTicketsManagement.admis_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="date" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
+                        </v-col>
                                             </v-row>
                                         </v-container>
-                                        </v-card>
                                     </v-card-text>
 
                                     <v-card-actions>
@@ -211,12 +214,12 @@
         <v-dialog v-model="deleteDialog" persistent width="600" >
             <v-card color="" :ripple="{class:null}" >
                 <v-card-title class=" zms-strip-bg text-h5 text--white orange darken-3 " color="warning">
-                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('employeecheck.item.delete')}}</span>
+                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('admissTickets.item.delete')}}</span>
                 </v-card-title>
                 <v-divider/>
                 <br/>
                 <v-card-text>
-                    <span class="zms-poptip-body">{{$t('employeecheck.item.delete_content')}}</span><br/><br/>
+                    <span class="zms-poptip-body">{{$t('admissTickets.item.delete_content')}}</span><br/><br/>
                 </v-card-text>
                 <v-divider/>
                 <v-card-actions>
@@ -236,8 +239,7 @@
 </template>
 
 <script>
-import { getwareItemInfo, updatewareItemInfo } from '../../apis/employeecheck.js';
-
+import {getAdmissData, updateAdmissInfo} from '../../apis/TicketsAdmiss'
 export default {
     name: 'WarehouseItemOverview',
     created(){
@@ -261,32 +263,34 @@ export default {
     },data:()=>{
         return{
         headers:[
-            {text: '工作人员工号', value: 'employee_id'},
-            {text: '管理人员工号', value: 'manager_id'},
-            {text: '考核时间', value: 'assessment_time'},
-            {text: '考核等级', value: 'assessment_grade'},
-            {text: '备注信息', value: 'remarks'},
-            // {text: '职务', value: 'price'},
-            // //{text: '目标', value: 'target'},
-            // {text: '园区', value: 'channel'},
-            // //{text: '储存条件', value: 'cond'}, //数据表字段名错误
-            // //{text: '使用方法', value: 'usage_method'},
-            // {text: '入职年份', value: 'staff_id'},
-            // //{text: '备注', value: 'remark'},
-            // { text: '操作', value: 'actions', sortable: false }
-             { text: '操作', value: 'actions', sortable: false }
+            {text: '订单号', value: 'admis_id'},
+            {text: '游客账号', value: 'admistour_id'},
+            {text: '票种', value: 'admis_type'},
+            {text: '票价', value: 'admis_price'},
+            {text: '入园开始时间', value: 'admis_starttime'},
+            {text: '入园结束时间', value: 'admis_endtime'},
+            {text: '入园日期', value: 'admis_date'},
+            { text: '操作', value: 'actions', sortable: false }
             
         ],
-
-         eId:null,//员工工号
-            mId:null,//管理人员工号
-            Date:null,//考核时间
-            grade:null,//考核等级
-            note:null,//备注信息
+        Id:null,
+            tour_id:null,
             Type:null,
-            assessmentDate:null,
-            gradeitems: ['1', '2', '3', '4','5'],
-      value: ['foo', 'bar', 'fizz', 'buzz'],
+            Price:null,
+            Date:null,
+            Note:null,
+            Stat:null,
+            Sat:null,
+            End_time:null,
+            Start_time:null,
+            enterdate:null,
+            noNoteWarning:false,
+            errorReturn:false,
+            errorTitle:'',
+            errorInfo:'',
+            menu2:false,
+
+
 
         queryLoaderDialog:false,
         pageCount:0,
@@ -297,9 +301,7 @@ export default {
         delIndex: -1,
         queryLoaderDialog2:false,
         deleteDialog:false,
-        errorReturn:false,
-        errorTitle:'',
-        errorInfo:'',
+       
         editedItem: {
             name: '',
             calories: 0,
@@ -327,7 +329,7 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getwareItemInfo().then(response => {
+                    getAdmissData().then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
@@ -344,11 +346,11 @@ export default {
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updatewareItemInfo().then(response => {
+                    updateAdmissInfo().then(response => {
                         this.queryLoaderDialog2=false;
                         if(response.data.statcode!=0){
                             this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
+                            this.errorInfo=this.$t('admissTickets.Info.generalError')
                             this.errorReturn=true;
                             return 0;
                         }

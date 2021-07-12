@@ -1,27 +1,27 @@
 <template>
     <div class="home">
         <span class="zms-view-title zms-primary-color">
-            <v-icon color="primary">el-icon-s-custom</v-icon> 员工信息管理
+            <v-icon color="primary">el-icon-s-custom</v-icon> 离职员工信息
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <v-btn light color="primary" @click="routerGo('/EmployeeManagement')">
             <v-icon>mdi-arrow-left</v-icon>返回员工管理
         </v-btn>
         <div class="zms-employeeitem">
-            <Employee-item-overview/>
+            <employee-out-item/>
         </div>
         
     </div>
 </template>
 
 <script>
-import EmployeeItemOverview from '../components/EmployeeComponents/EmployeeItemOverview.vue'
+import EmployeeOutItem from '../components/EmployeeComponents/EmployeeOutItem.vue'
 
 export default {
-    name: 'EmployeeItemManagement',
+    name: 'EmployeeOutItem',
     created(){
-        this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.EmployeeItemManagement_item})
+        this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.EmployeeOutItem})
     },components:{
-        EmployeeItemOverview,
+        EmployeeOutItem,
     },methods:{
         routerGo(x){
             this.$router.push(x);
@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-    .zms-employeeitem{
+    .zms-employeeoutitem{
         margin-top:20px;
     }
 </style>

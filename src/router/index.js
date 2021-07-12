@@ -13,7 +13,7 @@ import EmployeeManagement from '../views/EmployeeManagement.vue'
 import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
 import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
 import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
-import EmployeeCheck from '../views/EmployeeCheck.vue'
+import EmployeeCheck from '../views/EmployeeCheck'
 
 import ShowInformationManagement from '../views/ShowInformationManagement.vue'
 import TrainingManagement from '../views/TrainingManagement.vue'
@@ -22,7 +22,12 @@ import VehicleManagement from '../views/VehicleManagement.vue'
 import GettingAroundZoo from '../views/GettingAroundZoo.vue'
 import ConvenienceService from '../views/ConvenienceService.vue'
 import StaffInfo from '../views/StaffInfo.vue'
+import AdmissionTicket from '../views/TicketsAdmmisManagement.vue'
 
+import AnimalExhibition from '../views/VenueExhiManagement.vue'
+import VenueItemManagement from '../views/VenueItemManagement.vue'
+import GuiderManagement from '../views/GuiderItemManagement.vue'
+import VenueFuncItemManagement from '../views/VenueFuncItemManagement.vue'
 
 Vue.use(VueRouter)
 
@@ -31,6 +36,35 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+{
+    path: '/venue/AnimalFunctionManagement',
+    name: 'VenueFuncItemManagement',
+    component: VenueFuncItemManagement,
+  },
+
+  {
+    path: '/ticketsManagement/Admissiontickets',
+    name: 'AdmissionTicket',
+    component: AdmissionTicket,
+  },
+ 
+  {
+    path: '/venue/AnimalExhibitionManagement',
+    name: 'AnimalExhibition',
+    component: AnimalExhibition
+  },
+
+  {
+    path: '/venue/itemManagement',
+    name: 'VenueItemManagement',
+    component: VenueItemManagement,
+  },
+
+  {
+    path: '/guiderManagement',
+    name: 'GuiderManagement',
+    component: GuiderManagement,
   },
   {
     path: '/animalCareManagement',
@@ -78,24 +112,30 @@ const routes = [
     component: EmployeeManagement
   },
 
+   {
+    path: '/employeeManagement',
+    name: 'employeeManagement',
+    component: EmployeeManagement
+  },
+
   {
     path: '/employeeManagement/flowManagement',
-    name: 'Bddd',
+    name: 'employeeFlowManagement',
     component: EmployeeFlowManagement
   },
   {
     path: '/employeeManagement/infoManagement',
-    name: 'CD',
+    name: 'employeeInfoManagement',
     component: EmployeeInfoManagement,
   },
   {
     path: '/employeeManagement/itemManagement',
-    name: 'dsfsf',
+    name: 'EmployeeItemManagement',
     component: EmployeeItemManagement,
   },
   {
     path: '/employeeManagement/check',
-    name: 'sdwfff',
+    name: 'EmployeeCheck',
     component: EmployeeCheck,
   },
   {

@@ -1,33 +1,31 @@
 <template>
-    <div class="zms-warehouse zms-view-public">
+    <div class="zms-employee zms-view-public">
         <v-container fluid class="fill-height justify-center">
             <v-row align="center" class="mx-0">
                 
                 <v-col cols="12" md="12" class="align-self-stretch">
-                    <warehouse-quick-launch/>
+                    <Employee-quick-launch/>
                 </v-col>
                 <v-col cols="12" md="12" class="align-self-stretch">
-                    <warehouse-stat/>
+                    <Employee-stat/>
                 </v-col>
                 
             </v-row>
       </v-container>
-        
-        
     </div>
 </template>
 
 <script>
-import WarehouseQuickLaunch from './WarehouseQuickLaunch.vue'
-import WarehouseStat from './WarehouseStat.vue'
+import EmployeeQuickLaunch from './EmployeeQuickLaunch.vue'
+import EmployeeStat from './EmployeeStat.vue'
 
 export default {
-    name: 'WarehouseContainer',
+    name: 'EmployeeContainer',
     created(){
     },
     components:{
-        WarehouseQuickLaunch,
-        WarehouseStat
+        EmployeeQuickLaunch,
+        EmployeeStat
         
     },data:()=>{
         return{
@@ -42,5 +40,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.zms-employee{
+        padding-left:50px;
+        padding-right:50px;
+        padding-top:20px;
+        padding-bottom:20px;
+        background-color: #fafafa;
+    }
     
 </style>

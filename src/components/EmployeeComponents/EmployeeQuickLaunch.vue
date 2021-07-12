@@ -7,22 +7,22 @@
             <div class="zms-home-body" >
                 <v-container fluid class="fill-height justify-center">
                     <v-row align="center" class="mx-0">
-                        <v-col cols="12" md="3" class="align-self-stretch">
+                        <v-col cols="12" md="4" class="align-self-stretch">
                             <homepage-quick-launch-button icon="mdi-database-edit" title="员工信息录入" info="录入新入职员工的信息"
                             zmsroute='/employeeManagement/flowManagement'/>
                         </v-col>
-                        <v-col cols="12" md="3" class="align-self-stretch">
+                        <v-col cols="12" md="4" class="align-self-stretch">
                             <homepage-quick-launch-button icon="mdi-warehouse" title="员工信息" info="查看所有员工的具体信息"
                             zmsroute='/employeeManagement/infoManagement'/>
                         </v-col>
-                        <v-col cols="12" md="3" class="align-self-stretch">
+                        <v-col cols="12" md="4" class="align-self-stretch">
                             <homepage-quick-launch-button icon="mdi-cube" title="员工考核管理" info="查看当前员工考核信息"
                             zmsroute='/employeeManagement/check' />
                         </v-col>
-                        <v-col cols="12" md="3" class="align-self-stretch">
+                        <!-- <v-col cols="12" md="3" class="align-self-stretch">
                             <homepage-quick-launch-button icon="mdi-cart" title="离职员工信息" info="记录已离职员工信息"
-                            zmsroute='/procurementManagement' />
-                        </v-col>
+                            zmsroute='/employeeOutManagement' />
+                        </v-col> -->
                     </v-row>
                 </v-container>
             </div>

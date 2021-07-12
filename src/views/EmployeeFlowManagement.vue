@@ -1,14 +1,14 @@
 <template>
     <div class="home">
         <span class="zms-view-title zms-primary-color">
-            <v-icon color="primary">mdi-database</v-icon> 员工信息录入
+            <v-icon color="primary">el-icon-upload2</v-icon> 员工信息录入
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <v-btn light color="primary" @click="routerGo('/employeeManagement')">
             <v-icon>mdi-arrow-left</v-icon>返回员工管理
         </v-btn>
         
-        <div class="zms-wareitem">
-            <warehouse-flow/>
+        <div class="zms-Employeeeitem">
+            <Employeee-flow/>
             <!--<warehouse-info/>-->
         </div>
         
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import WarehouseFlow from '../components/EmployeeComponents/WarehouseFlow.vue'
+import EmployeeeFlow from '../components/EmployeeComponents/EmployeeFlow.vue'
 export default {
-    name: 'WarehouseFlowManagement',
+    name: 'EmployeeeFlowManagement',
     created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.employeeManagement_flowRecord})
     },methods:{
@@ -26,12 +26,12 @@ export default {
             this.$router.push(x);
         }
     },components:{
-        WarehouseFlow,
+        EmployeeeFlow,
     }
 }
 </script>
 <style scoped lang="scss">
-    .zms-wareitem{
+    .zms-Employeeeitem{
         margin-top:20px;
     }
 </style>

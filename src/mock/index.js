@@ -173,19 +173,6 @@ let staffList={
 Mock.mock('/api/staffManagement/getStaffList','get',staffList)
 
 
-let employeeData={
-  data:[
-    {id:'1144444',storage_name:'飞禽馆',storage_location:'黄渡理工大学 F楼213'},
-    {id:'1144445',storage_name:'猛禽馆',storage_location:'黄渡理工大学 创业谷2345'},
-    {id:'1144446',storage_name:'灵长类馆',storage_location:'黄渡理工大学 D楼102'},
-    {id:'1144447',storage_name:'海洋区',storage_location:'黄渡理工大学 G楼207'},
-    {id:'1144448',storage_name:'草食动物馆',storage_location:'黄渡理工大学 G楼209'},
-  ],
-  code:200
-}
-
-Mock.mock('/api/employeeRequest/getWarehouseInfo','get',employeeData)
-Mock.mock('/api/employeeRequest/updateWarehouseInfo','get',{data:{stat:'success',statcode:1},code:200})
 
 
 //Animal show
@@ -447,3 +434,128 @@ Mock.mock('/api/convenienceService/getConvenienceServiceData','get',convenienceS
 Mock.mock('/api/convenienceService/createConvenienceServiceInfo','get',{data:{stat:'success',statcode:0},code:200})
 Mock.mock( '/api/convenienceService/updateConvenienceServiceInfo','get',{data:{stat:'success',statcode:0},code:200})
 
+//门票模块
+
+let aniAdmissData={
+  data:[
+    {admis_id:'123123' , admistour_id:'12313',admis_type:'儿童票',admis_price:'100',admis_starttime:'9:00',admis_endtime:'21:00',admis_date:'2012-01-01'},
+    
+  ],
+  code:200
+}
+Mock.mock('/api/TicketsAdmiss/getAdmissData','get',aniAdmissData)
+
+Mock.mock('/api/TicketsAdmiss/createAdmissInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/TicketsAdmiss/updateAdmissInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+//场馆模块
+
+let venueData={
+  data:[
+    {area_id:'123123' , name:'海洋馆',instruction:'无',zone:'飞禽走兽区',location:'东南方',additional_fee:'30',current_tourist_cnt:'0',telephone:'15812123232',price:'30元',capacity:'123',status:'开放'},
+    
+  ],
+  code:200
+}
+Mock.mock('/api/venueRequest/getvenueItemInfo','get',venueData)
+
+Mock.mock('/api/venueRequest/creatvenueItemInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/venueRequest/updatevenueItemInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+let venueInfoData={
+  data:[
+    {alterItem_id:'1144444',alterItem_name:'飞禽馆',alterItem_location:'黄渡理工大学 F楼213'},
+    {id:'1144445',storage_name:'猛禽馆',storage_location:'黄渡理工大学 创业谷2345'},
+    {id:'1144446',storage_name:'灵长类馆',storage_location:'黄渡理工大学 D楼102'},
+    {id:'1144447',storage_name:'海洋区',storage_location:'黄渡理工大学 G楼207'},
+    {id:'1144448',storage_name:'草食动物馆',storage_location:'黄渡理工大学 G楼209'},
+  ],
+  code:200
+}
+Mock.mock('/api/VenueRequest/getVenueInfo','get',venueInfoData)
+
+Mock.mock('/api/VenueRequest/createVenueInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/VenueRequest/updateVenueInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+
+
+
+//员工模块
+let employeeinfoData={
+  data:[
+    {id:'123123' , name:'张三',gender:'女',age:'12',wage:'100',position:'馆长',park:'海洋馆',year:'2019',password:'1231nhgj'},
+   
+  ],
+  code:200
+}
+Mock.mock('/api/employeeRequest/getemployeeItemInfo','get',employeeinfoData)
+
+Mock.mock('/api/employeeRequest/createemployeeItemInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+Mock.mock('/api/employeeRequest/updateemployeeItemInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+let employeeData={
+  data:[
+    {id:'1144444',storage_name:'飞禽馆',storage_location:'黄渡理工大学 F楼213'},
+    {id:'1144445',storage_name:'猛禽馆',storage_location:'黄渡理工大学 创业谷2345'},
+    {id:'1144446',storage_name:'灵长类馆',storage_location:'黄渡理工大学 D楼102'},
+    {id:'1144447',storage_name:'海洋区',storage_location:'黄渡理工大学 G楼207'},
+    {id:'1144448',storage_name:'草食动物馆',storage_location:'黄渡理工大学 G楼209'},
+  ],
+  code:200
+}
+
+Mock.mock('/api/employeeRequest/getEmployeeInfo','get',employeeData)
+Mock.mock('/api/employeeRequest/updateEmployeeInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+
+//员工考核模块
+let employeecheckData={
+  data:[
+    {employee_id:'123123' , manager_id:'127361',assessment_time:'2019-10-02',assessment_grade:'10',remarks:'表现良好',position:'馆长',park:'海洋馆',year:'2019',price:'30元'},
+   
+  ],
+  code:200
+}
+Mock.mock('/api/employeeCheckRequest/getEmployeeCheckInfo','get',employeecheckData)
+
+Mock.mock('/api/employeeCheckRequest/creatsEmployeeCheckInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/employeeCheckRequest/updateEmployeeCheckInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+//导游模块
+let guideData={
+  data:[
+    {id:'123123' , tour_id:'00012',guide_id:'00001',name:'张三',mark:'4.8',price:'100',service_type:'讲解服务',year:'2019'},
+    
+  ],
+  code:200
+}
+
+
+Mock.mock('/api/guideRequest/getGuideInfo','get',guideData)
+
+Mock.mock('/api/guideRequest/creatsGuideInfo','get',{data:{stat:'success',statcode:1},code:200})
+
+Mock.mock('/api/guideRequest/updateGuideInfo','get',{data:{stat:'success',statcode:0},code:200})
+
+let guideitemDada={
+data: [
+  {
+   // name: 'Frozen Yogurt',
+    id: 19128812,
+    tour_id: 1212,
+    guide_id: 32332,
+    name: '张三',
+    mark: 87,
+    price: '100元',
+    service_type: '汉语',
+  },
+],
+code:200
+}
+
+Mock.mock('/api/guideRequest/getGuideInfo','get',guideitemDada)

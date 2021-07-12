@@ -1,21 +1,21 @@
 <template>
     <div class="home">
         <span class="zms-view-title zms-primary-color">
-            <v-icon color="primary">mdi-database</v-icon> 员工管理
+            <v-icon color="primary">el-icon-user-solid</v-icon> 员工管理
         </span>
-        <warehouse-container/>
+        <Employee-container/>
     </div>
 </template>
 
 <script>
-import WarehouseContainer from '../components/EmployeeComponents/WarehouseContainer.vue'
+import EmployeeContainer from '../components/EmployeeComponents/EmployeeContainer.vue'
 
 export default {
-    name: 'WarehouseManagement',
+    name: 'EmployeeManagement',
     created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.employeeManagement})
     },components:{
-        WarehouseContainer,
+        EmployeeContainer,
     }
 }
 </script>

@@ -1,13 +1,13 @@
 <template>
   <div class="zms-home-notice">
         <span>下方列出了园区内所有的部门</span>
-        <v-btn color="primary" text @click="newDialog=true">{{$t('warehouse.Info.ecreate')}}</v-btn>
+        <v-btn color="primary" text @click="newDialog=true">{{$t('employee.Info.ecreate')}}</v-btn>
 
         <v-container>
             <v-row>
                 <v-col cols="12" md="4" v-for="item in warehouseDetail" :key="item.id" class="align-self-stretch">
                     <v-card  :class="cardNightClass" :ripple="{ class: null }" class="mx-auto" max-width="400">
-                        <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                        <v-img class="white--text align-end" height="200px" src="https://img1.baidu.com/it/u=2879919113,1208359775&fm=26&fmt=auto&gp=0.jpg">
                             <v-card-title>{{item.storage_name}}</v-card-title>
                         </v-img>
                         <v-card-subtitle class="pb-0"><b>编号</b> {{item.id}}</v-card-subtitle>
@@ -30,7 +30,7 @@
         <v-dialog v-model="newDialog" persistent  max-width="600px">
             <v-card :ripple="{class:null}">
                 <v-card-title  class=" zms-strip-bg text-h5 text--white primary " color="warning">
-                    <v-icon color="white">mdi-plus-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('warehouse.Info.new')}}</span>
+                    <v-icon color="white">mdi-plus-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('employee.Info.new')}}</span>
                 </v-card-title>
                 <v-card-text>
                     <v-container>
@@ -62,19 +62,19 @@
         <v-dialog v-model="alterDialog" persistent  max-width="600px">
             <v-card :ripple="{class:null}" >
                 <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
-                    <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('warehouse.Info.alter')}}</span>
+                    <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{$t('employee.Info.alter')}}</span>
                 </v-card-title>
                 <v-card-text>
                     <v-container>
                         <v-row>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.id" disabled :label="$t('warehouse.Info.wareid')"></v-text-field>
+                                <v-text-field v-model="alterItem.id" disabled :label="$t('employee.Info.wareid')"></v-text-field>
                             </v-col>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.storage_name"  :label="$t('warehouse.Info.wareName')"></v-text-field>
+                                <v-text-field v-model="alterItem.storage_name"  :label="$t('employee.Info.wareName')"></v-text-field>
                             </v-col>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.storage_location" :label="$t('warehouse.Info.wareLocation')"></v-text-field>
+                                <v-text-field v-model="alterItem.storage_location" :label="$t('employee.Info.wareLocation')"></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -137,10 +137,10 @@
 </template>
 
 <script>
-import {getWarehouseInfo, updateWarehouseInfo} from '../../apis/employee.js'
+import {getEmployeeInfo, updateEmployeeInfo} from '../../apis/employee.js'
 export default {
     components: {  },
-    name: 'WarehouseInfo',
+    name: 'employeeInfo',
     props:{
         drawer:Boolean,
        
@@ -186,17 +186,17 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    updateWarehouseInfo().then(response => {
+                    updateEmployeeInfo().then(response => {
                         if(response.data.statcode!=0){
                             this.submitStat=false;
                             this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
+                            this.errorInfo=this.$t('employee.Info.generalError')
                             this.errorReturn=true;
                             return 0;
                         }
                         this.submitStat=false;
                         this.alterDialog=false,
-                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('warehouse.Info.alterDone')})
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('employee.Info.alterDone')})
                     })
                 },1000
             )
@@ -206,10 +206,10 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getWarehouseInfo().then(response => {
+                    getEmployeeInfo().then(response => {
                         this.warehouseDetail=response.data
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('warehouse.Info.queryDone')})
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('employee.Info.queryDone')})
                         let i=0;
                         for(;i< this.warehouseDetail.length;i++){
                             this.warehouseDetail[i].dialogOpen=false;
@@ -221,7 +221,7 @@ export default {
            
         },
         gotoItem(x){
-            this.$store.dispatch('showToastNotify',{type:'default',info:this.$t('warehouse.Info.search')})
+            this.$store.dispatch('showToastNotify',{type:'default',info:this.$t('employee.Info.search')})
             this.$router.push({name:'EmployeeItemManagement',params: {id:'11'}})
         }
     }

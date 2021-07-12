@@ -1,8 +1,8 @@
 export default { 
     'animalCare_SubmitEmptyId':'动物编号不能为空',
-    'animalCare_SubmitEmptyType':'疾病信息不能为空',
-    'animalCare_SubmitVetName':'兽医工作编号不能为空',
-    'animalCare_SubmitDate':'日期不能为空',
+    'animalCare_SubmitEmptyType':'疾病类型不能为空',
+    'animalCare_SubmitVetName':'兽医名称不能为空',
+    'animalCare_SubmitDate':'患病日期不能为空',
     'topbar':{
         default:'ZMS 动物园信息管理系统',
         login:'登录',
@@ -25,6 +25,11 @@ export default {
         vehicleManagement:'园外交通管理',
         gettingAroundZoo:'园内交通管理',
         convenienceService:'便民服务管理',
+
+        employeeManagement:'员工管理',
+        employeeManagement_item:'员工信息管理',
+        employeeManagement_info:'考核信息管理',
+        employeeManagement_flowRecord:'员工信息增删',
     },
     'home':{
         'accountOv':'账户状态',
@@ -493,7 +498,7 @@ export default {
 
         'Submitting':'正在提交',
         'PleaseWait':'请稍后',
-        'NonexistentAniID':'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       填写的动物不存在或无效',
+        'NonexistentAniID':'填写的动物不存在或无效',
         'NonexistentTypeID':'填写的场馆不存在或无效',
         'NonexistentVetID':'填写的负责人不存在或无效',
         'NoNoteTitle':'情况描述缺失',
