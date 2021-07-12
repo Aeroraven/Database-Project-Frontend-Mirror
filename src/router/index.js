@@ -9,9 +9,6 @@ import WarehouseItemManagement from '../views/WarehouseItemManagement.vue'
 import WarehouseInfoManagement from '../views/WarehouseInfoManagement.vue'
 import WarehouseFlowManagement from '../views/WarehouseFlowManagement.vue'
 import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
-import ShowTicketManagement from '../views/ShowTicketManagement.vue'
-import ShowInformationManagement from '../views/ShowInformationManagement.vue'
-import TrainingManagement from '../views/TrainingManagement.vue'
 import EmployeeManagement from '../views/EmployeeManagement.vue'
 import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
 import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
@@ -71,21 +68,6 @@ const routes = [
     path: '/animalInfoManagement',
     name: 'AnimalInfoManagement',
     component: AnimalInfoManagement
-  },
-  {
-    path: '/ticketManagement/showTicketManagement',
-    name: 'ShowTicketManagement',
-    component: ShowTicketManagement
-  },
-  {
-    path: '/showInformationManagement',
-    name: 'ShowInformationManagement',
-    component: ShowInformationManagement
-  },
-  {
-    path: '/trainingManagement',
-    name: 'TrainingManagement',
-    component: TrainingManagement
   },
   {
     path: '/employeeManagement',
