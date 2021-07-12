@@ -1,7 +1,7 @@
 <template>
     <div class="zms-anicare">
         <span class="zms-anicare-title zms-primary-color" color="primary">
-            <v-icon color="primary">mdi-needle</v-icon> 动物医疗管理
+            <v-icon color="primary">mdi-needle</v-icon> {{$t('viewTitles.animalCareMan')}}
         </span>
         <ani-care-container/>
     </div>
