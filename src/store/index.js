@@ -10,6 +10,8 @@ let store= new Vuex.Store({
         sAsset_SlidebarHeadIcon:'assets/slide-bar-head-icon.png',
         sAsset_WelcomeIcon:'assets/welcome-icon.png',
         sAsset_PageBackground:'assets/background-trial.jpg',
+        sAsset_PageBackground2:'assets/background-trial-2.jpg',
+
 
         //项目常量
         sProjectName:"ZMS 管理系统",
@@ -34,6 +36,10 @@ let store= new Vuex.Store({
             vehicleManagement:'topbar.vehicleManagement',
             gettingAroundZoo:'topbar.gettingAroundZoo',
             convenienceService:'topbar.convenienceService',
+            employeeManagement_flowRecord:'新增员工信息',
+            employeeManagement_info:'员工信息管理',
+            EmployeeItemManagement_item:'员工部门信息管理',
+            EmployeeManagement_check:'员工考核'
         },
         
         sProjectFunctions:[
