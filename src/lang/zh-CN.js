@@ -18,6 +18,13 @@ export default {
         warehouseManagement_flowRecord:'货物出库与入库管理',
         fundManagement:'资金与账户管理',
         procurement:'采购申请管理',
+
+        animalShowInfoManagement:'动物演出信息管理',
+        trainingManagement:'训练信息管理',
+        showTicketManagement:'演出票信息管理',
+        vehicleManagement:'园外交通管理',
+        gettingAroundZoo:'园内交通管理',
+        convenienceService:'便民服务管理',
     },
     'home':{
         'accountOv':'账户状态',
@@ -55,6 +62,10 @@ export default {
         'guidMan':'导游管理',
         'trafMan':'交通工具管理',
         'servMan':'便民服务管理',
+
+        'convenienceService':'便民服务管理',
+        'vehicleMan':'园内交通管理',
+        'gettingAroundZoo':'园外交通信息',
     },
     'warehouse':{
         'Info':{

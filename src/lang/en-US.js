@@ -18,6 +18,13 @@ export default {
         warehouseManagement_flowRecord:'Warehouse Transactions Management',
         fundManagement:'Fund Management',
         procurement:'Procurement Management',
+
+        animalShowInfoManagement:'Animal Show Information Management',
+        trainingManagement:'Training Management',
+        showTicketManagement:'Show Ticket Management',
+        vehicleManagement:'Vehicle Management',
+        gettingAroundZoo:'Getting Around Zoo',
+        convenienceService:'Convenience Service',
     },
     'home':{
         'accountOv':'Account Status',
@@ -55,6 +62,10 @@ export default {
         'guidMan':'Guide Management',
         'trafMan':'Vehicle Management',
         'servMan':'Convenience Service',
+
+        'convenienceService':'Convenience Service',
+        'vehicleMan':'In-park Vehicles',
+        'gettingAroundZoo':'External Transportation',
     },
     'warehouse':{
         'Info':{
