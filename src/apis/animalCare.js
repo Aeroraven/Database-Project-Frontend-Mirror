@@ -23,3 +23,11 @@ export function updateCareInfo(params) {
     params
   })
 }
+/*
+let obj{
+  id: submits; wd ;
+}
+updateCareInfo(params)=>{
+  ad awd wa 
+}
+*/
