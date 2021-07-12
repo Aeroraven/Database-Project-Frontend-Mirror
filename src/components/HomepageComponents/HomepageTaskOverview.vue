@@ -5,7 +5,7 @@
                 <v-icon>mdi-clock-check-outline</v-icon> {{$t('home.wtTsk')}}
             </div>
             <div class="zms-home-body">
-                
+                <ec-line-chart/>
                 
             </div>
       </v-card>
@@ -13,9 +13,10 @@
 </template>
 
 <script>
+import EcLineChart from '../ChartComponents/EcLineChart.vue';
 
 export default {
-    components: {  },
+    components: {EcLineChart  },
     name: 'HomepageTaskOverview',
     props:{
         drawer:Boolean,
@@ -55,12 +56,6 @@ export default {
         font-size:18px;
         font-weight: bold;
         display:block;
-    }
-    .zms-home-body{
-        margin-left:7%;
-        margin-right: 7%;
-        padding-top:10px;
-        padding-bottom: 10px;
     }
     .zms-home-body2{
         margin-left:5%;

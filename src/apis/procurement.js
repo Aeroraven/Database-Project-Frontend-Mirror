@@ -7,3 +7,28 @@ export function getProcOverview(params) {
         params
     })
 }
+
+export function createNewProc(params) {
+    return request({
+        url: '/api/procManagement/createNewProc',
+        method: 'get',
+        params
+    })
+}
+
+export function getPendingRequests(params) {
+    return request({
+        url: '/api/procManagement/getPendingRequests',
+        method: 'get',
+        params
+    })
+}
+
+
+export function changeProcStatus(params) {
+    return request({
+        url: '/api/procManagement/changeProcStatus',
+        method: 'get',
+        params
+    })
+}
