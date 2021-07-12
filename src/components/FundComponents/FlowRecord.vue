@@ -1,5 +1,12 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <!--删除项目提示框-->
         <alert-messagebox 
         :alertTitle="$t('fund.deleteRecordTitle')" 
@@ -258,8 +265,12 @@ export default {
                         }
                         this.pendingShow4=0;
                         console.log(this.accountList)
-                    })
-                },3000
+                    }).catch( err => {
+                        this.pendingShow4=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
+                },1000
             )
         },
         fetchFlowEntries(){
@@ -270,7 +281,11 @@ export default {
                         this.pendingShow3=0
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                         this.queryData=response.data
-                    })
+                    }).catch( err => {
+                        this.pendingShow3=0
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -296,7 +311,11 @@ export default {
                         this.pendingShow2=0
                         this.close()
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingSHow2=0
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -308,7 +327,11 @@ export default {
                         this.pendingShow2=0
                         this.close()
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingShow2=0
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -338,7 +361,11 @@ export default {
                         this.pendingShow=0
                         this.fetchFlowEntries();
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingShow=0
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         }

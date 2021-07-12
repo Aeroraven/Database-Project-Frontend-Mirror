@@ -383,7 +383,8 @@ export default {
     'common3':{
         'transactionDone':'您所提交的事务已经成功完成！点击下方的确认按钮，关闭这一对话框。',
         'transactionDoneTitle':'操作成功',
-        'transactionFail':'在事务的处理过程中，发生了一个无法忽略或自动纠正的错误。 错误信息如下。'
+        'transactionFail':'在事务的处理过程中，发生了一个无法忽略或自动纠正的错误。 错误信息如下。',
+        'transactionFailTitle':'操作失败'
     },
     'gadget':{
         'loading':'加载中，请稍后...'

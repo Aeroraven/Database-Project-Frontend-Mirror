@@ -1,5 +1,12 @@
 <template>
     <div>
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <ec-line-chart
         ref="ec_balance_shift_acc"
         :zmsChartData="chartData"
@@ -55,8 +62,13 @@ export default{
                         this.completeStat++;
                         this.checkComplete();
                         this.$refs.ec_balance_shift_acc.applyChanges();
-                    })
-                },2000
+                    }).catch( err => {
+                        this.completeStat++;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.checkComplete();
+                    });
+                },1000
             )
         }
     }
