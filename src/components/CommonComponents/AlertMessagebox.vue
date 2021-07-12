@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <!--图标结束-->
-                    {{alertBody}}
+                    {{zmsAlertBody}}
                 </span>
                 <span class="" :class="txNightClass" v-else>
                     <slot name="body"></slot>
@@ -64,6 +64,9 @@
 
 export default {
     name:'AlertMessagebox',
+    created(){
+        this.zmsAlertBody = this.alertBody
+    },
     methods:{
         clickConfirm(){
             this.zmsShowAlert=false;
@@ -76,6 +79,9 @@ export default {
         showAlert(){
             this.zmsShowAlert=true;
             console.log('exec');
+        },
+        updateBody(x){
+            this.zmsAlertBody=x
         }
     },
     props:{
@@ -106,7 +112,8 @@ export default {
     },
     data(){
         return{
-            zmsShowAlert:false
+            zmsShowAlert:false,
+            zmsAlertBody:'',
         }
     },
     computed:{
