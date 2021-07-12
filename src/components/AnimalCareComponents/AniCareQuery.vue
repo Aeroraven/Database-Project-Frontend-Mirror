@@ -1,6 +1,14 @@
 <template>
 
     <div class="zms-anicare" :class="nmNightClass">
+        
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+        
         <animal-selector></animal-selector>
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title" >查询条件</span>
@@ -406,7 +414,11 @@ export default {
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
                         
-                    })
+                    }).catch( err => {
+                        this.queryLoaderDialog=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -443,7 +455,11 @@ export default {
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
                         
-                    })
+                    }).catch( err => {
+                        this.completeSubmitWaitingBox=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -486,8 +502,12 @@ export default {
                         }
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete2'))
                         this.close()
-                    })
-                },2000
+                    }).catch( err => {
+                        this.submitStat=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
+                },1000
             )
         },
         submitSuccTip(x){
@@ -513,7 +533,6 @@ export default {
                 {text: '患病时间', value: 'date_ill'},
                 {text: '治愈时间', value: 'date_cure'},
                 { text: '操作', value: 'actions', sortable: false }
-                
             ],
             submitStat:0,
             errorReturn:false,

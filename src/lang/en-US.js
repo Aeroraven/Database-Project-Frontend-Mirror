@@ -693,7 +693,12 @@ export default {
         'treatProg':'Treatment Progress',
         'currentStateW':'Already Cured',
     },
-
+    'common3':{
+        'transactionDone':'The operation has been successfully done',
+        'transactionDoneTitle':'Operation Done',
+        'transactionFail':'An unexpected error occurred. The detail is as follows.',
+        'transactionFailTitle':'Operation Failure'
+    },
 
     
 }

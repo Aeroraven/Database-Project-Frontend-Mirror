@@ -1,5 +1,12 @@
 <template>
   <div class="zms-home-notice">
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <div class="zms-bankaccount-op">
             <div class="zms-bankaccount-optitle">
                 <v-icon color="primary">mdi-cog</v-icon> <span class="zms-query-title">账户信息管理</span>
@@ -226,7 +233,11 @@ export default {
                         this.pendingBoxAuthOp=0;
                         this.fetchAuthList();
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingBoxAuthOp=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -238,7 +249,11 @@ export default {
                         this.pendingBoxAuthOp=0;
                         this.fetchAuthList();
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingBoxAuthOp=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -251,7 +266,11 @@ export default {
                         this.authList=response.data
                         this.calloutAuthBox()
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingBoxAuthFetch=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -263,7 +282,11 @@ export default {
                         this.pendingBoxAccountFetch=0;
                         this.accountList=response.data
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingBoxAccountFetch=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         },
@@ -271,11 +294,21 @@ export default {
             this.pendingBoxNewAccount=1
             setTimeout(
                 ()=>{
-                    addBankAccount().then(response=>{
+                    addBankAccount(
+                        {
+                            'bank_acc_id':'1-7',
+                            'name':'源石虫',
+                            'type':'感染生物'
+                        }
+                    ).then(response=>{
                         this.pendingBoxNewAccount=0;
                         this.closeNewBanAccBox();
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
-                    })
+                    }).catch( err => {
+                        this.pendingBoxNewAccount=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
         }

@@ -10,11 +10,13 @@
 
         <!--事务失败提示框-->
         <alert-messagebox
-        :alertTitle="errorTitle"
+        :alertTitle="$t('common3.transactionFailTitle')"
         :alertBody="$t('common3.transactionFail')+errorInfo"
         :alertLevel="`error`"
         :alertOnlyConfirm="true"
         ref="error_done" />
+
+        
 
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
@@ -85,7 +87,7 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.animalId')"
                             :hint="$t('animalCare2.chooseByMagnify')"
-                            readonly v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
+                              v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
                             prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
@@ -93,7 +95,7 @@
                              prepend-icon="mdi-heart-pulse"   />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalCare.vetName')" readonly v-model="submitVetname"
+                            <v-text-field :label="$t('animalCare.vetName')"   v-model="submitVetname"
                              :hint="$t('animalCare2.chooseByMagnify')"
                              :placeholder="$t('common.pleaseInput')+$t('animalCare.vetName')" 
                              prepend-icon="mdi-doctor" append-icon="mdi-magnify" @click:append="calloutStaffSelect"   />
@@ -288,7 +290,11 @@ export default {
                         }
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete'))
                         this.$refs.commit_done.showAlert()
-                    })
+                    }).catch( err => {
+                        this.submitStat=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },2000
             )
         },

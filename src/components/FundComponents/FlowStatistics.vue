@@ -1,5 +1,12 @@
 <template>
     <div>
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
         <!--等待进度条-->
         <pending-progress-card :zmsShow="showPending" 
         :zmsPendingList="showPendingList" ref="pending"/>
@@ -131,8 +138,13 @@ export default{
                         console.log(this.accountList)
                         this.showPendingCnt++;
                         this.completeTask(4)
-                    }),3000
-                }
+                    }).catch( err => {
+                        this.showPendingCnt++;
+                        this.completeTask(4)
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
+                },1000
             )
         },
         submitFailTip(x){
