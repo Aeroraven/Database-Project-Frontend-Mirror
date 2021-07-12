@@ -626,4 +626,7 @@ export default {
         'DateAhead':'设定的日期超前',
         'currentStateW':'已经治愈',
     },
+    'topbar2':{
+        'account':'个人信息维护'
+    }
 }

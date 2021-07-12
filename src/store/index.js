@@ -36,6 +36,8 @@ let store= new Vuex.Store({
             vehicleManagement:'topbar.vehicleManagement',
             gettingAroundZoo:'topbar.gettingAroundZoo',
             convenienceService:'topbar.convenienceService',
+            account:'topbar2.account',
+
             employeeManagement:'员工管理',
             employeeManagement_flowRecord:'新增员工信息',
             employeeManagement_info:'员工信息管理',

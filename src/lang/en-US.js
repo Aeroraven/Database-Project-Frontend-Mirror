@@ -622,4 +622,7 @@ export default {
         'treatProg':'Treatment Progress',
         'currentStateW':'Already Cured',
     },
+    'topbar2':{
+        'account':'Account Information'
+    }
 }

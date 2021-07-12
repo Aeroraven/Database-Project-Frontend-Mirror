@@ -14,12 +14,15 @@ import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
 import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
 import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
 import EmployeeCheck from '../views/EmployeeCheck.vue'
+
 import ShowInformationManagement from '../views/ShowInformationManagement.vue'
 import TrainingManagement from '../views/TrainingManagement.vue'
 import ShowTicketManagement from '../views/ShowTicketManagement.vue'
 import VehicleManagement from '../views/VehicleManagement.vue'
 import GettingAroundZoo from '../views/GettingAroundZoo.vue'
 import ConvenienceService from '../views/ConvenienceService.vue'
+import StaffInfo from '../views/StaffInfo.vue'
+
 
 Vue.use(VueRouter)
 
@@ -127,6 +130,12 @@ const routes = [
     name: 'ConvenienceService',
     component:  ConvenienceService
   },
+  {
+    path:'/account',
+    name:'StaffAccount',
+    component:StaffInfo
+  
+  }
 
 ]
 
