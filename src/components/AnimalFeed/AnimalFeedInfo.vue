@@ -272,7 +272,7 @@ export default {
                 console.log("create成功！")
                 this.$refs.form.reset()
                 console.log("关！")
-                this.$refs.commit_down.showAlert()
+                this.$refs.commit_done.showAlert()
             }).catch( err => {
                 this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                 this.$refs.error_done.showAlert();
