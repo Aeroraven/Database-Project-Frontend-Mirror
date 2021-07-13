@@ -90,10 +90,10 @@
                               v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
                             prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <!--<v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
                              prepend-icon="mdi-heart-pulse"   />
-                        </v-col>
+                        </v-col>-->
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.vetName')"   v-model="submitVetname"
                              :hint="$t('animalCare2.chooseByMagnify')"
@@ -116,9 +116,9 @@
                     counter
                     prepend-inner-icon="mdi-information" 
                     name="input-7-4"
-                    :label="$t('animalCare.note')"
-                    :placeholder="$t('common.pleaseInput')+$t('animalCare.note')"
-                    v-model="submitNote"
+                    :label="$t('animalCare.diseaseName')"
+                    :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
+                    v-model="submitType"
                 >
                 </v-textarea>
             </div>
@@ -237,13 +237,13 @@ export default {
         generateAutoReport(){
             let st='';
             if(this.illInput!=null&&this.illInput!=""){
-                st+='The animal has following symptoms:';
+                st+='动物症状如下:';
                 st+=this.illInput
                 st+='. '
             }
-            st+='The physical temperature recorded is '+(this.submitTemp/100)+' centigrades'
-            st+='. The heart temperature recorded is '+(this.submitHeartRate)+' beats per minute'
-            st+='. The overall severity has been perceived as `'+this.severeInput+'`.'
+            st+='体温是 '+(this.submitTemp/100)+' 摄氏度'
+            st+='. 心率是 '+(this.submitHeartRate)+' bpm'
+            st+='. 严重等级是 `'+this.severeInput+'`.'
             this.submitNote=st;
             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalCare2.reportGenSuccessful')})
             return st;

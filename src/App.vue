@@ -124,7 +124,7 @@ export default {
     setTimeout(
       ()=>{
         this.showLoadingComponent=false
-      },5000
+      },1000
     )
   },
   methods:{

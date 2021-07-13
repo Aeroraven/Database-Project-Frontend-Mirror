@@ -8,25 +8,25 @@ export function getinformation(params) {
   })
 }
 
-export function createinformation(params) {
+export function createinformation(data) {
   return request({
     url: '/api/animalInfo/createinformation',
-    method: 'get',
-    params
+    method: 'post',
+    data
   })
 }
 
-export function updateinformation(params) {
+export function updateinformation(data) {
   return request({
-    url: '/api/animalInfo/updateimformation',
-    method: 'get',
-    params
+    url: '/api/animalInfo/updateinformation',
+    method: 'post',
+    data
   })
 }
 
 export function deleteinformation(params) {
   return request({
-    url: '/api/animalInfo/deleteimformation',
+    url: '/api/animalInfo/deleteinformation',
     method: 'delete',
     params
   })

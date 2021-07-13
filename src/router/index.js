@@ -29,6 +29,10 @@ import VenueItemManagement from '../views/VenueItemManagement.vue'
 import GuiderManagement from '../views/GuiderItemManagement.vue'
 import VenueFuncItemManagement from '../views/VenueFuncItemManagement.vue'
 
+import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
+import AnimalFeedManagement from '../views/AnimalFeedManagement.vue'
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -37,7 +41,17 @@ const routes = [
     name: 'Home',
     component: Home
   },
-{
+  {
+    path: '/animalReproductionManagement',
+    name: 'AnimalReproductionManagement',
+    component: AnimalReproductionManagement,
+  },
+  {
+    path: '/animalFeedManagement',
+    name: 'AnimalFeedManagement',
+    component: AnimalFeedManagement,
+  },
+  {
     path: '/venue/AnimalFunctionManagement',
     name: 'VenueFuncItemManagement',
     component: VenueFuncItemManagement,

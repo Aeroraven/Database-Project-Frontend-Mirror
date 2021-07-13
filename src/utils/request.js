@@ -6,15 +6,17 @@ import { getToken } from '@/utils/auth'
 const service = axios.create({
   baseURL: 'http://47.118.78.110/',
   withCredentials: true, 
-  timeout: 5000 
+  timeout: 20000 
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
+    config.headers['X-Token'] = '1234'
     if (store.getters.token) {
       config.headers['X-Token'] = getToken()
     }
+    console.log(config.headers)
     return config
   },
   error => {

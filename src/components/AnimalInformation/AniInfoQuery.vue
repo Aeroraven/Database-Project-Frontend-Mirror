@@ -1,5 +1,52 @@
 <template>
     <div class="zms-animalinfo">
+        <!--事务失败提示框-->
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
+        <alert-messagebox 
+        alertTitle="删除动物档案信息"
+        :alertBody="`是否删除编号为`+delId+`的档案信息?`"
+        alertLevel="warning"
+        :alertModel="{}"
+        ref='deletealert'
+        @alertConfirm="deleteAniInfo"/>
+
+        <alert-messagebox 
+        alertTitle="保存动物档案信息"
+        :alertBody="`是否保存编号为`+insertId+`的档案信息?`"
+        alertLevel="warning"
+        :alertModel="{}"
+        ref='insertalert'
+        @alertConfirm="insertInfoAfter"/>
+
+        <alert-messagebox 
+        alertTitle="保存动物档案信息"
+        :alertBody="`是否创建新的动物信息?`"
+        alertLevel="warning"
+        :alertModel="{}"
+        ref='insertalert2'
+        @alertConfirm="insertInfoAfter"/>
+        <!--insertInfoAfter-->
+
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionDoneTitle')"
+        :alertBody="$t('common3.transactionDone')"
+        :alertLevel="`success`"
+        :alertOnlyConfirm="true"
+        ref="commit_done" />
+        
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionDoneTitle')"
+        :alertBody="$t('common3.transactionDone')"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="commit_error" />
+
         <div class="zms-animalinfo-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> 
             <span class="zms-query-title">查询条件</span>
@@ -7,20 +54,20 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="动物编号" placeholder="请输入动物编号" prepend-icon="mdi-music-accidental-sharp"  />
+                            <v-text-field label="动物编号" v-model="select_ani_id" placeholder="请输入动物编号" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="动物种类" placeholder="请输入动物种类" prepend-icon="mdi-owl"  />
+                            <v-text-field label="动物种类" v-model="select_species" placeholder="请输入动物种类" prepend-icon="mdi-owl"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="动物姓名" placeholder="请输入动物姓名" prepend-icon="mdi-paw"  />
+                            <v-text-field label="动物姓名" v-model="select_ani_name" placeholder="请输入动物姓名" prepend-icon="mdi-paw"  />
                         </v-col>     
                     </v-row>
                 </v-container>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="error" >
+                            <v-btn v-ripple block class="zms-width"  color="error" @click=select() >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
@@ -33,138 +80,201 @@
                         
                         
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" @click="searchInfo">
+                            <v-btn v-ripple block class="zms-width"  color="primary" @click="searchInfo(select_ani_id,select_species,select_ani_name)">
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                               <v-dialog
-                                  v-model="dialog"
-                                  persistent
-                                  max-width="600px"
-                                >
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                color="#00BED8"
-                                v-ripple block class="zms-width" dark
-                                v-bind="attrs"
-                                v-on="on"
-                                >
-                                新增档案
-                                </v-btn>
-                            </template>
-                            <v-card>
-                                <v-card-title>
-                                <span class="text-h5">Animal Profile</span>
-                                </v-card-title>
-                                <v-card-text>
-                                <v-container>
-                                    <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="ID"
-                                            >
-                                            </v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="物种"
-                                            hint="input the species of the animal"
-                                            persistent-hint
-                                            >
-                                            </v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="姓名*"
-                                            hint="input the species of the animal"
-                                            persistent-hint
-                                            required
-                                            ></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                    
-                                    <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="性别*"
-                                            hint="input the species of the animal"
-                                            persistent-hint
-                                            required
-                                            ></v-text-field>
-                                        </v-col>
-                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="年龄*"
-                                            hint="input the species of the animal"
-                                            persistent-hint
-                                            required
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
-                                                <template v-slot:activator="{ on, attrs }">
-                                                    <v-text-field v-model="date" label="患病日期"  readonly v-bind="attrs" v-on="on">
-                                                
-                                                    </v-text-field>
-                                                </template>
-                                                 <v-date-picker v-model="date" ></v-date-picker>
+                            <v-dialog
+                                v-model="dialog"
+                                persistent
+                                position="fixed"
+                                max-width="600px"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                    color="#00BED8"
+                                    v-ripple block class="zms-width" dark
+                                    @click="createItem({p:on,x:attrs})"
+                                    >
+                                    新增档案
+                                    </v-btn>
 
-                                            </v-menu>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="身高/体长*"
-                                            hint="input the species of the animal"
-                                            persistent-hint
-                                            required
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field
-                                            label="体重*"
-                                            hint="input the species of the animal"
-                                            persistent-hint
-                                            required
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                           <v-select
-                                        :items="['良好', '生病', '虚弱']"
-                                        label="健康状态*"
-                                        required
-                                        ></v-select>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                           <v-select
-                                        :items="['无', '怀孕中', '已育']"
-                                        label="繁殖情况*"
-                                        required
-                                        ></v-select>
-                                        </v-col>
-                                    </v-row>
-           
-                                </v-container>
+                                </template>
+                            <v-card>
+                              
+                                        <v-card-title>
+                                            <v-row>
+                                            <v-col cols=6  margin-left="20px" color="primary">{{formTitle}}
+                                            </v-col>
+                                            <v-col cols=6>
+                                             <v-btn
+                                            class="btn-close"
+                                            icon
+                                            color=primary
+                                            @click="dialog = false"
+                                        >
+                                            <v-icon>mdi-close</v-icon>
+                                        </v-btn>
+                                            </v-col>
+                                            </v-row>
+                                        </v-card-title>
+                                
+                                <v-card-text>
+                                    <v-form
+                                    ref="form">
+                                        <v-container>
+                                            <v-row>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field
+                                                    label="动物编号*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                    v-model="editedItem.id"
+                                                    >
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field
+                                                    v-model="editedItem.species"
+                                                    label="物种*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                    >
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field
+                                                    v-model="editedItem.name"
+                                                    label="动物姓名*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                    ></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            
+                                            <v-row>
+                                                <v-col cols="12" sm="6" md="4">
+                                                     <v-select
+                                                    :items="['雌性', '雄性']"
+                                                     v-model='editedItem.gender'
+                                                    label="动物性别*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                ></v-select>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field
+                                                    v-model="editedItem.age"
+                                                    label="年龄*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                        <template v-slot:activator="{ on, attrs }">
+                                                            <v-text-field v-model="editedItem.birthDate" label="出生日期" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                            </v-text-field>
+                                                        </template>
+                                                        <v-date-picker color="primary" width="400" v-model="editedItem.birthDate" @input="menu2 = false" :allowed-dates="allowedDates"></v-date-picker>
+
+                                                    </v-menu>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col cols="12" sm="6" >
+                                                    <v-text-field
+                                                     v-model='editedItem.bodyLength'
+                                                    label="身高/体长"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" >
+                                                    <v-text-field
+                                                     v-model='editedItem.weight'
+                                                    label="体重*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                    ></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row margin-bottom="30px">
+                                                 <v-col cols="12" sm="6">
+                                                <v-select
+                                                    :items="['良好', '生病', '虚弱','健康']"
+                                                     v-model='editedItem.physicalCondition'
+                                                    label="健康状态*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                ></v-select>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" >
+                                                <v-select
+                                                    :items="['无', '怀孕中', '已育']"
+                                                     v-model='editedItem.breedSituation'
+                                                    label="繁殖情况*"
+                                                    :rules="rules"
+                                                    hide-details="auto"
+                                                    required
+                                                ></v-select>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                            <v-col cols="6">
+                                                <v-btn
+                                                    class="zms-btn-save"
+                                                    :disabled="!valid"
+                                                    color="blue darken-1"
+                                                    text
+                                                    @click="validate(editedItem.id)"
+                                                    >
+                                                    保存
+                                                </v-btn>
+                                            </v-col>
+                                            <v-col cols="6">
+                                            <v-btn   class="zms-btn-clear"
+                                                color="blue darken-1"
+                                                right
+                                                text
+                                                @click="reset;dialog = false"
+                                                >
+                                                取消
+                                            </v-btn>
+                                            </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-form>
                                 </v-card-text>
+                                <!--
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn
                                         color="blue darken-1"
                                         text
-                                        @click="dialog = false"
+                                        @click="validate;save;"
                                     >
-                                        Close
+                                        保存
                                     </v-btn>
                                     <v-btn
                                         color="blue darken-1"
                                         text
-                                        @click="dialog = false"
+                                        @click="dialog = false;reset"
                                     >
-                                        Save
+                                        取消
                                     </v-btn>
+                            
                                 </v-card-actions>
+                                -->
                             </v-card>
                             </v-dialog>
                         </v-col>
@@ -182,44 +292,89 @@
             <div class="zms-animalinfo-query-result-table">
                 <v-data-table
                     :headers="headers"
+                    dialog
                     :items="queryData"
-                    show-expand
+                    :single-expand="singleExpand"
+                    :expanded.sync="expanded"
+                     show-expand
                     :page.sync="page"
                     :items-per-page="10"
                     hide-default-footer
                     @page-count="pageCount = $event"
+                    item-key="id"
                     class="elevation-1"
                 >
-                    <template v-slot:[`item.actions`]="{ item }">
+                 <!--展开行-->
+                 
+                   <!-- -->
+                    
+
+
+                    <template v-slot:expanded-item="{ headers, item }">
+                        <td :colspan="headers.length">
+                             <v-row>
+                                 <v-col cols="12" md="4">
+                                     <v-img
+                                     :aspect-ratio="4/3"
+                                     :src="item.photo"
+                                     class="white--text align-end"
+                                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                                     height="125"
+                                    >
+                                     </v-img>
+                                     
+                                 </v-col>
+                                 <v-col cols="12" md="8">
+                                     <br>
+                                     <v-text color="primary">出生日期：{{item.birthDate}}<br>
+                                     <br></v-text>
+                                     
+                                      <v-text color="primary">身高体长：{{item.bodyLength}}
+                                     <br>
+                                     <br>
+                                      </v-text>
+                                        <v-text color="primary">
+                                      
+                                     繁殖情况：{{item.breedCondition}}
+                                      </v-text>
+                                     
+
+                                 </v-col>
+                             </v-row>
+                        </td>
+                    </template>
+ 
+                           <!--删除dialog弹出框-->
+                    <v-dialog v-model="dialogDelete" max-width="500px">
+                        <template>
+
+                        </template>
+                        <v-card>
+                            <v-card-title class="text-h5" color='#FB8C00'>确认删除？</v-card-title>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="closeDelete">取消</v-btn>
+                                <v-btn color="blue darken-1" text @click="deleteItemConfirm">确认</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-card>
+                       
+             
+                    </v-dialog>
+                     <template v-slot:[`item.actions`]="{ item }">
                         <v-icon
                             small
                             class="mr-2"
-                            @click="editItem(item)"
+                            @click="editItem2(item)"
                         >
                             mdi-pencil
                         </v-icon>
                         <v-icon
                             small
-                            @click="deleteItem(item)"
+                            @click="deleteItem2(item.id)"
                         >
                             mdi-delete
                         </v-icon>
-                    </template>
-                    <template v-slot:expanded-item="{ headers, item }">
-                        <td :colspan="headers.length">
-                             <v-row>
-                                 <v-col cols="12" md="4">
-                                     放照片 {{ item.photo }}
-                                 </v-col>
-                                 <v-col cols="12" md="8">
-                
-                                     出生日期：{{item.birth_date}}<br>
-                                     身高体长：{{item.body_length}}<br>
-                                     繁殖情况：{{item.breed_condition}}
-
-                                 </v-col>
-                             </v-row>
-                        </td>
                     </template>
                 </v-data-table>
             </div>
@@ -233,11 +388,19 @@
 <script>
 import PopUp from './PopUp.vue'
 import {getinformation} from '../../apis/animalInfo'
+import {createinformation,deleteinformation,updateinformation} from '../../apis/animalInfo'
 import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
-    components: { PendingProgressCard,PopUp },
+    components: { PendingProgressCard,PopUp, AlertMessagebox },
     name: 'AnicareQuery',
     created(){
+
+    },
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? '新增档案' : '修改档案'
+      },
     },
     watch: {
       dialog (val) {
@@ -248,31 +411,156 @@ export default {
       },
     },
     methods: {
-        searchInfo(){
+        createItem(item){
+            this.dialog=true
+            this.isToCreateItem=true
+            this.editItem(item)
+        },
+        editItem2(item){
+            this.isToCreateItem=false
+            this.editItem(item)
+        },
+        
+        validate (id) {
+            console.log(this.$refs.form.validate())
+            if(this.$refs.form.validate()===true){
+                this.insertInfo(id)
+                
+            }
+        },
+        insertInfo(x){
+            console.log(this.isToCreateItem)
+            console.log('AAAA')
+            this.insertId=x;
+            if(this.isToCreateItem){
+                this.$refs.insertalert2.showAlert()
+            }else{
+                this.$refs.insertalert.showAlert()
+            }
+        },
+        insertInfoAfter(){
+            //this.editItem
+            
+            if(this.isToCreateItem){
+                if(this.editItem.age<0){
+                    this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(parseInt(this.editItem.weight)<=0){
+                    this.$refs.error_done.updateBody('体重输入非法')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(parseInt(this.editItem.age)<=0){
+                    this.$refs.error_done.updateBody('年龄输入非法')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                createinformation(
+                    {
+                        id:this.editedItem.id,
+                        species: this.editedItem.species,
+                        name: this.editedItem.name,
+                        gender:this.editedItem.gender,
+                        birthDate:this.editedItem.birthDate,
+                        age:parseInt(this.editedItem.age),
+                        bodyLength:parseInt(this.editedItem.bodyLength),
+                        weight: parseInt(this.editedItem.weight),
+                        physicalCondition: this.editedItem.physicalCondition,
+                        breedSituation:this.editedItem.breedSituation,
+                        photo:'Cz=='
+                     }).then(reponse=>{
+                        this.dialog=false
+                        this.$refs.form.reset()
+                        this.$refs.commit_done.showAlert()
+                    }).catch( err => {
+                        //this.show=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
+            }else{
+                updateinformation({
+                        id:this.editedItem.id,
+                        species: this.editedItem.species,
+                        name: this.editedItem.name,
+                        gender:this.editedItem.gender,
+                        birthDate:this.editedItem.birthDate,
+                        age:parseInt(this.editedItem.age),
+                        bodyLength:parseInt(this.editedItem.bodyLength),
+                        weight: parseInt(this.editedItem.weight),
+                        physicalCondition: this.editedItem.physicalCondition,
+                        breedSituation:this.editedItem.breedSituation,
+                        //photo:'/static/images/panda.jpg'
+                }
+                ).then(reponse=>{
+                    this.dialog=false
+                    this.$refs.form.reset()
+                    this.$refs.commit_done.showAlert()
+                })
+            } 
+        },
+        reset () {
+            this.$refs.form.reset()
+        },
+        resetValidation () {
+            this.$refs.form.resetValidation()
+            this.dialog="false"
+        },
+        searchInfo(ani_id,ani_name,species){
             this.show=true
             setTimeout(
                 ()=>{
-                    getinformation().then(response=>{
-                        this.queryData = response.data
+                    getinformation({
+                        id:ani_id,
+                        name:ani_name,
+                        species:species
+                    }).then(response=>{
+                        this.queryData = response.data;
+                        for(let i=0;i<this.queryData.length;i++){
+                            this.queryData[i].photo='data:image/jpeg;base64,'+this.queryData[i].photo;
+                        }
+                        console.log(response.data)
                         this.show=false
-                    })
-                },2000
+                    }).catch( err => {
+                        //this.show=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
+                },500
             )
         },
         editItem (item) {
-            this.editedIndex = this.desserts.indexOf(item)
+            console.log("shuchu")
+            console.log(item)
+            this.insertId = item.id
+            this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
+            console.log(this.editedIndex)
+            //this.isToCreateItem = ((this.editedIndex === -1)?true:false)
+            
+            
         },
 
         deleteItem (item) {
-            this.editedIndex = this.desserts.indexOf(item)
+            this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
+        deleteItem2(x){
+            console.log(x)
+            this.delId=x
+            console.log(this.$refs.deletealert)
+            this.$refs.deletealert.showAlert()
+        },
 
         deleteItemConfirm () {
-            this.desserts.splice(this.editedIndex, 1)
+            this.queryData.splice(this.editedIndex, 1)
+            this.closeDelete()
+        },
+         insertItemConfirm () {
+            this.queryData.splice(this.editedIndex, 1)
             this.closeDelete()
         },
 
@@ -283,7 +571,15 @@ export default {
             this.editedIndex = -1
             })
         },
-
+        deleteAniInfo(){
+            deleteinformation().then(response=>{
+                this.$refs.commit_done.showAlert()
+            })
+        },
+        insertAniInfo(){
+           
+    
+        },
       closeDelete () {
         this.dialogDelete = false
         this.$nextTick(() => {
@@ -294,26 +590,42 @@ export default {
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.queryData[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.queryData.push(this.editedItem)
         }
         this.close()
       },
-    },
+      allowedDates: val => (val<=(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+    }, 
+
+
+    
   
     data:()=>{
-        
+  
         return{
+        select_ani_id:'',
+        select_ani_name:'',
+        select_species:'',
+        valid: true,
+        delId:0,
+        expanded: [],
+        rules: [
+            value => !!value || '不能为空',
+        ],
+        dialogDelete:false,
         headers:[
-            {text: '编号', value: 'ani_id'},
-            {text: '物种', value: 'species'},
-            {text: '姓名', value: 'ani_name'},
-            {text: '性别', value: 'ani_gender'},
-            {text: '年龄', value: 'ani_age'},
+            {text: '', value: 'data-table-expand'} ,
+            {text: '编号', value: 'id'},
+            {text: '物种', value: 'species', sortable: false},
+            {text: '姓名', value: 'name', sortable: false},
+            {text: '性别', value: 'gender'},
+            {text: '年龄', value: 'age'},
             {text: '体重', value: 'weight'},
-            {text: '健康状态', value: 'physical_condition'},
-            { text: 'Actions', value: 'actions', sortable: false },
+            {text: '健康状态', value: 'physicalCondition', sortable: false},
+            { text: '操作', value: 'actions', sortable: false },
+           
     
         ],
         show:false,
@@ -322,18 +634,31 @@ export default {
         queryData:[],
         editedIndex: -1,
         editedItem: {
+            id: '',
+            species: '',
             name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            gender: '',
+            age: '',
+            weight: '',
+            physicalCondition: '',
+            breedSituation:'',
+            birthDate:'',
+            bodyLength:'',
+            photo:'/static/images/panda.jpg'
         },
+        isToCreateItem:false,
         defaultItem: {
+            id: '',
+            species: '',
             name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            gender: '',
+            age: '',
+            weight: '',
+            physicalCondition: '',
+            breedSituation:'',
+            birthDate:'',
+            bodyLength:'',
+            photo:'/static/images/panda.jpg'
         },
         dialog:false
         }
@@ -346,6 +671,17 @@ export default {
 
 </script>
 <style scoped lang="scss">
+    .btn-close{
+        position:relative;
+        display: block;
+        margin-left: 80%;
+    }
+
+    .zms-btn-clear{
+        position:relative;
+        display: block;
+        margin-left: 80%;
+    }
     .zms-animalinfo-query-pagination{
         margin-top:10px;
         transition: all .5s;
@@ -369,4 +705,5 @@ export default {
     .zms-animalinfo-query-result-table{
         margin-top:10px;
     }
+   
 </style>

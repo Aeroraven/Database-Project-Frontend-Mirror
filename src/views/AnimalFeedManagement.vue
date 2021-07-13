@@ -1,13 +1,14 @@
 <template>
     <div class="home">
-        这里放动物喂养管理
+        <animal-feed-container/>
     </div>
 </template>
 
 <script>
-
+import AnimalFeedContainer from '../components/AnimalFeed/AnimalFeedContainer.vue'
 export default {
     name: 'AnimalFeedManagement',
+    components:{AnimalFeedContainer},
     created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.animalFeed})
     }
