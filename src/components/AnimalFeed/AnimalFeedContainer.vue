@@ -56,6 +56,9 @@ export default{
         overflow: scroll;
         display: inline-block;
     }
+    table{
+        width:100%;
+    }
     table, td,tr{
         table-layout : fixed
     }

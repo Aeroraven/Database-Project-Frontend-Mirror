@@ -1,5 +1,7 @@
 <template>
    <div class="zms-animal-recipe">
+     <pending-progress-card :zmsPendingList="pendingList" :zmsShow="pendingShow"/>
+        
      <alert-messagebox
         :alertTitle="$t('common3.transactionFailTitle')"
         :alertBody="$t('common3.transactionFail')+errorInfo"
@@ -307,14 +309,17 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
        AlertMessagebox,
     },
      created(){
+       this.pendingShow=true
         getRecipe({
           recipe_id:'',
           'species':''
         }).then(response => {
             this.recipes = response.data
+            this.pendingShow=false
         }).catch( err => {
               this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
               this.$refs.error_done.showAlert();
+              this.pendingShow=false
           });
     },
      computed: {
@@ -391,6 +396,7 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
       },
       
       showSearchTips(){
+        this.pendingShow=true
         //this.showSearchSuggestion=!this.showSearchSuggestion
         setTimeout(
                 ()=>{
@@ -402,9 +408,13 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
                      ).then(response=>{
                         this.recipes = response.data
                         this.show=false
+                        this.pendingShow=false
+                        this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+            
                     }).catch( err => {
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                         this.$refs.error_done.showAlert();
+                        this.pendingShow=false
                     });
                 },500
             )
@@ -440,6 +450,7 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
             
             if(this.isToCreateItem){
               console.log("11111")
+              this.pendingShow=true
                 createRecipe(
                   {
                     id:this.editedItem.id,
@@ -458,11 +469,15 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
                     this.dialog=false
                     this.$refs.form.reset()
                     this.$refs.commit_donex.showAlert()
+                    this.pendingShow=false
+                    this.showSearchTips()
                 }).catch( err => {
                     this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                     this.$refs.error_done.showAlert();
+                    this.pendingShow=false
                 });
             }else{
+              this.pendingShow=true
               console.log({
                     id:this.editedItem.id,
                     species:this.editedItem.species,
@@ -487,15 +502,18 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
                     foodWeight3:parseInt(this.editedItem.foodWeight3),
                     foodList4:this.editedItem.foodList4,
                     foodWeight4:parseInt(this.editedItem.foodWeight4)
+                    
                   },this.editedItem.id
                 ).then(reponse=>{//修改接口，暂无数据
                 console.log("yyyy")
                     this.dialog=false
                     this.$refs.form.reset()
                     this.$refs.commit_done.showAlert()
+                    this.pendingShow=false
                 }).catch( err => {
                     this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                     this.$refs.error_done.showAlert();
+                    this.pendingShow=false
                 });
             } 
         },
@@ -508,13 +526,16 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
             this.$refs.deletealert.showAlert()
         },
         DeleteRecipeConfirm(){
+            this.pendingShow=true
             deleteRecipe(
               {},this.delId
             ).then(response=>{//应该传ID
                 this.$refs.commit_done.showAlert()
+                this.pendingShow=false
             }).catch( err => {
                 this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                 this.$refs.error_done.showAlert();
+                this.pendingShow=false
             });
         },
     },
@@ -536,6 +557,8 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
         page:1,
       recipes: [
     ],
+      pendingList:[],
+      pendingShow:false,
       showSearchSuggestion:false,
       editedIndex: -1,
         editedItem: {
