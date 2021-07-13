@@ -28,7 +28,7 @@
                             append-icon="mdi-magnify" @click:append="calloutAnimalSelect" />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="疾病类型" placeholder="请输入疾病类型" prepend-icon="mdi-heart-pulse"  />
+                            <v-text-field label="疾病类型" v-model="submitType"  placeholder="请输入疾病类型" prepend-icon="mdi-heart-pulse"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field label="兽医名称" v-model="submitVetName" 
@@ -176,18 +176,19 @@
                                                             </v-row>
                                                             <v-row>
                                                                 <v-col cols="12" sm="6" md="6">
-                                                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
+                                                                    <v-text-field v-model="editedItem['animalId']" disabled :label="$t('animalCare.animalId')"></v-text-field>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="6">
-                                                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
+                                                                    <v-text-field v-model="editedItem['diseaseName']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="6">
-                                                                    <v-text-field v-model="editedItem['veterinary_name']" disabled :label="$t('animalCare.vetName')"></v-text-field>
+                                                                    <v-text-field v-model="editedItem['veterinaryId']" disabled :label="$t('animalCare.vetName')"></v-text-field>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="6">
                                                                     <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
                                                                 </v-col>
                                                             </v-row>
+                                                            <!--
                                                             <v-row>
                                                                 <v-textarea
                                                                     outlined
@@ -211,7 +212,7 @@
                                                                     v-model="editedItem['treatment_progress']"
                                                                 >
                                                                 </v-textarea>
-                                                            </v-row>
+                                                            </v-row>-->
                                                         </v-container>
                                                     </v-card-text>
                                                     <v-divider/>
@@ -286,18 +287,22 @@
                                                             </v-row>
                                                             <v-row>
                                                                 <v-col cols="12" sm="6" md="6">
-                                                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
+                                                                    <v-text-field v-model="editedItem['animalId']" disabled :label="$t('animalCare.animalId')"></v-text-field>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="6">
-                                                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
+                                                                    <v-text-field v-model="editedItem['diseaseName']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="6">
-                                                                    <v-text-field v-model="editedItem['veterinary_name']" disabled :label="$t('animalCare.vetName')"></v-text-field>
+                                                                    <v-text-field v-model="editedItem['veterinaryId']" disabled :label="$t('animalCare.vetName')"></v-text-field>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="6">
                                                                     <v-text-field v-model="editedItem['drug']" disabled :label="$t('animalCare.drugName')"></v-text-field>
                                                                 </v-col>
+                                                                <v-col cols="12" sm="6" md="6">
+                                                                    <v-text-field v-model="editedItem['isCured']" disabled :label="$t('animalCare2.currentStatus')" ></v-text-field>
+                                                                </v-col>
                                                             </v-row>
+                                                            <!--
                                                             <v-row>
                                                                 <v-textarea
                                                                     outlined disabled
@@ -321,7 +326,7 @@
                                                                     v-model="editedItem['treatment_progress']"
                                                                 >
                                                                 </v-textarea>
-                                                            </v-row>
+                                                            </v-row>-->
                                                         </v-container>
                                                     </v-card-text>
                                                 </v-stepper-content>
@@ -401,13 +406,41 @@ export default {
         showcloseReqMsgbox(){
             this.$refs.closeReqMsgbox.showAlert()
         },
-        fetchCareInfo(){
+        fetchCareInfo(x){
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getCareData().then(response => {
+                    getCareData(
+                        {
+                            animalId:this.submitId,
+                            veterinaryId:this.submitVetname,
+                            dateIll:this.date,
+                            diseaseName:this.submitType
+                        }
+                    ).then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
+                        for(let i=0;i<this.queryData.length;i++){
+                            if(this.queryData[i].drug===null){
+                                this.queryData[i].drug='暂无药物'
+                            }
+                            if(this.queryData[i].isCured===0){
+                                this.queryData[i].isCured='暂未治愈'
+                            }
+                            if(this.queryData[i].isCured===1){
+                                this.queryData[i].isCured='已经治愈'
+                            }
+                            if(this.queryData[i].isCured===2){
+                                this.queryData[i].isCured='放弃治疗'
+                            }
+                            if(this.queryData[i].dateCure!=''&&this.queryData[i].dateCure!=null){
+                                this.queryData[i].dateCure=this.queryData[i].dateCure.substring(0,10)
+                            }
+                            if(this.queryData[i].dateIll!=''&&this.queryData[i].dateIll!=null){
+                                this.queryData[i].dateIll=this.queryData[i].dateIll.substring(0,10)
+                            }
+                        }
+
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
@@ -423,6 +456,9 @@ export default {
             )
         },
         submitCloseReq(){
+            if(this.stepperCount!=2){
+                this.close();
+            }
             if(this.completeType==null||this.completeType==0){
                 this.submitFailTip(this.$t('animalCare2.emptyCompleteType'))
                 return 0;
@@ -446,7 +482,14 @@ export default {
             this.completeSubmitWaitingBox=1;
             setTimeout(
                 ()=>{
-                    getCareData().then(response => {
+                    getCareData(
+                        {
+                            animalId:this.submitId,
+                            veterinaryId:this.submitVetname,
+                            dateIll:this.date,
+                            diseaseName:this.submitType
+                        }
+                    ).then(response => {
                         this.completeSubmitWaitingBox=0;
                         this.close();
                         if(this.queryData.length>0){
@@ -479,7 +522,19 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    updateCareInfo().then(response => {
+                    let x={
+                            animalId: this.editedItem.animalId,
+                            cureId: this.editedItem.cureId,
+                            dateCure: this.editedItem.dateCure,
+                            dateIll: this.editedItem.dateIll,
+                            diseaseName: this.editedItem.diseaseName,
+                            drug: this.editedItem.drug,
+                            isCured: this.editedItem.isCured,
+                            veterinaryId: this.editedItem.veterinaryId,
+                        }
+                    updateCareInfo(
+                        x
+                    ).then(response => {
                         
                         this.submitStat=false;
                         if(response.data.statcode!=0){
@@ -521,22 +576,23 @@ export default {
     created(){
     },data:()=>{
         return{
-            stepperCount:3,
+            stepperCount:2,
             queryLoaderDialog:false,
             headers:[
-                {text: '动物编号', value: 'id'},
-                {text: '疾病名称', value: 'disease_name'},
-                {text: '兽医名称', value: 'veterinary_name'},
+                {text: '流程编号', value: 'cureId'},
+                {text: '动物编号', value: 'animalId'},
+                {text: '疾病名称', value: 'diseaseName'},
+                {text: '兽医名称', value: 'veterinaryId'},
                 {text: '药物名称', value: 'drug'},
-                {text: '治疗过程', value: 'treatment_progress'},
-                {text: '当前状态', value: 'current_state'},
-                {text: '患病时间', value: 'date_ill'},
-                {text: '治愈时间', value: 'date_cure'},
+                {text: '当前状态', value: 'isCured'},
+                {text: '患病时间', value: 'dateIll'},
+                {text: '治愈时间', value: 'dateCure'},
                 { text: '操作', value: 'actions', sortable: false }
             ],
             submitStat:0,
             errorReturn:false,
             errorTitle:'',
+            submitType:null,
             errorInfo:'',
             pageCount:0,
             menu2:0,
@@ -570,15 +626,8 @@ export default {
             completeMsgboxModel:0,
             completeType:null,
             completeList:[
-            'Completed - Cured',
-            'Completed - Observation Terminated',
-            'Aborted - Died',
-            'Aborted - Returned',
-            'Aborted - Insufficient Resources',
-            'Aborted - Lack of Finance',
-            'Aborted - Restricted by Technique',
-            'Aborted - Lent',
-            'Aborted - Other']
+            '已经治愈',
+            '放弃治疗']
         }
         
         

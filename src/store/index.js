@@ -57,7 +57,7 @@ let store= new Vuex.Store({
           {name:'navbar.animalManage',route:'',icon:'mdi-cat',child:[
             {name:'navbar.anicareManage',route:'/animalCareManagement',icon:'mdi-needle',child:[]},
             {name:'navbar.aniinfoManage',route:'/animalInfoManagement',icon:'mdi-information-outline',child:[]},
-            {name:'navbar.anirecpManage',route:'/animalRecipeManagement',icon:'mdi-food',child:[]},
+            //{name:'navbar.anirecpManage',route:'/animalRecipeManagement',icon:'mdi-food',child:[]},
             {name:'navbar.anifeedManage',route:'/animalFeedManagement',icon:'mdi-food-variant',child:[]},
             {name:'navbar.anibreedManage',route:'/animalReproductionManagement',icon:'mdi-baby-bottle-outline',child:[]},
           ]},

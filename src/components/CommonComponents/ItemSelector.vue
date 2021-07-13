@@ -33,9 +33,9 @@
                                             <v-col cols="12" sm="6" md="3">
                                                 <v-text-field :label="$t('animalselector.name')" v-model="submitVetname" :placeholder="$t('common.pleaseInput')+$t('animalselector.name')" prepend-icon="mdi-tag"  />
                                             </v-col>
-                                            <v-col cols="12" sm="6" md="3">
+                                            <!--<v-col cols="12" sm="6" md="3">
                                                 <v-text-field :label="$t('animalselector.facl')" v-model="submitFacl" :placeholder="$t('common.pleaseInput')+$t('animalselector.facl')" prepend-icon="mdi-home"  />
-                                            </v-col>
+                                            </v-col>-->
                                         </v-row>
                                         <!--员工选择器-->
                                         <v-row v-if="zmsSelectorMode===1">
@@ -46,10 +46,10 @@
                                                 <v-text-field :label="$t('staffselector.position')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('staffselector.position')" prepend-icon="mdi-tag-plus"  />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="3">
-                                                <v-text-field :label="$t('staffselector.park')" v-model="submitItemName" :placeholder="$t('common.pleaseInput')+$t('staffselector.park')" prepend-icon="mdi-home"  />
+                                                <v-text-field :label="$t('staffselector.park')" v-model="submitPark" :placeholder="$t('common.pleaseInput')+$t('staffselector.park')" prepend-icon="mdi-home"  />
                                             </v-col>
                                             <v-col cols="12" sm="6" md="3">
-                                                <v-text-field :label="$t('staffselector.name')" v-model="submitStaffInCharge" :placeholder="$t('common.pleaseInput')+$t('staffselector.name')" prepend-icon="mdi-tag"  />
+                                                <v-text-field :label="$t('staffselector.name')" v-model="submitName" :placeholder="$t('common.pleaseInput')+$t('staffselector.name')" prepend-icon="mdi-tag"  />
                                             </v-col>
                                         </v-row>
                                         <!--物品选择器-->
@@ -254,6 +254,11 @@ export default {
     },
     data(){
         return{
+            submitId:null,
+            submitType:null,
+            submitVetname:null,
+            submitPark:null,
+            submitName:null,
             zmsDisplay:false,
             zmsselectedItem:{id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'},
             zmsselectedItemIdx:-1,
@@ -361,7 +366,13 @@ export default {
             if(this.zmsSelectorMode===0){
                 setTimeout(
                     ()=>{
-                        getAnimalList().then(response => {
+                        getAnimalList(
+                            {
+                                ani_id:this.submitId,
+                                ani_name:this.submitVetname,
+                                ani_species:this.submitType
+                            }
+                        ).then(response => {
                             this.zmsShowLoadingBar=false;
                             this.zmsItem=response.data;
                             console.log(response);
@@ -401,7 +412,14 @@ export default {
             if(this.zmsSelectorMode===1){
                 setTimeout(
                     ()=>{
-                        getStaffList().then(response => {
+                        getStaffList(
+                            {
+                                id:this.submitId,
+                                name:this.submitName,
+                                park:this.submitPark,
+                                position:this.submitType
+                            }
+                        ).then(response => {
                             this.zmsShowLoadingBar=false;
                             this.zmsItem=response.data;
                             console.log(response);

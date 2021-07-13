@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
 export function getAnimalList(params) {
-    return request({
-      url: '/api/animalCore/getAnimalList',
-      method: 'get',
-      params
-    })
-  }
+  return request({
+    url: '/api/animalInfo/getinformation',
+    method: 'get',
+    params
+  })
+}
   
