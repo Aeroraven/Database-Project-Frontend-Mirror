@@ -72,7 +72,7 @@
                                             <v-row>
                                                 <v-col cols="12" sm="6">
                                                     <v-text-field
-                                                    v-model="editedItem.ani_id"
+                                                    v-model="editedItem.animalId"
                                                     label="动物编号*"
                                                     :rules="rules"
                                                     hide-details="auto"
@@ -82,7 +82,7 @@
                                                 </v-col>
                                                 <v-col cols="12" sm="6">
                                                     <v-text-field
-                                                    v-model="editedItem.keeper_id"
+                                                    v-model="editedItem.keeperId"
                                                     label="员工编号*"
                                                     :rules="rules"
                                                     hide-details="auto"
@@ -96,7 +96,7 @@
                                             <v-row>
                                                 <v-col cols="12" sm="6">
                                                     <v-text-field
-                                                    v-model="editedItem.recipe_id"
+                                                    v-model="editedItem.foodId"
                                                     label="食谱编号"
                                                     :rules="rules"
                                                     hide-details="auto"
@@ -129,7 +129,7 @@
                                                         v-model="menu1"
                                                         :close-on-content-click="false"
                                                         :nudge-right="40"
-                                                        :return-value.sync="feedtime"
+                                                        :return-value.sync="feedday"
                                                         transition="scale-transition"
                                                         offset-y
                                                         max-width="290px"
@@ -138,9 +138,9 @@
                                                     >
                                                         <template v-slot:activator="{ on, attrs }">
                                                         <v-text-field
-                                                            v-model="feedtime"
+                                                            v-model="feedday"
                                                             label="时间"
-                                                            prepend-icon="mdi-clock-time-four-outline"
+                                                            prepend-icon="mdi-alarm"
                                                             readonly
                                                             v-bind="attrs"
                                                             v-on="on"
@@ -148,9 +148,9 @@
                                                         </template>
                                                         <v-time-picker
                                                         v-if="menu1"
-                                                        v-model="feedtime"
+                                                        v-model="feedday"
                                                         full-width
-                                                        @click:minute="$refs.menu.save(feedtime)"
+                                                        @click:minute="$refs.menu.save(feedday)"
                                                         ></v-time-picker>
                                                     </v-menu>
                                                     </v-col>
@@ -262,10 +262,10 @@ export default {
        insertInfoAfter(){
             createFeedRecord(
                 {
-                'AnimalId':this.editedItem.ani_id,
-                'KeeperId':this.editedItem.keeper_id,
-                'FoodId':this.editedItem.recipe_id,
-                'Day':this.editedItem.date +this.editedItem.feedtime,
+                'AnimalId':this.editedItem.animalId,
+                'KeeperId':this.editedItem.keeperId,
+                'FoodId':this.editedItem.foodId,
+                'Day':this.editedItem.date +this.editedItem.feedday,
                 'Note':this.editedItem.note
               }
             ).then(reponse=>{//传item
@@ -294,10 +294,10 @@ export default {
 
           createFeedRecord(
               {
-                'AnimalId':this.editedItem.ani_id,
-                'KeeperId':this.editedItem.keeper_id,
-                'FoodId':this.editedItem.recipe_id,
-                'Day':this.editedItem.date +this.editedItem.feedtime,
+                'AnimalId':this.editedItem.animalId,
+                'KeeperId':this.editedItem.keeperId,
+                'FoodId':this.editedItem.foodId,
+                'Day':this.editedItem.date +this.editedItem.feedday,
                 'Note':this.editedItem.note
               }
             )
@@ -327,29 +327,29 @@ export default {
             pageCount:0,
             page:1,
             headers:[
-            {text: '动物编号', value: 'ani_id'},
-            {text: '员工编号', value: 'keeper_id'},
-            {text: '食谱编号', value: 'recipe_id'},
-            {text: '喂食时间', value: 'time'},//怎么输出 date 接 time
+            {text: '动物编号', value: 'animalId'},
+            {text: '员工编号', value: 'keeperId'},
+            {text: '食谱编号', value: 'foodId'},
+            {text: '喂食时间', value: 'day'},//怎么输出 date 接 day
             //{text: '喂食日期', value: 'date'},
             {text: '备注', value: 'note'},
         ],
             Feedrecords:[
             ],
         editedItem: {
-            ani_id: '',
-            keeper_id: '',
-            recipe_id: '',
+            animalId: '',
+            keeperId: '',
+            foodId: '',
             date: '',
-            feedtime:'',
+            feedday:'',
             note: '',
             },
         defaultItem: {
-            ani_id: '',
-            keeper_id: '',
-            recipe_id: '',
+            animalId: '',
+            keeperId: '',
+            foodId: '',
             date: '',
-            feedtime:'',
+            feedday:'',
             note: '',
         },
         }

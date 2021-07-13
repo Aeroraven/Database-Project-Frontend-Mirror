@@ -453,7 +453,7 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
                     foodList4:this.editedItem.foodList4,
                     foodWeight4:parseInt(this.editedItem.foodWeight4)
                   }
-                ).then(reponse=>{//新建接口，暂无数值传输
+                ).then(reponse=>{
                 console.log("22222")
                     this.dialog=false
                     this.$refs.form.reset()
@@ -508,9 +508,14 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
             this.$refs.deletealert.showAlert()
         },
         DeleteRecipeConfirm(){
-            deleteRecipe().then(response=>{//应该传ID
+            deleteRecipe(
+              {},this.delId
+            ).then(response=>{//应该传ID
                 this.$refs.commit_done.showAlert()
-            })
+            }).catch( err => {
+                this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                this.$refs.error_done.showAlert();
+            });
         },
     },
 
@@ -537,7 +542,7 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
             id:'',
             species: '',
             foodList1: '',
-            weight1: '',
+            foodWeight1: '',
             foodList2: '',
             weight2: '',
             foodList3: '',
@@ -550,13 +555,13 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
             id:'', 
             species: '',
             foodList1: '',
-            weight1: '',
+            foodWeight1: '',
             foodList2: '',
-            weight2: '',
+            foodWeight2: '',
             foodList3: '',
-            weight3: '',
+            foodWeight3: '',
             foodList4: '',
-            weight4: '',
+            foodWeight4: '',
            
         },
     }),

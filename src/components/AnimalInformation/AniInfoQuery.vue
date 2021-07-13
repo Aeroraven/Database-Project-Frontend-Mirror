@@ -523,7 +523,7 @@ export default {
                         console.log(response.data)
                         this.show=false
                     }).catch( err => {
-                        //this.show=false;
+                        this.show=false;
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                         this.$refs.error_done.showAlert();
                     });

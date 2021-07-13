@@ -26,10 +26,10 @@ export function updateRecipe(data,id) {
 }
 
 
-export function deleteRecipe(params) {
+export function deleteRecipe(data,id) {
     return request({
-      url: '/api/recipe/deleteRecipe',
+      url: '/api/recipe/deleteRecipe/'+id,
       method: 'delete',
-      params
+      data
     })
 }
