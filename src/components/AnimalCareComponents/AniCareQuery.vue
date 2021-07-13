@@ -53,7 +53,7 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width" @click="clearData"  color="error" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
@@ -517,6 +517,13 @@ export default {
             this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
+        },
+        clearData(){
+            this.submitId=null
+            this.submitVetname=null
+            this.submitType=null
+            this.date=null
+            this.$store.dispatch('showToastNotify',{type:'default',info:'条件成功删除'})
         },
         submitCareInfo(item){
             this.submitStat=true;
