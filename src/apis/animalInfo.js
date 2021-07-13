@@ -24,10 +24,10 @@ export function updateinformation(data) {
   })
 }
 
-export function deleteinformation(params) {
+export function deleteinformation(id) {
   return request({
-    url: '/api/animalInfo/deleteinformation',
+    url: '/api/animalInfo/deleteinformation/'+id,
     method: 'delete',
-    params
+    //params
   })
 }

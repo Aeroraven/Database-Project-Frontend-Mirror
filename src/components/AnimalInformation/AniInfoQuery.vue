@@ -1,5 +1,7 @@
 <template>
     <div class="zms-animalinfo">
+        <pending-progress-card :zmsPendingList="pendingList" :zmsShow="pendingShow"/>
+    
         <!--事务失败提示框-->
         <alert-messagebox
         :alertTitle="$t('common3.transactionFailTitle')"
@@ -47,6 +49,8 @@
         :alertOnlyConfirm="true"
         ref="commit_error" />
 
+        <pending-progress-card/>
+
         <div class="zms-animalinfo-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> 
             <span class="zms-query-title">查询条件</span>
@@ -67,20 +71,20 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="error" @click=select() >
+                            <v-btn v-ripple block class="zms-width"  color="error" @click="clearFilter" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
 
-                        <v-col cols="12" sm="6" md="3">
+                        <!--<v-col cols="12" sm="6" md="3">
                             <v-btn v-ripple block class="zms-width"  color="primary" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找负责项目
                             </v-btn>
-                        </v-col>
+                        </v-col>-->
                         
                         
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" @click="searchInfo(select_ani_id,select_species,select_ani_name)">
+                            <v-btn v-ripple block class="zms-width"  color="primary" @click="searchInfo(select_ani_id,select_ani_name,select_species)">
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
                         </v-col>
@@ -371,7 +375,7 @@
                         </v-icon>
                         <v-icon
                             small
-                            @click="deleteItem2(item.id)"
+                            @click="deleteItem2(item)"
                         >
                             mdi-delete
                         </v-icon>
@@ -432,6 +436,7 @@ export default {
             console.log(this.isToCreateItem)
             console.log('AAAA')
             this.insertId=x;
+            this.$refs.insertalert.updateBody(`是否保存编号为`+this.insertId+`的档案信息?`)
             if(this.isToCreateItem){
                 this.$refs.insertalert2.showAlert()
             }else{
@@ -457,6 +462,7 @@ export default {
                     this.$refs.error_done.showAlert();
                     return;
                 }
+                this.pendingShow=true;
                 createinformation(
                     {
                         id:this.editedItem.id,
@@ -474,12 +480,15 @@ export default {
                         this.dialog=false
                         this.$refs.form.reset()
                         this.$refs.commit_done.showAlert()
+                        this.pendingShow=false
                     }).catch( err => {
                         //this.show=false;
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                         this.$refs.error_done.showAlert();
+                        this.pendingShow=false
                     });
             }else{
+                this.pendingShow=true;
                 updateinformation({
                         id:this.editedItem.id,
                         species: this.editedItem.species,
@@ -497,7 +506,13 @@ export default {
                     this.dialog=false
                     this.$refs.form.reset()
                     this.$refs.commit_done.showAlert()
-                })
+                    this.pendingShow=false
+                }).catch( err => {
+                    //this.show=false;
+                    this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                    this.$refs.error_done.showAlert();
+                    this.pendingShow=false
+                });
             } 
         },
         reset () {
@@ -512,8 +527,8 @@ export default {
             setTimeout(
                 ()=>{
                     getinformation({
-                        id:ani_id,
-                        name:ani_name,
+                        ani_id:ani_id,
+                        ani_name:ani_name,
                         species:species
                     }).then(response=>{
                         this.queryData = response.data;
@@ -542,7 +557,11 @@ export default {
             
             
         },
-
+        clearFilter(){
+            this.select_ani_id=''
+            this.select_ani_name=''
+            this.select_species=''
+        },
         deleteItem (item) {
             this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
@@ -550,8 +569,9 @@ export default {
         },
         deleteItem2(x){
             console.log(x)
-            this.delId=x
+            this.delId=x.id
             console.log(this.$refs.deletealert)
+            this.$refs.deletealert.updateBody(`是否删除编号为`+this.delId+`的档案信息?`)
             this.$refs.deletealert.showAlert()
         },
 
@@ -572,9 +592,15 @@ export default {
             })
         },
         deleteAniInfo(){
-            deleteinformation().then(response=>{
+            this.pendingShow=true
+            deleteinformation(this.delId).then(response=>{
                 this.$refs.commit_done.showAlert()
-            })
+                this.pendingShow=false
+            }).catch( err => {
+                this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                this.$refs.error_done.showAlert();
+                this.pendingShow=false
+            });
         },
         insertAniInfo(){
            
@@ -633,6 +659,8 @@ export default {
         page:1,
         queryData:[],
         editedIndex: -1,
+        pendingShow:false,
+        pendingList:[],
         editedItem: {
             id: '',
             species: '',
