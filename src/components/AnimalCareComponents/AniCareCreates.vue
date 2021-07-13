@@ -118,7 +118,7 @@
                     name="input-7-4"
                     :label="$t('animalCare.diseaseName')"
                     :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
-                    v-model="submitType"
+                    v-model="submitNote"
                 >
                 </v-textarea>
             </div>
@@ -264,30 +264,19 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createCareInfo().then(response => {
+                    createCareInfo(
+                        {
+                            diseaseName:this.submitNote,
+                            veterinaryId:this.veterinaryId,
+                            drug:'(暂无)',
+                            dateIll:this.submitDate,
+                            dateCure:null,
+                            animalId:this.submitId,
+                        },0
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            //this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentAniID')
-                            this.$refs.error_done.showAlert()
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentTypeID')
-                            this.$refs.error_done.showAlert()
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentVetId')
-                            this.$refs.error_done.showAlert()
-                            return 0;
-                        }
+                        
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete'))
                         this.$refs.commit_done.showAlert()
                     }).catch( err => {
@@ -309,10 +298,10 @@ export default {
                 this.submitFailTip(this.$t('animalCare_SubmitEmptyId'))
                 return 0;
             }
-            if(this.submitType==null||this.submitType==undefined||this.submitType==0){
-                this.submitFailTip(this.$t('animalCare_SubmitEmptyType'))
-                return 0;
-            }
+            //if(this.submitType==null||this.submitType==undefined||this.submitType==0){
+            //    this.submitFailTip(this.$t('animalCare_SubmitEmptyType'))
+            //    return 0;
+            //}
             if(this.submitVetname==null||this.submitVetname==undefined||this.submitVetname==0){
                 this.submitFailTip(this.$t('animalCare_SubmitVetName'))
                 return 0;
