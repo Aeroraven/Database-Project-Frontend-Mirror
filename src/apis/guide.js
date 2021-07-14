@@ -14,8 +14,10 @@ export function getguideItemInfo(params) {
 export function updateguideItemInfo(params) {
     return request({
         url: '/api/guideRequest/updateGuideInfo',
-        method: 'get',
+        method: 'put',
         params
     })
 }
+
+
 

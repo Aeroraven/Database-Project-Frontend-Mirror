@@ -15,7 +15,12 @@ export function updateWarehouseInfo(params) {
         params
     })
 }
-export function getwareItemInfo(params) {
+
+
+
+
+
+export function getemployeecheckInfo(params) {
     return request({
         url: '/api/employeeCheckRequest/getEmployeeCheckInfo',
         method: 'get',
@@ -26,16 +31,24 @@ export function getwareItemInfo(params) {
 export function createEmployeecheckInfo(params) {
     return request({
       url: '/api/employeeCheckRequest/createEmployeeCheckInfo',
-      method: 'get',
+      method: 'post',
       params
     })
   }
 
 
-export function updatewareItemInfo(params) {
+export function updateemployeecheckInfo(params) {
     return request({
         url: '/api/employeeCheckRequest/updateEmployeeCheckInfo',
-        method: 'get',
+        method: 'put',
+        params
+    })
+}
+
+export function deleteemployeecheckInfo(params) {
+    return request({
+        url: '/api/employeeCheckRequest/deleteEmployeeCheckInfo',
+        method: 'delete',
         params
     })
 }

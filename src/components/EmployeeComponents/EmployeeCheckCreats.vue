@@ -1,5 +1,11 @@
 <template>
     <div class="zms-employeecheck" :class="nmNightClass">
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
@@ -93,6 +99,7 @@
           :items="gradeitems"
           label="考核等级"
           v-model="submitgrade"
+          prepend-icon="el-icon-data-board"
         ></v-select>
       </v-col>
 
@@ -130,9 +137,11 @@
 
 <script>
 import { createEmployeecheckInfo } from '../../apis/employeecheck.js';
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 
 export default {
     name: 'EmployeeCheckCreate',
+    components: { AlertMessagebox  },
     created(){
     },data:()=>{
         return{
@@ -151,7 +160,7 @@ export default {
             errorTitle:'',
             errorInfo:'',
             menu2:false,
-             gradeitems: ['1', '2', '3', '4','5'],
+             gradeitems: ['A', 'B', 'C', 'D','E'],
         }
     } ,
     computed:{
@@ -173,29 +182,57 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createEmployeecheckInfo().then(response => {
+                    createEmployeecheckInfo(
+                        {
+                            employeeid:this.submiteId,
+                            
+                             managerid:this.submitmId,
+                           assessmentgrade: this.submitgrade,
+                           assessmenttime:this.submitDate,
+                           remarks:this.submitNote
+                        }
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=true;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
+                        // if(response.data.statcode!=0){
+                        //     this.errorReturn=true;
+                        // }
+                        // if(response.data.statcode==1){
+                        //     this.errorTitle=this.$t('common.error');
+                        //     this.errorInfo=this.$t('emploeecheck.NonexistentAniID')
+                        //     return 0;
+                        // }
+                        // if(response.data.statcode==2){
+                        //     this.errorTitle=this.$t('common.error');
+                        //     this.errorInfo=this.$t('employeecheck.NonexistentTypeID')
+                        //     return 0;
+                        // }
+                        if(response.code==404){
+                            errorReturn=true;
+                            this.$store.dispatch('showToastNotify',{type:'error',info:response.message})
+
                             this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('emploeecheck.NonexistentAniID')
+                            this.errorInfo=response.message
                             return 0;
                         }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('employeecheck.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('employeecheck.NonexistentVetId')
-                            return 0;
-                        }
+                        // this.submitSuccTip(response.message)
                         this.submitSuccTip(this.$t('employeecheck.SubmitComplete'))
-                    })
+                        this.submitStat=false;
+                    }).catch( err => {
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        this.submitStat=false;
+                        // this.alterDialog=false;
+                        this.errorTitle=this.$t('common.error');
+                    });
+                    
+                    /*.catch(err=>{
+                       
+                          this.errorTitle=this.$t('common.error');
+                          this.errorInfo=('上传失败,员工工号和考核人员工号需要为已存在人员');
+                            this.submitStat=false;
+
+                    })*/
                 },2000
             )
         },

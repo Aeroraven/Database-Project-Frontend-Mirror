@@ -27,16 +27,16 @@
                             <v-text-field label="职务" placeholder="请输入员工的职务" prepend-icon="el-icon-document-checked"  />
                         </v-col> -->
                          <v-col cols="12" sm="6" md="3">
-                        <v-text-field v-model="editedItem['id']" :label="$t('employee.item.id')" placeholder="请输入工号" prepend-icon="el-icon-s-custom"></v-text-field>
+                        <v-text-field v-model="searchItem['id']" :label="$t('employee.item.id')" placeholder="请输入工号" prepend-icon="el-icon-s-custom"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                         <v-text-field v-model="editedItem['name']" :label="$t('employee.item.name')" placeholder="请输入员工姓名" prepend-icon="el-icon-document-copy" ></v-text-field>
+                         <v-text-field v-model="searchItem['name']" :label="$t('employee.item.name')" placeholder="请输入员工姓名" prepend-icon="el-icon-document-copy" ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                     <v-text-field v-model="editedItem['park']" :label="$t('employee.item.park')" placeholder="请输入员工所属园区" prepend-icon="el-icon-coordinate" ></v-text-field>
+                     <v-text-field v-model="searchItem['park']" :label="$t('employee.item.park')" placeholder="请输入员工所属园区" prepend-icon="el-icon-coordinate" ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="3">
-                    <v-text-field v-model="editedItem['position']" :label="$t('employee.item.position')" placeholder="请输入员工的职务" prepend-icon="el-icon-document-checked"></v-text-field>
+                    <v-text-field v-model="searchItem['position']" :label="$t('employee.item.position')" placeholder="请输入员工的职务" prepend-icon="el-icon-document-checked"></v-text-field>
                     </v-col>
 
 
@@ -50,7 +50,7 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="fetchItemInfo" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="deleteItemInfo" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
@@ -62,11 +62,11 @@
                         </v-col>
                         
                         
-                        <v-col cols="12" sm="6" md="3">
+                        <!-- <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
-                        </v-col>
+                        </v-col> -->
                     </v-row>
                 </v-container>
                 
@@ -101,36 +101,56 @@
                                         <v-container>
                                             <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['id']" :label="$t('employee.item.id')"></v-text-field>
+                                                <v-text-field disabled v-model="editedItem['id']" :label="$t('employee.item.id')" prepend-icon="el-icon-s-help"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['name']" :label="$t('employee.item.name')"></v-text-field>
+                                                <v-text-field v-model="editedItem['name']" :label="$t('employee.item.name')" prepend-icon="el-icon-video-camera-solid"></v-text-field>
+                                            </v-col>
+                                            <!-- <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['gender']" :label="$t('employee.item.gender')" prepend-icon="el-icon-s-fold"></v-text-field>
+                                            </v-col> -->
+
+                <v-col
+        class="d-flex"
+        cols="12"
+        sm="6"
+         md="4"
+      >
+        <v-select
+          :items="items"
+         label='性别'
+         
+          prepend-icon="el-icon-notebook-2"
+          v-model="editedItem['gender']"
+        ></v-select>
+      </v-col>
+
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['age']" :label="$t('employee.item.age')" prepend-icon="el-icon-s-flag"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['gender']" :label="$t('employee.item.gender')"></v-text-field>
+                                                <v-text-field v-model="editedItem['wage']" :label="$t('employee.item.wage')" prepend-icon="el-icon-caret-left"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['age']" :label="$t('employee.item.age')"></v-text-field>
+                                                <v-text-field v-model="editedItem['position']" :label="$t('employee.item.position')" prepend-icon="el-icon-c-scale-to-original"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['wage']" :label="$t('employee.item.wage')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['position']" :label="$t('employee.item.position')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['park']" :label="$t('employee.item.park')"></v-text-field>
+                                                <v-text-field v-model="editedItem['park']" :label="$t('employee.item.park')" prepend-icon="el-icon-document-remove"></v-text-field>
                                             </v-col>
                                 
-                                            <v-col cols="12" sm="6" md="3">
+                                            <v-col cols="12" sm="6" md="4">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submitDate" :label="$t('employee.item.date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    <v-text-field v-model="editedItem['employmentYear']" :label="$t('employee.item.date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                     </v-text-field>
                                 </template>
-                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker color="primary" width="400" v-model="editedItem['employmentYear']" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
+ <v-col cols="12" sm="6" md="4">
+                                                <v-text-field v-model="editedItem['password']" :label="$t('employee.item.password')" prepend-icon="el-icon-s-help"></v-text-field>
+                                            </v-col>
+
                                             </v-row>
                                         </v-container>
                                     </v-card-text>
@@ -217,7 +237,7 @@
                 <v-divider/>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click=" deleteItemConfirm ()">
                         <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
@@ -267,12 +287,24 @@ export default {
             {text: '园区', value: 'park'},
             //{text: '储存条件', value: 'cond'}, //数据表字段名错误
             //{text: '使用方法', value: 'usage_method'},
-            {text: '入职年份', value: 'year'},
+            {text: '入职年份', value: 'employmentYear'},
              {text: '密码', value: 'password'},
             //{text: '备注', value: 'remark'},
             { text: '操作', value: 'actions', sortable: false }
             
         ],
+        items:['男','女'],
+         
+
+        searchItem:{
+            id:null,
+            name:null,
+            park:null,
+            position:null,
+
+        },
+
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -285,13 +317,14 @@ export default {
         errorReturn:false,
         errorTitle:'',
         errorInfo:'',
+
+
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            date:'',
+            password:'',
+            
         },
+
         delItem: {
             name: '',
             calories: 0,
@@ -312,7 +345,18 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getEmployeeItemInfo().then(response => {
+                    getEmployeeItemInfo(
+                        {
+                            id:this.searchItem['id'],
+                            name:this.searchItem['name'],
+                            park:this.searchItem['park'],
+                            position:this.searchItem['position']
+                        }
+                    ).then(response => {
+                        for(let i=0;i<response.data.length;i++)
+                            {
+                                response.data[i].employmentYear=response.data[i].employmentYear.substring(0,4);
+                            }
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
@@ -321,27 +365,66 @@ export default {
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
                         
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.errorTitle=this.$t('common.error');
+                            this.errorInfo='查找失败'
+                            this.errorReturn=true;
+
                     })
                 },2000
             )
         },
         updateItemInfo(){
+            if(isNaN(parseInt(this.editedItem['age']))){
+                this.$store.dispatch('showToastNotify',{type:'error',info:'年龄输入无效'})
+                return
+            }
+
+            if(isNaN(parseInt(this.editedItem['wage']))){
+                this.$store.dispatch('showToastNotify',{type:'error',info:'工资输入无效'})
+                return
+            }
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updateEmployeeItemInfo().then(response => {
-                        this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
+                    updateEmployeeItemInfo(
+                        {
+                            id:this.editedItem['id'],
+                            name:this.editedItem['name'],
+                            gender:this.editedItem['gender'],
+                            age:parseInt(this.editedItem['age']),
+                            wage:parseInt(this.editedItem['wage']),
+                            position:this.editedItem['position'],
+                            park:this.editedItem['park'],
+                            employmentYear:this.editedItem['employmentYear'].substring(0,5),
+                            password:this.editedItem['password']
                         }
-                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                    ).then(response => {
+                        this.queryLoaderDialog2=false;
+                        // if(response.data.statcode!=0){
+                        //     this.errorTitle=this.$t('common.error');
+                        //     this.errorInfo=this.$t('warehouse.Info.generalError')
+                        //     this.errorReturn=true;
+                        //     return 0;
+                        // }
+                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息修改成功'})
+                        this.fetchItemInfo();
                         this.close();
+                    }).catch(err=>{
+                         this.queryLoaderDialog2=false;
+                         this.errorTitle=this.$t('common.error');
+                            this.errorInfo='员工信息修改失败'
+                            this.errorReturn=true;
                     })
                 },2000
             )
+        },
+        deleteItemInfo(){
+            this.searchItem['id']=null;
+            this.searchItem['name']=null;
+            this.searchItem['park']=null;
+            this.searchItem['position']=null;
         },
         close () {
             this.dialog = false
@@ -364,6 +447,20 @@ export default {
             //this.dialog = true
             this.deleteDialog=true
         },
+          deleteItemConfirm () {
+             this.deleteDialog=false
+        this.queryData.splice(this.delIndex, 1)
+        this.closeDelete()
+       
+      },
+      save () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.queryData[this.editedIndex], this.editedItem)
+        } else {
+          this.queryData.push(this.editedItem)
+        }
+        this.close()
+      },
     }
   
 }

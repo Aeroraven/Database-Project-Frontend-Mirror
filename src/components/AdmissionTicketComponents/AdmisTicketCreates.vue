@@ -61,39 +61,53 @@
             <div>
                 <v-container>
                     <v-row>
-                        <v-col cols="12" sm="6" md="3">
+                        <!-- <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('admissionTicketsManagement.admis_type')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('admissionTicketsManagement.admis_type')" prepend-icon="el-icon-files"  />
-                        </v-col>
+                        </v-col> -->
+            <v-col
+        class="d-flex"
+        cols="12"
+        sm="6" md="3"
+      >
+        <v-select
+          :items="admissitems"
+          label="票种"
+         
+          
+          v-model="submitType"
+          prepend-icon="el-icon-files" 
+        ></v-select>
+      </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('admissionTicketsManagement.admis_price')" v-model="submitPrice" :placeholder="$t('common.pleaseInput')+$t('admissionTicketsManagement.admis_price')" prepend-icon="el-icon-coin"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                              <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submit_start_time" :label="$t('admissionTicketsManagement.admis_starttime')"   prepend-icon="el-icon-time" readonly v-bind="attrs" v-on="on" >
+                                    <v-text-field v-model="submitStart_time" :label="$t('admissionTicketsManagement.admis_starttime')"   prepend-icon="el-icon-time" readonly v-bind="attrs" v-on="on" >
                                     </v-text-field>
                                 </template>
-                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_start_time" @input="menu3 = false"></v-time-picker>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="submitStart_time" @input="menu3 = false"></v-time-picker>
                             </v-menu>
                         </v-col>
                        <v-col cols="12" sm="6" md="3">
-                             <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                             <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="submit_start_time" :label="$t('admissionTicketsManagement.admis_endtime')"   prepend-icon="el-icon-time" readonly v-bind="attrs" v-on="on" >
+                                    <v-text-field v-model="submitEnd_time" :label="$t('admissionTicketsManagement.admis_endtime')"   prepend-icon="el-icon-time" readonly v-bind="attrs" v-on="on" >
                                     </v-text-field>
                                 </template>
-                                <v-time-picker format="24hr" color="primary" width="400" v-model="submit_start_time" @input="menu3 = false"></v-time-picker>
+                                <v-time-picker format="24hr" color="primary" width="400" v-model="submitEnd_time" @input="menu4 = false"></v-time-picker>
                             </v-menu>
                         </v-col>
                         
                         
                         <v-col cols="12" sm="6" md="3">
-                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                            <v-menu v-model="menu5" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field v-model="submitDate" :label="$t('admissionTicketsManagement.admis_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                     </v-text-field>
                                 </template>
-                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu2 = false"></v-date-picker>
+                                <v-date-picker color="primary" width="400" v-model="submitDate" @input="menu5 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
                     </v-row>
@@ -150,7 +164,9 @@ export default {
             errorReturn:false,
             errorTitle:'',
             errorInfo:'',
-            menu2:false
+            menu2:false,
+
+            admissitems: ['全价票', '儿童票', '长者票', '优待票','学生票','夜场票'],
         }
     } ,
     computed:{
@@ -172,7 +188,10 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createAdmissInfo().then(response => {
+                    createAdmissInfo(
+
+                        
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
                         if(response.data.statcode!=0){
@@ -192,10 +211,13 @@ export default {
                             this.errorTitle=this.$t('common.error');
                             this.errorInfo=this.$t('admissionTicketsManagement.NonexistentVetId')
                             return 0;
-                        }
-                        
+                        }                        
                         this.submitSuccTip(this.$t('admissionTicketsManagement.SubmitComplete'))
-                    })
+                    }).catch(err=>
+                        { this.submitStat=false;
+
+                        }
+                    )
                 },2000
             )
         },

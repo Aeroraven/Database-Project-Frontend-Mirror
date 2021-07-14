@@ -5,9 +5,9 @@
                 <v-tab :key="1">
                     门票概览
                 </v-tab>
-                <v-tab :key="2">
-                    修改门票信息
-                </v-tab>
+                <!-- <v-tab :key="2">
+                    新增门票信息
+                </v-tab> -->
                 
             </v-tabs>
             <v-tabs-items v-model="tab" color="transparent" class="rounded-lg">

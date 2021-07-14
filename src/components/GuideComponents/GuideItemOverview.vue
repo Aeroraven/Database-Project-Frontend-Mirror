@@ -1,4 +1,5 @@
 <template>
+
     <div class="zms-anicare" :class="nmNightClass">
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
@@ -43,87 +44,22 @@
                             </v-btn>
                         </v-col>
                     </v-row>
+
+                    
                 </v-container>
                 
             </div>
         </div>
         <v-divider/>
-        <div class="zms-query-result">
+        <!-- <div class="zms-query-result">
             <v-icon color="primary">mdi-note-search</v-icon> <span class="zms-query-title">查询结果</span>
             <div class="zms-query-result-table">
-                <v-data-table
-                    :headers="headers"
-                    :items="queryData"
-                    :page.sync="page"
-                    :items-per-page="5"
-                    hide-default-footer
-                    @page-count="pageCount = $event"
-                    class="elevation-1"
-                >
-                <template v-slot:top>
-                    <v-toolbar flat >
-                        <v-toolbar-title>查询结果</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-dialog v-model="dialog" max-width="600px" persistent>
-                            <v-card :ripple="{class:null}">
-                                <v-card-title class=" zms-strip-bg text-h5 text--white primary " color="warning">
-                                    <v-icon color="white">mdi-pen</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">
-                                        {{$t('guide.item.alter')}}
-                                    </span>
-                                </v-card-title>
-
-                                    <v-card-text>
-                                        <v-container>
-                                            <v-row>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['id']" :label="$t('guide.item.id')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['tour_id']" :label="$t('guide.item.tour_id')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['guide_id']" :label="$t('guide.item.guide_id')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['mark']" :label="$t('guide.item.mark')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['price']" :label="$t('guide.item.price')"></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['service_type']" :label="$t('guide.item.service_type')"></v-text-field>
-                                            </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
-
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="close()">
-                                            <v-icon>mdi-close</v-icon>{{$t('common.cancel')}}
-                                        </v-btn>
-                                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="updateItemInfo()">
-                                            <v-icon>mdi-check</v-icon>{{$t('common.confirm')}}
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                        </v-toolbar>
-                    </template>
-                    <template v-slot:[`item.actions`]="{ item }">
-                        <v-icon small class="mr-2" @click="editItem(item)">
-                            mdi-pencil
-                        </v-icon>
-                        <v-icon small class="mr-2" @click="deleteItem(item)">
-                            mdi-delete
-                        </v-icon>
-                    </template>
-                </v-data-table>
+               
             </div>
             <div class="zms-query-pagination">
                 <v-pagination v-model="page" :length="pageCount"></v-pagination>
             </div>
-        </div>
+        </div> -->
         <v-dialog persistent v-model="queryLoaderDialog" width="300">
             <v-card color="">
                 <v-card-title>正在查找</v-card-title>
@@ -190,6 +126,8 @@
         </v-dialog>
 
     </div>
+
+    
 
 </template>
 

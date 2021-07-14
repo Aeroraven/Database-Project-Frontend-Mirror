@@ -1,99 +1,31 @@
 <template>
   
   <v-container fluid>
-    <div class="zms-anicare" :class="nmNightClass">
-       <alert-messagebox
-        :alertTitle="$t('common3.transactionFailTitle')"
-        :alertBody="$t('common3.transactionFail')"
-        :alertLevel="`error`"
-        :alertOnlyConfirm="true"
-        ref="error_done" />
-        <div class="zms-query-filter">
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
-            <div>
-    <v-container>
-                    <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="导游ID" v-model="searchItem['id']" placeholder="请输入导游ID" prepend-icon="el-icon-discover"  />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="导游姓名" v-model="searchItem['name']" placeholder="请输入导游姓名" prepend-icon="mdi-form-textbox"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="服务类型" v-model="searchItem['type']" placeholder="请输入服务类型" prepend-icon="mdi-tag"  />
-                        </v-col>
-                       
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="服务费用" v-model="searchItem['price']" placeholder="请输入服务费用" prepend-icon="el-icon-coin"  />
-                        </v-col>
-                        
-                    </v-row>
-                </v-container>
-     
-            </div>
-        </div>
-         </div>
-    <v-container>
-                    <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
+
+    <v-row>
+                 <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="deleteItemInfo" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
 
-                        <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
-                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找场馆
-                            </v-btn>
-                        </v-col>
-                        
-                        
-                        <!-- <v-col cols="12" sm="6" md="3">
+                         <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                             </v-btn>
-                        </v-col> -->
+                        </v-col>
+
+                        
+                        <v-col cols="12" sm="6" md="3">
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
+                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找导游信息
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="12" lg="8">
+                        </v-col>
+                        <v-col cols="12" sm="6" md="3">
+                        </v-col>
                     </v-row>
-                </v-container>
-                <v-dialog persistent v-model="queryLoaderDialog2" width="300">
-            <v-card color="">
-                <v-card-title>正在查找</v-card-title>
-                <v-divider/>
-                <br/>
-                <v-card-text>
-                    请稍后<br/><br/>
-                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
-
-
-        <v-dialog persistent v-model="queryLoaderDialog" width="300">
-            <v-card color="">
-                <v-card-title>正在查找</v-card-title>
-                <v-divider/>
-                <br/>
-                <v-card-text>
-                    请稍后<br/><br/>
-                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
-
-         <v-dialog persistent v-model="submitStat" width="300">
-            <v-card >
-                <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
-                <v-divider/>
-                <br/>
-                <v-card-text>
-                    {{$t('animalCare.PleaseWait')}}<br/><br/>
-                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
-                </v-card-text>
-            </v-card>
-        </v-dialog>
-      
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
@@ -262,10 +194,8 @@
 
 <script>
  import { getguideItemInfo } from '../../apis/guide.js';
- import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 
   export default {
-     components: { AlertMessagebox  },
      created(){
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();
@@ -278,13 +208,6 @@
         filter: {},
         sortDesc: false,
         page: 1,
-
-        searchItem:{
-          id:null,
-          name:null,
-          type:null,
-          price:null,
-        },
       
         itemsPerPage: 4,
         sortBy: 'name',
@@ -303,14 +226,20 @@
           // 'Sodium',
           // 'Calcium',
           // 'Iron',
-           '订单号',
-           '游客账号',
-            '导游工号',
-            '导游姓名',
+          // '订单号',
+          // '游客账号',
+          //  '导游工号',
+          //  '导游姓名',
           //  '评分',
-            '费用',
-            '服务种类',
-          
+          //  '费用',
+          //  '服务种类',
+          'id',
+          'tour_id',
+          'guide_id',
+          'name',
+          'mark',
+          'price',
+          'service_type'//语言
         ],
         
         items: [
@@ -351,68 +280,28 @@
       // getguideItemInfo(){},
      
       fetchItemInfo(){
-           this.queryLoaderDialog=true,
-           this.submitStat=true,
+           
             setTimeout(
                 ()=>{
-                    getguideItemInfo(
-                      {
-                      guideId:this.searchItem['id'],
-                      name:this.searchItem['name'],
-                      price:this.searchItem['price'],
-                      type:this.searchItem['type']
-                      }
-                    ).then(response => {
+                    getguideItemInfo().then(response => {
                         this.items = response.data
-                        for(let i=0;i<this.items.length;i++){
-                          this.items[i]['订单号']=this.items[i].id;
-                          this.items[i]['游客账号']=this.items[i].tourId;
-                          this.items[i]['导游工号']=this.items[i].guideId;
-                          this.items[i]['导游姓名']=this.items[i].name;
-                          this.items[i]['费用']=this.items[i].price;
-                          this.items[i]['服务种类']=this.items[i].type;
-
-                        }
-                        this.queryLoaderDialog=false;
-                        this.submitStat=false;
+                        
                         if(this.items.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:'无数据'})
                         }
                         
-                    }).catch( err => {
-                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
-                        this.$refs.error_done.showAlert();
-                        this.queryLoaderDialog=false;
-                        this.submitStat=false;
-                    });
-                },2000
-            )
-        },
-        deleteItemInfo(){
-            this.searchItem['id']=null;
-            this.searchItem['name']=null;
-             this.searchItem['type']=null;
-             this.searchItem['price']=null;
-        },
-       updateItemInfo(){
-            this.queryLoaderDialog2=true;
-            setTimeout(
-                ()=>{
-                    updateguideItemInfo().then(response => {
-                        this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
-                        }
-                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
-                        this.close();
                     })
                 },2000
             )
+        },
+
+         deleteItemInfo(){
+            this.searchItem['id']=null;
+            this.searchItem['name']=null;
+            this.searchItem['park']=null;
+            this.searchItem['position']=null;
         },
         close () {
             this.dialog = false
@@ -434,8 +323,8 @@
             this.delItem = Object.assign({}, item)
             //this.dialog = true
             this.deleteDialog=true
-        }, 
-         deleteItemConfirm () {
+        },
+          deleteItemConfirm () {
              this.deleteDialog=false
         this.queryData.splice(this.delIndex, 1)
         this.closeDelete()
