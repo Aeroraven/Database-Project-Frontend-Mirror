@@ -109,3 +109,11 @@ export function grantBankAccAuth(params) {
         params
     })
 }
+
+export function AddFundAccount(data) {
+    return request({
+        url: '/api/fundManagement/AddFundAccount',
+        method: 'post',
+        data
+    })
+}

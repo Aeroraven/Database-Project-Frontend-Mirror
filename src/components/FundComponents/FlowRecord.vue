@@ -254,8 +254,6 @@ export default {
     },
     mounted(){
         this.fetchAccountList();
-        
-        
     },
     methods:{
         fetchAccountList(){
