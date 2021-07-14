@@ -15,6 +15,14 @@
         :alertOnlyConfirm="true"
         ref="commit_done" />
 
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+        
+        <pending-progress-card :zmsShow="zmsShowLoadingBar"/>
         <v-row>
             <v-col  cols="6" flex align-stretch>
                 <v-card>
@@ -46,7 +54,7 @@
                                        
                                 
                                     >
-                                        <v-select
+                                    <v-select
                                         label="是否顺利*"
                                         :items="['顺利', '不顺利']"
                                         v-model="birthinfo.success"
@@ -118,30 +126,50 @@
 import {createBreedInfo} from '../../apis/animalBreed'
 import NewBornForm from './NewBornForm.vue'
 import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
+import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 export default {
      name: 'CreateNewBornInfo',
      components:{
-         NewBornForm,AlertMessagebox
+         NewBornForm,AlertMessagebox,PendingProgressCard   
      },
      methods: {
-            
+          
       validate (birthinfo) {
+          
         if(this.$refs.form.validate()===true){
             this.insertbirthinfo(birthinfo)
-            this.reset()
+            
         }
         
       },
       insertbirthinfo(birthinfo){
+          console.log(this.birthinfo)
           this.insertId=birthinfo.ani_id
+          this.$refs.insertalert1.updateBody(`是否保存编号为`+this.insertId+`生产信息?`)
           this.$refs.insertalert1.showAlert()
            
       },
       insertBirthInfoAfter(){
-           createBreedInfo().then(reponse=>{//参数为birthinfo
-                    this.$refs.form.reset()
-                    this.$refs.commit_error.showAlert()
-                })
+          this.zmsShowLoadingBar=true
+           createBreedInfo(
+               {
+                   ani_id:this.birthinfo.ani_id,
+                   time:this.birthinfo.date_of_birth,
+                   success:(this.birthinfo.success==='顺利'?true:false),
+                   children_num:parseInt(this.birthinfo.children_num)
+               }
+           ).then(reponse=>{//参数为birthinfo
+                this.$refs.form.reset()
+                this.$refs.commit_done.showAlert()
+                this.zmsShowLoadingBar=false
+                this.reset()
+            })
+            .catch( err => {
+                this.submitStat=false;
+                this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                this.$refs.error_done.showAlert();
+                this.zmsShowLoadingBar=false
+            });
       },
       reset () {
         this.$refs.form.reset()
@@ -150,6 +178,7 @@ export default {
     },
     data: () => ({
       valid: true,
+      zmsShowLoadingBar:false,
       rules: [
         value => !!value || '不能为空',
       ],

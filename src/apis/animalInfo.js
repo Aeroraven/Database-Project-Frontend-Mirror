@@ -10,7 +10,7 @@ export function getinformation(params) {
 
 export function createinformation(data) {
   return request({
-    url: '/api/animalInfo/createinformation',
+    url: '/api/animalBreedInfo/createInfo',
     method: 'post',
     data
   })

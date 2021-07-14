@@ -10,7 +10,7 @@
 
         <alert-messagebox
         :alertTitle="$t('common3.transactionDoneTitle')"
-        :alertBody="`新建信息保存成功`"
+        :alertBody="`操作成功`"
         :alertLevel="`success`"
         :alertOnlyConfirm="true"
         ref="commit_done" />
