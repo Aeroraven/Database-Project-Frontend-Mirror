@@ -61,11 +61,11 @@
             <div>
                 <v-container>
                     <v-row>
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('training.ID')" v-model="submit_ID " :placeholder="$t('common.pleaseInput')+$t('training.ID')" prepend-icon="mdi-music-accID ental-sharp"  />
+                        </v-col> -->
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.ID')" v-model="submit_id" :placeholder="$t('common.pleaseInput')+$t('training.ID')" prepend-icon="mdi-music-accidental-sharp"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('training.animalID')" v-model="submit_animalID" :placeholder="$t('common.pleaseInput')+$t('training.animalID')" prepend-icon="el-icon-view"  />
+                            <v-text-field :label="$t('training.animal_id')" v-model="submit_animal_id" :placeholder="$t('common.pleaseInput')+$t('training.animal_id')" prepend-icon="el-icon-view"  />
                         </v-col>
                          <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('training.trainer_id')" v-model="submit_trainer_id" :placeholder="$t('common.pleaseInput')+$t('training.trainer_id')" prepend-icon="el-icon-s-custom"  />
@@ -149,8 +149,8 @@ export default {
     created(){
     },data:()=>{
         return{
-            submit_id:null,
-            submit_animalID:null,
+            submit_ID :null,
+            submit_animal_id:null,
             submit_trainer_id:null,
             submit_train_site:null,
             submit_training_date:null,
@@ -189,28 +189,29 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createTrainingInfo().then(response => {
+                    createTrainingInfo(
+                        {
+                            // ID :this.submit_ID ,
+                            training_date:this.submit_training_date,
+                            skill:this.submit_skill,
+                            trainer_id:this.submit_trainer_id,
+                            train_site:this.submit_train_site,
+                            props:this.submit_props,
+                            remarks:this.submit_remarks,
+                            // start_time:this.submit_start_time,
+                            // end_time:this.submit_end_time,
+                            animal_id:this.submit_animal_id,
+                        }
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('training.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('training.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('training.NonexistentVetId')
-                            return 0;
-                        }
-                        this.submitSuccTip(this.$t('training.SubmitComplete'))
+                        this.submitSuccTip(this.$t('信息填报成功'))
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.submitStat=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查找失败！')})
+                        console.log(err);
                     })
                 },2000
             )
@@ -222,54 +223,54 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submit_id==null||this.submit_id==undefined||this.submit_id==0){
-                this.submitFailTip(this.$t('training.submit_Empty_id'))
-                return 0;
-            }
-            if(this.submit_animalID==null||this.submit_animalID==undefined||this.submit_animalID==0){
-                this.submitFailTip(this.$t('training.submit_Empty_animalID'))
-                return 0;
-            }
-            if(this.submit_trainer_id==null||this.submit_trainer_id==undefined||this.submit_trainer_id==0){
-                this.submitFailTip(this.$t('training.submit_Empty_trainer_id'))
-                return 0;
-            }
-            if(this.submit_train_site==null||this.submit_train_site==undefined||this.submit_train_site==0){
-                this.submitFailTip(this.$t('training.submit_Empty_train_site'))
-                return 0;
-            }
-            if(this.submit_training_date==null||this.submit_training_date==undefined||this.submit_training_date==0){
-                this.submitFailTip(this.$t('training.submit_Empty_training_date'))
-                return 0;
-            }
-            if(this.submit_start_time==null||this.submit_start_time==undefined||this.submit_start_time==0){
-                this.submitFailTip(this.$t('training.submit_Empty_start_time'))
-                return 0;
-            }
-            if(this.submit_end_time==null||this.submit_end_time==undefined||this.submit_end_time==0){
-                this.submitFailTip(this.$t('training.submit_Empty_end_time'))
-                return 0;
-            }
-            if(this.submit_skill==null||this.submit_skill==undefined||this.submit_skill==0){
-                this.submitFailTip(this.$t('training.submit_Empty_show_skill'))
-                return 0;
-            }
-            if(this.submit_props==null||this.submit_props==undefined||this.submit_props==0){
-                this.submitFailTip(this.$t('training.submit_Empty_show_props'))
-                return 0;
-            }
-            let time1=this.submit_start_time;
-            let time2=this.submit_end_time;
-            if(time1>time2){
-                this.submitFailTip(this.$t('training.DateAhead'))
-                return 0;
-            }
+            // if(this.submit_ID ==null||this.submit_ID ==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_ID '))
+            //     return 0;
+            // }
+            // if(this.submit_animal_id==null||this.submit_animal_id==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_animal_id'))
+            //     return 0;
+            // }
+            // if(this.submit_trainer_id==null||this.submit_trainer_id==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_trainer_id'))
+            //     return 0;
+            // }
+            // if(this.submit_train_site==null||this.submit_train_site==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_train_site'))
+            //     return 0;
+            // }
+            // if(this.submit_training_date==null||this.submit_training_date==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_training_date'))
+            //     return 0;
+            // }
+            // if(this.submit_start_time==null||this.submit_start_time==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_start_time'))
+            //     return 0;
+            // }
+            // if(this.submit_end_time==null||this.submit_end_time==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_end_time'))
+            //     return 0;
+            // }
+            // if(this.submit_skill==null||this.submit_skill==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_show_skill'))
+            //     return 0;
+            // }
+            // if(this.submit_props==null||this.submit_props==undefined){
+            //     this.submitFailTip(this.$t('training.submit_Empty_show_props'))
+            //     return 0;
+            // }
+            // let time1=this.submit_start_time;
+            // let time2=this.submit_end_time;
+            // if(time1>time2){
+            //     this.submitFailTip(this.$t('training.DateAhead'))
+            //     return 0;
+            // }
 
 
-            if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
-                this.noNoteWarning=true;
-                return 0;
-            }
+            // if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
+            //     this.noNoteWarning=true;
+            //     return 0;
+            // }
             this.submitTrainingInfo();
         }
     }

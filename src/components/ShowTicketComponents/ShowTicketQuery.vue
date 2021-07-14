@@ -1,5 +1,5 @@
 <template>
-    <div class="zms-anicare" :class="nmNightClass">
+    <div class="zms-showTicket" :class="nmNightClass">
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
             <div>
@@ -10,15 +10,24 @@
                             <v-text-field :label="$t('showTicketManagement.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.ID')" prepend-icon="el-icon-link"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submit_show_id" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-coin"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('showTicketManagement.tour_id')" v-model="submit_tour_id" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.tour_id')" prepend-icon="el-icon-tickets"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Ticket_type')" v-model="submit_Ticket_type" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Ticket_type')" prepend-icon="el-icon-s-operation"  />
+                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submit_show_id" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-coin"  />
                         </v-col>
-                    
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submit_show_date" :label="$t('showTicketManagement.show_date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="submit_show_date" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
+                        </v-col> -->
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                <v-select :items="admissitems" :label="$t('showTicketManagement.Ticket_type')" v-model="submit_Ticket_type"
+                                    prepend-icon="el-icon-s-operation"></v-select>     
+                        </v-col>  
 
                     </v-row>
 
@@ -78,24 +87,35 @@
                                      <v-card-text>
                                         <v-container>
                                         <v-row>
-                                            
+                                         <v-col cols="12" sm="6" md="4">
+                                            <v-text-field  disabled  v-model="editedItem['ID']" :label="$t('showTicketManagement.ID')"></v-text-field>
+                                        </v-col> 
+                                        <v-col  cols="12" sm="6" md="4">
+                                            <v-text-field v-model="editedItem['tour_id']"  :label="$t('showTicketManagement.tour_id')"></v-text-field>
+                                        </v-col>   
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['show_id']"  :label="$t('showTicketManagement.show_id')"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['Price']" :label="$t('showTicketManagement.Price')"></v-text-field>
+                                       
+                                         <!-- <v-col cols="12" sm="6" md="3">
+                                            <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-text-field v-model="editedItem['show_date']" :label="$t('animalShow.show_date')" readonly v-bind="attrs" v-on="on">
+                                                    </v-text-field> 
+                                                </template>
+                                                <v-date-picker color="primary" width="400" v-model="editedItem['show_date']" @input="menu4 = false"></v-date-picker>
+                                            </v-menu>
+                                        </v-col> -->
+                                        
+                                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                            <v-select    v-model="editedItem['Ticket_type']" :items="admissitems" :label="$t('showTicketManagement.Ticket_type')" 
+                                                ></v-select>     
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['Ticket_type']" :label="$t('showTicketManagement.Ticket_type')"></v-text-field>
-                                        </v-col>
-                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['Amount']"  :label="$t('showTicketManagement.Amount')"></v-text-field>
-                                        </v-col>
-                                      
+
                                         </v-row>
                                         </v-container>
                                     </v-card-text>
-
+ 
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="close()">
@@ -176,7 +196,7 @@
                 <v-divider/>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="deleteItemconfirm()">
                         <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
@@ -191,10 +211,10 @@
 </template>
 
 <script>
-import { getShowTicketFlowInfo,deleteShowTicketFlowInfoInfo, updateShowTicketInfo } from '../../apis/showTicketManagement';
+import { getShowTicketFlowInfo,deleteShowTicketFlowInfo, updateShowTicketInfo } from '../../apis/showTicketManagement';
 
 export default {
-    name: 'WarehouseItemOverview',
+    name: 'ShowTicketQuery',
     created(){
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();
@@ -222,14 +242,18 @@ export default {
         submit_Ticket_type:null,
         
         headers:[
-            {text: '订单号', value:'ID'},
-            {text: '演出编号', value:'show_id'},
-            {text: '客户编号', value:'tour_id'},
-            {text: '票种', value:'Ticket_type'},
+            {text: '订单号', value:'id'},
+            {text: '客户编号', value:'tourid'},
+            {text: '演出编号', value:'showId'},
+            // {text: '演出日期', value:'show_date'},
+            {text: '票种', value:'ticketType'},
             {text: '操作', value:'actions', sortable: false }
 
             
         ],
+        admissitems: ['普通票', '学生票', '优惠票', 'VIP座票'],
+
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -243,11 +267,10 @@ export default {
         errorTitle:'',
         errorInfo:'',
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+           ID:'',
+           tour_id:'',
+           show_id:'',
+           Ticket_type:''
         },
         delItem: {
             name: '',
@@ -270,42 +293,123 @@ export default {
             setTimeout(
                 ()=>{
                     getShowTicketFlowInfo(
-                       { ID:this.submit_ID,
-                        show_id:this.submit_show_id,
-                        tour_id:this.submit_tour_id,
-                        Ticket_type:this.submit_Ticket_type
-                       }
+                        { 
+                            ID:this.submit_ID,
+
+                            show_id:this.submit_show_id,
+                            tour_id:this.submit_tour_id,
+                            // show_date:this.submit_show_date,
+                            Ticket_type:this.submit_Ticket_type
+                        }
                     ).then(response => {
                         this.queryData = response.data
+                        // console.log(this.queryData);
+                        // alert(this.queryData[0]);
+                        // alert(this.response.data);
+
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('showTicketManagement.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
                         
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        console.log(err);
                     })
                 },2000
             )
         },
+      
         updateItemInfo(){
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updateShowTicketInfo().then(response => {
-                        this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
+                    updateShowTicketInfo(
+                        { 
+                            ID :this.editedItem['id'],
+                            tour_id:this.editedItem['show_id'],
+                            show_id:this.editedItem['tour_id'],
+                            // show_date:this.editedItem['show_date'],
+                            Ticket_type:this.editedItem['Ticket_type']
                         }
+                    ).then(response => {
+                        this.queryLoaderDialog2=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
+
+                         getShowTicketFlowInfo(
+                        { 
+                            ID:this.submit_ID,
+
+                            show_id:this.submit_show_id,
+                            tour_id:this.submit_tour_id,
+                            // show_date:this.submit_show_date,
+                            Ticket_type:this.submit_Ticket_type
+                        }
+                                ).then(response => {
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败！')})
+                        console.log(err);
                     })
                 },2000
             )
         },
+        deleteItem (item) {
+            this.delIndex = this.queryData.indexOf(item)
+            this.delItem = Object.assign({}, item)
+            //this.dialog = true
+            this.deleteDialog=true
+           
+            },   
+        deleteItemconfirm(){
+            // this.deleteDialog=false
+            setTimeout(
+                ()=>{
+                    deleteShowTicketFlowInfo(
+                        {
+                                ID:this.delItem['id'],
+                                    // tour_id:this.editedItem['show_id'],
+                                    // show_id:this.editedItem['tour_id'],
+                                    // // show_date:this.editedItem['show_date'],
+                                    // Ticket_type:this.editedItem['Ticket_type']
+                        }
+                    ).then(response=>{
+                        this.deleteDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
+                        this.close();
+
+                            getShowTicketFlowInfo(
+                                { 
+                                    ID:this.submit_ID,
+
+                                    show_id:this.submit_show_id,
+                                    tour_id:this.submit_tour_id,
+                                    // show_date:this.submit_show_date,
+                                    Ticket_type:this.submit_Ticket_type
+                                }
+                                    ).then(response => {
+                                    this.queryData = response.data
+                                    }).catch( err =>{
+                                    })
+
+                    }).catch(err=>{
+                        this.deleteDialog=false;
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                        console.log(err);
+                    })
+                },1000
+            )
+        },  
+
         deleteItemInfo(){
             this.submit_ID=null;
             this.submit_show_id=null;
@@ -327,12 +431,7 @@ export default {
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
-        deleteItem (item) {
-            this.delIndex = this.queryData.indexOf(item)
-            this.delItem = Object.assign({}, item)
-            //this.dialog = true
-            this.deleteDialog=true
-        },
+     
     }
   
 }
@@ -345,7 +444,7 @@ export default {
     .zms-query-result{
         margin-top:20px;
     }
-    .zms-anicare{
+    .zms-showTicket{
         padding-left:50px;
         padding-right:50px;
         padding-top:20px;

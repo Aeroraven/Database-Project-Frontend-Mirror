@@ -6,11 +6,14 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('vehicleManagement.ID')" v-model="submit_Id" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.ID')" prepend-icon="mdi-music-accidental-sharp"  />
+                            <v-text-field :label="$t('vehicleManagement.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.ID')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3"> 
-                            <v-text-field :label="$t('vehicleManagement.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.vehicle_category')" prepend-icon="el-icon-view"  />
-                        </v-col>
+
+                         <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                    <v-select :items="admissitems" :label="$t('vehicleManagement.vehicle_category')" v-model="submit_vehicle_category"
+                                        prepend-icon="el-icon-view"></v-select>     
+                        </v-col>  
+
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('vehicleManagement.departure_interval')" v-model="submit_departure_interval" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.departure_interval')" prepend-icon="el-icon-link"  />
                         </v-col>
@@ -82,22 +85,26 @@
                                         <v-container>
                                         <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['ID']"  :label="$t('vehicleManagement.ID')"></v-text-field>
+                                            <v-text-field disabled v-model="editedItem['id']"  :label="$t('vehicleManagement.ID')"></v-text-field>
                                         </v-col>
+                                      
+
+                                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                                <v-select disabled :items="admissitems" :label="$t('vehicleManagement.vehicle_category')" v-model="editedItem['vehicleCategory']"
+                                                   ></v-select>     
+                                        </v-col>  
+
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['vehicle_category']" :label="$t('vehicleManagement.vehicle_category')"></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['departure_interval']" :label="$t('vehicleManagement.departure_interval')"></v-text-field>
+                                            <v-text-field v-model="editedItem['departureInterval']" :label="$t('vehicleManagement.departure_interval')"></v-text-field>
                                         </v-col>
                                          <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['trans_duration']"  :label="$t('vehicleManagement.trans_duration')"></v-text-field>
+                                            <v-text-field v-model="editedItem['transDuration']"  :label="$t('vehicleManagement.trans_duration')"></v-text-field>
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['price']"  :label="$t('vehicleManagement.price')"></v-text-field>
                                         </v-col>
                                          <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['boarding_location']"  :label="$t('vehicleManagement.boarding_location')"></v-text-field>
+                                            <v-text-field v-model="editedItem['boardingLocation']"  :label="$t('vehicleManagement.boarding_location')"></v-text-field>
                                         </v-col>
                                         </v-row>
                                         </v-container>
@@ -105,7 +112,7 @@
 
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="close()">
+                                        <v-btn  class="zms-fullwIDth" v-bind="attrs" v-on="on" light color="primary" @click="close()">
                                             <v-icon>mdi-close</v-icon>{{$t('common.cancel')}}
                                         </v-btn>
                                         <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="updateItemInfo()">
@@ -185,7 +192,7 @@
                 <v-divider/>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="deleteItemconfirm()">
                         <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
@@ -200,7 +207,7 @@
 </template>
 
 <script>
-import { getVehicleManagementData, updateVehicleManagementInfo } from '../../apis/vehicleManagement';
+import { getVehicleManagementData, updateVehicleManagementInfo,deleteVehicleManagementInfo } from '../../apis/vehicleManagement';
 
 export default {
     name: 'VehicleManagementQuery',
@@ -225,7 +232,7 @@ export default {
     },data:()=>{
         return{
         
-        submit_Id:null,
+        submit_ID:null,
         submit_vehicle_category:null,
         submit_departure_interval:null,
         submit_trans_duration:null,
@@ -233,15 +240,17 @@ export default {
         submit_boarding_location:null,
 
         headers:[
-            {text: '交通工具编号', value: 'ID'},
-            {text: '交通工具类别', value: 'vehicle_category'},
-            {text: '发车频率', value: 'departure_interval'},
-            {text: '车程时长', value: 'trans_duration'},
+            {text: '交通工具编号', value: 'id'},
+            {text: '出行方式', value: 'vehicleCategory'},
+            {text: '发车频率', value: 'departureInterval'},
+            {text: '车程时长', value: 'transDuration'},
             {text: '票价', value: 'price'},
-            {text: '上车地点', value: 'boarding_location'},
+            {text: '上车地点', value: 'boardingLocation'},
             {text: '操作', value: 'actions', sortable: false }
             
         ],
+        admissitems: ['高铁', '地铁', '飞机', '苏浙','上海迪士尼','高速公路'],
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -255,11 +264,12 @@ export default {
         errorTitle:'',
         errorInfo:'',
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            ID: '',
+            vehicle_category: '',
+            departure_interval: 0,
+            trans_duration: 0,
+            price: 0,
+            boarding_location: '',
         },
         delItem: {
             name: '',
@@ -281,15 +291,33 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getVehicleManagementData().then(response => {
-                        this.queryData = response.data
+                    getVehicleManagementData(
+                        {
+                            ID:this.submit_ID,
+                            vehicle_category:this.submit_vehicle_category,
+                            departure_interval:isNaN(parseInt(this.submit_departure_interval))?0:parseInt(this.submit_departure_interval),
+                            price:isNaN(parseInt(this.submit_price))?0:parseInt(this.submit_price),
+                            trans_duration:isNaN(parseInt(this.submit_trans_duration))?0:parseInt(this.submit_trans_duration),
+                            boarding_location:this.submit_boarding_location,
+                        }
+                    ).then(response => {
+                         
+                      this.queryData = response.data
+                        // console.log(this.queryData);
+                        // alert(this.queryData[0]);
+                        // alert(this.response.data);
+
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('vehicleManagement.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
-                        
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;   
+                        this.queryLoaderDialog2=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        console.log(err);
                     })
                 },2000
             )
@@ -298,22 +326,107 @@ export default {
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updateVehicleManagementInfo().then(response => {
-                        this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
+                    updateVehicleManagementInfo(
+                        {
+                            ID:this.editedItem['id'],
+                            vehicle_category:this.editedItem['vehicleCategory'],
+                            departure_interval:this.editedItem['departureInterval'],
+                            trans_duration:this.editedItem['transDuration'],
+                            price:this.editedItem['price'],
+                            boarding_location:this.editedItem['boardingLocation'],
                         }
+                    ).then(response => {
+                        this.queryLoaderDialog2=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
+
+                            getVehicleManagementData(
+                                {
+                                    ID:this.submit_ID,
+                                    vehicle_category:this.submit_vehicle_category,
+                                    departure_interval:isNaN(parseInt(this.submit_departure_interval))?0:parseInt(this.submit_departure_interval),
+                                    price:isNaN(parseInt(this.submit_price))?0:parseInt(this.submit_price),
+                                    trans_duration:isNaN(parseInt(this.submit_trans_duration))?0:parseInt(this.submit_trans_duration),
+                                    boarding_location:this.submit_boarding_location,
+                                }
+                                ).then(response => {
+                                    
+                                this.queryData = response.data
+                                    // console.log(this.queryData);
+                                    // alert(this.queryData[0]);
+                                    // alert(this.response.data);
+                                }).catch(err=>{
+                                })                        
+
+                    }).catch(err=>{
+                         this.queryLoaderDialog=false;
+                       this.queryLoaderDialog2=false;
+                       this.dialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        console.log(err);
                     })
                 },2000
             )
         },
+        deleteItem (item) {
+            this.delIndex = this.queryData.indexOf(item)
+            this.delItem = Object.assign({}, item)
+            //this.dialog = true
+            this.deleteDialog=true
+          
+
+            
+        },     
+         deleteItemconfirm(){
+            this.queryLoaderDialog2=true;
+
+            setTimeout(
+                ()=>{
+                deleteVehicleManagementInfo(
+                    {
+                            ID:this.delItem['id'],
+                                // vehicle_category:this.editedItem['vehicleCategory'],
+                                // departure_interval:this.editedItem['departureInterval'],
+                                // trans_duration:this.editedItem['transDuration'],
+                                // price:this.editedItem['price'],
+                                // boarding_location:this.editedItem['boardingLocation'],
+                    }
+                ).then(response=>{
+                    this.deleteDialog=false;
+                    this.queryLoaderDialog2=false;
+                    this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
+                    this.close();
+
+                     getVehicleManagementData(
+                                {
+                                    ID:this.submit_ID,
+                                    vehicle_category:this.submit_vehicle_category,
+                                    departure_interval:isNaN(parseInt(this.submit_departure_interval))?0:parseInt(this.submit_departure_interval),
+                                    price:isNaN(parseInt(this.submit_price))?0:parseInt(this.submit_price),
+                                    trans_duration:isNaN(parseInt(this.submit_trans_duration))?0:parseInt(this.submit_trans_duration),
+                                    boarding_location:this.submit_boarding_location,
+                                }
+                                ).then(response => {
+                                    
+                                this.queryData = response.data
+                                    // console.log(this.queryData);
+                                    // alert(this.queryData[0]);
+                                    // alert(this.response.data);
+                                }).catch(err=>{
+                                })                        
+
+                }).catch(err=>{
+                    this.deleteDialog=false;
+                    this.queryLoaderDialog=false;
+                    this.queryLoaderDialog2=false;
+                    this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                    console.log(err);
+                })
+                 },2000
+            )
+        },  
         deleteItemInfo(){
-            this.submit_Id=null;
+            this.submit_ID=null;
             this.submit_vehicle_category=null;
             this.submit_departure_interval=null;
             this.submit_trans_duration=null;
@@ -336,12 +449,7 @@ export default {
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
-        deleteItem (item) {
-            this.delIndex = this.queryData.indexOf(item)
-            this.delItem = Object.assign({}, item)
-            //this.dialog = true
-            this.deleteDialog=true
-        },
+  
     }
   
 }

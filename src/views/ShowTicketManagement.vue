@@ -1,6 +1,6 @@
 <template>
     <div class="zms-showticketinfo">
-        <span class="zms-showticketinfo-title zms-primary-color" color="primary">
+        <span class="zms-showticket-title zms-primary-color" color="primary">
             <v-icon color="primary">el-icon-tickets</v-icon> 演出票信息管理
         </span>
         <show-ticket-container/>

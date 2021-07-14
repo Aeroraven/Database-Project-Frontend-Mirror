@@ -61,14 +61,14 @@
             <div>
                 <v-container>
                     <v-row>
-                         <v-col cols="12" sm="6" md="3">
+                        <!-- <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalShow.show_id')" v-model="submit_show_id" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_id')" prepend-icon="mdi-music-accidental-sharp"  />
-                        </v-col>
+                        </v-col> -->
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalShow.show_name')" v-model="submit_show_name" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_name')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalShow.principal_id')" v-model="submit_principal_id" :placeholder="$t('common.pleaseInput')+$t('animalShow.principal_id')" prepend-icon="el-icon-s-custom"  />
+                            <v-text-field :label="$t('负责人姓名')" v-model="submit_principal_id" :placeholder="$t('common.pleaseInput')+$t('负责人姓名')" prepend-icon="el-icon-s-custom"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
@@ -183,37 +183,33 @@ export default {
                 ()=>{
                     createShowInfo(
                         {
-                        show_id:this.submit_show_id,
-                        show_name:this.submit_show_name,
-                        principal_id :this.submit_principal_id,
-                        show_date:this.submit_show_date,
-                        start_time:this.submit_start_time,
-                        submit_end_time:this.submit_end_time,
-                        show_site:this.submit_show_site,
-                        show_props:this.submit_show_props,
+                            show_name:this.submit_show_name,
+                            // show_id:this.submit_show_id,
+                            principal_id :this.submit_principal_id,
+                            show_date:this.submit_show_date,
+                            start_time:this.submit_start_time,
+                            end_time:this.submit_end_time,
+                            show_site:this.submit_show_site,
+                            show_props:this.submit_show_props,
+
                         }
                     ).then(response => {
-                        console.log(this.submit_show_date)
+                        // this.query.data=response.data
+                        this.queryLoaderDialog=false;
+                   
+                        // console.log(this.submit_show_date)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentVetId')
-                            return 0;
-                        }
-                        this.submitSuccTip(this.$t('animalShow.SubmitComplete'))
+                        this.submitSuccTip(this.$t('信息填报成功'))
+
+
+
+                     
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.submitStat=false;
+                        
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息填报失败')})
+                        console.log(err);
                     })
                 },2000
             )
@@ -225,46 +221,48 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submit_show_id==null||this.submit_show_id==undefined||this.submit_show_id==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_show_id'))
-                return 0;
-            }
-            if(this.submit_show_name==null||this.submit_show_name==undefined||this.submit_show_name==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_show_name'))
-                return 0;
-            }
-            if(this.submit_principal_id==null||this.submit_principal_id==undefined||this.submit_principal_id==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_principal_id'))
-                return 0;
-            }
-            if(this.submit_show_date==null||this.submit_show_date==undefined||this.submit_show_date==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_show_date'))
-                return 0;
-            }
-            if(this.submit_start_time==null||this.submit_start_time==undefined||this.submit_start_time==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_start_time'))
-                return 0;
-            }
-            if(this.submit_end_time==null||this.submit_end_time==undefined||this.submit_end_time==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_end_time'))
-                return 0;
-            }
-            if(this.submit_show_site==null||this.submit_show_site==undefined||this.submit_show_site==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_show_site'))
-                return 0;
-            }
-            if(this.submit_show_props==null||this.submit_show_date==undefined||this.submit_show_props==0){
-                this.submitFailTip(this.$t('animalShow.submit_Empty_show_props'))
-                return 0;
-            }
+            // if(this.submit_show_id==null||this.submit_show_id==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_show_id'))
+            //     return 0;
+            // }
+            // if(this.submit_show_name==null||this.submit_show_name==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_show_name'))
+            //     return 0;
+            // }
+            // if(this.submit_principal_id==null||this.submit_principal_id==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_principal_id'))
+            //     return 0;
+            // }
+            // if(this.submit_show_date==null||this.submit_show_date==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_show_date'))
+            //     return 0;
+            // }
+            // if(this.submit_start_time==null||this.submit_start_time==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_start_time'))
+            //     return 0;
+            // }
+            // if(this.submit_end_time==null||this.submit_end_time==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_end_time'))
+            //     return 0;
+            // }
+            // if(this.submit_show_site==null||this.submit_show_site==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_show_site'))
+            //     return 0;
+            // }
+            // if(this.submit_show_props==null||this.submit_show_date==undefined){
+            //     this.submitFailTip(this.$t('animalShow.submit_Empty_show_props'))
+            //     return 0;
+            // }
+            if(this.submit_start_time!=null&&this.submit_start_time!=undefined
+            &&this.submit_end_time!=null&&this.submit_end_time!=undefined){
               
-            let time1=this.submit_start_time;
-            let time2=this.submit_end_time;
-            if(time1>time2){
-                this.submitFailTip(this.$t('animalShow.DateAhead'))
-                return 0;
+                let time1=this.submit_start_time;
+                let time2=this.submit_end_time;
+                if(time1>time2){
+                    this.submitFailTip(this.$t('animalShow.DateAhead'))
+                    return 0;
+                }
             }
-
            /*  if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
                 this.noNoteWarning=true;
                 return 0;

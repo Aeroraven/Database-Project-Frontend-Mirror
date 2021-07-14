@@ -8,15 +8,15 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.name')" v-model="submit_name" :placeholder="$t('common.pleaseInput')+$t('convenienceService.name')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
-                         <v-col cols="12" sm="6" md="3">
+                         <!-- <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('convenienceService.ID')" prepend-icon="el-icon-link" />
                         </v-col>
                          <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.position')" v-model="submit_position" :placeholder="$t('common.pleaseInput')+$t('convenienceService.position')" prepend-icon="el-icon-location-information"  />
-                        </v-col>         
-                        <v-col cols="12" sm="6" md="3">
+                        </v-col>          -->
+                        <!-- <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.intro')" v-model="submit_intro" :placeholder="$t('common.pleaseInput')+$t('convenienceService.intro')" prepend-icon="mdi-information"  />
-                        </v-col> 
+                        </v-col>  -->
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
@@ -72,15 +72,15 @@
                                      <v-card-text>
                                         <v-container>
                                         <v-row>
-                                        <v-col  cols="12" sm="6" md="4">
+                                        <!-- <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['ID']" :label="$t('convenienceService.ID')"></v-text-field>
-                                        </v-col>
+                                        </v-col> -->
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['name']"  :label="$t('convenienceService.name')"></v-text-field>
+                                            <v-text-field disabled v-model="editedItem['name']"  :label="$t('convenienceService.name')"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
+                                        <!-- <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['position']" :label="$t('convenienceService.position')"></v-text-field>
-                                        </v-col>
+                                        </v-col> -->
                                         <v-col cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['intro']" :label="$t('convenienceService.intro')"></v-text-field>
                                         </v-col>
@@ -171,7 +171,7 @@
                 <v-divider/>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="deleteItemconfirm()">
                         <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
@@ -186,7 +186,7 @@
 </template>
 
 <script>
-import { getConvenienceServiceData, updateConvenienceServiceInfo } from '../../apis/convenienceService';
+import { getConvenienceServiceData, updateConvenienceServiceInfo ,deleteConvenienceServiceInfo} from '../../apis/convenienceService';
 
 export default {
     name: 'ConvenienceServiceQuery',
@@ -211,14 +211,14 @@ export default {
     },data:()=>{
         return{
         submit_name:null,
-        submit_ID:null,
-        submit_position:null,
+        // submit_ID:null,
+        // submit_position:null,
         submit_intro:null,
 
         headers:[
-            {text: '便民服务编号', value: 'ID'},
+            // {text: '便民服务编号', value: 'ID'},
             {text: '便民服务名称', value: 'name'},
-            {text: '位置', value: 'position'},
+            // {text: '位置', value: 'position'},
             {text: '简介', value: 'intro'},
             {text: '操作', value: 'actions', sortable: false }
          
@@ -237,10 +237,7 @@ export default {
         errorInfo:'',
         editedItem: {
             name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            intro: 0,
         },
         delItem: {
             name: '',
@@ -264,58 +261,119 @@ export default {
                 ()=>{
                     getConvenienceServiceData(
                         {
-                            name:this.submit_name,
-                            ID:this.submit_ID,
-                            position:this.submit_position,
+                            name:this.submit_name,  
+                            // ID:this.submit_ID,
+                            // position:this.submit_position,
                             intro:this.submit_intro,
                         }
 
                     ).then(response => {
+                       
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('convenienceService.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
                         
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        console.log(err);
                     })
                 },2000
             )
         },
-        updateItemInfo(
-
-        ){
+        updateItemInfo(){
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
                     updateConvenienceServiceInfo(
                         {
-                            name:this.editedItem['ID'],
-                            ID:this.editedItem['name'],
-                            position:this.editedItem['position'],
+                            name:this.editedItem['name'],
+                            // ID:this.editedItem['name'],
+                            // position:this.editedItem['position'],
                             intro:this.editedItem['intro'],
                         }
                     ).then(response => {
                         this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
-                        }
+                        this.dialog=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
+
+                         getConvenienceServiceData(
+                                        {
+                                            name:this.submit_name,  
+                                            // ID:this.submit_ID,
+                                            // position:this.submit_position,
+                                            intro:this.submit_intro,
+                                        }
+                                ).then(response => {
+                                   
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+                    }).catch(err=>{
+                        console.log(err)
+                        this.queryLoaderDialog=false;      
+                        this.queryLoaderDialog2=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:err})
                     })
                 },2000
             )
         },
         deleteItemInfo(){
             this.submit_name=null;
-            this.submit_ID=null;
-            this.submit_position=null;
+            // this.submit_ID=null;
+            // this.submit_position=null;
             this.submit_intro=null;
         },
+        deleteItem (item) {
+            this.delIndex = this.queryData.indexOf(item)
+            this.delItem = Object.assign({}, item)
+            //this.dialog = true
+            this.deleteDialog=true
+        },    
+        deleteItemconfirm(){
+            this.deleteDialog=true
+            setTimeout(
+                ()=>{
+                        deleteConvenienceServiceInfo(
+                        {
+                                name:this.delItem['name'],
+                                    // ID:this.editedItem['name'],
+                                    // position:this.editedItem['position'],
+                                // intro:this.editedItem['intro'],
+                        }
+                    ).then(response=>{
+                        this.deleteDialog=false;
+                    
+                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
+                        this.close();
+
+                         getConvenienceServiceData(
+                                        {
+                                            name:this.submit_name,  
+                                            // ID:this.submit_ID,
+                                            // position:this.submit_position,
+                                            intro:this.submit_intro,
+                                        }
+                                ).then(response => {
+                                   
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                        console.log(err);
+                    })
+                },2000
+            )
+        }, 
         close () {
             this.dialog = false
             this.deleteDialog=false
@@ -331,12 +389,7 @@ export default {
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
-        deleteItem (item) {
-            this.delIndex = this.queryData.indexOf(item)
-            this.delItem = Object.assign({}, item)
-            //this.dialog = true
-            this.deleteDialog=true
-        },
+      
     }
   
 }

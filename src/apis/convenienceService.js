@@ -11,7 +11,7 @@ export function getConvenienceServiceData(params) {
 export function createConvenienceServiceInfo(params) {
   return request({
     url: '/api/convenienceService/createConvenienceServiceInfo',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -19,7 +19,15 @@ export function createConvenienceServiceInfo(params) {
 export function updateConvenienceServiceInfo(params) {
   return request({
     url: '/api/convenienceService/updateConvenienceServiceInfo',
-    method: 'get',
+    method: 'put',
+    params
+  })
+}
+
+export function deleteConvenienceServiceInfo(params) {
+  return request({
+    url: '/api/convenienceService/deleteConvenienceServiceInfo',
+    method: 'delete',
     params
   })
 }

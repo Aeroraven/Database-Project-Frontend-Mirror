@@ -8,21 +8,14 @@ export function getShowTicketData(params) {
   })
 }
 
-export function createShowTicketInfo(params) {
-  return request({
-    url: '/api/showTicketManagement/createShowTicketInfo',
-    method: 'get',
-    params
-  })
-} 
-
 export function updateShowTicketInfo(params) {
   return request({
     url: '/api/showTicketManagement/updateShowTicketInfo',
-    method: 'get',
+    method: 'put',
     params
   })
 }
+
 
 export function getShowTicketFlowInfo(params) {
   return request({
@@ -32,10 +25,18 @@ export function getShowTicketFlowInfo(params) {
   })
 }
 
-export function deleteShowTicketFlowInfoInfo(params) {
+export function deleteShowTicketFlowInfo(params) {
   return request({
-    url: '/api/showTicketManagement/deleteShowTicketFlowInfoInfo',
-    method: 'get',
+    url: '/api/showTicketManagement/deleteShowTicketFlowInfo',
+    method: 'delete',
+    params
+  })
+} 
+
+export function createShowTicketInfo(params) {
+  return request({
+    url: '/api/showTicketManagement/createShowTicketInfo',
+    method: 'post',
     params
   })
 } 

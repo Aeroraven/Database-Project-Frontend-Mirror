@@ -11,7 +11,7 @@ export function getShowData(params) {
 export function createShowInfo(params) {
   return request({
     url: '/api/animalShow/createShowInfo',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -19,7 +19,15 @@ export function createShowInfo(params) {
 export function updateShowInfo(params) {
   return request({
     url: '/api/animalShow/updateShowInfo',
-    method: 'get',
+    method: 'put',
+    params
+  })
+}//查 get  增 post 删 delete 改 put
+
+export function deleteShowInfo(params) {
+  return request({
+    url: '/api/animalShow/deleteShowInfo',
+    method: 'delete',
     params
   })
 }

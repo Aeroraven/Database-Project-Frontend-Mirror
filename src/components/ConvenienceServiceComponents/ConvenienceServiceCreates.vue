@@ -64,12 +64,12 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.name')" v-model="submit_name" :placeholder="$t('common.pleaseInput')+$t('convenienceService.name')" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
-                         <v-col cols="12" sm="6" md="3">
+                         <!-- <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('convenienceService.ID')" prepend-icon="el-icon-link" />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
+                        </v-col> -->
+                         <!-- <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('convenienceService.position')" v-model="submit_position" :placeholder="$t('common.pleaseInput')+$t('convenienceService.position')" prepend-icon="el-icon-location-information"  />
-                        </v-col>         
+                        </v-col>          -->
                         
                     </v-row>
                 </v-container>
@@ -112,9 +112,12 @@ export default {
     },data:()=>{
         return{
             submit_name:null,
+            submit_intro:null,
+
+
             submit_ID:null,
             submit_position:null,
-            submit_intro:null,
+            
             submitNote:null,
             submitStat:false,
             noNoteWarning:false,
@@ -146,34 +149,23 @@ export default {
                     createConvenienceServiceInfo(
                        {  
                         name:this.submit_name,
-                        ID:this.submit_ID,
-                        position:this.submit_position,
+                        // ID:this.submit_ID,
+                        // position:this.submit_position,
                         intro:this.submit_intro,
                        }
 
                     ).then(response => {
-                        
+                    
                         console.log(this.submitDate)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('convenienceService.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('convenienceService.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('convenienceService.NonexistentVetId')
-                            return 0;
-                        }
-                        this.submitSuccTip(this.$t('convenienceService.SubmitComplete'))
+                     
+                        this.submitSuccTip(this.$t('信息填报成功'))
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.submitStat=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息填报失败')})
+                        
+                        console.log(err);
                     })
                 },2000
             )
@@ -185,22 +177,22 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submit_name==null||this.submit_name==undefined||this.submit_name==0){
+            if(this.submit_name==null||this.submit_name==undefined){
                 this.submitFailTip(this.$t('convenienceService.submit_Empty_name'))
                 return 0;
             }   
-            if(this.submit_ID==null||this.submit_ID==undefined||this.submit_ID==0){
-                this.submitFailTip(this.$t('convenienceService.submit_Empty_ID'))
-                return 0;
-            }
-            if(this.submit_position==null||this.submit_position==undefined||this.submit_position==0){
-                this.submitFailTip(this.$t('convenienceService.submit_Empty_position'))
-                return 0;
-            }
-            if(this.submit_intro==null||this.submit_intro==undefined||this.submit_intro==0){
-                this.submitFailTip(this.$t('convenienceService.submit_Empty_intro'))
-                return 0;
-            }
+            // if(this.submit_ID==null||this.submit_ID==undefined||this.submit_ID==0){
+            //     this.submitFailTip(this.$t('convenienceService.submit_Empty_ID'))
+            //     return 0;
+            // }
+            // if(this.submit_position==null||this.submit_position==undefined||this.submit_position==0){
+            //     this.submitFailTip(this.$t('convenienceService.submit_Empty_position'))
+            //     return 0;
+            // }
+            // if(this.submit_intro==null||this.submit_intro==undefined||this.submit_intro==0){
+            //     this.submitFailTip(this.$t('convenienceService.submit_Empty_intro'))
+            //     return 0;
+            // }
             this.submitConvenienceService();
         }
     }

@@ -14,16 +14,20 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.vehicle_category')" prepend-icon="el-icon-link"  />
                         </v-col> 
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="admissitems" :label="$t('gettingAroundZoo.ticket_type')" v-model="submit_ticket_type"
+                                prepend-icon="el-icon-s-operation"></v-select>     
+                        </v-col> 
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.ticket_type')" v-model="submit_ticket_type" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.ticket_type')" prepend-icon="el-icon-tickets"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.deposit')" v-model="submit_deposit" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.deposit')" prepend-icon="el-icon-box"  />
-                        </v-col>
-                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.rental_duration')" v-model="submit_rental_duration" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.rental_duration')" prepend-icon="el-icon-sell"  />
-                        </v-col>                        
-                        
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="submit_date" :label="$t('gettingAroundZoo.date')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker color="primary" width="400" v-model="submit_date" @input="menu2 = false"></v-date-picker>
+                            </v-menu>
+                        </v-col>               
+                  
                     </v-row>
                    
                 </v-container>
@@ -95,8 +99,9 @@
                                         <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['price']"  :label="$t('gettingAroundZoo.price')"></v-text-field>
                                         </v-col>
-                                        <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['ticket_type']"  :label="$t('gettingAroundZoo.ticket_type')"></v-text-field>
+                                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                            <v-select v-model="editedItem['ticket_type']" :items="admissitems" :label="$t('gettingAroundZoo.ticket_type')" 
+                                                prepend-icon="el-icon-s-operation"></v-select>     
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['deposit']"  :label="$t('gettingAroundZoo.deposit')"></v-text-field>
@@ -193,7 +198,7 @@
                 <v-divider/>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="deleteItemconfirm()">
                         <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
@@ -202,13 +207,12 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
     </div>
 
 </template>
 
 <script>
-import { getGettingAroundZooFlowInfo,deleteGettingAroundZooFlowInfoInfo, updateGettingAroundZooInfo } from '../../apis/gettingAroundZoo';
+import { getGettingAroundZooFlowInfo,deleteGettingAroundZooFlowInfo, updateGettingAroundZooInfo } from '../../apis/gettingAroundZoo';
 
 export default {
     name: 'GettingAroundZooQuery',
@@ -242,21 +246,23 @@ export default {
         submit_age_limit:null,
         submit_weight_limit:null,
         submit_rental_duration:null,
+        submit_date:null,
 
         headers:[
-            {text: '订单号', value: 'ID'},
-            {text: '客户编号', value: 'tour_id'},
-            {text: '交通工具类别', value: 'vehicle_category'},
-            {text: '票价', value: 'price'},
-            {text: '票种', value: 'ticket_type'},
-            {text: '保险金', value: 'deposit'},
-            {text: '年龄限制', value: 'age_limit'},
-            {text: '体重限制', value: 'weight_limit'},
-            {text: '乘坐时长', value: 'rental_duration'},
+            {text: '订单号', value: 'id'},
+            {text: '客户编号', value: 'tourId'},
+            {text: '交通工具类别', value: 'vehicleCategory'},
+            {text: '票种', value: 'ticketType'},
+            {text: '入园日期', value: 'date'},
             {text: '操作', value: 'actions', sortable: false }
 
             
         ],
+        admissitems: ['全价票', '优惠票'],
+        min: 0,
+        max: 500,
+        slider: 400.,
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -270,11 +276,11 @@ export default {
         errorTitle:'',
         errorInfo:'',
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            ID: '',
+            tour_id: 0,
+            vehicle_category: 0,
+            ticket_type: 0,
+            date: 0,
         },
         delItem: {
             name: '',
@@ -302,21 +308,27 @@ export default {
                             tour_id:this.submit_tour_id,
                             vehicle_category:this.submit_vehicle_category,
                             price:this.submit_price,
+                            date:this.submit_date,
                             ticket_type:this.submit_ticket_type,
-                            deposit:this.submit_deposit,
-                            age_limit:this.submit_age_limit,
-                            weight_limit:this.submit_weight_limit,
-                            rental_duration:this.submit_rental_duration,
+                            // rental_duration:this.submit_rental_duration,
                         }
                     ).then(response => {
+                         for(let i=0;i<response.data.length;i++)
+                                            {
+                                                response.data[i].date=response.data[i].date.substring(0,10);
+                                            }
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('gettingAroundZoo.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
                         
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        console.log(err);
                     })
                 },2000
             )
@@ -332,10 +344,8 @@ export default {
                             vehicle_category:this.editedItem['vehicle_category'],
                             price:this.editedItem['price'],
                             ticket_type:this.editedItem['ticket_type'],
-                            deposit:this.editedItem['deposit'],
-                            age_limit:this.editedItem['age_limit'],
-                            weight_limit:this.editedItem['weight_limit'],
-                            rental_duration:this.editedItem['rental_duration'],
+                            date:this.editedItem['date'],
+                            // rental_duration:this.editedItem['rental_duration'],
                         } 
                     ).then(response => {
                         this.queryLoaderDialog2=false;
@@ -347,12 +357,84 @@ export default {
                         }
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
+
+                        getGettingAroundZooFlowInfo(
+                                {
+                                    ID:this.submit_ID,
+                                    tour_id:this.submit_tour_id,
+                                    vehicle_category:this.submit_vehicle_category,
+                                    price:this.submit_price,
+                                    date:this.submit_date,
+                                    ticket_type:this.submit_ticket_type,
+                                    // rental_duration:this.submit_rental_duration,
+                                }
+                                ).then(response => {
+                                     for(let i=0;i<response.data.length;i++)
+                                            {
+                                                response.data[i].date=response.data[i].date.substring(0,10);
+                                            }
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败！')})
+                        console.log(err);
                     })
                 },2000
             )
         },
+        deleteItem (item) {
+            this.delIndex = this.queryData.indexOf(item)
+            this.delItem = Object.assign({}, item)
+            //this.dialog = true
+            this.deleteDialog=true
+        },    
+        deleteItemconfirm(){
+            this.deleteDialog=true
+            console.log(this.delItem['id'])
+            
+             deleteGettingAroundZooFlowInfo(
+                {
+                        ID:this.delItem['ID'],
+                            // tour_id:this.editedItem['tour_id'],
+                            // vehicle_category:this.editedItem['vehicle_category'],
+                            // price:this.editedItem['price'],
+                            // ticket_type:this.editedItem['ticket_type'],
+                            // rental_duration:this.editedItem['rental_duration'],
+                }
+            ).then(response=>{
+                this.deleteDialog=false;
+                this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
+                this.close();
+                getGettingAroundZooFlowInfo(
+                        {
+                            ID:this.submit_ID,
+                            tour_id:this.submit_tour_id,
+                            vehicle_category:this.submit_vehicle_category,
+                            price:this.submit_price,
+                            date:this.submit_date,
+                            ticket_type:this.submit_ticket_type,
+                            // rental_duration:this.submit_rental_duration,
+                        }
+                                ).then(response => {
+                                      for(let i=0;i<response.data.length;i++)
+                                            {
+                                                response.data[i].date=response.data[i].date.substring(0,10);
+                                            }
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+            }).catch(err=>{
+                this.queryLoaderDialog=false;
+                this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                console.log(err);
+            })
+
+        },  
         deleteItemInfo(){
-            this.submit_ID=null;
             this.submit_ID=null;
             this.submit_vehicle_category=null;
             this.submit_price=null;
@@ -377,12 +459,7 @@ export default {
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
-        deleteItem (item) {
-            this.delIndex = this.queryData.indexOf(item)
-            this.delItem = Object.assign({}, item)
-            //this.dialog = true
-            this.deleteDialog=true
-        },
+     
     }
   
 }

@@ -11,7 +11,7 @@ export function getTrainingData(params) {
 export function createTrainingInfo(params) {
   return request({
     url: '/api/Training/createTrainingInfo',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -19,7 +19,15 @@ export function createTrainingInfo(params) {
 export function updateTrainingInfo(params) {
   return request({
     url: '/api/Training/updateTrainingInfo',
-    method: 'get',
+    method: 'put',
+    params
+  })
+}
+
+export function deleteTrainingInfo(params) {
+  return request({
+    url: '/api/Training/deleteTrainingInfo',
+    method: 'delete',
     params
   })
 }

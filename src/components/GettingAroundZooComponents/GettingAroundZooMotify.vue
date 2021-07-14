@@ -11,14 +11,15 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.price')" v-model="submit_price" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.price')" prepend-icon="el-icon-coin"  />
                         </v-col> 
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.ticket_type')" v-model="submit_ticket_type" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.ticket_type')" prepend-icon="el-icon-tickets"  />
-                        </v-col>
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="admissitems" :label="$t('gettingAroundZoo.ticket_type')" v-model="submit_ticket_type"
+                               prepend-icon="el-icon-s-operation" ></v-select>     
+                        </v-col> 
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.deposit')" v-model="submit_deposit" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.deposit')" prepend-icon="el-icon-box"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.age_limit')" v-model="submit_age_limit" :placeholder="$t('common.age_limit')+$t('gettingAroundZoo.departure_interval')" prepend-icon="el-icon-collection-tag"  />
+                            <v-text-field :label="$t('gettingAroundZoo.age_limit')" v-model="submit_age_limit" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.age_limit')" prepend-icon="el-icon-collection-tag"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.weight_limit')" v-model="submit_weight_limit" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.weight_limit')" prepend-icon="el-icon-pie-chart"  />
@@ -87,25 +88,26 @@
                                         <v-container>
                                         <v-row>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['vehicle_category']" :label="$t('gettingAroundZoo.vehicle_category')"></v-text-field>
+                                            <v-text-field disabled v-model="editedItem['vehicleCategory']" :label="$t('gettingAroundZoo.vehicle_category')"></v-text-field>
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['price']"  :label="$t('gettingAroundZoo.price')"></v-text-field>
                                         </v-col>
-                                        <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['ticket_type']"  :label="$t('gettingAroundZoo.ticket_type')"></v-text-field>
+                                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                            <v-select disabled v-model="editedItem['ticketType']" :items="admissitems" :label="$t('gettingAroundZoo.ticket_type')" 
+                                                prepend-icon="el-icon-s-operation"></v-select>     
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['deposit']"  :label="$t('gettingAroundZoo.deposit')"></v-text-field>
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['age_limit']"  :label="$t('gettingAroundZoo.age_limit')"></v-text-field>
+                                            <v-text-field v-model="editedItem['ageLimit']"  :label="$t('gettingAroundZoo.age_limit')"></v-text-field>
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['weight_limit']"  :label="$t('gettingAroundZoo.weight_limit')"></v-text-field>
+                                            <v-text-field v-model="editedItem['weightLimit']"  :label="$t('gettingAroundZoo.weight_limit')"></v-text-field>
                                         </v-col>
                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['rental_duration']"  :label="$t('gettingAroundZoo.rental_duration')"></v-text-field>
+                                            <v-text-field v-model="editedItem['rentalDuration']"  :label="$t('gettingAroundZoo.rental_duration')"></v-text-field>
                                         </v-col>
                                         </v-row>
                                         </v-container>
@@ -239,17 +241,18 @@ export default {
         submit_rental_duration:null,
 
         headers:[
-            {text: '交通工具类别', value: 'vehicle_category'},
+            {text: '交通工具类别', value: 'vehicleCategory'},
             {text: '票价', value: 'price'},
-            {text: '票种', value: 'ticket_type'},
+            {text: '票种', value: 'ticketType'},
             {text: '保险金', value: 'deposit'},
-            {text: '年龄限制', value: 'age_limit'},
-            {text: '体重限制', value: 'weight_limit'},
-            {text: '乘坐时长', value: 'rental_duration'},
+            {text: '年龄限制', value: 'ageLimit'},
+            {text: '体重限制', value: 'weightLimit'},
+            {text: '乘坐时长', value: 'rentalDuration'},
             {text: '操作', value: 'actions', sortable: false }
 
             
         ],
+        admissitems: ['全价票', '优惠票'],
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -305,9 +308,13 @@ export default {
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('gettingAroundZoo.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
                         
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        console.log(err);
                     })
                 },2000
             )
@@ -318,29 +325,49 @@ export default {
                 ()=>{
                     updateGettingAroundZooInfo(
                         {
-                            vehicle_category:this.editedItem['vehicle_category'],
+                            vehicle_category:this.editedItem['vehicleCategory'],
                             price:this.editedItem['price'],
-                            ticket_type:this.editedItem['ticket_type'],
+                            ticket_type:this.editedItem['ticketType'],
                             deposit:this.editedItem['deposit'],
-                            age_limit:this.editedItem['age_limit'],
-                            weight_limit:this.editedItem['weight_limit'],
-                            rental_duration:this.editedItem['rental_duration'], 
+                            age_limit:this.editedItem['ageLimit'],
+                            weight_limit:this.editedItem['weightLimit'],
+                            rental_duration:this.editedItem['rentalDuration'], 
                         }
 
                     ).then(response => {
                         this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
-                        }
+                        this.dialog=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
+                        this.fetchItemInfo()
+
+                         getGettingAroundZooData(
+                                {
+                                    vehicle_category:this.submit_vehicle_category,
+                                    price:this.submit_price,
+                                    ticket_type:this.submit_ticket_type,
+                                    deposit:this.submit_deposit,
+                                    age_limit:this.submit_age_limit,
+                                    weight_limit:this.submit_weight_limit,
+                                    rental_duration:this.submit_rental_duration, 
+                                }
+                                ).then(response => {
+                                 
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;        
+                        this.queryLoaderDialog2=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        console.log(err);
                     })
                 },2000
             )
         },
+        
         deleteItemInfo(){
             this.submit_ID=null;
             this.submit_vehicle_category=null;

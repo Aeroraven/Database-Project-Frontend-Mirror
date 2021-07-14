@@ -62,16 +62,16 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submit_show_id" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('showTicketManagement.showId')" v-model="submit_showId" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.showId')" prepend-icon="el-icon-link"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Price')" v-model="submit_Price" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Price')" prepend-icon="el-icon-coin"  />
+                            <v-text-field :label="$t('showTicketManagement.price')" v-model="submit_price" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.price')" prepend-icon="el-icon-coin"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Ticket_type')" v-model="submit_Ticket_type" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Ticket_type')" prepend-icon="el-icon-tickets"  />
+                            <v-text-field :label="$t('showTicketManagement.ticketType')" v-model="submit_ticketType" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.ticketType')" prepend-icon="el-icon-tickets"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Amount')" v-model="submit_Amount" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Amount')" prepend-icon="el-icon-s-operation"  />
+                            <v-text-field :label="$t('showTicketManagement.amount')" v-model="submit_amount" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.amount')" prepend-icon="el-icon-s-operation"  />
                         </v-col>
                     
 
@@ -116,10 +116,10 @@ export default {
     created(){
     },data:()=>{
         return{
-            submit_show_id:null,
-            submit_Price:null,
-            submit_Ticket_type:null,
-            submit_Amount:null,
+            submit_showId:null,
+            submit_price:null,
+            submit_ticketType:null,
+            submit_amount:null,
 
             submitNote:null,
             submitStat:false,
@@ -151,33 +151,21 @@ export default {
                 ()=>{
                     createShowTicketInfo(
                         {
-                            submit_show_id:null,
-                            submit_Price:null,
-                            submit_Ticket_type:null,
-                            submit_Amount:null,
+                            showId:this.submit_showId,
+                            price:this.submit_price,
+                            ticketType:this.submit_ticketType,
+                            amount:this.submit_amount,
                         }
                     ).then(response => {
-                        console.log(this.submit_Amount)
+                        console.log(this.submit_amount)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalShow.NonexistentVetId')
-                            return 0;
-                        }
-                        this.submitSuccTip(this.$t('animalShow.SubmitComplete'))
+                        this.submitSuccTip(this.$t('信息填报成功'))
+                    
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.submitStat=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查找失败！')})
+                        console.log(err);
                     })
                 },2000
             )
@@ -189,22 +177,23 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submit_show_id==null||this.submit_show_id==undefined||this.submit_show_id==0){
-                this.submitFailTip(this.$t('animalShow_SubmitEmptyId'))
-                return 0;
-            }
-            if(this.submit_Price==null||this.submit_Price==undefined||this.submit_Price==0){
-                this.submitFailTip(this.$t('animalShow_SubmitEmptyType'))
-                return 0;
-            }
-            if(this.submit_Ticket_type==null||this.submit_Ticket_type==undefined||this.submit_Ticket_type==0){
-                this.submitFailTip(this.$t('animalShow_submit_Ticket_type'))
-                return 0;
-            }
-            if(this.submit_Amount==null||this.submit_Amount==undefined||this.submit_Amount==0){
-                this.submitFailTip(this.$t('animalShow_submit_Amount'))
-                return 0;
-            }
+            // if(this.submit_showId==null||this.submit_showId==undefined){
+            //     this.submitFailTip(this.$t('animalShow_SubmitEmptyId'))
+            //     return 0;
+            // }
+            // if(this.submit_price==null||this.submit_price==undefined){
+            //     this.submitFailTip(this.$t('animalShow_SubmitEmptyType'))
+            //     return 0;
+            // }
+            // if(this.submit_ticketType==null||this.submit_ticketType==undefined){
+            //     this.submitFailTip(this.$t('animalShow_submit_ticketType'))
+            //     return 0;
+            // }
+            // if(this.submit_amount==null||this.submit_amount==undefined){
+            //     this.submitFailTip(this.$t('animalShow_submit_amount'))
+            //     return 0;
+            // }
+
             this.submitShowTicket();
         }
     }

@@ -7,16 +7,18 @@
                    
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submit_show" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('showTicketManagement.show_id')" v-model="submit_show_id" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.show_id')" prepend-icon="el-icon-link"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Price')" v-model="submit_Price" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Price')" prepend-icon="el-icon-coin"  />
+                            <v-text-field :label="$t('showTicketManagement.price')" v-model="submit_price" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.price')" prepend-icon="el-icon-coin"  />
                         </v-col>
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="admissitems" :label="$t('showTicketManagement.Ticket_type')" v-model="submit_Ticket_type"
+                                prepend-icon="el-icon-s-operation"></v-select>     
+                        </v-col>          
+      
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Ticket_type')" v-model="submit_Ticket_type" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Ticket_type')" prepend-icon="el-icon-tickets"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('showTicketManagement.Amount')" v-model="submit_Amount" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Amount')" prepend-icon="el-icon-s-operation"  />
+                            <v-text-field :label="$t('showTicketManagement.Amount')" v-model="submit_Amount" :placeholder="$t('common.pleaseInput')+$t('showTicketManagement.Amount')" prepend-icon="el-icon-bangzhu"  />
                         </v-col>
                     
 
@@ -28,7 +30,7 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="fetchItemInfo" >
+                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="deleteItemInfo" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
@@ -80,20 +82,21 @@
                                         <v-row>
                                             
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['show_id']"  :label="$t('showTicketManagement.show_id')"></v-text-field>
+                                            <v-text-field disabled v-model="editedItem['id']"  :label="$t('showTicketManagement.show_id')"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['Price']" :label="$t('showTicketManagement.Price')"></v-text-field>
+                                            <v-text-field v-model="editedItem['price']" :label="$t('showTicketManagement.price')"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['Ticket_type']" :label="$t('showTicketManagement.Ticket_type')"></v-text-field>
+                                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                            <v-select disabled v-model="editedItem['type']" :items="admissitems" :label="$t('showTicketManagement.Ticket_type')" 
+                                                ></v-select>     
                                         </v-col>
                                          <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['Amount']"  :label="$t('showTicketManagement.Amount')"></v-text-field>
+                                            <v-text-field v-model="editedItem['amount']"  :label="$t('showTicketManagement.Amount')"></v-text-field>
                                         </v-col>
                                       
                                         </v-row>
-                                        </v-container>
+                                        </v-container>  
                                     </v-card-text>
 
                                     <v-card-actions>
@@ -141,7 +144,7 @@
                     请稍后<br/><br/>
                     <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
                 </v-card-text>
-            </v-card>
+            </v-card>   
         </v-dialog>
         <v-dialog v-model="errorReturn" persistent width="500" >
             <v-card color="" :ripple="{class:null}" >
@@ -216,19 +219,26 @@ export default {
     },data:()=>{
         return{
         
-        submit_show:null,
-        submit_Price:null,
+        submit_show_id:null,
+        submit_price:null,
         submit_Ticket_type:null,
         submit_Amount:null,
 
         headers:[
-            {text: '演出编号', value:'show_id'},
+            // {text: '演出编号', value:'id'},
+            {text: '演出编号', value:'id'},
             {text: '票价', value:'price'},
-            {text: '票种', value:'Ticket_type'},
+            // {text: '票种', value:'Ticket_type'},
+             {text: '票种', value:'type'},
+            {text: '票数', value:'amount'},
             {text: '操作', value:'actions', sortable: false }
 
             
         ],
+        
+
+        admissitems: ['普通票', '学生票', '优惠票', 'VIP座票'],
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -242,11 +252,10 @@ export default {
         errorTitle:'',
         errorInfo:'',
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+          show_id:'',
+          Ticket_type:'',
+          Amount:'',
+          price:0,
         },
         delItem: {
             name: '',
@@ -268,15 +277,26 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getShowTicketData().then(response => {
+                    getShowTicketData(
+                        {
+                            show_id:this.submit_show_id,
+                            price:this.submit_price,
+                            Ticket_type:this.submit_Ticket_type,
+                            Amount:this.submit_Amount,
+                        }
+                    ).then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
-                            this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
+                            this.$store.dispatch('showToastNotify',{Ticket_type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('showTicketManagement.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{Ticket_type:'error',info:this.$t('未找到符合条件的选项')})
                         }
                         
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{Ticket_type:'error',info:this.$t('信息查询失败')}) 
+                        console.log(err);
                     })
                 },2000
             )
@@ -285,16 +305,37 @@ export default {
             this.queryLoaderDialog2=true;
             setTimeout(
                 ()=>{
-                    updateShowTicketInfo().then(response => {
-                        this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
+                    updateShowTicketInfo(
+                        {
+                            show_id:this.editedItem['id'],
+                            price:this.editedItem['price'],
+                            Ticket_type:this.editedItem['type'],
+                            Amount:this.editedItem['amount'],
                         }
+                    ).then(response => {
+                       this.queryLoaderDialog2=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
+                        this.fetchItemInfo()
+                        
+                        getShowTicketData(
+                            {
+                                show_id:this.submit_show_id,
+                                price:this.submit_price,
+                                Ticket_type:this.submit_Ticket_type,
+                                Amount:this.submit_Amount,
+                            }
+                                ).then(response => {
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                       this.queryLoaderDialog2=false;
+                       this.dialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        console.log(err);
                     })
                 },2000
             )
@@ -312,6 +353,7 @@ export default {
         editItem (item) {
             this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            // this.editedItem = this.queryData[this.editedIndex],
             this.dialog = true
         },
         deleteItem (item) {
@@ -319,6 +361,13 @@ export default {
             this.delItem = Object.assign({}, item)
             //this.dialog = true
             this.deleteDialog=true
+        },
+
+         deleteItemInfo(){
+            this.submit_show_id=null;
+            this.submit_price=null;
+            this.submit_Amount=null;
+            this.submit_Ticket_type=null;
         },
     }
   

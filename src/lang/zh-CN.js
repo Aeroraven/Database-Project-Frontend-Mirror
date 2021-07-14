@@ -390,7 +390,7 @@ export default {
     'gadget':{
         'loading':'加载中，请稍后...'
     },
-   'animalShow':{
+    'animalShow':{
         'title':'演出信息上报',
         'SubmitComplete':'记录提交成功！',
         'SubmitComplete2':'记录修改成功！',
@@ -435,7 +435,7 @@ export default {
 
 
         'ID':'训练编号',
-        'animalID':'动物编号',
+        'animal_id':'动物编号',
         'trainer_id':'训练员工编号',
         'train_site':'训练地点',
         'training_date':'训练日期',
@@ -445,8 +445,8 @@ export default {
         'props':'训练道具',
         'remarks':'备注信息',
 
-        'submit_Empty_id':'训练编号无效',
-        'submit_Empty_animalID':'动物编号无效',
+        'submit_Empty_ID':'训练编号无效',
+        'submit_Empty_animal_id':'动物编号无效',
         'submit_Empty_trainer_id':'训练员工编号无效',
         'submit_Empty_train_site':'训练地点无效',
         'submit_Empty_training_date':'训练日期无效',
@@ -466,6 +466,8 @@ export default {
         'DateAhead':'设定的日期超前',
         'itemAlter':'修改信息',
         'emptyInfo':'未找到符合条件的选项',
+        'delete':'删除',  
+        'delete_content':'该删除过程将不可恢复',
     },
     'showTicketManagement':{
         'title':'演出门票新增',
@@ -475,14 +477,14 @@ export default {
         'ID':'订单号',
         'show_id':'演出编号',
         'tour_id':'游客编号',
-        'Price':'票价',
+        'price':'票价',
         'Ticket_type':'票种',
         'Amount':'票数',
-        'showDate':'演出日期',
+        'show_date':'演出日期',
 
-        'submit_Empty_id':'训练编号无效',
+        'submit_Empty_ID':'训练编号无效',
         'submit_Empty_animalID':'动物编号无效',
-        'submit_Empty_trainer_id':'训练员工编号无效',
+        'submit_Empty_tour_id':'训练员工编号无效',
         'submit_Empty_train_site':'训练地点无效',
         'submit_Empty_training_date':'训练日期无效',
         'submit_Empty_start_time':'开始时间无效',
@@ -500,7 +502,7 @@ export default {
         
         'Submitting':'正在提交',
         'PleaseWait':'请稍后',
-        'NonexistentAniID':'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       填写的动物不存在或无效',
+        'NonexistentAniID':'填写的动物不存在或无效',
         'NonexistentTypeID':'填写的场馆不存在或无效',
         'NonexistentVetID':'填写的负责人不存在或无效',
         'NoNoteTitle':'情况描述缺失',
@@ -553,7 +555,7 @@ export default {
         'SubmitComplete':'记录提交成功！',
         'SubmitComplete2':'记录修改成功！',
         
-        'ID':'交通工具编号',
+        'ID':'订单号',
         'tour_id':'客户编号',
         'vehicle_category':'交通工具类别',
         'price':'票价',
@@ -562,6 +564,7 @@ export default {
         'age_limit':'年龄限制',
         'weight_limit':'体重限制',
         'rental_duration':'乘坐时长',
+        'date':'入园日期',
         
         'submit_Empty_ID':'交通工具编号无效',
         'submit_Empty_vehicle_category':'交通工具类别无效',

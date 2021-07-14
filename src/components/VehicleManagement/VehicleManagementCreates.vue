@@ -61,12 +61,13 @@
             <div>
                 <v-container>
                     <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('vehicleManagement.ID')" v-model="submit_Id" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.ID')" prepend-icon="mdi-music-accidental-sharp"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('vehicleManagement.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.vehicle_category')" prepend-icon="el-icon-view"  />
-                        </v-col>
+                        <!-- <v-col cols="12" sm="6" md="3">
+                            <v-text-field :label="$t('vehicleManagement.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.ID')" prepend-icon="mdi-music-accidental-sharp"  />
+                        </v-col> -->
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                                    <v-select :items="admissitems" :label="$t('vehicleManagement.vehicle_category')" v-model="submit_vehicle_category"
+                                        prepend-icon="el-icon-view"></v-select>     
+                        </v-col>  
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('vehicleManagement.departure_interval')" v-model="submit_departure_interval" :placeholder="$t('common.pleaseInput')+$t('vehicleManagement.departure_interval')" prepend-icon="el-icon-link"  />
                         </v-col>
@@ -120,19 +121,23 @@ export default {
     created(){
     },data:()=>{
         return{
-            submit_Id:null,
+            submit_ID:null,
             submit_vehicle_category:null,
             submit_departure_interval:null,
             submit_trans_duration:null,
             submit_price:null,
             submit_boarding_location:null,
+
             submitNote:null,
             submitStat:false,
             noNoteWarning:false,
             errorReturn:false,
             errorTitle:'',
             errorInfo:'',
-            menu2:false
+            menu2:false,
+            admissitems: ['高铁', '地铁', '飞机', '苏浙','上海迪士尼','高速公路'],
+
+            
         }
     } ,
     computed:{
@@ -154,28 +159,24 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
-                    createVehicleManagementInfo().then(response => {
+                    createVehicleManagementInfo(
+                        {
+                            // ID:this.submit_ID,
+                            vehicle_category:this.submit_vehicle_category,
+                            departure_interval:this.submit_departure_interval,
+                            trans_duration:this.submit_trans_duration,
+                            price:this.submit_price,
+                            boarding_location:this.submit_boarding_location,
+                        }
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('vehicleManagement.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('vehicleManagement.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('vehicleManagement.NonexistentVetId')
-                            return 0;
-                        }
-                        this.submitSuccTip(this.$t('vehicleManagement.SubmitComplete'))
+                        this.submitSuccTip(this.$t('信息提交成功'))
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.submitStat=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息提交失败')})
+                        console.log(err);
                     })
                 },2000
             )
@@ -187,30 +188,55 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submit_Id==null||this.submit_Id==undefined||this.submit_Id==0){
-                this.submitFailTip(this.$t('vehicleManagement.submit_Empty_ID'))
+            // if(this.submit_ID==null||this.submit_ID==undefined){
+            //     this.submitFailTip(this.$t('vehicleManagement.submit_Empty_ID'))
+            //     return 0;
+            // }
+            // if(this.submit_vehicle_category==null||this.submit_vehicle_category==undefined){
+            //     this.submitFailTip(this.$t('vehicleManagement.submit_Empty_vehicle_category'))
+            //     return 0;
+            // }
+            // if(this.submit_departure_interval==null||this.submit_departure_interval==undefined){
+            //     this.submitFailTip(this.$t('vehicleManagement.submit_Empty_departure_interval'))
+            //     return 0;
+            // }
+           if(this.submit_departure_interval!=null&&this.submit_departure_interval<0){
+                this.submitFailTip(this.$t('发车频率不能为负！'))
                 return 0;
             }
-            if(this.submit_vehicle_category==null||this.submit_vehicle_category==undefined||this.submit_vehicle_category==0){
-                this.submitFailTip(this.$t('vehicleManagement.submit_Empty_vehicle_category'))
+            if(this.submit_departure_interval!=null&&this.submit_departure_interval>99999){
+                this.submitFailTip(this.$t('发车频率超出限制！'))
                 return 0;
             }
-            if(this.submit_departure_interval==null||this.submit_departure_interval==undefined||this.submit_departure_interval==0){
-                this.submitFailTip(this.$t('vehicleManagement.submit_Empty_departure_interval'))
+            // if(this.submit_trans_duration==null||this.submit_trans_duration==undefined){
+            //     this.submitFailTip(this.$t('vehicleManagement.submit_Empty_trans_duration'))
+            //     return 0;
+            // }
+            if(this.submit_trans_duration!=null&&this.submit_trans_duration<0){
+                this.submitFailTip(this.$t('车程时长不能为负！'))
                 return 0;
             }
-            if(this.submit_trans_duration==null||this.submit_trans_duration==undefined||this.submit_trans_duration==0){
-                this.submitFailTip(this.$t('vehicleManagement.submit_Empty_trans_duration'))
+            if(this.submit_trans_duration!=null&&this.submit_trans_duration>999){
+                this.submitFailTip(this.$t('车程时长超出限制！'))
                 return 0;
             }
-            if(this.submit_price==null||this.submit_price==undefined||this.submit_price==0){
-                this.submitFailTip(this.$t('vehicleManagement.submit_Empty_price'))
+            // if(this.submit_price==null||this.submit_price==undefined){
+            //     this.submitFailTip(this.$t('vehicleManagement.submit_Empty_price'))
+            //     return 0;
+            // }
+            if(this.submit_price!=null&&this.submit_price<0){
+                this.submitFailTip(this.$t('票价不能为负！'))
                 return 0;
             }
-            if(this.submit_boarding_location==null||this.submit_boarding_location==undefined||this.submit_boarding_location==0){
-                this.submitFailTip(this.$t('vehicleManagement.submit_Empty_boarding_location'))
+            if(this.submit_price!=null&&this.submit_price>99999){
+                this.submitFailTip(this.$t('票价超出限制！'))
                 return 0;
             }
+            // if(this.submit_boarding_location==null||this.submit_boarding_location==undefined){
+            //     this.submitFailTip(this.$t('vehicleManagement.submit_Empty_boarding_location'))
+            //     return 0;
+            // }
+            
             /* let year=this.submitDate.split("-")[0];
             let month=this.submitDate.split("-")[1]-1;
             let day=this.submitDate.split("-")[2];

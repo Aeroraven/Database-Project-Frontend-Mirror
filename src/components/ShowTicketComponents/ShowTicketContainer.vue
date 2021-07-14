@@ -3,10 +3,10 @@
         <template>
             <v-tabs fixed-tabs background-color="primary" class="rounded" dark v-model="tab">
                 <v-tab :key="1">
-                    演出门票流水查询
+                    演出票流水查询
                 </v-tab>
                 <v-tab :key="2">
-                    修改演出门票信息
+                    修改演出票信息
                 </v-tab>
                 
             </v-tabs>

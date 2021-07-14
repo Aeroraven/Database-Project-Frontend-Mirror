@@ -65,7 +65,7 @@
                             <v-text-field :label="$t('gettingAroundZoo.ID')" v-model="submit_ID" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.ID')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.tour_id')" v-model="submit_tour_id" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.tour_id')" prepend-icon="el-icon-link"  />
+                            <v-text-field :label="$t('gettingAroundZoo.tour_id ')" v-model="submit_tour_id " :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.tour_id ')" prepend-icon="el-icon-link"  />
                         </v-col> 
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.vehicle_category')" prepend-icon="el-icon-link"  />
@@ -129,8 +129,8 @@ export default {
     created(){
     },data:()=>{
         return{
-            submit_ID:null,
-            submit_tour_id:null,
+            submit_id:null,
+            submit_tour_id :null,
             submit_vehicle_category:null,
             submit_price:null,
             submit_ticket_type:null,
@@ -170,7 +170,7 @@ export default {
                     createGettingAroundZooInfo(
                        {
                             ID:this.submit_ID,
-                            tour_id:this.submit_tour_id,
+                            tour_id :this.submit_tour_id ,
                             vehicle_category:this.submit_vehicle_category,
                             price:this.submit_price,
                             ticket_type:this.submit_ticket_type,
@@ -182,26 +182,17 @@ export default {
 
                     ).then(response => {
                         console.log(this.submitDate)
+                      
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('gettingAroundZoo.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('gettingAroundZoo.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('gettingAroundZoo.NonexistentVetId')
-                            return 0;
-                        }
-                        this.submitSuccTip(this.$t('gettingAroundZoo.SubmitComplete'))
+                       
+                        this.submitSuccTip(this.$t('信息填报成功'))
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog=false;
+                        this.submitStat=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查找失败！')})
+                        console.log(err);
+                      
                     })
                 },2000
             )
@@ -213,38 +204,38 @@ export default {
             this.$store.dispatch('showToastNotify',{type:'error',info:x})
         },
         submitPrejudge(){
-            if(this.submit_ID==null||this.submit_ID==undefined||this.submit_ID==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_ID'))
-                return 0;
-            }
-            if(this.submit_vehicle_category==null||this.submit_vehicle_category==undefined||this.submit_vehicle_category==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_vehicle_category'))
-                return 0;
-            }
-            if(this.submit_price==null||this.submit_price==undefined||this.submit_price==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_price'))
-                return 0;
-            }
-             if(this.submit_ticket_type==null||this.submit_ticket_type==undefined||this.submit_ticket_type==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_ticket_type'))
-                return 0;
-            }
-            if(this.submit_deposit==null||this.submit_deposit==undefined||this.submit_deposit==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_deposit'))
-                return 0;
-            }
-            if(this.submit_age_limit==null||this.submit_age_limit==undefined||this.submit_age_limit==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_age_limit'))
-                return 0;
-            }
-            if(this.submit_weight_limit==null||this.submit_weight_limit==undefined||this.submit_weight_limit==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_weight_limit'))
-                return 0;
-            }
-            if(this.submit_rental_duration==null||this.submit_rental_duration==undefined||this.submit_rental_duration==0){
-                this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_rental_duration'))
-                return 0;
-            }
+            // if(this.submit_ID==null||this.submit_ID==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_ID'))
+            //     return 0;
+            // }
+            // if(this.submit_vehicle_category==null||this.submit_vehicle_category==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_vehicle_category'))
+            //     return 0;
+            // }
+            // if(this.submit_price==null||this.submit_price==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_price'))
+            //     return 0;
+            // }
+            //  if(this.submit_ticket_type==null||this.submit_ticket_type==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_ticket_type'))
+            //     return 0;
+            // }
+            // if(this.submit_deposit==null||this.submit_deposit==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_deposit'))
+            //     return 0;
+            // }
+            // if(this.submit_age_limit==null||this.submit_age_limit==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_age_limit'))
+            //     return 0;
+            // }
+            // if(this.submit_weight_limit==null||this.submit_weight_limit==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_weight_limit'))
+            //     return 0;
+            // }
+            // if(this.submit_rental_duration==null||this.submit_rental_duration==undefined){
+            //     this.submitFailTip(this.$t('gettingAroundZoo.submit_Empty_rental_duration'))
+            //     return 0;
+            // }
            /* let year=this.submitDate.split("-")[0];
             let month=this.submitDate.split("-")[1]-1;
             let day=this.submitDate.split("-")[2];

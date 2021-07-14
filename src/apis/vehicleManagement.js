@@ -11,7 +11,7 @@ export function getVehicleManagementData(params) {
 export function createVehicleManagementInfo(params) {
   return request({
     url: '/api/vehicleManagement/createVehicleManagementInfo',
-    method: 'get',
+    method: 'post',
     params
   })
 }
@@ -19,7 +19,15 @@ export function createVehicleManagementInfo(params) {
 export function updateVehicleManagementInfo(params) {
   return request({
     url: '/api/vehicleManagement/updateVehicleManagementInfo',
-    method: 'get',
+    method: 'put',
+    params
+  })
+}
+
+export function deleteVehicleManagementInfo(params) {
+  return request({
+    url: '/api/vehicleManagement/deleteVehicleManagementInfo',
+    method: 'delete',
     params
   })
 }

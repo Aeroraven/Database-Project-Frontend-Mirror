@@ -12,7 +12,7 @@
                             <v-text-field :label="$t('animalShow.show_name')" v-model="submit_show_name" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_name')" prepend-icon="el-icon-view"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalShow.principal_id')" v-model="submit_principal_id" :placeholder="$t('common.pleaseInput')+$t('animalShow.principal_id')" prepend-icon="el-icon-s-custom"  />
+                            <v-text-field :label="$t('负责人姓名')" v-model="submit_principal_id" :placeholder="$t('common.pleaseInput')+$t('负责人姓名')" prepend-icon="el-icon-s-custom"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
@@ -108,30 +108,47 @@
                                         <v-container>
                                         <v-row>
                                         <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['show_id']" :label="$t('animalShow.show_id')"></v-text-field>
+                                            <v-text-field disabled  v-model="editedItem['showId']" :label="$t('animalShow.show_id')"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['show_name']"  :label="$t('animalShow.show_name')"></v-text-field>
+                                            <v-text-field v-model="editedItem['showName']"  :label="$t('animalShow.show_name')"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['principal_id']" :label="$t('animalShow.principal_id')"></v-text-field>
+                                            <v-text-field v-model="editedItem['principalName']" :label="$t('负责人姓名')"></v-text-field>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['show_date']" :label="$t('animalShow.show_date')"></v-text-field>
+                                        <v-col cols="12" sm="6" md="3">
+                                            <v-menu v-model="menu5" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-text-field v-model="editedItem['showDate']" :label="$t('animalShow.show_date')" readonly v-bind="attrs" v-on="on">
+                                                    </v-text-field> 
+                                                </template>
+                                                <v-date-picker color="primary" width="400" v-model="editedItem['showDate']" @input="menu5 = false"></v-date-picker>
+                                            </v-menu>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['start_time']" :label="$t('animalShow.start_time')"></v-text-field>
+                                         <v-col cols="12" sm="6" md="3">
+                                            <v-menu v-model="menu6" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-text-field v-model="editedItem['startTime']" :label="$t('animalShow.start_time')"   readonly v-bind="attrs" v-on="on" >
+                                                    </v-text-field>
+                                                </template>
+                                                <v-time-picker format="24hr" color="primary" width="400" v-model="editedItem['startTime']" @input="menu6 = false"></v-time-picker>
+                                            </v-menu>
                                         </v-col>
-                                        <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['end_time']" :label="$t('animalShow.end_time')"></v-text-field>
+                                        <v-col cols="12" sm="6" md="3">
+                                            <v-menu v-model="menu7" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-text-field v-model="editedItem['endTime']" :label="$t('animalShow.end_time')"    readonly v-bind="attrs" v-on="on" >
+                                                    </v-text-field>
+                                                </template>
+                                                <v-time-picker format="24hr" color="primary" width="400" v-model="editedItem['endTime']" @input="menu7 = false"></v-time-picker>
+                                            </v-menu>
                                         </v-col>
-                                        
                                          <v-col  cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['show_site']"  :label="$t('animalShow.show_site')"></v-text-field>
+                                            <v-text-field v-model="editedItem['showSite']"  :label="$t('animalShow.show_site')"></v-text-field>
                                         </v-col>
                                         
                                         <v-col cols="12" sm="6" md="4">
-                                            <v-text-field v-model="editedItem['show_props']" :label="$t('animalShow.show_props')"></v-text-field>
+                                            <v-text-field v-model="editedItem['showProps']" :label="$t('animalShow.show_props')"></v-text-field>
                                         </v-col>
 
                                         </v-row>
@@ -147,10 +164,10 @@
                                             <v-icon>mdi-check</v-icon>{{$t('common.confirm')}}
                                         </v-btn>
                                     </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                        </v-toolbar>
-                    </template>
+                            </v-card>
+                        </v-dialog>
+                    </v-toolbar>
+                </template>
                     <template v-slot:[`item.actions`]="{ item }">
                         <v-icon small class="mr-2" @click="editItem(item)">
                             mdi-pencil
@@ -220,7 +237,7 @@
                 <v-divider/>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="updateItemInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="deleteItemconfirm()">
                         <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="close()">
@@ -235,7 +252,7 @@
 </template>
 
 <script>
-import { getShowData, updateShowInfo } from '../../apis/animalShow';
+import { getShowData, updateShowInfo,deleteShowInfo } from '../../apis/animalShow';
 
 export default {
     name: 'AniShowInfoQuery',
@@ -262,7 +279,7 @@ export default {
             submit_show_id:null,
             submit_show_name:null,
             submit_principal_id:null,
-            submit_show_date:null,
+            submit_show_date :null,
             submit_start_time:null,
             submit_end_time:null,
             submit_show_site:null,
@@ -270,14 +287,14 @@ export default {
 
         
         headers:[
-            {text: '演出编号', value: 'show_id'},
-            {text: '演出名称', value: 'show_name'},
-            {text: '负责人编号', value: 'principal_id'},
-            {text: '演出日期', value: 'show_date'},
-            {text: '开始时间', value: 'start_time'},
-            {text: '结束时间', value: 'end_time'},
-            {text: '演出场地', value: 'show_site'},
-            {text: '演出道具', value: 'show_props'},
+            {text: '演出编号', value: 'showId'},
+            {text: '演出名称', value: 'showName'},
+            {text: '负责人姓名', value: 'principalName'},
+            {text: '演出日期', value: 'showDate'},
+            {text: '开始时间', value: 'startTime'},
+            {text: '结束时间', value: 'endTime'},
+            {text: '演出场地', value: 'showSite'},
+            {text: '演出道具', value: 'showProps'},
             {text: '操作', value: 'actions', sortable: false }
         ],
 
@@ -294,11 +311,14 @@ export default {
         errorTitle:'',
         errorInfo:'',
         editedItem: {
-            name: '',
-            calories: 0,
-            fat: 0,
-            carbs: 0,
-            protein: 0,
+            show_id: '',
+            show_name: '',
+            principal_id: 0,
+            show_date : 0,
+            start_time: 0,
+            end_time: 0,
+            show_site: 0,
+            show_props: 0,
         },
         delItem: {
             name: '',
@@ -325,20 +345,31 @@ export default {
                             "show_id":this.submit_show_id,
                             "show_name":this.submit_show_name,
                             "principal_id":this.submit_principal_id,
-                            "show_date":this.submit_show_date,
+                            "show_date":this.submit_show_date ,
                             "start_time":this.submit_start_time,
-                            "submit_end_time":this.submit_end_time,
-                            "show_site":this.submit_show_site,
+                            "end_time":this.submit_end_time,
+                            "show_site":this.submit_show_site,    
                             "show_props":this.submit_show_props,
                         }
                     ).then(response => {
-                        this.queryData = response.data
+                         for(let i=0;i<response.data.length;i++)
+                                {
+                                    response.data[i].showDate=response.data[i].showDate.substring(0,10);
+                                    response.data[i].startTime=response.data[i].startTime.substring(11,19);
+                                    response.data[i].endTime=response.data[i].endTime.substring(11,19);
+                                }
+                       this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalShow.emptyInfo')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
+                    }).catch( err =>{
+                        this.queryLoaderDialog=false;
+                        // this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        // console.log(err);
+
                     })
                 },2000
             )
@@ -350,26 +381,106 @@ export default {
                 ()=>{
                     updateShowInfo(
                         {
-                            "show_id":this.editedItem['show_id'],
-                            "show_name":this.editedItem['show_name'],
-                            "principal_id":this.editedItem['principal_id'],
-                            "show_date":this.editedItem['show_date'],
-                            "start_time":this.editedItem['start_time'],
-                            "submit_end_time":this.editedItem['end_time'],
-                            "show_site":this.editedItem['show_site'],
-                            "show_props":this.editedItem['show_props'],
+                            "show_id":this.editedItem['showId'],
+                            "show_name":this.editedItem['showName'],
+                            "principal_id":this.editedItem['principalName'],
+                            "show_date":this.editedItem['showDate'],
+                            "start_time":this.editedItem['startTime'],
+                            "end_time":this.editedItem['endTime'],
+                            "show_site":this.editedItem['showSite'],
+                            "show_props":this.editedItem['showProps'],
                         }
                     ).then(response => {
                         this.queryLoaderDialog2=false;
-                        if(response.data.statcode!=0){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
-                        }
+                        this.dialog=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
-                        this.close();
+
+                        getShowData(
+                                    {
+                                        "show_id":this.submit_show_id,
+                                        "show_name":this.submit_show_name,
+                                        "principal_id":this.submit_principal_id,
+                                        "show_date":this.submit_show_date ,
+                                        "start_time":this.submit_start_time,
+                                        "end_time":this.submit_end_time,
+                                        "show_site":this.submit_show_site,    
+                                        "show_props":this.submit_show_props,
+                                    }
+                                ).then(response => {
+                                    for(let i=0;i<response.data.length;i++)
+                                            {
+                                                response.data[i].showDate=response.data[i].showDate.substring(0,10);
+                                                response.data[i].startTime=response.data[i].startTime.substring(11,19);
+                                                response.data[i].endTime=response.data[i].endTime.substring(11,19);
+                                            }
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+
+                    }).catch(err=>{
+                        this.queryLoaderDialog2=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        console.log(err);
                     })
+                },2000
+            )
+        },
+        deleteItem (item) {
+            this.delIndex = this.queryData.indexOf(item)
+            this.delItem = Object.assign({}, item)
+            //this.dialog = true
+            this.deleteDialog=true;
+        },
+        deleteItemconfirm(){
+            this.queryLoaderDialog2=true;
+            setTimeout(
+                ()=>{
+                    deleteShowInfo(
+                                {
+                                        "show_id":this.delItem['showId'],
+                                        // "show_name":this.editedItem['showName'],
+                                        // "principal_id":this.editedItem['principalName'],
+                                        // "show_date":this.editedItem['showDate'],
+                                        // "start_time":this.editedItem['startTime'],
+                                        // "end_time":this.editedItem['endTime'],
+                                        // "show_site":this.editedItem['showSite'],
+                                        // "show_props":this.editedItem['showProps'],
+                                }
+                            ).then(response=>{
+                                this.deleteDialog=false;
+                                this.queryLoaderDialog2=false;
+                                this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
+                                this.close();
+                                
+                                getShowData(
+                                    {
+                                        "show_id":this.submit_show_id,
+                                        "show_name":this.submit_show_name,
+                                        "principal_id":this.submit_principal_id,
+                                        "show_date":this.submit_show_date ,
+                                        "start_time":this.submit_start_time,
+                                        "end_time":this.submit_end_time,
+                                        "show_site":this.submit_show_site,    
+                                        "show_props":this.submit_show_props,
+                                    }
+                                ).then(response => {
+                                    for(let i=0;i<response.data.length;i++)
+                                            {
+                                                response.data[i].showDate=response.data[i].showDate.substring(0,10);
+                                                response.data[i].startTime=response.data[i].startTime.substring(11,19);
+                                                response.data[i].endTime=response.data[i].endTime.substring(11,19);
+                                            }
+                                this.queryData = response.data
+                                }).catch( err =>{
+                                })
+
+                            }).catch(err=>{
+                                this.deleteDialog=false;
+                                this.queryLoaderDialog2=false;
+                                this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息删除失败')})
+                                console.log(err);
+                            })
                 },2000
             )
         },
@@ -398,12 +509,7 @@ export default {
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
-        deleteItem (item) {
-            this.delIndex = this.queryData.indexOf(item)
-            this.delItem = Object.assign({}, item)
-            //this.dialog = true
-            this.deleteDialog=true
-        },
+       
     }
   
 }
