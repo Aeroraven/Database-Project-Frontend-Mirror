@@ -46,12 +46,7 @@ export default {
       setTimeout(() => {
         //var cardArray1 = this.cardArray[0];
         //var cardArray2 = this.cardArray[1];
-        getAccountBalanceShift({
-          begin_date: this.beginDate,
-          end_date: this.endDate,
-          //card_array1: cardArray1,
-          //card_array2: cardArray2,
-        })
+        getAccountBalanceShift()
           .then((response) => {
             this.chartXAxis.splice(0, this.chartXAxis.length);
             this.chartData.splice(0, this.chartData.length);
