@@ -395,7 +395,7 @@ export default {
             this.$refs.aniselector.show();
         },
         staffSelectorResponse(arg){
-            this.submitVetname=arg[0];
+            this.submitVetName=arg[0];
         },
         calloutStaffSelect(){
             this.$refs.staselector.show();
