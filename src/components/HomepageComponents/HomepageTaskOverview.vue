@@ -1,12 +1,6 @@
 <template>
   <div class="zms-home-notice">
-      <alert-messagebox
-        :alertTitle="`退出登录`"
-        :alertBody="`是否退出 ZMS 动物园管理系统？`"
-        :alertLevel="`warning`"
-        ref="error_done"
-        @alertConfirm="exitLogin"
-        />
+      
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass" >
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-clock-check-outline</v-icon> {{$t('home.wtTsk')}}

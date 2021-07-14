@@ -131,6 +131,10 @@ export default {
   mounted() {
     this.loadData();
   },
+  props:{
+      bgDate:String,
+      edDate:String,
+    },
   methods: {
     checkComplete() {
       if (this.completeStat === 4) {
@@ -142,13 +146,14 @@ export default {
       this.$refs.ec_cate_expense.applyChanges();
       this.$refs.ec_cate_income.applyChanges();
     },
+    
     loadData() {
       this.completeStat = 0;
       setTimeout(() => {
         getAccountIncomesOverview({
-          begin_date: this.beginDate,
-          end_date: this.endDate,
-          card_array: this.cardArray,
+          begin_date: this.bgDate,
+          end_date: this.edDate,
+          
         })
           .then((response) => {
             this.completeStat++;
@@ -181,10 +186,10 @@ export default {
           var cardArray1=this.cardArray[0];
           var cardArray2=this.cardArray[1];
         getAccountExpenseOverview({
-          begin_date: this.beginDate,
-          end_date: this.endDate,
-          card_array1: cardArray1,
-          card_array2: cardArray2,
+          begin_date: this.bgDate,
+          end_date: this.edDate,
+          //1: cardArray1,
+          //card_array2: cardArray2,
         })
           .then((response) => {
             this.completeStat++;
@@ -215,10 +220,10 @@ export default {
           var cardArray1=this.cardArray[0];
           var cardArray2=this.cardArray[1];
         getCategoryIncomesOverview({
-          begin_date: this.beginDate,
-          end_date: this.endDate,
-          card_array1: cardArray1,
-          card_array2: cardArray2,
+          begin_date: this.bgDate,
+          end_date: this.edDate,
+          //card_array1: cardArray1,
+          //card_array2: cardArray2,
         })
           .then((response) => {
             this.completeStat++;
@@ -251,10 +256,10 @@ export default {
           var cardArray1=this.cardArray[0];
           var cardArray2=this.cardArray[1];
         getCategoryExpenseOverview({
-          begin_date: this.beginDate,
-          end_date: this.endDate,
-          card_array1: cardArray1,
-          card_array2: cardArray2,
+          begin_date: this.bgDate,
+          end_date: this.edDate,
+          //card_array1: cardArray1,
+          //card_array2: cardArray2,
         })
           .then((response) => {
             this.completeStat++;

@@ -1,112 +1,112 @@
 import request from '@/utils/request'
 
-export function getAccountIncomesOverview(data) {
+export function getAccountIncomesOverview(params) {
     return request({
         url: '/api/fundManagement/getAccountIncomesOverview',
         method: 'post',
-        data
+        params
     })
 }
-export function getAccountExpenseOverview(data) {
+export function getAccountExpenseOverview(params) {
     return request({
         url: '/api/fundManagement/getAccountExpenseOverview',
         method: 'post',
-        data
+        params
     })
 }
 
-export function getCategoryIncomesOverview(data) {
+export function getCategoryIncomesOverview(params) {
     return request({
         url: '/api/fundManagement/getCategoryIncomesOverview',
         method: 'post',
-        data
+        params
     })
 }
-export function getCategoryExpenseOverview(data) {
+export function getCategoryExpenseOverview(params) {
     return request({
         url: '/api/fundManagement/getCategoryExpenseOverview',
         method: 'post',
-        data
+        params
     })
 }
 
-export function getOverallBalanceShift(data) {
+export function getOverallBalanceShift(params) {
     return request({
         url: '/api/fundManagement/getOverallBalanceShift',
         method: 'post',
-        data
+        params
     })
 }
-export function getAccountBalanceShift(data) {
+export function getAccountBalanceShift(params) {
     return request({
         url: '/api/fundManagement/getAccountBalanceShift',
         method: 'post',
-        data
+        params
     })
 }
 
-export function getAccountList(data) {
+export function getAccountList(params) {
     return request({
         url: '/api/fundManagement/getAccountList',
         method: 'post',
-        data
+        params
     })
 }
 
 
-export function deleteFlowEntry(data) {
+export function deleteFlowEntry(params) {
     return request({
         url: '/api/fundManagement/deleteFlowEntry',
         method: 'post',
-        data
+        params
     })
 }
 
-export function updateFlowEntry(data) {
+export function updateFlowEntry(params) {
     return request({
         url: '/api/fundManagement/updateFlowEntry',
         method: 'post',
-        data
+        params
     })
 }
 
-export function getFlowEntries(data) {
+export function getFlowEntries(params) {
     return request({
         url: '/api/fundManagement/getFlowEntries',
         method: 'post',
-        data
+        params
     })
 }
 
-export function addBankAccount(data) {
+export function addBankAccount(params) {
     return request({
         url: '/api/fundManagement/addBankAccount',
         method: 'post',
-        data
+        params
     })
 }
 
-export function getAuthList(data) {
+export function getAuthList(params) {
     return request({
         url: '/api/fundManagement/getAuthList',
         method: 'post',
-        data
+        params
     })
 }
 
 
-export function revokeBankAccAuth(data) {
+export function revokeBankAccAuth(params) {
     return request({
         url: '/api/fundManagement/revokeBankAccAuth',
         method: 'post',
-        data
+        params
     })
 }
 
-export function grantBankAccAuth(data) {
+export function grantBankAccAuth(params) {
     return request({
         url: '/api/fundManagement/revokeBankAccAuth',
         method: 'post',
-        data
+        params
     })
 }

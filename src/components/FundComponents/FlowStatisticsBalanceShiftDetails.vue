@@ -2,7 +2,7 @@
   <div>
     <alert-messagebox
       :alertTitle="$t('common3.transactionFailTitle')"
-      :alertBody="$t('common3.transactionFail') + errorInfo"
+      :alertBody="$t('common3.transactionFail')"
       :alertLevel="`error`"
       :alertOnlyConfirm="true"
       ref="error_done"
@@ -19,9 +19,10 @@
 </template>
 <script>
 import EcLineChart from "../ChartComponents/EcLineChart.vue";
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 import { getAccountBalanceShift } from "../../apis/fund";
 export default {
-  components: { EcLineChart },
+  components: { EcLineChart,AlertMessagebox },
   name: "FlowStatisticsBalanceShiftDetails",
   data() {
     return {
@@ -31,8 +32,12 @@ export default {
       chartXAxis: [],
     };
   },
-  created() {
+  mounted() {
     this.loadData();
+  },
+  props:{
+    bgDate:String,
+    edDate:String,
   },
   methods: {
     checkComplete() {
@@ -50,31 +55,91 @@ export default {
           .then((response) => {
             this.chartXAxis.splice(0, this.chartXAxis.length);
             this.chartData.splice(0, this.chartData.length);
-            this.chartLegends.splice(0, this.chartData.chartLegends);
+            this.chartLegends.splice(0, this.chartLegends.length);
+            //#####数据预处理开始#####
+            console.log('ENGQQQQQQQQQQQQQQQQRRR-0')
+            let r=response.data
+            let accountList=[]
+            let accountListX=[]
+            let dateX=[]
+            let enq=[]
+            console.log('ENGQQQQQQQQQQQQQQQQRRR-1')
+            
+            for(let k=0;k<r.length;k++){
+              //取得银行账户
+              console.log('scv-1')
+              if(accountList.indexOf(r[k].id)===-1){
+                accountList.push(r[k].id)
+                accountListX.push({'name':r[k].name,'id':r[k].id})
+              }
+              //取得日期列表
+              if(dateX.indexOf(r[k].date)===-1){
+                dateX.push(r[k].date)
+              }
+            }
+            console.log('EXNGQQQQQQQQQQQQQQQQ0')
+            //日期排序
+            dateX=dateX.sort((a,b)=>{
+              let aW=parseInt(a.substring(0,4))*100+parseInt(a.substring(5,7))
+              let bW=parseInt(b.substring(0,4))*100+parseInt(b.substring(5,7))
+              return aW<bW
+            })
+            //对数据按日期排序
+            r=r.sort((a,b)=>{
+              let aW=parseInt(a.date.substring(0,4))*100+parseInt(a.date.substring(5,7))
+              let bW=parseInt(b.date.substring(0,4))*100+parseInt(b.date.substring(5,7))
+              return aW<bW
+            })
+            console.log('EXNGQQQQQQQQQQQQQQQQ1')
+            //对每一个账户进行处理
+            for(let j=0;j<accountList.length;j++){
+              let s={}
+              s.name=accountListX[j].name
+              s.id=accountListX[j].id
+              s.type='line'
+              s.data=[]
+              //遍历所有日期
+              for(let t=0;t<dateX.length;t++){
+                s.data.push(0)
+                let dateLim=parseInt(dateX[t].substring(0,4))*100+parseInt(dateX[t].substring(5,7))
+                for(let k=0;k<r.length;k++){
+                  let dateVal=parseInt(r[k].date.substring(0,4))*100+parseInt(r[k].date.substring(5,7))
+                  if(dateVal<=dateLim&&r[k].id===s.id){
+                    s.data[t]+=r[k].values
+                  }
+                }
+              }
+              enq.push(s)
+            }
+            console.log('EXNGQQQQQQQQQQQQQQQQ')
+            console.log(enq)
+
+            //####数据预处理结束####
             let i = 0;
-            for (; i < response.data.date.length; i++) {
+            for (; i < dateX.length; i++) {
               this.chartXAxis.push(null);
-              this.$set(this.chartXAxis, i, response.data.date[i]);
+              this.$set(this.chartXAxis, i, dateX[i]);
             }
             i = 0;
-            for (; i < response.data.values.length; i++) {
+            for (; i < enq.length; i++) {
               this.chartData.push(null);
-              this.$set(this.chartData, i, response.data.values[i]);
+              this.$set(this.chartData, i, enq[i]);
               this.chartLegends.push(null);
-              this.$set(this.chartLegends, i, response.data.values[i].name);
+              this.$set(this.chartLegends, i, enq[i].name);
             }
             this.completeStat++;
             this.checkComplete();
             this.$refs.ec_balance_shift_acc.applyChanges();
+            console.log("FINAL COMPLETED")
           })
-          .catch((err) => {
+          /* .catch((err) => {
             this.completeStat++;
             this.$refs.error_done.updateBody(
               this.$t("common3.transactionFail") + err
             );
             this.$refs.error_done.showAlert();
             this.checkComplete();
-          });
+          });*/
       }, 1000);
     },
   },

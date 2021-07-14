@@ -2,7 +2,7 @@
   <div>
     <alert-messagebox
       :alertTitle="$t('common3.transactionFailTitle')"
-      :alertBody="$t('common3.transactionFail') + errorInfo"
+      :alertBody="$t('common3.transactionFail')"
       :alertLevel="`error`"
       :alertOnlyConfirm="true"
       ref="error_done"
@@ -30,8 +30,12 @@ export default {
       chartData: [],
     };
   },
-  created() {
+  mounted() {
     this.loadData();
+  },
+  props:{
+    bgDate:String,
+    edDate:String,
   },
   methods: {
     checkComplete() {
@@ -52,23 +56,44 @@ export default {
           //card_array2: cardArray2,
         })
           .then((response) => {
+            let r=response.data
+            let i = 0;
+            for(let i=0;i<response.data.length;i++){
+              r[i].year=r[i].date.substring(0,4)
+              r[i].month=r[i].date.substring(5,7)
+              r[i].weight=parseInt(parseInt(r[i].year)*100+parseInt(r[i].month))
+            }
+            r=r.sort(
+              (a,b)=>{
+                console.log(a.weight+'/'+b.weight)
+                return parseInt(a.weight)-parseInt(b.weight)
+              }
+            )
+            console.log(r)
+            console.log('QQQQQQQQQQQQQ')
+            i=0
+
             this.chartXAxis.splice(0, this.chartXAxis.length);
             this.chartData.splice(0, this.chartData.length);
-            let i = 0;
-            for (; i < response.data.date.length; i++) {
+            
+            for (; i < response.data.length; i++) {
               this.chartXAxis.push(null);
-              this.$set(this.chartXAxis, i, response.data.date[i]);
+              this.$set(this.chartXAxis, i, r[i].date);
             }
             i = 0;
-            for (; i < response.data.values.length; i++) {
+            let preq=0
+            for (; i < response.data.length; i++) {
+              preq=preq+r[i].values
               this.chartData.push(null);
-              this.$set(this.chartData, i, response.data.values[i]);
+              this.$set(this.chartData, i, preq);
             }
+
             console.log("VVVVVVVVV");
             console.log(this.chartData);
             this.completeStat++;
             this.checkComplete();
             this.$refs.ec_balance_shift.applyChanges();
+
           })
           .catch((err) => {
             this.completeStat++;

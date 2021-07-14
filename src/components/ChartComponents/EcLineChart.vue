@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-chart class="chart" :theme='this.$vuetify.theme.dark?"dark":"light"' :option="option" autoresize />
+        <v-chart v-if="showX" class="chart" :theme='this.$vuetify.theme.dark?"dark":"light"' :option.sync="option" autoresize />
     </div>
 </template>
 
@@ -38,22 +38,43 @@ export default {
         zmsChartXAxis:Array,
     },
     mounted(){
-        let _this = this;
-        window.onresize = function() {
-            _this.option.resize()
-            console.log("Triggered");
-        }
+        
     },
     methods:{
+        setResize(){
+            let _this = this;
+            window.onresize = function() {
+                _this.option.resize()
+                console.log("Triggered");
+            }
+        },
         applyChanges(){
+            console.log('=====ZMS Legend======')
+            console.log(this.zmsChartLegend)
+            console.log('=====ZMS zmsChartData======')
+            console.log(this.zmsChartData)
+
             this.option.title.text=this.zmsChartTitle;
-            this.option.legend.data=this.zmsChartLegend
-            this.option.series=this.zmsChartData
+            //this.option.series=this.zmsChartData
+
+            this.option.series.splice(0,this.option.series.length)
+            for(let i=0;i<this.zmsChartData.length;i++){
+                this.$set(this.option.series,i,this.zmsChartData[i])
+            }
+
+            this.option.legend.data.splice(0,this.option.legend.data.length)
+            for(let i=0;i<this.option.legend.data.length;i++){
+                this.$set(this.option.legend.data,i,this.zmsChartLegend[i])
+            }
+            //this.option.legend.data=this.zmsChartLegend
             this.option.xAxis.data=this.zmsChartXAxis
+            
+            this.showX=true
         }
     },
     data() {
         return {
+            showX:false,
             option: {
                 title: {
                     text: "Traffic Sources",
@@ -80,7 +101,7 @@ export default {
                 },
                 yAxis: {
                     type: 'value',
-                    name: 'Amount',   // y轴名称
+                    name: '金额',   // y轴名称
                     // y轴名称样式
                     nameTextStyle: {
                         fontWeight: 600,

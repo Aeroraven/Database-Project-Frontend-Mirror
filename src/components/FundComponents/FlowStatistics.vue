@@ -115,6 +115,8 @@
     </div>
     <flow-statistics-pie-overview
       ref="flowstat_bk1"
+      :bgDate="submitBeginDate"
+      :edDate="submitEndDate"
       @zmsComplete="completeTask(0)"
     />
 
@@ -127,6 +129,8 @@
     <div>
       <flow-statistics-balance-shift-trend
         ref="flowstat_bk2"
+        :bgDate="submitBeginDate"
+        :edDate="submitEndDate"
         @zmsComplete="completeTask(1)"
       />
     </div>
@@ -143,6 +147,8 @@
     <div>
       <flow-statistics-balance-shift-details
         ref="flowstat_bk3"
+        :bgDate="submitBeginDate"
+        :edDate="submitEndDate"
         @zmsComplete="completeTask(2)"
       />
     </div>
@@ -153,6 +159,7 @@ import PendingProgressCard from "../CommonComponents/PendingProgressCard.vue";
 import FlowStatisticsBalanceShiftDetails from "./FlowStatisticsBalanceShiftDetails.vue";
 import FlowStatisticsBalanceShiftTrend from "./FlowStatisticsBalanceShiftTrend.vue";
 import FlowStatisticsPieOverview from "./FlowStatisticsPieOverview.vue";
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 import { getAccountList } from "../../apis/fund";
 export default {
   components: {
@@ -160,19 +167,36 @@ export default {
     FlowStatisticsBalanceShiftDetails,
     FlowStatisticsBalanceShiftTrend,
     PendingProgressCard,
+    AlertMessagebox
   },
   name: "FlowStatistics",
   mounted() {
     this.fetchAccountList();
   },
-
+  created(){
+    this.intervalX=setInterval(
+      ()=>{
+        if (this.ast[0]&&this.ast[1]&this.ast[2]&&this.ast[3]) {
+          this.showPending = false;
+          this.$store.dispatch("showToastNotify", {
+            type: "success",
+            info: this.$t("common2.transactionDone"),
+          });
+          clearInterval(this.intervalX)
+          
+        }
+      },500
+    )
+  },
   data() {
     return {
-      submitBeginDate: "2021-07-01",
+      intervalX:null,
+      submitBeginDate: "2000-07-01",
       submitEndDate: "2021-07-02",
       menuBeginDate: 0,
       menuEndDate: 0,
       accountList: [],
+      ast:[0,0,0,0],
       submitAccountList: null,
       submitStat: 0,
       showPending: true,
@@ -203,11 +227,11 @@ export default {
             console.log("xxxxx");
             console.log(this.accountList);
             this.showPendingCnt++;
-            this.completeTask(4);
+            this.completeTask(3);
           })
           .catch((err) => {
             this.showPendingCnt++;
-            this.completeTask(4);
+            this.completeTask(3);
             this.$refs.error_done.updateBody(
               this.$t("common3.transactionFail") + err
             );
@@ -250,16 +274,11 @@ export default {
       this.fetchAccountList();
     },
     completeTask(x) {
+
       this.$refs.pending.complete(x);
-      console.log("complete");
+      console.log("=====complete====");
       this.showPendingCnt++;
-      if (this.showPendingCnt === 4) {
-        this.showPending = false;
-        this.$store.dispatch("showToastNotify", {
-          type: "success",
-          info: this.$t("common2.transactionDone"),
-        });
-      }
+      this.ast[x]=1
     },
   },
 };

@@ -48,10 +48,10 @@
             <v-divider/>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn v-if="!alertCustomizeToolbox&&!alertOnlyConfirm"  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="clickCancel">
+                <v-btn v-if="!alertCustomizeToolbox&&!alertOnlyConfirm"  class="zms-fullwidth"  light color="error" @click="clickCancel">
                     <v-icon>mdi-arrow-left</v-icon>{{$t('common.cancel')}}
                 </v-btn>
-                <v-btn v-if="!alertCustomizeToolbox"  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="clickConfirm">
+                <v-btn v-if="!alertCustomizeToolbox"  class="zms-fullwidth"  light color="success" @click="clickConfirm">
                     <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
                 </v-btn>
                 <slot name="toolbar" v-if="alertCustomizeToolbox"></slot>
