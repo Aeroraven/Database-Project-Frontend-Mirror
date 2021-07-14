@@ -1,5 +1,12 @@
 <template>
     <div>
+        <alert-messagebox
+        :alertTitle="`无法解锁`"
+        :alertBody="`在解锁时发生错误。请检查密码输入是否有效。`"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
     <ParticleEffectButton :visible.sync="btnOps.visible" :animating.sync="btnOps.animating"
     :options="btnOps" cls="btn-cls" style="height:100%;width:100%"
     ref="particle_btn_body">
@@ -27,7 +34,11 @@
                         <span>
                             {{$t('lock.lockedDesc')}}
 
-                        </span>
+                        </span><br/><br/>
+                        <div style="text-align:center;padding-left:30%;padding-right:30%">
+                            <v-text-field v-model="zmsUnlock" outlined dark filled solo color="white" />
+                            <v-btn color="primary" @click="unl">解锁</v-btn>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,10 +49,28 @@
 
 <script>
 import ParticleEffectButton from "vue-particle-effect-buttons"
-
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
+import {userAuth} from "../../apis/login"
 export default {
     name:'DisintegrateButton',
     methods:{
+        unl(){
+            userAuth(
+            {
+                id:localStorage.getItem('zmsBKId'),
+                password:this.zmsUnlock
+            }
+            ).then(response=>{
+                console.log('success')
+                
+                localStorage.setItem('zmsToken','Bearer '+response.data[0].token)
+                localStorage.setItem('zmsToken2','0')
+                this.gohome();
+            }).catch(err=>{
+                console.log('login fails')
+                this.$refs.error_done.showAlert()
+            })
+        },
         switchState(){
             if(!this.btnOps.visible){
                 this.btnOps.visible=!this.btnOps.visible
@@ -72,7 +101,10 @@ export default {
             let myEvent = new Event('resize');
             window.dispatchEvent(myEvent)
             //End of Operating DOMs
-        }
+        },
+        gohome() {
+            window.location.href='/'
+        },
     },
     data() {
         return {
@@ -80,6 +112,7 @@ export default {
             colorPreset:{
                 cl:'#44cef6'
             },
+            zmsUnlock:'',
             btnOps: {
                 duration:1500,
                 type: "triangle",
@@ -111,7 +144,8 @@ export default {
         }
     },
     components: {
-        ParticleEffectButton
+        ParticleEffectButton,
+        AlertMessagebox,
     }
 };
 </script>

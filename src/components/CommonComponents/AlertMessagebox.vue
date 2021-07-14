@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="zmsShowAlert" persistent :width="alertWidth" >
+    <v-dialog v-model="zmsShowAlert" persistent :width="alertWidth" class="zmsAM">
         <v-card color="" :ripple="{class:null}" >
             <v-card-title class=" zms-strip-bg text-h5 text--white darken-3" :class="headBannerClass" color="warning">
                 <v-icon color="white">{{alertIcon}}</v-icon>&nbsp;
@@ -163,5 +163,8 @@ export default {
     }
     .zms-swal-correct-light{
         background-color: #ffffff;
+    }
+    .zmsAM{
+        z-index:9999999999999999999;
     }
 </style>

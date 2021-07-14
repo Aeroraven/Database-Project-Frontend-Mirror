@@ -126,6 +126,8 @@ export default {
         this.showLoadingComponent=false
       },1000
     )
+    //Lock
+    
   },
   methods:{
     switchDrawer(){
@@ -138,6 +140,7 @@ export default {
       if(this.lockStatus){
         return;
       }
+      localStorage.setItem('zmsToken2','1')
       this.lockStatus=true
       if(this.locked===false){
         console.log("CALL A")
@@ -153,12 +156,23 @@ export default {
       console.log("Changed Lock")
     },
     unlockLockBtn(){
-      this.lockStatus=false;
+      //this.lockStatus=false;
     }
     
   },
   mounted(){
     //getList();
+    this.$nextTick(()=>{
+      setTimeout(
+        ()=>{
+          if(localStorage.getItem('zmsToken2')==='1'){
+            this.switchLock()
+          }
+        },500
+      )
+      
+    })
+    
   }
 };
 </script>
