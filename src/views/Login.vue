@@ -170,7 +170,7 @@ export default {
     },
   
     gohome() {
-      this.$router.push("/");
+      window.location.href='/'
     },
     gotoRegister() {
       this.$router.push("/Register");
