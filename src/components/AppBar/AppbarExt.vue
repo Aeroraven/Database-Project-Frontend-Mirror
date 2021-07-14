@@ -36,6 +36,7 @@ export default {
     methods:{
       exitLogin(){
         localStorage.setItem('zmsToken','')
+        localStorage.setItem('zmsBKId','')
         window.location.href='/Login'
       },
       exitLoginCall(){

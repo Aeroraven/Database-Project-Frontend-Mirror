@@ -135,6 +135,7 @@ export default {
         ).then(response=>{
           console.log('success')
           this.gohome();
+          localStorage.setItem('zmsBKId','1953372')
           localStorage.setItem('zmsToken','Bearer '+response.data[0].token)
         }).catch(err=>{
           console.log('login fails')
@@ -159,6 +160,7 @@ export default {
   methods: {
     fakeToken(){
       localStorage.setItem('zmsToken','114514')
+      localStorage.setItem('zmsBKId','1953372')
       window.location.reload()
     },
     tokenTest(){

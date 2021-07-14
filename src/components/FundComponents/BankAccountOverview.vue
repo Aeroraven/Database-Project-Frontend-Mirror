@@ -67,10 +67,10 @@
                                 <v-text-field v-model="newItem['name']" :label="$t('fund.name')" prepend-icon="mdi-tag"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                                <v-text-field v-model="newItem['initial_balance']" :label="$t('fund.initialBalance')" prepend-icon="mdi-currency-cny"></v-text-field>
+                                <v-text-field v-model="newItem['type']" :label="`类别`" prepend-icon="mdi-currency-cny"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="6">
-                                <v-text-field v-model="newItem['note']" :label="$t('fund.note')" prepend-icon="mdi-file-outline"></v-text-field>
+                                <v-text-field v-model="newItem['owner']" disabled :label="`所有者`" prepend-icon="mdi-file-outline"></v-text-field>
                             </v-col>                     
                         </v-row>
                     </v-container>
@@ -182,8 +182,8 @@ export default {
             newItem:{
                 id:null,
                 name:null,
-                initial_balance:null,
-                note:null
+                type:null,
+                owner:localStorage.getItem('zmsBKId')
             },
             accountList:[],
             zmsselectedItem:null,
@@ -296,9 +296,10 @@ export default {
                 ()=>{
                     addBankAccount(
                         {
-                            'bank_acc_id':'1-7',
-                            'name':'源石虫',
-                            'type':'感染生物'
+                            'id':this.newItem.id,
+                            'name':this.newItem.name,
+                            'type':this.newItem.type,
+                            'owner':localStorage.getItem('zmsBKId')
                         }
                     ).then(response=>{
                         this.pendingBoxNewAccount=0;
