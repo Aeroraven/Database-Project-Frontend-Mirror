@@ -12,11 +12,10 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    config.headers['X-Token'] = '1234'
-    if (store.getters.token) {
-      config.headers['X-Token'] = getToken()
+    let lsToken = localStorage.getItem('zmsToken')
+    if (lsToken!=''&&lsToken!=null) {
+      config.headers['Authorization'] = lsToken
     }
-    console.log(config.headers)
     return config
   },
   error => {
@@ -31,7 +30,7 @@ service.interceptors.response.use(
     console.log ("请求已经响应")
     const res = response.data
     console.log(response.data)
-
+    
     if (res.code != 200) {
       console.log ("服务端成功响应，但业务逻辑不成功。")
       return Promise.reject(new Error(res.message || 'Error'))

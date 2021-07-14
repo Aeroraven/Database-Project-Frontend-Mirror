@@ -1,14 +1,21 @@
 <template>
   <div class="zms-appbar-ext">
+    <alert-messagebox
+      :alertTitle="`退出登录`"
+      :alertBody="`是否退出 ZMS 动物园管理系统？`"
+      :alertLevel="`warning`"
+      ref="error_done"
+      @alertConfirm="exitLogin"
+    />
       <span class="zms-appbar-acc">张三 (1930000)</span>
       <v-btn class="zms-margin-rt" color="primary" text >
         <v-icon color="white" class="float-right" @click="switchLock">mdi-lock</v-icon>
       </v-btn>
-      <v-btn class="zms-margin-rt" color="primary" text >
-        <v-icon color="white" class="float-right">mdi-exit-to-app</v-icon>
+      <v-btn class="zms-margin-rt" color="primary" text @click="exitLoginCall" >
+        <v-icon color="white" class="float-right" >mdi-exit-to-app</v-icon>
       </v-btn>
-      <v-btn stclass="zms-margin-rt" color="primary" text>
-        <v-icon color="white" class="float-right" @click="switchNightMode" >mdi-weather-night</v-icon>
+      <v-btn stclass="zms-margin-rt" color="primary" text @click="switchNightMode" >
+        <v-icon color="white" class="float-right" >mdi-weather-night</v-icon>
       </v-btn>
       
   </div>
@@ -16,16 +23,24 @@
 
 <script>
 import DisintegrateButton from '../Gadgets/DisintegrateButton.vue';
-
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
     name: 'AppbarExt',
-    components:{DisintegrateButton},
+    components:{DisintegrateButton,AlertMessagebox},
+    
     data(){
       return{
         locked:false
       }
     },
     methods:{
+      exitLogin(){
+        localStorage.setItem('zmsToken','')
+        window.location.href='/Login'
+      },
+      exitLoginCall(){
+        this.$refs.error_done.showAlert()
+      },
       switchNightMode(){
         this.$vuetify.theme.dark=!this.$vuetify.theme.dark
         localStorage.setItem('zmsAppearance.darkMode',this.$vuetify.theme.dark)

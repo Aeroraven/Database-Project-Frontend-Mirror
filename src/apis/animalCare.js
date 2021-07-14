@@ -8,11 +8,11 @@ export function getCareData(params) {
   })
 }
 
-export function createCareInfo(data,id) {
+export function createCareInfo(params,id) {
   return request({
     url: '/api/animalCare/createCareInfo/'+id,
     method: 'post',
-    data
+    params
   })
 }
 

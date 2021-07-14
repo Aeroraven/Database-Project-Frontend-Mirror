@@ -34,7 +34,7 @@
         </v-list>
         <hr/>
         <div class="zms-halfwidth zms-inlb">
-          <v-btn outlined block class="zms-fullwidth"  color="" style="border-color:#AAAAAA">
+          <v-btn outlined block class="zms-fullwidth"  color="" style="border-color:#AAAAAA" @click="reloadPage">
             <v-icon>mdi-refresh</v-icon>{{$t('common.reload')}}
           </v-btn>
           
@@ -98,6 +98,9 @@ export default {
     }
   },
   methods:{
+    reloadPage(){
+      window.location.reload();
+    },
     routerGo(x){
       this.$router.push(x);
     }

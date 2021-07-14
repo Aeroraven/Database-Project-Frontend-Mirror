@@ -15,6 +15,7 @@
     "animated-vue": "^0.5.3",
     "animejs": "^3.2.1",
     "axios": "^0.21.1",
+    "babel-polyfill": "^6.26.0",
     "charming": "^3.0.2",
     "core-js": "^3.6.5",
     "css-what": "^5.0.1",
@@ -33,6 +34,7 @@
     "vue-echarts": "^6.0.0-rc.6",
     "vue-good-links": "0.0.3",
     "vue-i18n": "^8.24.5",
+    "vue-image-crop-upload": "^3.0.3",
     "vue-particle-effect-buttons": "^1.0.4",
     "vue-particles": "^1.0.9",
     "vue-ripple-directive": "^2.0.1",
@@ -77,10 +79,9 @@
       "vue/no-unused-components": "off",
       "no-unused-vars": "off",
       "no-": "off",
-      "no-debugger":"off",
+      "no-debugger": "off",
       "no-console": "off",
-      "no-empty":"off"
-      
+      "no-empty": "off"
     }
   },
   "browserslist": [

@@ -6,7 +6,7 @@
                     <homepage-welcome/>
                 </v-col>
                 <v-col cols="12" lg="6" xl="6" class="zms-top-align">
-                    <homepage-account-overview/>
+                    <homepage-account-overview @exitLogin="exitLogin"/>
                     <homepage-overview/>
                 </v-col>
                 <v-col cols="12" md="6" class="align-self-stretch">
@@ -54,7 +54,9 @@ export default {
    
   },
   methods:{
-    
+    exitLogin(){
+        this.$emit('exitLogin');
+    }
   }
 };
 </script>

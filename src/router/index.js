@@ -32,6 +32,8 @@ import VenueFuncItemManagement from '../views/VenueFuncItemManagement.vue'
 import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
 import AnimalFeedManagement from '../views/AnimalFeedManagement.vue'
 
+import Login from '../views/Login.vue'
+
 
 Vue.use(VueRouter)
 
@@ -40,6 +42,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/animalReproductionManagement',
@@ -193,10 +200,23 @@ const routes = [
 
 ]
 
-const router = new VueRouter({
+let router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+
+router.beforeEach((to, from, next) => {
+  let isAuthenticated=localStorage.getItem('zmsToken')
+  if(isAuthenticated==''||isAuthenticated==undefined){
+    isAuthenticated=false
+  }else{
+    isAuthenticated=true
+  }
+  if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  else if (to.name === 'Login' && isAuthenticated) next({ name: 'Home' })
+  else next()
 })
 
 export default router

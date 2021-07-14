@@ -2,7 +2,13 @@
   <div class="zms-home-notice">
         <span>下方列出了园区内所有的仓库</span>
         <v-btn color="primary" text @click="newDialog=true">{{$t('warehouse.Info.create')}}</v-btn>
-
+        
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionDoneTitle')"
+        :alertBody="$t('common3.transactionDone')"
+        :alertLevel="`success`"
+        :alertOnlyConfirm="true"
+        ref="commit_done" />
         <v-container>
             <v-row>
                 <v-col cols="12" md="4" v-for="item in warehouseDetail" :key="item.id" class="align-self-stretch">
@@ -138,8 +144,9 @@
 
 <script>
 import {getWarehouseInfo, updateWarehouseInfo} from '../../apis/warehouse.js'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
-    components: {  },
+    components: { AlertMessagebox  },
     name: 'WarehouseInfo',
     props:{
         drawer:Boolean,
@@ -207,7 +214,9 @@ export default {
             setTimeout(
                 ()=>{
                     getWarehouseInfo().then(response => {
-                        this.warehouseDetail=response.data
+                        //this.warehouseDetail=response.data
+                        this.warehouseDetail=response
+                        console.log(response)
                         this.queryLoaderDialog=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('warehouse.Info.queryDone')})
                         let i=0;
@@ -215,7 +224,11 @@ export default {
                             this.warehouseDetail[i].dialogOpen=false;
                             this.warehouseDetail[i].sid=i;
                         }
-                    })
+                    }).catch( err => {
+                        this.queryLoaderDialog=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
            

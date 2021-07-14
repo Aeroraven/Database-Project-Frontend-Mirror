@@ -1,5 +1,12 @@
 <template>
   <div class="zms-home-notice">
+      <alert-messagebox
+        :alertTitle="`退出登录`"
+        :alertBody="`是否退出 ZMS 动物园管理系统？`"
+        :alertLevel="`warning`"
+        ref="error_done"
+        @alertConfirm="exitLogin"
+        />
       <v-card  :ripple="{ class: null }" elevation="10" class="zms-card-noborder" :class="cardNightClass">
             <div class="zms-home-title2 zms-home-body2">
                 <v-icon>mdi-account-circle</v-icon> {{$t('home.accountOv')}}
@@ -18,7 +25,11 @@
                             <v-btn  class="zms-fullwidth"  light color="primary" >
                                 <v-icon>mdi-cog</v-icon>设置
                             </v-btn>&nbsp;
-                            <v-dialog v-model="dialog_logout" width="500">
+
+                            <v-btn  class="zms-fullwidth" color="error" @click="exitLoginCall">
+                                <v-icon>mdi-exit-to-app</v-icon>退出
+                            </v-btn>
+                            <!--<v-dialog v-model="dialog_logout" width="500">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="error" @click="console.log(on+attrs);">
                                         <v-icon>mdi-exit-to-app</v-icon>退出
@@ -42,7 +53,7 @@
                                         </v-btn>
                                     </v-card-actions>
                                 </v-card>
-                            </v-dialog>
+                            </v-dialog>-->
                             
                         </v-col>
                     </v-row>
@@ -55,8 +66,9 @@
 
 <script>
 import {getUserInfo} from '../../apis/homepage'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
-    components: {  },
+    components: { AlertMessagebox },
     name: 'HomepageAccountOverview',
     props:{
         drawer:Boolean,
@@ -71,11 +83,21 @@ export default {
         }
     },
     methods:{
+        exitLogin(){
+            localStorage.setItem('zmsToken','')
+            window.location.href='/Login'
+        },
+        exitLoginCall(){
+            this.$refs.error_done.showAlert()
+      },
         fetchUserInfo(){
             getUserInfo().then(response => {
                 this.userInfo=response.data
             })
         },
+        exitLoginEmit(){
+            this.$emit('exitLogin');
+        }
     },created(){
         let urlTemp = this.$store.state.sAsset_WelcomeIcon;
         this.avatarImg = require("@/"+urlTemp)

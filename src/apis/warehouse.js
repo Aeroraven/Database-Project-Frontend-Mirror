@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getWarehouseInfo(params) {
     return request({
-        url: '/api/warehouseRequest/getWarehouseInfo',
+        url: '/api/warehouseRequest',
         method: 'get',
         params
     })

@@ -129,6 +129,28 @@
                                     ref="form">
                                         <v-container>
                                             <v-row>
+                                                <v-col>
+                                                    <v-btn @click="showX=!showX">设置照片</v-btn>
+                                                </v-col>
+                                                <v-col>
+                                                    <v-avatar size=72 color="primary" tile>
+                                                        <img :src="editedItem.photo">
+                                                    </v-avatar>
+                                                </v-col>
+                                                <my-upload field="img"
+                                                @crop-success="cropSuccess(arguments)"
+                                                @crop-upload-success="cropUploadSuccess(arguments)"
+                                                @crop-upload-fail="cropUploadFail(arguments)"
+                                                v-model="showX"
+                                                url=""
+                                                :width="100"
+                                                :height="100"
+                                                :params="paramsX"
+                                                :headers="headersX"
+                                                img-format="jpg"></my-upload>
+                                                
+                                            </v-row>
+                                            <v-row>
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-text-field
                                                     label="动物编号*"
@@ -395,8 +417,10 @@ import {getinformation} from '../../apis/animalInfo'
 import {createinformation,deleteinformation,updateinformation} from '../../apis/animalInfo'
 import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
+import myUpload from 'vue-image-crop-upload/upload-2.vue';
+import 'babel-polyfill'
 export default {
-    components: { PendingProgressCard,PopUp, AlertMessagebox },
+    components: { PendingProgressCard,PopUp, AlertMessagebox,myUpload },
     name: 'AnicareQuery',
     created(){
 
@@ -415,6 +439,34 @@ export default {
       },
     },
     methods: {
+        cropSuccess(imgDataUrl, field){
+            console.log('-------- crop success --------');
+            this.imgDataUrlX = imgDataUrl;
+            this.editedItem.photo=imgDataUrl[0]
+            console.log(imgDataUrl)
+        },
+        /**
+         * upload success
+         *
+         * [param] jsonData  server api return data, already json encode
+         * [param] field
+         */
+        cropUploadSuccess(jsonData, field){
+            console.log('-------- upload success --------');
+            console.log(jsonData);
+            console.log('field: ' + field);
+        },
+        /**
+         * upload fail
+         *
+         * [param] status    server api return error status, like 500
+         * [param] field
+         */
+        cropUploadFail(status, field){
+            console.log('-------- upload fail --------');
+            console.log(status);
+            console.log('field: ' + field);
+        },
         createItem(item){
             this.dialog=true
             this.isToCreateItem=true
@@ -475,7 +527,7 @@ export default {
                         weight: parseInt(this.editedItem.weight),
                         physicalCondition: this.editedItem.physicalCondition,
                         breedSituation:this.editedItem.breedSituation,
-                        photo:'Cz=='
+                        photo:(this.editedItem.photo===''||this.editedItem.photo===undefined)?'Cz==':this.editedItem.photo.substring(23),
                      }).then(reponse=>{
                         this.dialog=false
                         this.$refs.form.reset()
@@ -631,6 +683,7 @@ export default {
     data:()=>{
   
         return{
+        imgX:'',
         select_ani_id:'',
         select_ani_name:'',
         select_species:'',
@@ -651,9 +704,16 @@ export default {
             {text: '体重', value: 'weight'},
             {text: '健康状态', value: 'physicalCondition', sortable: false},
             { text: '操作', value: 'actions', sortable: false },
-           
-    
         ],
+        showX: false,
+        paramsX: {
+            token: '123456798',
+            name: 'avatar'
+        },
+        headersX: {
+            smail: '*_~'
+        },
+        imgDataUrlX: ['','',''],
         show:false,
         pageCount:0,
         page:1,
