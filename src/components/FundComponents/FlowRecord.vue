@@ -58,21 +58,30 @@
                                 <v-container>
                                     <v-row>
                                         <v-col cols="12" class="zms-vertical-col-height">
-                                            <v-text-field label="流水编号" placeholder="请输入流水编号" prepend-icon="mdi-music-accidental-sharp"  />
+                                            <v-text-field v-model="sA" label="流水编号" placeholder="请输入流水编号" prepend-icon="mdi-music-accidental-sharp"  />
                                         </v-col>
                                         <v-col cols="12" class="zms-vertical-col-height">
-                                            <v-text-field label="交易名称" placeholder="请输入疾病类型" prepend-icon="mdi-form-textbox"  />
+                                            <v-text-field v-model="sB" label="交易名称" placeholder="请输入疾病类型" prepend-icon="mdi-form-textbox"  />
                                         </v-col>
                                         <v-col cols="12" class="zms-vertical-col-height">
-                                            <v-text-field label="交易类型" placeholder="请输入交易类型" prepend-icon="mdi-tag"  />
+                                            <v-text-field v-model="sC" label="交易类型" placeholder="请输入交易类型" prepend-icon="mdi-tag"  />
                                         </v-col>
                                         <v-col cols="12" class="zms-vertical-col-height">
                                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                                 <template v-slot:activator="{ on, attrs }">
-                                                    <v-text-field v-model="date" label="交易日期" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                    <v-text-field v-model="date" label="最早交易日期" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
                                                     </v-text-field>
                                                 </template>
                                                 <v-date-picker color="primary" width="400" v-model="date" @input="menu2 = false"></v-date-picker>
+                                            </v-menu>
+                                        </v-col>
+                                        <v-col cols="12" class="zms-vertical-col-height">
+                                            <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                                <template v-slot:activator="{ on, attrs }">
+                                                    <v-text-field v-model="date2" label="最晚交易日期" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                    </v-text-field>
+                                                </template>
+                                                <v-date-picker color="primary" width="400" v-model="date2" @input="menu3 = false"></v-date-picker>
                                             </v-menu>
                                         </v-col>
                                         
@@ -83,13 +92,14 @@
                                         <v-col cols="12">
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-btn v-ripple block class="zms-width"  color="error" >
+                                            <v-btn v-ripple block class="zms-width"  color="error" @click="clearInfo">
                                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                                             </v-btn>
                                         </v-col>
 
                                         <v-col cols="12" >
-                                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                                            <v-btn v-ripple block class="zms-width"  color="primary" 
+                                            @click="fetchResponseX">
                                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找负责项目
                                             </v-btn>
                                         </v-col>
@@ -97,7 +107,7 @@
                                         
                                         <v-col cols="12">
                                             <v-btn v-ripple block class="zms-width"  color="primary" 
-                                            @click="fetchFlowEntries">
+                                            @click="fetchFlowEntries(undefined)">
                                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;按条件查找
                                             </v-btn>
                                         </v-col>
@@ -273,14 +283,35 @@ export default {
                 },1000
             )
         },
-        fetchFlowEntries(){
+        clearInfo(){
+            this.sA=null
+            this.sB=null
+            this.sC=null
+            this.date=null
+            this.date2=null
+            this.$store.dispatch('showToastNotify',{type:'primary',info:'信息已经清空'})
+        },
+        fetchFlowEntries(x){
             this.pendingShow3=1;
             setTimeout(
                 ()=>{
-                    getFlowEntries().then(response=>{
+                    getFlowEntries(
+                        {
+                            id:this.sA,
+                            name:this.sB,
+                            type:this.sC,
+                            trans_time_begin:this.date,
+                            trans_time_end:this.date2,
+                            staff_id:x
+
+                        }
+                    ).then(response=>{
                         this.pendingShow3=0
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                         this.queryData=response.data
+                        for(let i=0;i<this.queryData.length;i++){
+                            this.queryData[i].transaction_time=this.queryData[i].transaction_time.substring(0,10)
+                        }
                     }).catch( err => {
                         this.pendingShow3=0
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -301,16 +332,28 @@ export default {
         },
         transferSecond(x){
             this.transferTo=x[0]
+            this.$refs.permission_transfer_box.updateBody(this.$t('fund.permissionTransfer')+this.$t('fund.permissionTransferPref')+this.transferTo)
             this.$refs.permission_transfer_box.showAlert()
         },
         transferFinal(){
             this.pendingShow2=1
             setTimeout(
                 ()=>{
-                    updateFlowEntry().then(response=>{
+                    updateFlowEntry(
+                        {
+                            flow_id:this.editedItem.fund_acc_id,
+                            id:this.editedItem.bank_acc_id,
+                            name:this.editedItem.name,
+                            type:this.editedItem.type,
+                            trans_time:this.editedItem.transaction_time,
+                            amount:this.editedItem.amount,
+                            staff_id:this.transferTo
+                        }
+                    ).then(response=>{
                         this.pendingShow2=0
                         this.close()
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                        this.fetchFlowEntries()
                     }).catch( err => {
                         this.pendingSHow2=0
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -319,14 +362,28 @@ export default {
                 },1000
             )
         },
+        fetchResponseX(){
+            this.fetchFlowEntries(localStorage.getItem('zmsBKId'))  
+        },
         updateEntry(){
             this.pendingShow2=1
             setTimeout(
                 ()=>{
-                    updateFlowEntry().then(response=>{
+                    updateFlowEntry(
+                        {
+                            flow_id:this.editedItem.fund_acc_id,
+                            id:this.editedItem.bank_acc_id,
+                            name:this.editedItem.name,
+                            type:this.editedItem.type,
+                            trans_time:this.editedItem.transaction_time,
+                            amount:this.editedItem.amount,
+                            staff_id:this.editedItem.staff_id
+                        }
+                    ).then(response=>{
                         this.pendingShow2=0
                         this.close()
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                        this.fetchFlowEntries()
                     }).catch( err => {
                         this.pendingShow2=0
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -348,6 +405,7 @@ export default {
 
         },
         deleteItem (item) {
+            this.delId=item.fund_acc_id
             this.editedIndex = this.queryData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.$refs.delete_entry_box.showAlert()
@@ -357,10 +415,13 @@ export default {
             this.pendingShow=1
             setTimeout(
                 ()=>{
-                    deleteFlowEntry().then(response=>{
+                    deleteFlowEntry(
+                        this.delId
+                    ).then(response=>{
                         this.pendingShow=0
                         this.fetchFlowEntries();
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
+                        this.fetchFlowEntries()
                     }).catch( err => {
                         this.pendingShow=0
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -397,7 +458,13 @@ export default {
         ],
         pageCount:0,
         page:1,
+        menu3:false,
+        date2:null,
+        delId:0,
         transferTo:0,
+        sA:null,
+        sB:null,
+        sC:null,
         pendingList:[this.$t('fund.deleteRecordTran')],
         pendingShow:0,
         pendingList2:[this.$t('fund.updateRecordTran')],

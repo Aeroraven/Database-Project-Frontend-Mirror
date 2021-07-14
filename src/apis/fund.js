@@ -54,11 +54,10 @@ export function getAccountList(params) {
 }
 
 
-export function deleteFlowEntry(params) {
+export function deleteFlowEntry(id) {
     return request({
-        url: '/api/fundManagement/deleteFlowEntry',
-        method: 'post',
-        params
+        url: '/api/fundManagement/deleteFlowEntry/'+id,
+        method: 'delete',
     })
 }
 
