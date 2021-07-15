@@ -15,15 +15,20 @@
                             <v-container>
                                 <v-row>
                                     <v-col cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                        <v-text-field :label="$t('procure.procid')" :placeholder="$t('common.pleaseInput')+$t('procure.procid')" prepend-icon="mdi-identifier"  />
+                                        <v-text-field v-model="sA" :label="$t('procure.procid')" :placeholder="$t('common.pleaseInput')+$t('procure.procid')" prepend-icon="mdi-identifier"  />
                                     </v-col>
-                                    <v-col cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                        <v-text-field :label="$t('procure.procname')" :placeholder="$t('common.pleaseInput')+$t('procure.procname')" prepend-icon="mdi-tag"  />
+                                    <v-col cols="12"  sm="12" md="12" class="zms-vertical-col-height">
+                                        <v-text-field v-model="sB" :label="$t('procure.procname')" :placeholder="$t('common.pleaseInput')+$t('procure.procname')" prepend-icon="mdi-tag"  />
                                     </v-col>
-                                    <v-col cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                        <v-text-field :label="$t('procure.procstat')" :placeholder="$t('common.pleaseInput')+$t('procure.procstat')" prepend-icon="mdi-alarm-light"  />
+                                    <v-col cols="12"   sm="12" md="12" class="zms-vertical-col-height">
+                                        <v-select
+                                        :items="['待审批','拒绝','通过']"
+                                        v-model="sC" 
+                                        :label="$t('procure.procstat')" 
+                                        :placeholder="$t('common.pleaseInput')+$t('procure.procstat')" 
+                                        prepend-icon="mdi-alarm-light"  />
                                     </v-col>
-                                    <v-col cols="12" sm="12" md="12" class="zms-vertical-col-height">
+                                    <v-col cols="12"   sm="12" md="12" class="zms-vertical-col-height">
                                         <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                             <template v-slot:activator="{ on, attrs }">
                                                 <v-text-field v-model="date" :label="$t('procure.procdate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
@@ -41,13 +46,13 @@
                                     <v-col cols="12" sm="12" md="12">
                                     </v-col>
                                     <v-col cols="12" sm="12" md="12">
-                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" >
+                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="clrFilters">
                                             <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;{{$t('common.deletefilter')}}
                                         </v-btn>
                                     </v-col>
 
                                     <v-col cols="12" sm="12" md="12">
-                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()" >
+                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo(1)" >
                                             <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;{{$t('common.filterself')}}
                                         </v-btn>
                                     </v-col>
@@ -76,7 +81,7 @@
                                     </v-dialog>
                                     
                                     <v-col cols="12" sm="12" md="12">
-                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()">
+                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo(0)">
                                             <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;{{$t('common.filter')}}
                                         </v-btn>
                                     </v-col>
@@ -234,15 +239,60 @@ export default {
         },
     },
     methods:{
-        fetchCareInfo(){
+        clrFilters(){
+            this.sA=''
+            this.sB=''
+            this.sC=''
+            this.date=''
+            this.$store.dispatch('showToastNotify',{type:'primary',info:'查询条件已经清除'})
+        },
+        fetchCareInfo(T){
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
                     getProcOverview().then(response => {
-                        this.queryData = response.data
+                        let W=[]
+                        let X=[]
+                        //this.queryData = response.data
                         this.queryLoaderDialog=false;
-                        if(this.queryData.length>0){
+                        if(response.data.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common.findSuccess')})
+                            for(let i=0;i<response.data.length;i++){
+                                //window.alert(response.data[i].id,response.data[i].name,response.data[i].stat,response.data[i].inittime)
+                                if(T===0){
+                                    if(
+                                        (this.sA==''||(this.sA!=''&&response.data[i].id==this.sA))&&
+                                        (this.sB==''||(this.sB!=''&&response.data[i].name==this.sB))&&
+                                        (this.sC==''||(this.sC!=''&&response.data[i].stat==this.sC))&&
+                                        (this.date==''||(this.date!=''&&response.data[i].inittime==this.date))
+                                    ){
+                                        if(X.indexOf(response.data[i].id)!=-1){
+                                            continue
+                                        }
+                                        X.push(response.data[i].id)
+                                        W.push(response.data[i])
+                                    }
+                                }else{
+                                    if(
+                                        (this.sA==''||(this.sA!=''&&response.data[i].id==this.sA))&&
+                                        (this.sB==''||(this.sB!=''&&response.data[i].name==this.sB))&&
+                                        (this.sC==''||(this.sC!=''&&response.data[i].stat==this.sC))&&
+                                        (this.date==''||(this.date!=''&&response.data[i].inittime==this.date))&&
+                                        (response.data[i].initiator===localStorage.getItem('zmsBKId'))
+                                    ){
+                                        if(X.indexOf(response.data[i].id)!=-1){
+                                            continue
+                                        }
+                                        X.push(response.data[i].id)
+                                        W.push(response.data[i])
+                                    }
+                                }
+                               
+                            }
+                            for(let i=0;i<W.length;i++){
+                                W[i].inittime=W[i].inittime.substring(0,10)
+                            }
+                            this.queryData=W
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
@@ -294,10 +344,14 @@ export default {
         pageCount:0,
         menu2:0,
         on:0,
+        sA:'',
+        sB:'',
+        sC:'',
+        sD:0,
         attrs:0,
         page:1,
         dialog:0,
-        date:null,
+        date:'',
         queryData:[],
         editedIndex: -1,
         editedItem: {
