@@ -42,6 +42,7 @@ service.interceptors.response.use(
   },
   error => {
     if(error.response){
+      console.log(error.response)
       if(error.response.status===401){
         localStorage.setItem('zmsToken','')
         window.location.href='/'

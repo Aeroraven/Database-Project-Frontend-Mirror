@@ -81,7 +81,10 @@ export default {
             return localStorage.getItem('zmsBKId')
         },
         userPositionX(){
-            return localStorage.getItem('zmsBKPosition')
+            if(localStorage.getItem('zmsBKPosition')==='Admin'){
+                return '系统管理员 (特权用户)'
+            }
+            return localStorage.getItem('zmsBKPosition')+' (普通用户)'
         },
         cardNightClass(){
             return{
