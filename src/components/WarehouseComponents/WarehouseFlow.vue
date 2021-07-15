@@ -2,7 +2,7 @@
     <div class="zms-anicare" :class="nmNightClass">
         <!-- 物品选择器 -->
         <item-selector ref='itemselector' :zmsSelectorMode="2" @itemSelectorSelect="itemSelectorResponse(arguments)"></item-selector>
-        <v-icon color="primary">mdi-plus</v-icon> <span class="zms-query-title" >{{$t('ware2.newWareOp')}}</span>
+        <v-icon color="primary">mdi-plus</v-icon> <span class="zms-query-title" >物品入库和出仓操作</span>
             
         <div class="zms-query-filter">
             <div>
@@ -18,26 +18,14 @@
                             @click:append="showItemSelectBox"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field v-model="curDate" :label="$t('ware2.createDate')" readonly 
-                            :placeholder="$t('common.pleaseInput')+$t('ware2.createDate')" prepend-icon="mdi-form-textbox"  />
+                            <v-text-field v-model="sA" label="仓库ID" placeholder="请输入仓库ID" prepend-icon="mdi-account-key"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="负责人" placeholder="请输入负责人ID" prepend-icon="mdi-account-key"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="数量" placeholder="请输入负责人ID" prepend-icon="mdi-numeric"  />
+                            <v-text-field label="数量" v-model="sB" placeholder="请输入增量（正表示入库）" prepend-icon="mdi-numeric"  />
                         </v-col>
                     </v-row>
                 </v-container>
-                <v-textarea
-                    outlined
-                    counter
-                    prepend-inner-icon="mdi-information" 
-                    name="input-7-4"
-                    label="备注"
-                    placeholder="填写备注"
-                >
-                </v-textarea>
+                
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
@@ -47,7 +35,7 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-btn v-ripple block class="zms-width"  color="primary" >
+                            <v-btn v-ripple block class="zms-width"  color="primary" @click="submitItem">
                                 <v-icon>mdi-arrow-collapse-up</v-icon>&nbsp;&nbsp;提交
                             </v-btn>
                         </v-col>
@@ -60,6 +48,7 @@
 
 <script>
 import ItemSelector from '../CommonComponents/ItemSelector.vue'
+import{modifyItem} from'../../apis/warehouse'
 export default {
     name: 'WarehouseFlow',
     components:{
@@ -87,6 +76,20 @@ export default {
             }
         },
     },methods:{
+        submitItem(){
+            modifyItem({
+                id:this.itemId,
+                store_id:this.sA,
+                cnt:this.sB
+            }).then(response=>{
+                if(response.data.length>0){
+                    this.$store.dispatch('showToastNotify',{type:'success',info:'操作已经提交！'})
+                }else{
+                    this.$store.dispatch('showToastNotify',{type:'error',info:'操作失败'})
+                }
+                
+            })
+        },
         showItemSelectBox(){
             this.$refs.itemselector.show()
         },

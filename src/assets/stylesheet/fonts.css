@@ -52,15 +52,6 @@
     src:url('../../assets/fonts/MyriadB.ttf')
 }
 @font-face {
-    font-family: 'Deng';
-    src:url('../../assets/fonts/Deng.ttf')
-}
-@font-face {
-    font-family: 'Deng';
-    font-weight: bold;
-    src:url('../../assets/fonts/Dengb.ttf')
-}
-@font-face {
     font-family: 'HanSans';
     src:url('../../assets/fonts/HanSans.ttf')
 }

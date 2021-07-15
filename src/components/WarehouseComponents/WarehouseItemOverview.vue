@@ -1,21 +1,27 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
             <div>
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="物品编号" placeholder="请输入编号" prepend-icon="mdi-music-accidental-sharp"  />
+                            <v-text-field v-model="sA" label="物品编号" placeholder="请输入编号" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="物品类型" placeholder="请输入物品类型" prepend-icon="mdi-tag"  />
+                            <v-text-field v-model="sB" label="仓库类型" placeholder="请输入仓库类型" prepend-icon="mdi-tag"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="物品名称" placeholder="请输入物品名称" prepend-icon="mdi-form-textbox"  />
+                            <v-text-field v-model="sC" label="负责人ID" placeholder="请输入负责人ID" prepend-icon="mdi-form-textbox"  />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field label="负责人" placeholder="请输入负责人ID" prepend-icon="mdi-account-key"  />
+                            <v-text-field v-model="sD" label="物品名称" placeholder="请输入物品名称" prepend-icon="mdi-account-key"  />
                         </v-col>
                         
                     </v-row>
@@ -25,16 +31,18 @@
                         <v-col cols="12" sm="6" md="3">
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
+                        </v-col>
+                        <v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;删除过滤条件
                             </v-btn>
                         </v-col>
 
-                        <v-col cols="12" sm="6" md="3">
+                        <!--<v-col cols="12" sm="6" md="3">
                             <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchItemInfo" >
                                 <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;查找负责物品
                             </v-btn>
-                        </v-col>
+                        </v-col>-->
                         
                         
                         <v-col cols="12" sm="6" md="3">
@@ -76,7 +84,7 @@
                                         <v-container>
                                             <v-row>
                                             <v-col cols="12" sm="6" md="4">
-                                                <v-text-field v-model="editedItem['item_id']" :label="$t('warehouse.item.id')"></v-text-field>
+                                                <v-text-field v-model="editedItem['itemId']" :label="$t('warehouse.item.id')"></v-text-field>
                                             </v-col>
                                             <v-col cols="12" sm="6" md="4">
                                                 <v-text-field v-model="editedItem['type']" :label="$t('warehouse.item.type')"></v-text-field>
@@ -192,9 +200,10 @@
 
 <script>
 import { getwareItemInfo, updatewareItemInfo } from '../../apis/warehouse';
-
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
     name: 'WarehouseItemOverview',
+    components:{AlertMessagebox},
     created(){
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();
@@ -210,23 +219,22 @@ export default {
         nmNightClass(){
             return{
                 'zms-background-nm-dark':this.$vuetify.theme.dark,
-                
             }
         },
     },data:()=>{
         return{
         headers:[
-            {text: '编号', value: 'item_id'},
+            {text: '编号', value: 'itemId'},
             {text: '类型', value: 'type'},
             {text: '名称', value: 'name'},
-            {text: '保质期', value: 'quality_guarantee'},
-            {text: '数量', value: 'cnt'},
-            {text: '单价', value: 'price'},
-            //{text: '目标', value: 'target'},
+            //{text: '保质期', value: 'quality_guarantee'},
+            {text: '数量', value: 'itemCounts'},
+            //{text: '单价', value: 'price'},
+            {text: '仓库', value: 'storeId'},
             {text: '渠道', value: 'channel'},
             //{text: '储存条件', value: 'cond'}, //数据表字段名错误
             //{text: '使用方法', value: 'usage_method'},
-            {text: '负责人ID', value: 'staff_id'},
+            {text: '负责人ID', value: 'staffId'},
             //{text: '备注', value: 'remark'},
             { text: '操作', value: 'actions', sortable: false }
             
@@ -243,6 +251,10 @@ export default {
         errorReturn:false,
         errorTitle:'',
         errorInfo:'',
+        sA:null,
+        sB:null,
+        sC:null,
+        sD:null,
         editedItem: {
             name: '',
             calories: 0,
@@ -270,7 +282,14 @@ export default {
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
-                    getwareItemInfo().then(response => {
+                    getwareItemInfo(
+                        {
+                            id:this.sA,
+                            ware_id:this.sB,
+                            staff_id:this.sC,
+                            name:this.sD
+                        }
+                    ).then(response => {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
@@ -278,8 +297,11 @@ export default {
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
-                        
-                    })
+                    }).catch( err => {
+                        this.queryLoaderDialog=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },2000
             )
         },

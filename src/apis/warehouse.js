@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getWarehouseInfo(params) {
     return request({
-        url: '/api/warehouseRequest',
+        url: '/api/warehouseRequest/getWarehouseInfo',
         method: 'get',
         params
     })
@@ -32,3 +32,21 @@ export function updatewareItemInfo(params) {
     })
 }
 
+
+export function createWarehouse(params) {
+    return request({
+        url: '/api/warehouseRequest/createWarehouse',
+        method: 'post',
+        params
+    })
+}
+
+
+export function modifyItem(params) {
+    return request({
+        url: '/api/warehouseRequest/modifyItem',
+        method: 'put',
+        params
+    })
+}
+//

@@ -4,7 +4,7 @@
         
         <alert-messagebox
         :alertTitle="$t('common3.transactionFailTitle')"
-        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertBody="$t('common3.transactionFail')"
         :alertLevel="`error`"
         :alertOnlyConfirm="true"
         ref="error_done" />
