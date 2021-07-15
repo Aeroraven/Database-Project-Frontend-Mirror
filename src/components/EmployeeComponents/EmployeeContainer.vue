@@ -45,7 +45,7 @@ export default {
         padding-right:50px;
         padding-top:20px;
         padding-bottom:20px;
-        background-color: #fafafa;
+        //background-color: #fafafa;
     }
     
 </style>

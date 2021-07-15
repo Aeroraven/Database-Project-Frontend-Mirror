@@ -23,7 +23,7 @@
     </div>
     <v-container>
       <v-row>
-        <v-col cols="12" sm="6" md="3">
+        <!--<v-col cols="12" sm="6" md="3">
           <v-combobox
             v-model="submitAccountList"
             clearable
@@ -32,7 +32,8 @@
             :label="$t('fund.selectedAccounts')"
             prepend-icon="mdi-card"
           ></v-combobox>
-        </v-col>
+        </v-col>-->
+        
         <v-col cols="12" sm="6" md="3">
           <v-menu
             v-model="menuBeginDate"
@@ -243,6 +244,9 @@ export default {
       this.$store.dispatch("showToastNotify", { type: "error", info: x });
     },
     initiateFilter() {
+      localStorage.setItem('zmsSkipAniT','1')
+      this.$router.go(this.$router.currentRoute)
+
       let year0 = this.submitEndDate.split("-")[0];
       let month0 = this.submitEndDate.split("-")[1] - 1;
       let day0 = this.submitEndDate.split("-")[2];

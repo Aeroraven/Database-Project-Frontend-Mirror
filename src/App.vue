@@ -121,11 +121,17 @@ export default {
       console.log(this.$i18n.locale)
     }
     //Hide Loading Wrapper
-    setTimeout(
-      ()=>{
+    if(localStorage.getItem('zmsSkipAniT')==='1'){
         this.showLoadingComponent=false
-      },1000
-    )
+        localStorage.setItem('zmsSkipAniT','0')
+    }else{
+      setTimeout(
+        ()=>{
+          this.showLoadingComponent=false
+        },1000
+      )
+    }
+    
     //Lock
     
   },

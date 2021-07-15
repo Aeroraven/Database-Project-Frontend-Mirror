@@ -204,7 +204,7 @@ export default {
         padding-right:60px;
         padding-top:20px;
         padding-bottom:20px;
-        background-color: #fafafa;
+        //background-color: #fafafa;
         width:90vw;
         }
     .birth-info-title{

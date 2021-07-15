@@ -1,5 +1,5 @@
 <template>
-    <div class="zms-animalinfo">
+    <div class="zms-animalinfo" :class="nmNightClass">
         <pending-progress-card :zmsPendingList="pendingList" :zmsShow="pendingShow"/>
     
         <!--事务失败提示框-->
@@ -429,6 +429,18 @@ export default {
       formTitle () {
         return this.editedIndex === -1 ? '新增档案' : '修改档案'
       },
+      nmNightClass(){
+            return{
+                'zms-background-nm-dark':this.$vuetify.theme.dark,
+                
+            }
+        },
+        txNightClass(){
+            return{
+                'zms-text-dark':this.$vuetify.theme.dark,
+                
+            }
+        }
     },
     watch: {
       dialog (val) {
