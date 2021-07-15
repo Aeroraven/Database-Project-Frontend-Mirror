@@ -34,7 +34,7 @@ service.interceptors.response.use(
     if(response.status==204){
       return res
     }
-    
+
     if (res.code != 200) {
       console.log ("服务端成功响应，但业务逻辑不成功。")
       return Promise.reject(new Error(res.message || 'Error'))
@@ -52,13 +52,16 @@ service.interceptors.response.use(
         window.location.href='/zmsoffice/'
       }
       if(error.response.status===500){
-        return Promise.reject(new Error('输入的数据存在非法部分，请重新检查输入后在进行输出。'))
+        return Promise.reject(new Error('输入的数据存在非法部分，请重新检查输入后再进行重试。'))
       }
       if(error.response.status===400){
-        return Promise.reject(new Error('输入的数据存在非法部分，请重新检查输入后在进行输出。'))
+        return Promise.reject(new Error('输入的数据存在非法部分，请重新检查输入后再进行重试。'))
       }
       if(error.response.status===403){
         return Promise.reject(new Error('您暂无权限查看当前页面。'))
+      }
+      if(error.response.status===404){
+        return Promise.reject(new Error('您所访问的服务当前正在维护，或已经迁移。'))
       }
     }
     console.log('错误发生：' + error) // for debug
