@@ -41,6 +41,12 @@ service.interceptors.response.use(
     }
   },
   error => {
+    if(error.response){
+      if(error.response.status===401){
+        localStorage.setItem('zmsToken','')
+        window.location.href='/'
+      }
+    }
     console.log('错误发生：' + error) // for debug
     return Promise.reject(error)
   }

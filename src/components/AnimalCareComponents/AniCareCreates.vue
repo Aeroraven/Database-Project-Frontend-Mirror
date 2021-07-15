@@ -135,9 +135,9 @@
                             <v-combobox :hint="$t('animalCare2.custSymptoms')" v-model="illInput" clearable multiple :items="illList"
                             :label="$t('animalCare2.symptoms')" prepend-icon="mdi-emoticon-sick"></v-combobox>
                         </v-col>
-                        <v-col cols="12" sm="6" md="6">
+                        <!--<v-col cols="12" sm="6" md="6">
                             <v-select :hint="$t('animalCare2.severityHint')" v-model="severeInput" :items="severityList" :label="$t('animalCare2.severity')" prepend-icon="mdi-exclamation-thick"></v-select>
-                        </v-col>
+                        </v-col>-->
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="6" md="6">
@@ -237,13 +237,12 @@ export default {
         generateAutoReport(){
             let st='';
             if(this.illInput!=null&&this.illInput!=""){
-                st+='动物症状如下:';
+                st+='症状:';
                 st+=this.illInput
                 st+='. '
             }
-            st+='体温是 '+(this.submitTemp/100)+' 摄氏度'
-            st+='. 心率是 '+(this.submitHeartRate)+' bpm'
-            st+='. 严重等级是 `'+this.severeInput+'`.'
+            st+='体温'+(this.submitTemp/100)+'度'
+            st+='. 心率'+(this.submitHeartRate)+' bpm.'
             this.submitNote=st;
             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalCare2.reportGenSuccessful')})
             return st;
@@ -262,8 +261,17 @@ export default {
         },
         submitCareInfo(){
             this.submitStat=true;
+            if(this.submitNote.replace(/[^\u0000-\u00ff]/g,"aaa").length>=50){
+                this.$refs.error_done.updateBody('疾病名称输入过长，请保证输入数据在25字节内。')
+                this.$refs.error_done.showAlert();
+            }
+            if(this.submitNote==null||this.submitNote==''){
+                this.$refs.error_done.updateBody('请输入疾病名称')
+                this.$refs.error_done.showAlert();
+            }
             setTimeout(
                 ()=>{
+                    
                     createCareInfo(
                         {
                             diseaseName:this.submitNote,
