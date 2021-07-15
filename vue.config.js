@@ -3,9 +3,7 @@ module.exports = {
     'vuetify'
   ],
   lintOnSave:false,
-  devServer:{
-    host:'47.118.78.110',
-    port:80,
-    https:false,
-  }
+  publicPath:'/zmsoffice/',
+  outputDir:'zmsoffice',
+  assetsDir:'static'
 }

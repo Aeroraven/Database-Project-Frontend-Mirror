@@ -202,7 +202,8 @@ const routes = [
 
 let router = new VueRouter({
   //mode: 'history',
-  base: process.env.BASE_URL,
+  //base: process.env.BASE_URL,
+  base:'zmsoffice',
   routes
 })
 

@@ -186,7 +186,7 @@ export default {
       //localStorage.setItem('zmsToken','114514')
       //localStorage.setItem('zmsBKId','1953372')
       //window.location.reload()
-      window.location.href="http://47.118.78.110:8081/"
+      window.location.href="/tourism/#/Login"
     },
     tokenTest(){
       userAuthTest().then(response=>{

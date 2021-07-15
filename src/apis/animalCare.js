@@ -16,10 +16,10 @@ export function createCareInfo(params,id) {
   })
 }
 
-export function updateCareInfo(data) {
+export function updateCareInfo(params) {
   return request({
     url: '/api/animalCare/modifyCareInfo',
     method: 'put',
-    data
+    params
   })
 }
