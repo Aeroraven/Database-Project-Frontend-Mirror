@@ -396,6 +396,7 @@ export default {
         },
         staffSelectorResponse(arg){
             this.submitVetName=arg[0];
+            //(this.submitVetName)
         },
         calloutStaffSelect(){
             this.$refs.staselector.show();
@@ -413,7 +414,7 @@ export default {
                     getCareData(
                         {
                             animalId:this.submitId,
-                            veterinaryId:this.submitVetname,
+                            veterinaryId:this.submitVetName,
                             dateIll:this.date,
                             diseaseName:this.submitType
                         }
@@ -485,7 +486,7 @@ export default {
                     getCareData(
                         {
                             animalId:this.submitId,
-                            veterinaryId:this.submitVetname,
+                            veterinaryId:this.submitVetName,
                             dateIll:this.date,
                             diseaseName:this.submitType,
                             
@@ -521,7 +522,7 @@ export default {
         },
         clearData(){
             this.submitId=null
-            this.submitVetname=null
+            this.submitVetName=null
             this.submitType=null
             this.date=null
             this.$store.dispatch('showToastNotify',{type:'default',info:'条件成功删除'})
@@ -629,7 +630,7 @@ export default {
             },
             submitNote:'',
             submitId:null,
-            submitVetname:null,
+            submitVetName:null,
             completeSubmitWaitingBox:0,
             completeMsgboxModel:0,
             completeType:null,
