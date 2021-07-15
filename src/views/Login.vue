@@ -50,7 +50,7 @@
               style="width: 30% ;position: absolute; left:16% ;top:76%;background-color: rgb(52, 232, 158); color: white"
               round
           type="success" plain
-          @click="submitForm('ruleForm')"
+          @click="checkAuth()"
               >登录</el-button
             >
              <el-button
@@ -115,6 +115,7 @@
 import {userAuth,userAuthTest} from '../apis/login'
 export default {
   data() {
+    
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入账号"));
@@ -135,7 +136,7 @@ export default {
         ).then(response=>{
           console.log('success')
           this.gohome();
-          localStorage.setItem('zmsBKId','1953372')
+          localStorage.setItem('zmsBKId',this.ruleForm.pass)
           localStorage.setItem('zmsToken','Bearer '+response.data[0].token)
         }).catch(err=>{
           console.log('login fails')
@@ -153,11 +154,28 @@ export default {
       url: "https://wx1.sinaimg.cn/mw2000/005YWthOly1gs7fpau959j302601njr7.jpg",
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        //checkPass: [{ validator: validatePass2, trigger: "blur" }],
       },
     };
   },
   methods: {
+    checkAuth(){
+      userAuth(
+          {
+            id:this.ruleForm.pass,
+            password:this.ruleForm.checkPass
+          }
+        ).then(response=>{
+          console.log('success')
+          this.gohome();
+          localStorage.setItem('zmsBKId',this.ruleForm.pass)
+          localStorage.setItem('zmsToken','Bearer '+response.data[0].token)
+        }).catch(err=>{
+          console.log('login fails')
+          this.$store.dispatch('showToastNotify',{type:'error',info:'用户名或密码错误'})
+        })
+      
+    },
     fakeToken(){
       localStorage.setItem('zmsToken','114514')
       localStorage.setItem('zmsBKId','1953372')
