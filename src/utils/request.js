@@ -30,6 +30,10 @@ service.interceptors.response.use(
     console.log ("请求已经响应")
     const res = response.data
     console.log(response.data)
+
+    if(response.status==204){
+      return res
+    }
     
     if (res.code != 200) {
       console.log ("服务端成功响应，但业务逻辑不成功。")
