@@ -172,6 +172,15 @@ export default {
   },
   name: "FlowStatistics",
   mounted() {
+    console.log("VXXXXXXXXXXXXXXXXXXXXXXX")
+    if(localStorage.getItem('zmsFundBgDate')===undefined||localStorage.getItem('zmsFundBgDate')===''){
+      localStorage.setItem('zmsFundBgDate','1921-01-01')
+      this.submitBeginDate='1921-01-01'
+    }
+    if(localStorage.getItem('zmsFundEdDate')===undefined||localStorage.getItem('zmsFundEdDate')===''){
+      localStorage.setItem('zmsFundEdDate','2099-01-01')
+      this.submitEndDate='2099-01-01'
+    }
     this.fetchAccountList();
   },
   created(){
@@ -188,12 +197,13 @@ export default {
         }
       },500
     )
+    
   },
   data() {
     return {
       intervalX:null,
-      submitBeginDate: "2000-07-01",
-      submitEndDate: "2021-07-02",
+      submitBeginDate: localStorage.getItem('zmsFundBgDate'),
+      submitEndDate: localStorage.getItem('zmsFundEdDate'),
       menuBeginDate: 0,
       menuEndDate: 0,
       accountList: [],
@@ -244,8 +254,7 @@ export default {
       this.$store.dispatch("showToastNotify", { type: "error", info: x });
     },
     initiateFilter() {
-      localStorage.setItem('zmsSkipAniT','1')
-      this.$router.go(this.$router.currentRoute)
+      
 
       let year0 = this.submitEndDate.split("-")[0];
       let month0 = this.submitEndDate.split("-")[1] - 1;
@@ -269,13 +278,20 @@ export default {
         this.submitFailTip(this.$t("fund.endDateTooEarly"));
         return 0;
       }
+
+      localStorage.setItem('zmsFundBgDate',this.submitBeginDate)
+      localStorage.setItem('zmsFundEdDate',this.submitEndDate)
+      localStorage.setItem('zmsSkipAniT','1')
+      this.$router.go(this.$router.currentRoute)
+      return ;
+      /*
       this.showPending = true;
       this.showPendingCnt = 0;
       this.$refs.pending.reset();
       this.$refs.flowstat_bk1.loadData();
       this.$refs.flowstat_bk2.loadData();
       this.$refs.flowstat_bk3.loadData();
-      this.fetchAccountList();
+      this.fetchAccountList();*/
     },
     completeTask(x) {
 

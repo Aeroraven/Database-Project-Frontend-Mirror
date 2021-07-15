@@ -99,7 +99,7 @@ export default {
         }
     },
     'animalCare':{
-        'title':'发起动物救助请求',
+        'title':'新增动物医疗记录',
         'SubmitComplete':'动物救助信息已经成功提交！',
         'SubmitComplete2':'动物救助信息已经成功修改',
         
@@ -213,7 +213,7 @@ export default {
     },
     'animalCareMain':{
         'infoOverview':'医疗信息概览',
-        'initiateRequest':'发起救助请求'
+        'initiateRequest':'新增医疗记录'
     },
     'animalCare2':{
         'secondaryTitle':'附加情况描述',
@@ -237,7 +237,7 @@ export default {
         'closeReqWarning':'下方表单中的内容只有在您完成或关闭请求时才会被保存。',
         'closeReqWarning2':'只要流程被完成或关闭，该救助信息无法再被更改。',
         'traceProcessDescription2':'如果动物的情况或目前的救助情况发生了更新，您可以修改下方的内容。',
-        'closeReqDesc2':'如果动物已经治愈或者业已仙逝, 您可于此处将救助请求关闭。 若顽疾已愈, 点击完成继续。对于其他情况，点击中止来关闭该请求 .',
+        'closeReqDesc2':'如果动物已经治愈或者业已仙逝, 您可于此处将该医疗流程关闭。 若顽疾已愈, 点击完成继续。对于其他情况，点击中止来关闭该请求 .',
         'currentStatus':'当前状态',
         'cureDate':'完成日期',
         'completeType':'完成类型',
@@ -245,8 +245,8 @@ export default {
         'chooseByMagnify':'为防止错误输入，此项无法手动填写。点击放大键按钮，在选择界面中进行选择后，系统将自动填写该字段。',
         'emptyCureDate':'完成日期不能为空',
         'dateAhead':'虽以往不可谏,来者仍可追。未来日期发生的事物仍为未知！',
-        'closeReqMsgTitle':'关闭救助请求',
-        'closeReqMsgBody':'您是否确定将该救助选项标记为以及中止或者。 在这一操作完成之后, 您无法再继续更改这一个请求项目中的所有内容, 即这个救助项目将会变为只读. 这一个操作无法被撤销。若您知晓您所做的一切, 请点击确认。否则, 请点击取消放弃次操作',
+        'closeReqMsgTitle':'关闭医疗流程',
+        'closeReqMsgBody':'您是否确定将该救助选项标记为以及中止或者。 在这一操作完成之后, 您无法再继续更改这一个请求项目中的所有内容, 即这个医疗项目将会变为只读. 这一个操作无法被撤销。若您知晓您所做的一切, 请点击确认。否则, 请点击取消放弃次操作',
         'overviewFirstFind':'点击按照条件查找来筛选符合条件的项目',
         'traceProcessDescription3':'下方的信息记录了治疗成功或者治疗失败的信息。'
     },

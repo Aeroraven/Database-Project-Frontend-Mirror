@@ -102,7 +102,7 @@
                                                         <span v-if="zmsSelectorMode===0">
                                                             <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.id}}</span>
                                                             &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
-                                                            <span class='zms-anisel-small'>{{item.category}} · {{item.gender}}</span></span>
+                                                            <span class='zms-anisel-small'>{{item.species}} · {{item.gender}}</span></span>
                                                         </span>
                                                         <!--物品选择器-->
                                                         <span v-if="zmsSelectorMode===2">
@@ -138,7 +138,12 @@
                                         <template slot="progress">
                                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                                         </template>
-                                        <v-img height="150" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                                        <div v-if="zmsSelectorMode===0">
+                                            <v-img height="150" :src="`data:image/png;base64,`+selectedItem.photo"></v-img>
+                                        </div>
+                                        <div v-if="zmsSelectorMode!=0">
+                                            <v-img height="150" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                                        </div>
                                         <!--Animal Selector-->
                                         <div v-if="zmsSelectorMode===0">
                                             <v-card-title>
@@ -156,8 +161,9 @@
                                                     <div class="grey--text ms-4"> 4.5 </div>
                                                 </v-row>
                                                 <div class="my-4 text-subtitle-1">
-                                                    <b>{{$t('animalselector.category')}}</b> : <span>{{selectedItem.category}}</span><br/>
-                                                    <b>{{$t('animalselector.faclLocation')}}</b> : <span>{{selectedItem.faclId}}</span><br/>
+                                                    <b>{{$t('animalselector.category')}}</b> : <span>{{selectedItem.species}}</span><br/>
+                                                    <b>体长</b> : <span>{{selectedItem.bodyLength}} cm</span><br/>
+                                                    <b>体重</b> : <span>{{selectedItem.weight}} cm</span><br/>
                                                     <b>{{$t('animalselector.age')}}</b> : <span>{{selectedItem.age}}</span><br/>
                                                     <b>{{$t('animalselector.sex')}}</b> : <span>{{selectedItem.gender}}</span><br/>
                                                 </div>
@@ -255,6 +261,7 @@ export default {
     data(){
         return{
             submitId:null,
+            imgUrlx:'https://cdn.vuetifyjs.com/images/cards/cooking.png',
             submitType:null,
             submitVetname:null,
             submitPark:null,
@@ -275,7 +282,7 @@ export default {
         selectedItem(){
             if(this.zmsselectedItemIdx==-1){
                 if(this.zmsSelectorMode===0){
-                    return {id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-'}
+                    return {id:'-',category:'-',name:'---',gender:'-',age:'-',faclId:'-',photo:'https://cdn.vuetifyjs.com/images/cards/cooking.png'}
                 }
                 if(this.zmsSelectorMode===2){
                     return {item_id:'-',type:'-',name:'---',quality_guarantee:'-',channel:'-',staff_id:'-',cnt:'-',wareid:'-'}
@@ -370,7 +377,7 @@ export default {
                             {
                                 ani_id:this.submitId,
                                 ani_name:this.submitVetname,
-                                ani_species:this.submitType
+                                species:this.submitType
                             }
                         ).then(response => {
                             this.zmsShowLoadingBar=false;
