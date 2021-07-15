@@ -105,7 +105,7 @@
                                     </v-btn>
 
                                 </template>
-                            <v-card>
+                            <v-card :ripple="{class:null}">
                               
                                         <v-card-title>
                                             <v-row>
@@ -158,6 +158,7 @@
                                                     hide-details="auto"
                                                     required
                                                     v-model="editedItem.id"
+                                                    :disabled="!isToCreateItem"
                                                     >
                                                     </v-text-field>
                                                 </v-col>
@@ -183,7 +184,7 @@
                                             </v-row>
                                             
                                             <v-row>
-                                                <v-col cols="12" sm="6" md="4">
+                                                <v-col cols="12" sm="6" md="6">
                                                      <v-select
                                                     :items="['雌性', '雄性']"
                                                      v-model='editedItem.gender'
@@ -193,7 +194,7 @@
                                                     required
                                                 ></v-select>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="4">
+                                                <!--<v-col cols="12" sm="6" md="4">
                                                     <v-text-field
                                                     v-model="editedItem.age"
                                                     label="年龄*"
@@ -201,8 +202,8 @@
                                                     hide-details="auto"
                                                     required
                                                     ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
+                                                </v-col>-->
+                                                <v-col cols="12" sm="6" md="6">
                                                     <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-text-field v-model="editedItem.birthDate" label="出生日期" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
@@ -511,22 +512,25 @@ export default {
             //this.editItem
             
             if(this.isToCreateItem){
-                if(this.editItem.age<0){
+                if(this.editedItem.age<0){
                     this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                     this.$refs.error_done.showAlert();
                     return;
                 }
-                if(parseInt(this.editItem.weight)<=0){
+                if(parseInt(this.editedItem.weight)<=0||isNaN(parseInt(this.editedItem.weight))||parseInt(this.editedItem.weight)>999){
                     this.$refs.error_done.updateBody('体重输入非法')
                     this.$refs.error_done.showAlert();
                     return;
                 }
-                if(parseInt(this.editItem.age)<=0){
-                    this.$refs.error_done.updateBody('年龄输入非法')
+                if(parseInt(this.editedItem.bodyLength)<=0||isNaN(parseInt(this.editedItem.bodyLength))||parseInt(this.editedItem.bodyLength)>999){
+                    this.$refs.error_done.updateBody('体长输入非法')
                     this.$refs.error_done.showAlert();
                     return;
                 }
+                
                 this.pendingShow=true;
+                let x=new Date()
+                x=x.getFullYear()
                 createinformation(
                     {
                         id:this.editedItem.id,
@@ -534,7 +538,7 @@ export default {
                         name: this.editedItem.name,
                         gender:this.editedItem.gender,
                         birthDate:this.editedItem.birthDate,
-                        age:parseInt(this.editedItem.age),
+                        age:x-parseInt(this.editedItem.birthDate.substring(0,4)),
                         bodyLength:parseInt(this.editedItem.bodyLength),
                         weight: parseInt(this.editedItem.weight),
                         physicalCondition: this.editedItem.physicalCondition,
@@ -545,6 +549,7 @@ export default {
                         this.$refs.form.reset()
                         this.$refs.commit_done.showAlert()
                         this.pendingShow=false
+                        this.searchInfo(this.select_ani_id,this.select_ani_name,this.select_species)
                     }).catch( err => {
                         //this.show=false;
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -552,6 +557,22 @@ export default {
                         this.pendingShow=false
                     });
             }else{
+                if(this.editedItem.age<0){
+                    this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(parseInt(this.editedItem.weight)<=0||isNaN(parseInt(this.editedItem.weight))||parseInt(this.editedItem.weight)>999){
+                    this.$refs.error_done.updateBody('体重输入非法')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(parseInt(this.editedItem.bodyLength)<=0||isNaN(parseInt(this.editedItem.bodyLength))||parseInt(this.editedItem.bodyLength)>999){
+                    this.$refs.error_done.updateBody('体长输入非法')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                
                 this.pendingShow=true;
                 updateinformation({
                         id:this.editedItem.id,
@@ -571,6 +592,7 @@ export default {
                     this.$refs.form.reset()
                     this.$refs.commit_done.showAlert()
                     this.pendingShow=false
+                    this.searchInfo(this.select_ani_id,this.select_ani_name,this.select_species)
                 }).catch( err => {
                     //this.show=false;
                     this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -598,6 +620,7 @@ export default {
                         this.queryData = response.data;
                         for(let i=0;i<this.queryData.length;i++){
                             this.queryData[i].photo='data:image/jpeg;base64,'+this.queryData[i].photo;
+                            this.queryData[i].birthDate=this.queryData[i].birthDate.substring(0,10)
                         }
                         console.log(response.data)
                         this.show=false
@@ -660,6 +683,7 @@ export default {
             deleteinformation(this.delId).then(response=>{
                 this.$refs.commit_done.showAlert()
                 this.pendingShow=false
+                this.searchInfo(this.select_ani_id,this.select_ani_name,this.select_species)
             }).catch( err => {
                 this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                 this.$refs.error_done.showAlert();
@@ -712,7 +736,7 @@ export default {
             {text: '物种', value: 'species', sortable: false},
             {text: '姓名', value: 'name', sortable: false},
             {text: '性别', value: 'gender'},
-            {text: '年龄', value: 'age'},
+            //{text: '年龄', value: 'age'},
             {text: '体重', value: 'weight'},
             {text: '健康状态', value: 'physicalCondition', sortable: false},
             { text: '操作', value: 'actions', sortable: false },

@@ -19,7 +19,7 @@ export function createinformation(data) {
 export function updateinformation(data) {
   return request({
     url: '/api/animalInfo/updateinformation',
-    method: 'post',
+    method: 'put',
     data
   })
 }
