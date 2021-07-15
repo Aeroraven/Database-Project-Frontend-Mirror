@@ -113,7 +113,7 @@
                                         <v-container>
                                             <v-row class="zms-fullrow">
                                                 <v-col cols="12" sm="12" md="12">
-                                                    <b>// Expected Total Budget</b>
+                                                    <b>// 预计采购物品总共预算</b>
                                                 </v-col>
                                             </v-row>
                                             <v-row class="zms-fullrow zms-rightalign">
@@ -127,7 +127,7 @@
                                             <br/><br/>
                                             <v-row class="zms-fullrow">
                                                 <v-col cols="12" sm="12" md="12">
-                                                    <b>// Total Items</b>
+                                                    <b>// 预计采购物品数量</b>
                                                 </v-col>
                                             </v-row>
                                             <v-row class="zms-fullrow zms-rightalign">
@@ -141,12 +141,12 @@
                                             <br/><br/>
                                             <v-row class="zms-fullrow">
                                                 <v-col cols="12" sm="12" md="12">
-                                                    <b>// Initiation Time</b>
+                                                    <b>// 发起时间</b>
                                                 </v-col>
                                             </v-row>
                                             <v-row class="zms-fullrow zms-rightalign">
                                                 <v-col cols="12" sm="12" md="12">
-                                                    <v-spacer/><span class="zms-bender zms-fontlarge primary--text">2021-07-01</span>
+                                                    <v-spacer/><span class="zms-bender zms-fontlarge primary--text">{{curDateX}}</span>
                                                 </v-col>
                                             </v-row>
                                         </v-container>
@@ -205,6 +205,10 @@ export default{
         
     },
     computed:{
+        curDateX(){
+            let x=new Date().format("yyyy-MM-dd");
+            return x
+        },
         totalPrice(){
             let ans=0;
             for(let i=0;i<this.zmsItem.length;i++){

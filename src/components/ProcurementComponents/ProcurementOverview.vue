@@ -148,19 +148,19 @@
                                                             
                                                             <v-container>
                                                                 <v-row>
-                                                                    <v-col cols="12" sm="6" md="4">
+                                                                    <v-col cols="12" sm="6" md="6">
                                                                         <v-text-field v-model="editedItem['id']" readonly :label="$t('proc2.id')" prepend-icon="mdi-identifier"></v-text-field>
                                                                     </v-col>
-                                                                    <v-col cols="12" sm="6" md="4">
+                                                                    <!--<v-col cols="12" sm="6" md="4">
                                                                         <v-text-field v-model="editedItem['content']" readonly :label="$t('proc2.content')" prepend-icon="mdi-file"></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col cols="12" sm="6" md="4">
+                                                                    </v-col>-->
+                                                                    <v-col cols="12" sm="6" md="6">
                                                                         <v-text-field v-model="editedItem['stat']" readonly :label="$t('proc2.stat')" prepend-icon="mdi-alarm-light"></v-text-field>
                                                                     </v-col>
-                                                                    <v-col cols="12" sm="6" md="4">
+                                                                    <v-col cols="12" sm="6" md="6">
                                                                         <v-text-field v-model="editedItem['initiator']" readonly :label="$t('proc2.initiator')" prepend-icon="mdi-account"></v-text-field>
                                                                     </v-col>
-                                                                    <v-col cols="12" sm="6" md="4">
+                                                                    <v-col cols="12" sm="6" md="6">
                                                                         <v-text-field v-model="editedItem['inittime']" readonly :label="$t('proc2.inittime')" prepend-icon="mdi-calendar"></v-text-field>
                                                                     </v-col>
                                                                 
@@ -224,7 +224,7 @@ export default {
             return [
                 {text: this.$t('procure.procid'), value: 'id'},
                 {text: this.$t('procure.procname'), value: 'name'},
-                {text: this.$t('procure.proccontent'), value: 'content'},
+                //{text: this.$t('procure.proccontent'), value: 'content'},
                 {text: this.$t('procure.procstat'), value: 'stat'},
                 {text: this.$t('procure.initiator'), value: 'initiator'},
                 {text: this.$t('procure.inittime'), value: 'inittime'},

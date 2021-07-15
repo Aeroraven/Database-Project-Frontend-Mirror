@@ -16,7 +16,7 @@
                             </span>
                             
                             <span v-bind="attrs" v-on="on">
-                                ({{item.time}})  &nbsp;&nbsp;&nbsp;
+                                {{item.time}}  &nbsp;&nbsp;&nbsp;
                             </span>
                         </template>
                         <v-card :ripple="{class:null}">
