@@ -239,19 +239,20 @@
                                                                         <v-date-picker color="primary" width="400" v-model="cureDate" @input="menu3 = false"></v-date-picker>
                                                                     </v-menu>
                                                                 </v-col>
-                                                                <v-col cols="12" sm="6" md="6">
+                                                                <!--<v-col cols="12" sm="6" md="6">
                                                                     <v-select v-model="completeType" :items="completeList" :label="$t('animalCare2.completeType')" prepend-icon="mdi-exclamation-thick"></v-select>
-                                                                </v-col>
+                                                                </v-col>-->
                                                             </v-row>
                                                         </v-container>
                                                     </v-card-text>
-                                                    <v-alert type="warning" class="zms-force-nowrap-e" text border="left">
+                                                    <!--<v-alert type="warning" class="zms-force-nowrap-e" text border="left">
                                                         {{$t('animalCare2.closeReqWarning2')}}
-                                                    </v-alert>
+                                                    </v-alert>-->
+
                                                     <!--确认提交提示框-->
                                                     <alert-messagebox :alertTitle="$t('animalCare2.closeReqMsgTitle')" 
                                                     :alertBody="$t('animalCare2.closeReqMsgBody')" 
-                                                    :alertLevel="`error`" ref="closeReqMsgbox"
+                                                    :alertLevel="`warning`" ref="closeReqMsgbox"
                                                     @alertConfirm="submitCloseReq"/>
 
                                                     <pending-progress-card :zmsShow="completeSubmitWaitingBox"/>
@@ -260,12 +261,12 @@
                                                         <v-container>
                                                             <v-row>
                                                                 <v-col cols="12" sm="6" md="4">
-                                                                    <v-btn class="zms-strip-bg-slim" block light color="error" @click="calloutCloseReqMsgbox">
+                                                                    <v-btn class="zms-strip-bg-slim" block light color="error" @click="calloutCloseReqMsgbox(0)">
                                                                         <v-icon>mdi-close</v-icon>{{$t('common2.abort')}}
                                                                     </v-btn>
                                                                 </v-col>
                                                                 <v-col cols="12" sm="6" md="4">
-                                                                    <v-btn class="zms-strip-bg-slim" block light color="success" @click="calloutCloseReqMsgbox">
+                                                                    <v-btn class="zms-strip-bg-slim" block light color="success" @click="calloutCloseReqMsgbox(1)">
                                                                         <v-icon>mdi-check-bold</v-icon>{{$t('common2.complete')}}
                                                                     </v-btn>
                                                                 </v-col>
@@ -401,7 +402,8 @@ export default {
         calloutStaffSelect(){
             this.$refs.staselector.show();
         },
-        calloutCloseReqMsgbox(){
+        calloutCloseReqMsgbox(x){
+            this.atpx=x
             this.$refs.closeReqMsgbox.showAlert()
         },
         showcloseReqMsgbox(){
@@ -425,13 +427,13 @@ export default {
                             if(this.queryData[i].drug===null){
                                 this.queryData[i].drug='暂无药物'
                             }
-                            if(this.queryData[i].isCured===0){
+                            if(this.queryData[i].isCured===2){
                                 this.queryData[i].isCured='暂未治愈'
                             }
                             if(this.queryData[i].isCured===1){
                                 this.queryData[i].isCured='已经治愈'
                             }
-                            if(this.queryData[i].isCured===2){
+                            if(this.queryData[i].isCured===0){
                                 this.queryData[i].isCured='放弃治疗'
                             }
                             if(this.queryData[i].dateCure!=''&&this.queryData[i].dateCure!=null){
@@ -441,13 +443,11 @@ export default {
                                 this.queryData[i].dateIll=this.queryData[i].dateIll.substring(0,10)
                             }
                         }
-
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
-                        
                     }).catch( err => {
                         this.queryLoaderDialog=false;
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -460,10 +460,10 @@ export default {
             if(this.stepperCount!=2){
                 this.close();
             }
-            if(this.completeType==null||this.completeType==0){
-                this.submitFailTip(this.$t('animalCare2.emptyCompleteType'))
-                return 0;
-            }
+            //if(this.completeType==null||this.completeType==0){
+            //    this.submitFailTip(this.$t('animalCare2.emptyCompleteType'))
+            //    return 0;
+            //}
             if(this.cureDate==null||this.cureDate==0){
                 this.submitFailTip(this.$t('animalCare2.emptyCureDate'))
                 return 0;
@@ -479,16 +479,19 @@ export default {
                 this.submitFailTip(this.$t('animalCare2.dateAhead'))
                 return 0;
             }
-
             this.completeSubmitWaitingBox=1;
             setTimeout(
                 ()=>{
-                    getCareData(
+                    updateCareInfo(
                         {
-                            animalId:this.submitId,
-                            veterinaryId:this.submitVetName,
-                            dateIll:this.date,
-                            diseaseName:this.submitType,
+                            animalId:this.editedItem.animalId,
+                            veterinaryId:this.editedItem.veterinaryId,
+                            dateIll:this.editedItem.dateIll,
+                            diseaseName:this.editedItem.diseaseName,
+                            isCured:this.atpx,
+                            dateCure:this.cureDate,
+                            cureId:this.editedItem.cureId,
+                            drug: this.editedItem.drug
                             
                         }
                     ).then(response => {
@@ -499,7 +502,7 @@ export default {
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
-                        
+                        this.fetchCareInfo()
                     }).catch( err => {
                         this.completeSubmitWaitingBox=0;
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -517,6 +520,11 @@ export default {
         },
         editItem (item) {
             this.editedIndex = this.queryData.indexOf(item)
+            if(item.isCured==='暂未治愈'){
+                this.stepperCount=2
+            }else{
+                this.stepperCount=3
+            }
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
@@ -531,41 +539,35 @@ export default {
             this.submitStat=true;
             setTimeout(
                 ()=>{
+                    let p=this.editedItem.dateCure;
+                    if(p==''||p==null||p==undefined){
+                        p=''
+                    }
+                    let s=this.editedItem.isCured;
+                    if(s==='暂未治愈'){
+                        s=2
+                    }else if(s==='已经治愈'){
+                        s=1
+                    }else{
+                        s=0
+                    }
                     let x={
-                            animalId: this.editedItem.animalId,
-                            cureId: this.editedItem.cureId,
-                            dateCure: this.editedItem.dateCure,
-                            dateIll: this.editedItem.dateIll,
-                            diseaseName: this.editedItem.diseaseName,
-                            drug: this.editedItem.drug,
-                            isCured: this.editedItem.isCured,
-                            veterinaryId: this.editedItem.veterinaryId,
-                        }
+                        animalId: this.editedItem.animalId,
+                        cureId: this.editedItem.cureId,
+                        dateCure: p,
+                        dateIll: this.editedItem.dateIll,
+                        diseaseName: this.editedItem.diseaseName,
+                        drug: this.editedItem.drug,
+                        isCured: s,
+                        veterinaryId: this.editedItem.veterinaryId,
+                    }
                     updateCareInfo(
                         x
                     ).then(response => {
-                        
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentVetId')
-                            return 0;
-                        }
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete2'))
                         this.close()
+                        this.fetchCareInfo()
                     }).catch( err => {
                         this.submitStat=false;
                         this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
@@ -609,6 +611,7 @@ export default {
             on:0,
             attrs:0,
             page:1,
+            atpx:0,
             cureDate:null,
             dialog:0,
             date:null,

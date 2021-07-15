@@ -280,9 +280,7 @@ export default {
                             dateIll:this.submitDate,
                             dateCure:null,
                             animalId:this.submitId,
-                            veterinaryId:'0',
-                            dateCure:'0',
-                        },0
+                        },2
                     ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
