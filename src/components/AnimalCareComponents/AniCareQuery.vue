@@ -411,6 +411,10 @@ export default {
         },
         fetchCareInfo(x){
             this.queryLoaderDialog=true;
+            if(this.submitVetName!=null&&this.submitVetName.length>=50){
+                this.$store.dispatch('showToastNotify',{type:'success',info:'疾病情况字段过长'})
+                return
+            }
             setTimeout(
                 ()=>{
                     getCareData(
