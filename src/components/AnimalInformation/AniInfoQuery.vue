@@ -106,25 +106,16 @@
 
                                 </template>
                             <v-card :ripple="{class:null}">
-                              
-                                        <v-card-title>
-                                            <v-row>
-                                            <v-col cols=6  margin-left="20px" color="primary">{{formTitle}}
-                                            </v-col>
-                                            <v-col cols=6>
-                                             <v-btn
-                                            class="btn-close"
-                                            icon
-                                            color=primary
-                                            @click="dialog = false"
-                                        >
-                                            <v-icon>mdi-close</v-icon>
-                                        </v-btn>
-                                            </v-col>
-                                            </v-row>
-                                        </v-card-title>
+                                <v-card-title class=" zms-strip-bg text-h5 text--white darken-3" :class="`blue`" color="warning">
+                                    <v-icon color="white">mdi-plus</v-icon>&nbsp;
+                                    <span class="text--white" style="color:#ffffff !important;">
+                                        {{formTitle}}
+                                    </span>
+                                </v-card-title>
+                                        
                                 
                                 <v-card-text>
+                                    <br/><br/>
                                     <v-form
                                     ref="form">
                                         <v-container>
@@ -218,7 +209,7 @@
                                                 <v-col cols="12" sm="6" >
                                                     <v-text-field
                                                      v-model='editedItem.bodyLength'
-                                                    label="身高/体长"
+                                                    label="身高/体长/cm"
                                                     :rules="rules"
                                                     hide-details="auto"
                                                     required
@@ -227,7 +218,7 @@
                                                 <v-col cols="12" sm="6" >
                                                     <v-text-field
                                                      v-model='editedItem.weight'
-                                                    label="体重*"
+                                                    label="体重/kg*"
                                                     :rules="rules"
                                                     hide-details="auto"
                                                     required
@@ -246,14 +237,14 @@
                                                 ></v-select>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" >
-                                                <v-select
+                                                <!--<v-select
                                                     :items="['无', '怀孕中', '已育']"
                                                      v-model='editedItem.breedSituation'
                                                     label="繁殖情况*"
                                                     :rules="rules"
                                                     hide-details="auto"
                                                     required
-                                                ></v-select>
+                                                ></v-select>-->
                                                 </v-col>
                                             </v-row>
                                             <v-row>
@@ -360,10 +351,10 @@
                                      <br>
                                      <br>
                                       </v-text>
-                                        <v-text color="primary">
+                                       <!-- <v-text color="primary">
                                       
                                      繁殖情况：{{item.breedCondition}}
-                                      </v-text>
+                                      </v-text>-->
                                      
 
                                  </v-col>
@@ -528,6 +519,32 @@ export default {
                     return;
                 }
                 
+                if((this.editedItem.weight+'').indexOf('.')!=-1){
+                    this.$refs.error_done.updateBody('体重需要输入整数，请进行舍入后继续')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if((this.editedItem.bodyLength+'').indexOf('.')!=-1){
+                    this.$refs.error_done.updateBody('体长需要输入整数，请进行舍入后继续')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(this.editedItem.id.length>50){
+                    this.$refs.error_done.updateBody('ID不能输入过长')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(this.editedItem.species.length>50){
+                    this.$refs.error_done.updateBody('物种输入过长')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(this.editedItem.name.length>50){
+                    this.$refs.error_done.updateBody('名称输入过长')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                
                 this.pendingShow=true;
                 let x=new Date()
                 x=x.getFullYear()
@@ -538,7 +555,7 @@ export default {
                         name: this.editedItem.name,
                         gender:this.editedItem.gender,
                         birthDate:this.editedItem.birthDate,
-                        age:x-parseInt(this.editedItem.birthDate.substring(0,4)),
+                        age:x-parseInt(this.editedItem.birthDate.substring(0,4))+1,
                         bodyLength:parseInt(this.editedItem.bodyLength),
                         weight: parseInt(this.editedItem.weight),
                         physicalCondition: this.editedItem.physicalCondition,
@@ -572,7 +589,32 @@ export default {
                     this.$refs.error_done.showAlert();
                     return;
                 }
-                
+
+                if((this.editedItem.weight+'').indexOf('.')!=-1){
+                    this.$refs.error_done.updateBody('体重需要输入整数，请进行舍入后继续')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if((this.editedItem.bodyLength+'').indexOf('.')!=-1){
+                    this.$refs.error_done.updateBody('体长需要输入整数，请进行舍入后继续')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(this.editedItem.id.length>50){
+                    this.$refs.error_done.updateBody('ID不能输入过长')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(this.editedItem.species.length>50){
+                    this.$refs.error_done.updateBody('物种输入过长')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
+                if(this.editedItem.name.length>50){
+                    this.$refs.error_done.updateBody('名称输入过长')
+                    this.$refs.error_done.showAlert();
+                    return;
+                }
                 this.pendingShow=true;
                 updateinformation({
                         id:this.editedItem.id,
@@ -702,7 +744,7 @@ export default {
         })
       },
 
-      save () {
+    save () {
         if (this.editedIndex > -1) {
           Object.assign(this.queryData[this.editedIndex], this.editedItem)
         } else {
@@ -713,9 +755,6 @@ export default {
       allowedDates: val => (val<=(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
     }, 
 
-
-    
-  
     data:()=>{
   
         return{
@@ -737,7 +776,7 @@ export default {
             {text: '姓名', value: 'name', sortable: false},
             {text: '性别', value: 'gender'},
             //{text: '年龄', value: 'age'},
-            {text: '体重', value: 'weight'},
+            {text: '体重/Kg', value: 'weight'},
             {text: '健康状态', value: 'physicalCondition', sortable: false},
             { text: '操作', value: 'actions', sortable: false },
         ],

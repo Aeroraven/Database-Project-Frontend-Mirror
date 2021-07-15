@@ -103,7 +103,7 @@ export default {
             //End of Operating DOMs
         },
         gohome() {
-            window.location.href='/'
+            this.$router.push('/')
         },
     },
     data() {

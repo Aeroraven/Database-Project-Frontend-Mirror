@@ -45,7 +45,16 @@ service.interceptors.response.use(
       console.log(error.response)
       if(error.response.status===401){
         localStorage.setItem('zmsToken','')
-        window.location.href='/'
+        window.location.href='/zmsoffice/'
+      }
+      if(error.response.status===500){
+        return Promise.reject(new Error('输入的数据存在非法部分，请重新检查输入后在进行输出。'))
+      }
+      if(error.response.status===400){
+        return Promise.reject(new Error('输入的数据存在非法部分，请重新检查输入后在进行输出。'))
+      }
+      if(error.response.status===403){
+        return Promise.reject(new Error('您暂无权限查看当前页面。'))
       }
     }
     console.log('错误发生：' + error) // for debug

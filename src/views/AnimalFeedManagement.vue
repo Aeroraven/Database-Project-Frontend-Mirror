@@ -1,5 +1,8 @@
 <template>
-    <div class="home">
+    <div class="zms-anicare">
+        <span class="zms-anicare-title zms-primary-color" color="primary">
+            <v-icon color="primary">mdi-food</v-icon> 动物喂养和饲料管理
+        </span>
         <animal-feed-container/>
     </div>
 </template>
@@ -15,5 +18,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+    .zms-anicare{
+        margin-top:10px;
+    }
+    .zms-anicare-title{
+        font-size:23px !important;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
 </style>
