@@ -22,6 +22,7 @@
                         <br/><br/>
                         <v-row>
                             <v-col cols="12">
+                                 
                                 <div style="height:400px;overflow-y:scroll;">
                                     <v-list dense>
                                         <v-list-item-group  v-model="zmsselectedItem" color="primary">
@@ -50,8 +51,11 @@
 
                                         </v-list-item-group>
                                     </v-list>
+                                   
                                 </div>
                             </v-col>
+                            <v-btn color="primary" block style="margin-right:15px" @click="fetchPendingList">刷新审批列表</v-btn>
+                            
                         </v-row>
                     </v-container>
                 </v-col>
@@ -66,7 +70,7 @@
                                 <v-container>
                                     <v-row>
                                         <span v-if="selId!=null">
-                                            <b class="primary--text zms-fontlargex">// Purchase Request #{{this.zmsItem[this.selId].id}}</b>
+                                            <b class="primary--text zms-fontlargex">// 采购申请 #{{this.zmsItem[this.selId].id}}</b>
                                         </span>
                                     </v-row>
                                     <v-row>
@@ -80,7 +84,7 @@
                                                         <v-text-field v-model="itemInitiator" :label="$t('proc2.initiator')" readonly :placeholder="$t('common.pleaseInput')+$t('proc2.initiator')" prepend-icon="mdi-account"  />
                                                     </v-col>
                                                     <v-col  cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                                        <v-text-field v-model="itemPrice" :label="$t('proc2.budget')" readonly :placeholder="$t('common.pleaseInput')+$t('proc2.totalprice')" prepend-icon="mdi-currency-cny"  />
+                                                        <v-text-field v-model="itemPrice" label="预算" readonly :placeholder="$t('common.pleaseInput')+`预算`" prepend-icon="mdi-currency-cny"  />
                                                     </v-col>
                                                 </v-row>
                                             </v-container>
@@ -162,9 +166,11 @@ export default{
     methods:{
         fselectItem(x){
             this.selId=x
+            console.log('xxxv')
+            console.log(x)
             this.itemName=this.zmsItem[this.selId].name
             this.itemInitiator=this.zmsItem[this.selId].initiator
-            this.itemPrice=this.zmsItem[this.selId].totalprice
+            this.itemPrice=this.zmsItem[this.selId].budget
         },
         fetchPendingList(){
             this.pendingShow=1
@@ -200,7 +206,7 @@ export default{
                 },500
             )
         },
-        submitApproveRes(x0vNPTTo5Le6tby4s51lW3ilUsvPPT1){
+        submitApproveRes(x){
             this.pendingShow2=1
             setTimeout(
                 ()=>{
@@ -233,24 +239,32 @@ export default{
             ]
         },
         queryData(){
+            console.log("WWWWWWWWWWWWWWWWWWWA")
             if(this.zmsItem===null||this.zmsItem.length===0){
                 return []
             }
             if(this.selId>this.zmsItem.length||this.selId===null){
                 return []
             }
-            this.queryData.splice(0,this.queryData.length)
+            console.log("WWWWWWWWWWWWWWWWWWWAT")
+            
+            let s=[]
             let r=this.zmsItem[this.selId].id
             for(let i=0;i<this.zmsItemX.length;i++){
                 if(this.zmsItemX[i].id===r){
-                    this.queryData.push(null)
-                    this.$set(this.queryData,i,{
+                    s.push(null)
+                    console.log('xx')
+                    console.log(this.zmsItemX[i].itemId)
+                    console.log(this.zmsItemX[i].itemCount)
+                    s[s.length-1]={
                         name:this.zmsItemX[i].itemId,
                         qty:this.zmsItemX[i].itemCount,
-                    })
+                    }
                 }
             }
-            //return this.zmsItem[this.selId].content
+            console.log("WWWWWWWWWWWWWWWWWWW")
+            console.log(s)
+            return s
         }
     }
 

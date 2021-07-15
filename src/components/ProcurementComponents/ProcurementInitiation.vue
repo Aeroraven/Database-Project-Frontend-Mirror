@@ -22,7 +22,7 @@
                                 <v-container>
                                     <v-row>
                                         <v-col   cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                            <v-text-field v-model="itemName" readonly :label="$t('proc2.name')" :placeholder="$t('common.pleaseInput')+$t('proc2.name')" prepend-icon="mdi-tag"  />
+                                            <v-text-field v-model="itemName" readonly :label="$t('proc2.name')" placeholder="从物品列表选择选项，选择物品" prepend-icon="mdi-tag"  />
                                         </v-col>
                                         <v-col  cols="12" sm="12" md="12" class="zms-vertical-col-height">
                                             <v-text-field v-model="itemQty" :label="$t('proc2.quantity')" :placeholder="$t('common.pleaseInput')+$t('proc2.quantity')" prepend-icon="mdi-numeric"  />
@@ -233,10 +233,10 @@ export default{
             }else{
                 s=s+'-'+(x.getMonth()+1)
             }
-            if(x.getDay()+1<10){
-                s=s+'-0'+x.getDay()
+            if(x.getDate()+1<10){
+                s=s+'-0'+x.getDate()
             }else{
-                s=s+'-'+x.getDay()
+                s=s+'-'+x.getDate()
             }
             return s
         },
@@ -278,6 +278,11 @@ export default{
                 if(i!=0){
                     itemIdx+=','
                     itemCntx+=','
+                }
+                if(itemIds.indexOf(this.zmsItem[i].name)!=-1){
+                    this.$refs.error_done.updateBody('请将ID重复的物品进行合并或删除')
+                    this.$refs.error_done.showAlert();
+                    return;
                 }
                 itemIds.push(this.zmsItem[i].name)
                 itemIdx=itemIdx+this.zmsItem[i].name

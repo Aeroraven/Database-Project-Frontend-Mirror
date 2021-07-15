@@ -1,5 +1,11 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
         <div class="zms-query-filter">
             <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title">查询条件</span>
             <div>
@@ -238,9 +244,11 @@
 
 <script>
 import { getemployeecheckInfo, updateemployeecheckInfo,deleteemployeecheckInfo } from '../../apis/employeecheck.js';
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 
 export default {
     name: 'EmployeeCheckItemOverview',
+    components: { AlertMessagebox  },
     created(){
         if(this.$route.params.id!=undefined){
             this.fetchItemInfo();
@@ -363,10 +371,18 @@ export default {
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
                         
-                    }).catch(err=>{
+                    }).catch( err => {
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        // this.submitStat=false;
+                        // this.alterDialog=false;
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息查询失败'})
-                    })
+                        this.errorTitle=this.$t('common.error');
+                    });
+                    /*.catch(err=>{
+                       this.queryLoaderDialog=false;
+
+                    })*/
                 },2000
             )
         },

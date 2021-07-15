@@ -422,10 +422,8 @@ export default {
                         //     response.data[i].status='开';
                         //     else response.data[i].status='关';
                         // }
-
-
                         this.queryData = response.data
-
+                        this.deleteItemInfo();
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
