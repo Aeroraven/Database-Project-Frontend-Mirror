@@ -88,7 +88,7 @@
                             <v-text-field :label="$t('animalCare.animalId')"
                             :hint="$t('animalCare2.chooseByMagnify')"
                               v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
-                            prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
+                            prepend-icon="mdi-identifier" readonly append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
                         <!--<v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
@@ -98,7 +98,7 @@
                             <v-text-field :label="$t('animalCare.vetName')"   v-model="submitVetname"
                              :hint="$t('animalCare2.chooseByMagnify')"
                              :placeholder="$t('common.pleaseInput')+$t('animalCare.vetName')" 
-                             prepend-icon="mdi-doctor" append-icon="mdi-magnify" @click:append="calloutStaffSelect"   />
+                             prepend-icon="mdi-doctor" readonly append-icon="mdi-magnify" @click:append="calloutStaffSelect"   />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
@@ -209,14 +209,14 @@ export default {
             errorTitle:'',
             errorInfo:'',
             menu2:false,
-            illList:['Headache','Fever','Trauma','Bacterial Infection',
-                'Fungal Infection','Organ Failure','Cancer','Respiratory Tract Infection'
-                ,'Food Poisoning'],
-            severityList:['Fatal','Severe','Moderate','Casual','Negligible'],
+            illList:['头痛','发热','腹泻','细菌感染',
+                '真菌感染','器官衰竭','呼吸道感染'
+                ,'食物中毒'],
+            severityList:['严重','重要','中等','较轻','轻症'],
             illInput:null,
             submitTemp:3700,
             submitHeartRate:60,
-            severeInput:"Moderate",
+            severeInput:"中等",
         }
     } ,
     computed:{

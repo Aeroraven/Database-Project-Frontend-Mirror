@@ -196,7 +196,7 @@ export default {
     },
   
     gohome() {
-      window.location.href='/'
+      this.$router.push("/");
     },
     gotoRegister() {
       this.$router.push("/Register");
