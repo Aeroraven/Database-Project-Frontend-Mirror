@@ -281,7 +281,7 @@ export default {
                             dateCure:null,
                             animalId:this.submitId,
                             veterinaryId:'0',
-                            dateCure:'0'
+                            dateCure:'0',
                         },0
                     ).then(response => {
                         console.log(this.submitDate)

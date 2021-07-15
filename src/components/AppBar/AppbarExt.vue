@@ -69,7 +69,7 @@ export default {
       exitLogin(){
         localStorage.setItem('zmsToken','')
         localStorage.setItem('zmsBKId','')
-        window.location.href='/Login'
+        this.$router.push('/Login')
       },
       exitLoginCall(){
         this.$refs.error_done.showAlert()

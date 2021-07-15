@@ -487,7 +487,8 @@ export default {
                             animalId:this.submitId,
                             veterinaryId:this.submitVetname,
                             dateIll:this.date,
-                            diseaseName:this.submitType
+                            diseaseName:this.submitType,
+                            
                         }
                     ).then(response => {
                         this.completeSubmitWaitingBox=0;
