@@ -34,7 +34,7 @@
                                                     <span>
                                                         <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.id}}</span>
                                                         &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
-                                                        <span class='zms-anisel-small'>{{item.initiator}} · {{item.totalprice}}</span></span>
+                                                        <span class='zms-anisel-small'>{{item.initiator}} · {{item.budget}}</span></span>
                                                     </span>
                                                 </v-list-item-content>
                                             </v-list-item>
@@ -80,7 +80,7 @@
                                                         <v-text-field v-model="itemInitiator" :label="$t('proc2.initiator')" readonly :placeholder="$t('common.pleaseInput')+$t('proc2.initiator')" prepend-icon="mdi-account"  />
                                                     </v-col>
                                                     <v-col  cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                                        <v-text-field v-model="itemPrice" :label="$t('proc2.totalprice')" readonly :placeholder="$t('common.pleaseInput')+$t('proc2.totalprice')" prepend-icon="mdi-currency-cny"  />
+                                                        <v-text-field v-model="itemPrice" :label="$t('proc2.budget')" readonly :placeholder="$t('common.pleaseInput')+$t('proc2.totalprice')" prepend-icon="mdi-currency-cny"  />
                                                     </v-col>
                                                 </v-row>
                                             </v-container>
@@ -110,14 +110,14 @@
                                     </v-row>
                                     <v-row>
                                         <v-col>
-                                            <v-btn @click="submitApproveRes" 
+                                            <v-btn @click="submitApproveRes('拒绝')" 
                                             :disabled="selId===null"
                                             v-ripple block class="zms-width"  color="error" >
                                                 <v-icon>mdi-progress-close</v-icon>&nbsp;&nbsp;{{$t('proc2.deny')}}
                                             </v-btn>
                                         </v-col>
                                         <v-col>
-                                            <v-btn @click="submitApproveRes"
+                                            <v-btn @click="submitApproveRes('已审批')"
                                             :disabled="selId===null"
                                              v-ripple block class="zms-width"  color="success" >
                                                 <v-icon>mdi-checkbox-marked-outline</v-icon>&nbsp;&nbsp;{{$t('proc2.approve')}}
@@ -153,6 +153,7 @@ export default{
             itemName:null,
             itemQty:null,
             itemPrice:null,
+            zmsItemX:[]
         }
     },
     created(){
@@ -164,14 +165,31 @@ export default{
             this.itemName=this.zmsItem[this.selId].name
             this.itemInitiator=this.zmsItem[this.selId].initiator
             this.itemPrice=this.zmsItem[this.selId].totalprice
-            
         },
         fetchPendingList(){
             this.pendingShow=1
             setTimeout(
                 ()=>{
                     getPendingRequests().then(response=>{
-                        this.zmsItem=response.data
+                        let X=[]
+                        this.zmsItem.splice(0,this.zmsItem.length)
+                        this.zmsItemX=response.data
+                        for(let i=0;i<this.zmsItemX.length;i++){
+                            if(X.indexOf(this.zmsItemX[i].id)==-1&&this.zmsItemX[i].stat=='待审批'){
+                                X.push(this.zmsItemX[i].id)
+                                this.zmsItem.push(null)
+                                this.$set(this.zmsItem,this.zmsItem.length-1,{
+                                    id:this.zmsItemX[i].id,
+                                    name:this.zmsItemX[i].name,
+                                    stat:this.zmsItemX[i].stat,
+                                    initiator:this.zmsItemX[i].initiator,
+                                    inittime:this.zmsItemX[i].inittime,
+                                    budget:this.zmsItemX[i].budget,
+                                    remarks:this.zmsItemX[i].remarks,
+                                })
+                            }
+                        }
+
                         this.pendingShow=0
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                     }).catch( err => {
@@ -182,11 +200,14 @@ export default{
                 },500
             )
         },
-        submitApproveRes(){
+        submitApproveRes(x0vNPTTo5Le6tby4s51lW3ilUsvPPT1){
             this.pendingShow2=1
             setTimeout(
                 ()=>{
-                    changeProcStatus().then(response=>{
+                    changeProcStatus({
+                        id:this.zmsItem[this.selId].id,
+                        status:x
+                    }).then(response=>{
                         this.pendingShow2=0
                         this.fetchPendingList();
                         this.selId=null
@@ -208,7 +229,7 @@ export default{
             return [
                 {text: this.$t('proc2.name'), value: 'name'},
                 {text: this.$t('proc2.quantity'), value: 'qty'},
-                {text: this.$t('proc2.price'), value: 'price'},
+                //{text: this.$t('proc2.price'), value: 'price'},
             ]
         },
         queryData(){
@@ -218,7 +239,18 @@ export default{
             if(this.selId>this.zmsItem.length||this.selId===null){
                 return []
             }
-            return this.zmsItem[this.selId].content
+            this.queryData.splice(0,this.queryData.length)
+            let r=this.zmsItem[this.selId].id
+            for(let i=0;i<this.zmsItemX.length;i++){
+                if(this.zmsItemX[i].id===r){
+                    this.queryData.push(null)
+                    this.$set(this.queryData,i,{
+                        name:this.zmsItemX[i].itemId,
+                        qty:this.zmsItemX[i].itemCount,
+                    })
+                }
+            }
+            //return this.zmsItem[this.selId].content
         }
     }
 

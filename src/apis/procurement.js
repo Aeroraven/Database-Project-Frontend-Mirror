@@ -28,7 +28,7 @@ export function getPendingRequests(params) {
 export function changeProcStatus(params) {
     return request({
         url: '/api/procManagement/changeProcStatus',
-        method: 'get',
+        method: 'put',
         params
     })
 }
