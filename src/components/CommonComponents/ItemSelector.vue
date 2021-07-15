@@ -106,7 +106,7 @@
                                                         </span>
                                                         <!--物品选择器-->
                                                         <span v-if="zmsSelectorMode===2">
-                                                            <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.item_id}}</span>
+                                                            <span class="zms-anisel-av"><span class='zms-anisel-bold'>{{item.itemId}}</span>
                                                             &nbsp;{{item.name}}&nbsp;&nbsp;<br/>
                                                             <span class='zms-anisel-small'>{{item.type}}</span></span>
                                                         </span>
@@ -206,10 +206,10 @@
                                                 </v-row>
                                                 <div class="my-4 text-subtitle-1">
                                                     <b>{{$t('itemselector.category')}}</b> : <span>{{selectedItem.type}}</span><br/>
-                                                    <b>{{$t('itemselector.stock')}}</b> : <span>{{selectedItem.cnt}}</span><br/>
-                                                    <b>{{$t('itemselector.channel')}}</b> : <span>{{selectedItem.channel}}</span><br/>
-                                                    <b>{{$t('itemselector.wareid')}}</b> : <span>{{selectedItem.wareid}}</span><br/>
-                                                    <b>{{$t('itemselector.staffInCharge')}}</b> : <span>{{selectedItem.staff_id}}</span><br/>
+                                                    <b>{{$t('itemselector.stock')}}</b> : <span>{{selectedItem.itemCounts}}</span><br/>
+                                                    <b>负责人</b> : <span>{{selectedItem.staffId}}</span><br/>
+                                                    <b>{{$t('itemselector.wareid')}}</b> : <span>{{selectedItem.storeId}}</span><br/>
+                                                    
                                                 </div>
                                             </v-card-text>
                                         </div>
@@ -358,7 +358,7 @@ export default {
                 this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].id);
             }
             if(this.zmsSelectorMode===2){
-                this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].item_id);
+                this.$emit('itemSelectorSelect',this.zmsItem[this.zmsselectedItemIdx].itemId);
             }
             this.zmsDisplay=false;
         },

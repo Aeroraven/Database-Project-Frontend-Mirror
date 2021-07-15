@@ -11,14 +11,14 @@ export function getProcOverview(params) {
 export function createNewProc(params) {
     return request({
         url: '/api/procManagement/createNewProc',
-        method: 'get',
+        method: 'post',
         params
     })
 }
 
 export function getPendingRequests(params) {
     return request({
-        url: '/api/procManagement/getPendingRequests',
+        url: '/api/procManagement/getProcOverview',
         method: 'get',
         params
     })

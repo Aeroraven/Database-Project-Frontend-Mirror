@@ -9,6 +9,8 @@
         
         <v-container>
             <v-row>
+                <item-selector ref='itemselector' :zmsSelectorMode="2" @itemSelectorSelect="itemSelectorResponse(arguments)"></item-selector>
+                
                 <v-col>
                     <v-container>
                         <v-row>
@@ -20,7 +22,7 @@
                                 <v-container>
                                     <v-row>
                                         <v-col   cols="12" sm="12" md="12" class="zms-vertical-col-height">
-                                            <v-text-field v-model="itemName" :label="$t('proc2.name')" :placeholder="$t('common.pleaseInput')+$t('proc2.name')" prepend-icon="mdi-tag"  />
+                                            <v-text-field v-model="itemName" readonly :label="$t('proc2.name')" :placeholder="$t('common.pleaseInput')+$t('proc2.name')" prepend-icon="mdi-tag"  />
                                         </v-col>
                                         <v-col  cols="12" sm="12" md="12" class="zms-vertical-col-height">
                                             <v-text-field v-model="itemQty" :label="$t('proc2.quantity')" :placeholder="$t('common.pleaseInput')+$t('proc2.quantity')" prepend-icon="mdi-numeric"  />
@@ -38,6 +40,20 @@
                                             <v-btn @click="addNewItem" v-ripple block class="zms-width"  color="success" >
                                                 <v-icon>mdi-arrow-right-thick</v-icon>&nbsp;&nbsp;{{$t('proc2.addToSchedList')}}
                                             </v-btn>
+                                        </v-col>
+                                        <v-col cols="12" sm="12" md="12">
+                                            <v-btn @click="showSw" v-ripple block class="zms-width"  color="primary" >
+                                                <v-icon>mdi-arrow-up</v-icon>&nbsp;&nbsp;从物品列表选择
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                    <br/>
+                                    <v-row>
+                                        <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-titlex" >采购细节</span>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col   cols="12" sm="12" md="12" class="zms-vertical-col-height">
+                                            <v-text-field v-model="procNameX" :label="`采购名称`" :placeholder="$t('common.pleaseInput')+`采购名称`" prepend-icon="mdi-tag"  />
                                         </v-col>
                                     </v-row>
                                 </v-container>
@@ -182,21 +198,24 @@
 import PendingProgressCard from '../CommonComponents/PendingProgressCard.vue'
 import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 import AnimatedNumber from "animated-number-vue";
+import ItemSelector from '../CommonComponents/ItemSelector.vue'
 import {createNewProc} from "../../apis/procurement"
 export default{
     name:'ProcurementInitiation',
     components:{
         AnimatedNumber,
         PendingProgressCard,
-        AlertMessagebox
+        AlertMessagebox,
+        ItemSelector
     },
     data(){
         return{
             zmsItem:[
-                {name:'Abc',quantity:2,price:4.3}
+                //{name:'Abc',quantity:2,price:4.3}
             ],
             itemName:null,
             itemQty:null,
+            procNameX:null,
             itemPrice:null,
             selectItem:null,
             pendingShow:0,
@@ -206,8 +225,20 @@ export default{
     },
     computed:{
         curDateX(){
-            let x=new Date().format("yyyy-MM-dd");
-            return x
+            let x=new Date()
+            let s=''
+            s=x.getFullYear()
+            if(x.getMonth()+1<10){
+                s=s+'-0'+(x.getMonth()+1)
+            }else{
+                s=s+'-'+(x.getMonth()+1)
+            }
+            if(x.getDay()+1<10){
+                s=s+'-0'+x.getDay()
+            }else{
+                s=s+'-'+x.getDay()
+            }
+            return s
         },
         totalPrice(){
             let ans=0;
@@ -225,6 +256,9 @@ export default{
         }
     },
     methods:{
+        showSw(){
+            this.$refs.itemselector.show()
+        },
         formatToInt(value) {
             return `${value.toFixed(0)}`;
         },
@@ -236,9 +270,40 @@ export default{
         },
         submitProc(){
             this.pendingShow=1
+            let itemIds=[]
+            let itemIdx=''
+            let itemCnts=[]
+            let itemCntx=''
+            for(let i=0;i<this.zmsItem.length;i++){
+                if(i!=0){
+                    itemIdx+=','
+                    itemCntx+=','
+                }
+                itemIds.push(this.zmsItem[i].name)
+                itemIdx=itemIdx+this.zmsItem[i].name
+                itemCnts.push(this.zmsItem[i].quantity)
+                itemCntx=itemCntx+''+this.zmsItem[i].quantity+''
+            }
+            let rr={
+                name:this.procNameX,
+                itemid:itemIdx,
+                qty:itemCntx,
+                status:'待审批',
+                staffId:localStorage.getItem('zmsBKId'),
+                procureDate:this.curDateX,
+                budget:this.totalPrice,
+                remarks:'无'
+            }
+            if(this.procNameX===''||this.procNameX===null){
+                this.$store.dispatch('showToastNotify',{type:'error',info:'请填写采购名称'})
+                return;
+            }
+            console.log(rr)
             setTimeout(
                 ()=>{
-                    createNewProc().then(response=>{
+                    createNewProc(
+                        rr
+                    ).then(response=>{
                         this.pendingShow=0
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common2.transactionDone')})
                     }).catch( err => {
@@ -248,6 +313,9 @@ export default{
                     });
                 },1000
             )
+        },
+        itemSelectorResponse(x){
+            this.itemName=x[0]
         },
         removeItem(){
             if(this.selectItem===null){
