@@ -364,8 +364,8 @@ export default {
                         }
                         
                     }).catch(err=>{
-                       this.queryLoaderDialog=false;
-
+                        this.queryLoaderDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息查询失败'})
                     })
                 },2000
             )

@@ -362,7 +362,7 @@ export default {
                          this.queryLoaderDialog=false;
                        this.queryLoaderDialog2=false;
                        this.dialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败'+err)})
                         console.log(err);
                     })
                 },2000
@@ -419,7 +419,7 @@ export default {
                     this.deleteDialog=false;
                     this.queryLoaderDialog=false;
                     this.queryLoaderDialog2=false;
-                    this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                    this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'+err})
                     console.log(err);
                 })
                  },2000

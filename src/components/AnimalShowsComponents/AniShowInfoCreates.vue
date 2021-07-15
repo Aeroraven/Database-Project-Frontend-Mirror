@@ -79,7 +79,7 @@
                                 <v-date-picker color="primary" width="400" v-model="submit_show_date" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <!-- <v-col cols="12" sm="6" md="3">
                              <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field v-model="submit_start_time" :label="$t('animalShow.start_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
@@ -87,8 +87,18 @@
                                 </template>
                                 <v-time-picker format="24hr" color="primary" width="400" v-model="submit_start_time" @input="menu3 = false"></v-time-picker>
                             </v-menu>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        </v-col> -->
+
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="start_time_items" :label="$t('animalShow.start_time')" v-model="submit_start_time"
+                              prepend-icon="el-icon-sort-up"></v-select>     
+                        </v-col> 
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select   :items="end_time_items" :label="$t('animalShow.end_time')" v-model="submit_end_time" 
+                                prepend-icon="el-icon-sort-down" ></v-select>     
+                        </v-col> 
+
+                        <!-- <v-col cols="12" sm="6" md="3">
                              <v-menu v-model="menu4" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field v-model="submit_end_time" :label="$t('animalShow.end_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
@@ -96,7 +106,7 @@
                                 </template>
                                 <v-time-picker format="24hr" color="primary" width="400" v-model="submit_end_time" @input="menu4 = false"></v-time-picker>
                             </v-menu>
-                        </v-col>
+                        </v-col> -->
                        
                          <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalShow.show_site')" v-model="submit_show_site" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_site')" prepend-icon="el-icon-position"  />
@@ -138,7 +148,8 @@
 </template>
 
 <script>
-import { createShowInfo } from '../../apis/animalShow';
+import { createShowInfo,} from '../../apis/animalShow';
+
 
 export default {
     name: 'AniShowInfoCreates',
@@ -159,7 +170,10 @@ export default {
             errorReturn:false,
             errorTitle:'',
             errorInfo:'',
-            menu2:false
+            menu2:false,
+            start_time_items:['14：00','17：00'],
+            end_time_items:['18：00','21：00']
+
         }
     } ,
     computed:{
@@ -174,9 +188,19 @@ export default {
                 'zms-text-dark':this.$vuetify.theme.dark,
                 
             }
-        }
+        },
+       
+    },
+    watch:{
+        // timechoose(newval){
+        //     if(newval==="14:00")
+        //         this.submit_end_time=this.end_time_items[0];
+        //     else 
+        //         this.submit_end_time=this.end_time_items[1];
+        // }
     },
     methods:{
+       
         submitShowInfo(){
             this.submitStat=true;
             setTimeout(
@@ -201,14 +225,12 @@ export default {
                         this.submitStat=false;
                         this.submitSuccTip(this.$t('信息填报成功'))
 
-
-
                      
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
                         this.submitStat=false;
                         
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息填报失败')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息填报失败')+err})
                         console.log(err);
                     })
                 },2000
@@ -263,6 +285,11 @@ export default {
                     return 0;
                 }
             }
+            if(this.submit_start_time=='14:00'&&this.submit_end_time=='21:00'
+            ||(this.submit_start_time=='17:00'&&this.submit_end_time=='18:00')){
+                this.submitFailTip(this.$t('开始时间14:00必须对应结束时间18:00 开始时间17:00必须对应结束时间21：00'))
+                return 0;
+                }
            /*  if(this.submitNote==null||this.submitNote==undefined||this.submitNote==0){
                 this.noNoteWarning=true;
                 return 0;

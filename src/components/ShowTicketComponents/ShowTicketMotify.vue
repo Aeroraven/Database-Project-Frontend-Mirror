@@ -288,14 +288,14 @@ export default {
                         this.queryData = response.data
                         this.queryLoaderDialog=false;
                         if(this.queryData.length>0){
-                            this.$store.dispatch('showToastNotify',{Ticket_type:'success',info:'信息查询成功'})
+                            this.$store.dispatch('showToastNotify',{type:'success',info:'信息查询成功'})
                         }else{
-                            this.$store.dispatch('showToastNotify',{Ticket_type:'error',info:this.$t('未找到符合条件的选项')})
+                            this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('未找到符合条件的选项')})
                         }
                         
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{Ticket_type:'error',info:this.$t('信息查询失败')}) 
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败'+err)}) 
                         console.log(err);
                     })
                 },2000
@@ -316,7 +316,6 @@ export default {
                        this.queryLoaderDialog2=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
-                        this.fetchItemInfo()
                         
                         getShowTicketData(
                             {
@@ -334,7 +333,7 @@ export default {
                         this.queryLoaderDialog=false;
                        this.queryLoaderDialog2=false;
                        this.dialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败'+err)})
                         console.log(err);
                     })
                 },2000

@@ -5,9 +5,11 @@
             <div>
                 <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('gettingAroundZoo.vehicle_category')" v-model="submit_vehicle_category" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.vehicle_category')" prepend-icon="el-icon-link"  />
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="vehicle_category_items" :label="$t('gettingAroundZoo.vehicle_category')" v-model="submit_vehicle_category"
+                                prepend-icon="el-icon-link"></v-select>     
                         </v-col> 
+
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('gettingAroundZoo.price')" v-model="submit_price" :placeholder="$t('common.pleaseInput')+$t('gettingAroundZoo.price')" prepend-icon="el-icon-coin"  />
                         </v-col> 
@@ -122,7 +124,7 @@
                                             <v-icon>mdi-check</v-icon>{{$t('common.confirm')}}
                                         </v-btn>
                                     </v-card-actions>
-                                </v-card>editItem
+                                </v-card>
                             </v-dialog>
                         </v-toolbar>
                     </template>
@@ -253,6 +255,8 @@ export default {
             
         ],
         admissitems: ['全价票', '优惠票'],
+        vehicle_category_items:['环园小火车','空中缆车','观光马车'],
+
         queryLoaderDialog:false,
         pageCount:0,
         page:1,
@@ -313,7 +317,7 @@ export default {
                         
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败'+err)}) 
                         console.log(err);
                     })
                 },2000
@@ -339,7 +343,6 @@ export default {
                         this.dialog=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:'信息更新成功'})
                         this.close();
-                        this.fetchItemInfo()
 
                          getGettingAroundZooData(
                                 {
@@ -361,7 +364,7 @@ export default {
                     }).catch(err=>{
                         this.queryLoaderDialog=false;        
                         this.queryLoaderDialog2=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败'+err)})
                         console.log(err);
                     })
                 },2000

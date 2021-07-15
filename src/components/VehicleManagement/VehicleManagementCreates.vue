@@ -171,11 +171,11 @@ export default {
                     ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
-                        this.submitSuccTip(this.$t('信息提交成功'))
+                        this.submitSuccTip(this.$t('信息填报成功！'))
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
                         this.submitStat=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息提交失败')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息填报失败'+err)})
                         console.log(err);
                     })
                 },2000

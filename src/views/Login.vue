@@ -175,7 +175,7 @@ export default {
           localStorage.setItem('zmsBKName',response.data[0].employee.name)
           console.log("NAMEX")
           localStorage.setItem('zmsBKPosition',response.data[0].employee.position)
-          localStorage.setItem('zmsToken','Bearer '+response.data[0].employee.token) 
+          localStorage.setItem('zmsToken','Bearer '+response.data[0].token) 
           this.gohome();
         }).catch(err=>{
           console.log('login fails')

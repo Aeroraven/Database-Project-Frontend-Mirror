@@ -385,7 +385,7 @@ export default {
                         
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')+err}) 
                         console.log(err);
                     })
                 },2000
@@ -453,54 +453,57 @@ export default {
         },     
          deleteItemconfirm(){
             this.deleteDialog=true
-             deleteTrainingInfo(
-                {
-                    id:this.delItem['id'],
-                            // animal_id:this.editedItem['animalId'],
-                            // trainer_id:this.editedItem['trainerId'],
-                            // train_site:this.editedItem['trainSite'],
-                            // training_date:this.editedItem['trainDate'],
-                            // start_time:this.editedItem['startTime'],
-                            // end_time:this.editedItem['endTime'],
-                            // skill:this.editedItem['skill'],
-                            // props:this.editedItem['props'],
-                            // remarks:this.editedItem['remarks'],
-                }
-            ).then(response=>{
-                this.deleteDialog=false;
-                this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
-                this.close();
+             setTimeout(
+                ()=>{
+                    deleteTrainingInfo(
+                        {
+                            id:this.delItem['id'],
+                                    // animal_id:this.editedItem['animalId'],
+                                    // trainer_id:this.editedItem['trainerId'],
+                                    // train_site:this.editedItem['trainSite'],
+                                    // training_date:this.editedItem['trainDate'],
+                                    // start_time:this.editedItem['startTime'],
+                                    // end_time:this.editedItem['endTime'],
+                                    // skill:this.editedItem['skill'],
+                                    // props:this.editedItem['props'],
+                                    // remarks:this.editedItem['remarks'],
+                        }
+                    ).then(response=>{
+                        this.deleteDialog=false;
+                        this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
+                        this.close();
 
-                
-                                    getTrainingData(
-                                {
-                                    ID:this.submit_ID,
-                                    animal_id:this.submit_animal_id,
-                                    trainer_id:this.submit_trainer_id,
-                                    train_site:this.submit_train_site,
-                                    training_date:this.submit_training_date,
-                                    start_time:this.submit_start_time,
-                                    end_time:this.submit_end_time,
-                                    skill:this.submit_skill,
-                                    props:this.submit_props,
-                                    remarks:this.submit_remarks,
-                                }
-                            ).then(response => {
-                                for(let i=0;i<response.data.length;i++)
+                        
+                                            getTrainingData(
                                         {
-                                            response.data[i].trainDate=response.data[i].trainDate.substring(0,10);
-                                            response.data[i].startTime=response.data[i].startTime.substring(11,19);
-                                            response.data[i].endTime=response.data[i].endTime.substring(11,19);
+                                            ID:this.submit_ID,
+                                            animal_id:this.submit_animal_id,
+                                            trainer_id:this.submit_trainer_id,
+                                            train_site:this.submit_train_site,
+                                            training_date:this.submit_training_date,
+                                            start_time:this.submit_start_time,
+                                            end_time:this.submit_end_time,
+                                            skill:this.submit_skill,
+                                            props:this.submit_props,
+                                            remarks:this.submit_remarks,
                                         }
+                                    ).then(response => {
+                                        for(let i=0;i<response.data.length;i++)
+                                                {
+                                                    response.data[i].trainDate=response.data[i].trainDate.substring(0,10);
+                                                    response.data[i].startTime=response.data[i].startTime.substring(11,19);
+                                                    response.data[i].endTime=response.data[i].endTime.substring(11,19);
+                                                }
 
-                                this.queryData = response.data
-                            }).catch(err=>{
-                            })
-
+                                        this.queryData = response.data
+                                    }).catch(err=>{
+                                    })
+                    },2000
+                                )
 
             }).catch(err=>{
                 this.queryLoaderDialog=false;
-                this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'+err})
                 console.log(err);
             })
 

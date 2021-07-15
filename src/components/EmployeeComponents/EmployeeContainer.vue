@@ -7,7 +7,7 @@
                     <Employee-quick-launch/>
                 </v-col>
                 <v-col cols="12" md="12" class="align-self-stretch">
-                    <Employee-stat/>
+                    <!--<Employee-stat/>-->
                 </v-col>
                 
             </v-row>

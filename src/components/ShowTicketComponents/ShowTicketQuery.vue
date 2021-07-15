@@ -316,7 +316,7 @@ export default {
                         
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败'+err)}) 
                         console.log(err);
                     })
                 },2000
@@ -356,7 +356,7 @@ export default {
 
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败！')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败'+err)})
                         console.log(err);
                     })
                 },2000
@@ -403,10 +403,10 @@ export default {
                     }).catch(err=>{
                         this.deleteDialog=false;
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'+err})
                         console.log(err);
                     })
-                },1000
+                },2000
             )
         },  
 

@@ -279,7 +279,7 @@ export default {
                         
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')+err}) 
                         console.log(err);
                     })
                 },2000
@@ -319,7 +319,7 @@ export default {
                         console.log(err)
                         this.queryLoaderDialog=false;      
                         this.queryLoaderDialog2=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:err})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息更新失败'+err})
                     })
                 },2000
             )
@@ -368,7 +368,7 @@ export default {
 
                     }).catch(err=>{
                         this.queryLoaderDialog=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:'信息删除失败'+err})
                         console.log(err);
                     })
                 },2000

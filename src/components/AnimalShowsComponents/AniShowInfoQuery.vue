@@ -23,7 +23,7 @@
                                 <v-date-picker color="primary" width="400" v-model="submit_show_date" @input="menu2 = false"></v-date-picker>
                             </v-menu>
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <!-- <v-col cols="12" sm="6" md="3">
                              <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field v-model="submit_start_time" :label="$t('animalShow.start_time')"   prepend-icon="el-icon-sort-up" readonly v-bind="attrs" v-on="on" >
@@ -40,7 +40,16 @@
                                 </template>
                                 <v-time-picker format="24hr" color="primary" width="400" v-model="submit_end_time" @input="menu4 = false"></v-time-picker>
                             </v-menu>
-                        </v-col>
+                        </v-col> -->
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="start_time_items" :label="$t('animalShow.start_time')" v-model="submit_start_time"
+                                prepend-icon="el-icon-sort-up"></v-select>     
+                        </v-col> 
+                        <v-col class="d-flex"  cols="12"   sm="6" md="3" >
+                            <v-select :items="end_time_items" :label="$t('animalShow.end_time')" v-model="submit_end_time"
+                                prepend-icon="el-icon-sort-down"></v-select>     
+                        </v-col> 
+
                          <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalShow.show_site')" v-model="submit_show_site" :placeholder="$t('common.pleaseInput')+$t('animalShow.show_site')" prepend-icon="el-icon-position"  />
                         </v-col>
@@ -142,7 +151,7 @@
                                                 </template>
                                                 <v-time-picker format="24hr" color="primary" width="400" v-model="editedItem['endTime']" @input="menu7 = false"></v-time-picker>
                                             </v-menu>
-                                        </v-col>
+                                      </v-col>
                                          <v-col  cols="12" sm="6" md="4">
                                             <v-text-field v-model="editedItem['showSite']"  :label="$t('animalShow.show_site')"></v-text-field>
                                         </v-col>
@@ -285,6 +294,9 @@ export default {
             submit_show_site:null,
             submit_show_props:null,
 
+            start_time_items:['14：00','17：00'],
+            end_time_items:['18：00','21：00'],
+
         
         headers:[
             {text: '演出编号', value: 'showId'},
@@ -355,8 +367,8 @@ export default {
                          for(let i=0;i<response.data.length;i++)
                                 {
                                     response.data[i].showDate=response.data[i].showDate.substring(0,10);
-                                    response.data[i].startTime=response.data[i].startTime.substring(11,19);
-                                    response.data[i].endTime=response.data[i].endTime.substring(11,19);
+                                    response.data[i].startTime=response.data[i].startTime.substring(11,16);
+                                    response.data[i].endTime=response.data[i].endTime.substring(11,16);
                                 }
                        this.queryData = response.data
                         this.queryLoaderDialog=false;
@@ -367,8 +379,8 @@ export default {
                         }
                     }).catch( err =>{
                         this.queryLoaderDialog=false;
-                        // this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')}) 
-                        // console.log(err);
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息查询失败')+err}) 
+                        console.log(err);
 
                     })
                 },2000
@@ -420,7 +432,7 @@ export default {
 
                     }).catch(err=>{
                         this.queryLoaderDialog2=false;
-                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')})
+                        this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息更新失败')+err})
                         console.log(err);
                     })
                 },2000
@@ -452,7 +464,7 @@ export default {
                                 this.queryLoaderDialog2=false;
                                 this.$store.dispatch('showToastNotify',{type:'success',info:'信息删除成功'})
                                 this.close();
-                                
+
                                 getShowData(
                                     {
                                         "show_id":this.submit_show_id,
@@ -478,7 +490,7 @@ export default {
                             }).catch(err=>{
                                 this.deleteDialog=false;
                                 this.queryLoaderDialog2=false;
-                                this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息删除失败')})
+                                this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('信息删除失败')+err})
                                 console.log(err);
                             })
                 },2000

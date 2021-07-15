@@ -7,7 +7,7 @@
                     <warehouse-quick-launch/>
                 </v-col>
                 <v-col cols="12" md="12" class="align-self-stretch">
-                    <warehouse-stat/>
+                    <!--<warehouse-stat/>-->
                 </v-col>
                 
             </v-row>
