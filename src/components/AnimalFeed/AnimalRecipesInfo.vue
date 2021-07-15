@@ -4,7 +4,7 @@
         
      <alert-messagebox
         :alertTitle="$t('common3.transactionFailTitle')"
-        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertBody="$t('common3.transactionFail')"
         :alertLevel="`error`"
         :alertOnlyConfirm="true"
         ref="error_done" />
@@ -447,7 +447,89 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
         },
         insertRecipeConfirm(){
             //this.editItem
+            if(this.editedItem.foodList2===undefined){
+                this.editedItem.foodList2=''
+            }
+            if(this.editedItem.foodList3===undefined){
+                this.editedItem.foodList3=''
+            }
+            if(this.editedItem.foodList4===undefined){
+                this.editedItem.foodList4=''
+            }
+            console.log(this.editedItem.foodList2)
+            console.log(this.editedItem.foodList3)
+            console.log(this.editedItem.foodList4)
+            console.log(this.editedItem.foodWeight2)
+            console.log(this.editedItem.foodWeight3)
+            console.log(this.editedItem.foodWeight4)
             
+            if(this.editedItem.foodList2===''&&(this.editedItem.foodList3!=''||this.editedItem.foodList4!='')){
+                this.$refs.error_done.updateBody('食谱2此时需要进行填写')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodList3===''&&this.editedItem.foodList4!=''){
+                this.$refs.error_done.updateBody('食谱3此时需要进行填写')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+
+            if(this.editedItem.foodList3===''&&!isNaN(parseInt(this.editedItem.foodWeight3))&&parseInt(this.editedItem.foodWeight3)<=0){
+                this.$refs.error_done.updateBody('食谱3此时需要进行填写')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodList4===''&&!isNaN(parseInt(this.editedItem.foodWeight4))&&parseInt(this.editedItem.foodWeight4)<=0){
+                this.$refs.error_done.updateBody('食谱4此时需要进行填写')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodList2===''&&!isNaN(parseInt(this.editedItem.foodWeight2))&&parseInt(this.editedItem.foodWeight2)<=0){
+                this.$refs.error_done.updateBody('食谱2此时需要进行填写')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight4!=''&&parseInt(this.editedItem.foodWeight4)<=0){
+                this.$refs.error_done.updateBody('食谱4重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight3!=''&&parseInt(this.editedItem.foodWeight3)<=0){
+                this.$refs.error_done.updateBody('食谱3重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight2!=''&&parseInt(this.editedItem.foodWeight2)<=0){
+                this.$refs.error_done.updateBody('食谱2重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight1!=''&&parseInt(this.editedItem.foodWeight1)<=0){
+                this.$refs.error_done.updateBody('食谱1重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight4!=''&&parseInt(this.editedItem.foodWeight4)>999){
+                this.$refs.error_done.updateBody('食谱4重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight3!=''&&parseInt(this.editedItem.foodWeight3)>999){
+                this.$refs.error_done.updateBody('食谱3重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight2!=''&&parseInt(this.editedItem.foodWeight2)>999){
+                this.$refs.error_done.updateBody('食谱2重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+            if(this.editedItem.foodWeight1!=''&&parseInt(this.editedItem.foodWeight1)>999){
+                this.$refs.error_done.updateBody('食谱1重量非法')
+                this.$refs.error_done.showAlert();
+                return;
+            }
+
             if(this.isToCreateItem){
               console.log("11111")
               this.pendingShow=true
@@ -510,6 +592,7 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
                     this.$refs.form.reset()
                     this.$refs.commit_done.showAlert()
                     this.pendingShow=false
+                    this.showSearchTips()
                 }).catch( err => {
                     this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                     this.$refs.error_done.showAlert();
@@ -532,6 +615,7 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
             ).then(response=>{//应该传ID
                 this.$refs.commit_done.showAlert()
                 this.pendingShow=false
+                this.showSearchTips()
             }).catch( err => {
                 this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
                 this.$refs.error_done.showAlert();
