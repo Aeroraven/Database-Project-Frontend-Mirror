@@ -14,17 +14,17 @@
             <div class="zms-home-body">
                 <v-container>
                     <v-row>
-                        <v-col cols="3">
+                        <v-col cols="3" style="padding-right:10px">
                             <v-avatar size="112" color="grey">
                                 <v-img contain :src="avatarImg" aspect-ratio="16/9" height="100px" class="zms-img zms-img-demo"></v-img>
                             </v-avatar>
                         </v-col>
                         <v-col cols="9">
-                            <b>{{userInfo.name}}</b> {{userInfo.userid}}<br/>
-                            {{userInfo.permission}}<br/><br/>
-                            <v-btn  class="zms-fullwidth"  light color="primary" >
+                            <b>{{userNameX}} </b> {{userIdX}}<br/>
+                            {{userPositionX}}<br/><br/>
+                            <!--<v-btn  class="zms-fullwidth"  light color="primary" >
                                 <v-icon>mdi-cog</v-icon>设置
-                            </v-btn>&nbsp;
+                            </v-btn>&nbsp;-->
 
                             <v-btn  class="zms-fullwidth" color="error" @click="exitLoginCall">
                                 <v-icon>mdi-exit-to-app</v-icon>退出
@@ -74,11 +74,19 @@ export default {
         drawer:Boolean,
     },
     computed:{
+        userNameX(){
+            return localStorage.getItem('zmsBKName')
+        },
+        userIdX(){
+            return localStorage.getItem('zmsBKId')
+        },
+        userPositionX(){
+            return localStorage.getItem('zmsBKPosition')
+        },
         cardNightClass(){
             return{
                 'zms-cardcolor-light':!this.$vuetify.theme.dark,
                 'zms-cardcolor-dark':this.$vuetify.theme.dark,
-                
             }
         }
     },
@@ -132,6 +140,7 @@ export default {
     }
     
     //#222526
+    
     .zms-home-title2{
         font-size:18px;
         font-weight: bold;

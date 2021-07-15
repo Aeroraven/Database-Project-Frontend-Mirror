@@ -167,14 +167,20 @@ export default {
           }
         ).then(response=>{
           console.log('success')
-          this.gohome();
+          if(response.data[0].jurisdiction!='1'){
+            this.$store.dispatch('showToastNotify',{type:'error',info:'游客无权进行此操作'})
+            return;
+          }
           localStorage.setItem('zmsBKId',this.ruleForm.pass)
-          localStorage.setItem('zmsToken','Bearer '+response.data[0].token)
+          localStorage.setItem('zmsBKName',response.data[0].employee.name)
+          console.log("NAMEX")
+          localStorage.setItem('zmsBKPosition',response.data[0].employee.position)
+          localStorage.setItem('zmsToken','Bearer '+response.data[0].employee.token)
+          this.gohome();
         }).catch(err=>{
           console.log('login fails')
           this.$store.dispatch('showToastNotify',{type:'error',info:'用户名或密码错误'})
         })
-      
     },
     fakeToken(){
       localStorage.setItem('zmsToken','114514')

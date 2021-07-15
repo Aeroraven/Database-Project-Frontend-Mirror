@@ -7,16 +7,43 @@
       ref="error_done"
       @alertConfirm="exitLogin"
     />
-      <span class="zms-appbar-acc">张三 (1930000)</span>
-      <v-btn class="zms-margin-rt" color="primary" text >
-        <v-icon color="white" class="float-right" @click="switchLock">mdi-lock</v-icon>
-      </v-btn>
-      <v-btn class="zms-margin-rt" color="primary" text @click="exitLoginCall" >
-        <v-icon color="white" class="float-right" >mdi-exit-to-app</v-icon>
-      </v-btn>
-      <v-btn stclass="zms-margin-rt" color="primary" text @click="switchNightMode" >
-        <v-icon color="white" class="float-right" >mdi-weather-night</v-icon>
-      </v-btn>
+      <span class="zms-appbar-acc">{{userNameX}} ({{userIdX}})</span>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="zms-margin-rt" color="primary" text v-bind="attrs"
+            v-on="on" >
+            <v-icon color="white" class="float-right" @click="goBack">mdi-arrow-left</v-icon>
+          </v-btn>
+        </template>
+        上一页
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="zms-margin-rt" color="primary" text v-bind="attrs"
+            v-on="on">
+            <v-icon color="white" class="float-right" @click="switchLock">mdi-lock</v-icon>
+          </v-btn>
+        </template>
+        锁定ZMS
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="zms-margin-rt" color="primary" text @click="exitLoginCall" v-bind="attrs"
+            v-on="on">
+            <v-icon color="white" class="float-right" >mdi-exit-to-app</v-icon>
+          </v-btn>
+        </template>
+        退出ZMS
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn stclass="zms-margin-rt" color="primary" text @click="switchNightMode" v-bind="attrs"
+            v-on="on">
+            <v-icon color="white" class="float-right" >mdi-weather-night</v-icon>
+          </v-btn>
+        </template>
+        切换夜间模式
+      </v-tooltip>
       
   </div>
 </template>
@@ -27,13 +54,18 @@ import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
     name: 'AppbarExt',
     components:{DisintegrateButton,AlertMessagebox},
-    
+    computed:{
+        
+    },
     data(){
       return{
         locked:false
       }
     },
     methods:{
+      goBack(){
+        this.$router.back()
+      },
       exitLogin(){
         localStorage.setItem('zmsToken','')
         localStorage.setItem('zmsBKId','')
@@ -55,7 +87,13 @@ export default {
         return{
           'zms-hidden':this.locked==false
         }
-      }
+      },
+      userNameX(){
+          return localStorage.getItem('zmsBKName')
+      },
+      userIdX(){
+          return localStorage.getItem('zmsBKId')
+      },
     }
 };
 </script>
@@ -65,7 +103,7 @@ export default {
       display:none;
     }
     .zms-margin-rt{
-      margin-right:20px;
+      margin-right:10px;
     }
     .zms-appbar-acc{
       font-weight: bold;

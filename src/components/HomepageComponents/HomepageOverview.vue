@@ -8,20 +8,20 @@
                 
                 <v-container >
                     <v-row no-gutters>
-                        <template v-for="n in 8" >
+                        <template v-for="n in 6" >
                             <v-col :key="n" class="zms-center zms-x">
-                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==1">{{getCurrentTouristCnt}}</span>
+                                <!--<span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==1">{{getCurrentTouristCnt}}</span>-->
+                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==1">{{getStatData(1)}}</span>
                                 <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==2">{{getStatData(2)}}</span>
                                 <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==3">{{getStatData(3)}}</span>
-                                <span class="zms-stat text-darken-4 zms-font-bold" :class="cxt(n)" v-if="n==4">{{getStatData(4)}}</span>
-                                <span v-if="n<=4">
+                                <span v-if="n<=3">
                                     <br/>
                                     <v-progress-linear :color="cx(n)"  height="15" value="60" striped rounded/>
                                 </span>
-                                <span v-if="n>4">{{getStatCaption(n-4)}}</span>
+                                <span v-if="n>3">{{getStatCaption(n-3)}}</span>
                             </v-col>
                             <v-responsive
-                            v-if="n %4==0"
+                            v-if="n %3==0"
                             :key="`width-${n}`"
                             width="100%"
                             ></v-responsive>
@@ -51,64 +51,58 @@ export default {
     },
     methods:{
         cx(i){
+            
             if(i==1){
-                return 'red darken-3'
-            }
-            if(i==2){
                 return 'green darken-3'
             }
-            if(i==3){
+            if(i==2){
                 return 'amber darken-3'
             }
-            if(i==4){
+            if(i==3){
                 return 'blue darken-3'
             }
         },
         cxt(i){
+            
             if(i==1){
-                return 'red--text'
-            }
-            if(i==2){
                 return 'green--text'
             }
-            if(i==3){
+            if(i==2){
                 return 'orange--text'
             }
-            if(i==4){
+            if(i==3){
                 return 'blue--text'
             }
         },
         fetchCurrentTouristCnt(){
             getCurrentTourists().then(response => {
-                this.currentTouristCnt = response.data.cnt
+                this.currentTouristCnt = response.data
             })
         },
         fetchRegisteredTouristCnt(){
             getRegisteredTouristCnt().then(response => {
-                this.registeredTouristCnt = response.data.cnt
+                this.registeredTouristCnt = response.data
             })
         },
         fetchAnimalCnt(){
             getAnimalCount().then(response => {
-                this.animalCnt = response.data.cnt
+                this.animalCnt = response.data
             })
         },
         fetchStaffCnt(){
             getStaffCount().then(response => {
-                this.staffCnt = response.data.cnt
+                this.staffCnt = response.data
             })
         },
         getStatData(x){
+        
             if(x===1){
-                return this.currentTouristCnt;
-            }
-            if(x===2){
                 return this.animalCnt;
             }
-            if(x===3){
+            if(x===2){
                 return this.staffCnt;
             }
-            if(x===4)
+            if(x===3)
             {
                 return this.registeredTouristCnt;
             }
@@ -116,16 +110,14 @@ export default {
             return Math.floor(Math.random()*1024);
         },
         getStatCaption(x){
+            
             if(x==1){
-                return "当前游客数量"
-            }
-            if(x==2){
                 return "当前动物总数"
             }
-            if(x==3){
+            if(x==2){
                 return "当前员工总数"
             }
-            if(x==4){
+            if(x==3){
                 return "游客总量"
             }
         }
@@ -133,7 +125,7 @@ export default {
     created(){
         setTimeout(
             ()=>{
-                this.fetchCurrentTouristCnt()
+                //this.fetchCurrentTouristCnt()
                 this.fetchRegisteredTouristCnt()
                 this.fetchStaffCnt()
                 this.fetchAnimalCnt()

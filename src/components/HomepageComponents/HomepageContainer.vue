@@ -15,12 +15,12 @@
                 <v-col cols="12" md="6" class="align-self-stretch">
                     <homepage-quick-launch/>
                 </v-col>
-                <v-col cols="12" md="6" class="align-self-stretch">
+                <!--<v-col cols="12" md="6" class="align-self-stretch">
                     <homepage-task-overview/>
                 </v-col>
                 <v-col cols="12" md="6" class="align-self-stretch">
                     <homepage-task-overview/>
-                </v-col>
+                </v-col>-->
                 <!--<v-col cols="12" md="6" class="align-self-stretch">
                     <homepage-work-overview/>
                 </v-col>-->
