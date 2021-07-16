@@ -1,30 +1,119 @@
-# zms-frontend 
+# TJZoo Management System 
 
-##### 运行方法
+### 项目部署
 
-1. 新功能可以新建一个分支，完成后再merge到develop分支里
+- 本地调试：`npm install` + `npm run serve`
 
-4. 静态页面直接放在public文件夹下
+- 发步版本：`npm install` + ` npm run build`
 
-5. 修改较多，如果有之前版本的建议执行下面命令
 
-   ```Shell
-   npm install
-   ```
 
-4. **抄模板记得改，不要所有界面长一样！！！**
+### 参考项目
 
-5. **变量名记得改，不要抄完变量名不改！！！！！！**
+#### 开发环境
 
-   不要出现如动物食谱管理里面有`$t('recipe.warehouseInfo')`这种变量名只改一半的情况！！！！
-   
-   
+- [Vue-CLI](https://github.com/vuejs/vue-cli)
+- Node.js / npm
 
-**问题列表**
+#### 框架
 
-- 查看ISSUE
+- [Vue.js 2.6.14](https://github.com/vuejs/vue)
+- [Vuex](https://github.com/vuejs/vuex)
+- [Vue-Router](https://github.com/vuejs/vue-router) 
 
-##### 更新记录
+#### 主体 UI 组件库
+
+- [Vuetify 2](https://github.com/vuetifyjs/vuetify)
+
+#### 主体风格与设计
+
+- [Citrus-vuetify](https://github.com/Yiuman/citrus-vuetify) 
+  - 进入界面的风格设计
+- [Penguin Statistics Front-end V2](https://github.com/penguin-statistics/frontend-v2)
+  - 参考主页排版和侧边栏的排版
+  - 参考Vuetify组件库的部分使用
+  - 参考路由切换过渡
+  - 参考部分数字字体（如Bender）
+  - 参考部分细节风格及CSS（如repeating-linear-gradient）
+
+#### 功能
+
+- [Axios](https://github.com/axios/axios)
+  - 请求发送与处理
+- [Vue-I18n](https://github.com/kazupon/vue-i18n)
+  - 本地化和国际化、语言切换与翻译
+- MockJS
+  - API调试
+- [Core.js](https://github.com/zloirock/core-js)
+- [Babel](https://github.com/babel/babel)
+- [ESLint](https://github.com/eslint/eslint)
+- [WebPack](https://github.com/webpack/webpack)
+- [Sass](https://github.com/sass/sass)
+
+
+
+#### 其他 UI 设计 & 其他功能
+
+- [Material Design Icons](https://github.com/google/material-design-icons)
+  - 图标
+- [Anime.js](https://github.com/juliangarnier/anime)
+  - 动画效果库
+
+- [ElementUI](https://github.com/ElemeFE/element)
+  - 登陆使用的界面的UI组件库
+- [Vue-particle](https://github.com/creotip/vue-particles)
+  - 后台和登录背景动态粒子效果
+- [Vue-particle-effect-buttons](https://github.com/dreambo8563/vue-particle-effect-buttons)
+  - 锁屏过渡动画
+- [Particles-bg-vue](https://github.com/lindelof/particles-bg-vue)
+  - 锁屏背景动画
+- Live2D / [Live2D Widget](https://github.com/stevenjoezhang/live2d-widget) / [JQuery](https://github.com/jquery/jquery)
+  - Live2D模型及模型展示（Live2D模型可以在设置中调出，默认隐藏）
+- [Vue-image-crop-upload](https://github.com/dai-siki/vue-image-crop-upload)
+  - 图片上传压缩与格式转换
+- [Animate.css](https://github.com/animate-css/animate.css)
+  - 过渡动画
+- [Vue-toastification](https://github.com/Maronato/vue-toastification)
+  - 弹出提示，类似ElementUI的Message
+- [SweetAlert2](https://github.com/sweetalert2/sweetalert2)
+  - 提示框图标动画
+- [Animated-number-vue](https://github.com/Leocardoso94/animated-number-vue)
+  - 数字变动过渡效果
+- [Vue-typing](https://github.com/trickstival/vue-typing)
+  - 打字机特效
+- [ECharts](https://github.com/apache/echarts) / [Vue-echarts](https://github.com/ecomfe/vue-echarts)
+  - 图表
+
+- [SourceHanSans](https://github.com/adobe-fonts/source-han-sans) 
+
+  - 中文字体
+
+  
+
+###  更新记录
+
+最后更新 @ 2021-07-16 17:35
+
+- 最后整理与分支合并
+
+
+
+#### ZMS部分更新记录 
+
+更新 @ 2021-07-13 ~ 2021-07-16 03:00
+
+- 修复医疗等多个模块的Bug
+- 自定义HTTP500、HTTP400、HTTP403、HTTP404的异常信息
+- 修复HTTP204视作错误返回的Bug
+- 添加Token处理
+- 系统整合
+- 完成所有模块的最终设计
+- 添加图片上传功能
+- 优化UI
+- 调整路由设置
+- 调整API
+
+
 
 更新 @ 2021-07-13 00:18
 
@@ -111,7 +200,7 @@
 
 
 
-更新 @ 2021-07-04~2021-07-05 14:36 | hzw
+更新 @ 2021-07-04~2021-07-05 14:36 | 
 
 - 更新组件：等待进度条(PendingProgressCard)
   - 允许加入正在处理/已经完成的事务项目
@@ -178,7 +267,7 @@
 
 
 
-更新 @ 2021-06-10 | hzw
+更新 @ 2021-06-10 | 
 
 - 修复错误：侧栏滚动条无法通过中键滚动的问题
 
@@ -188,7 +277,7 @@
 
   
 
-更新 @ 2021-06-09 14:00 | hzw
+更新 @ 2021-06-09 14:00 | 
 
 - 安装了vue-particle
   - 基于vue-particle，增加了页面的背景动态效果
@@ -196,7 +285,7 @@
 
 
 
-修正 @ 2021-06-07 23:49 | hzw
+修正 @ 2021-06-07 23:49 | 
 
 - 修正警告：侧栏冗余导航问题
 
@@ -204,13 +293,13 @@
 
   
 
-更新 @ 2021-06-07 21:27 | hzw
+更新 @ 2021-06-07 21:27 | 
 
 - 增加和优化了仓库管理的界面和逻辑
 
   
 
-更新 @ 2021-06-07 01:41 | hzw
+更新 @ 2021-06-07 01:41 | 
 
 - 安装了qs（查询字符串解析）、element-ui
   - ！尽量保持界面风格一致
@@ -221,7 +310,7 @@
 - 优化了仓库管理的界面和逻辑
   - 增加了仓库信息查询UI反馈
 
-更新 @ 2021-06-07 00:00 | hzw
+更新 @ 2021-06-07 00:00 | 
 
 - 优化了动物医疗管理的界面和逻辑
 
@@ -233,7 +322,7 @@
   
     
 
-更新 @ 2021-06-06 22:53 | hzw
+更新 @ 2021-06-06 22:53 | 
 
 - 安装了vue-i18n(vue语言切换和国际化)、vue-toastification(作为element-ui的一个替代)、vuetify-message-snackbar。移除了live2d-widget (x。
 
@@ -244,7 +333,7 @@
 
   
 
-更新 @ 2021-06-06 18:44 | hzw
+更新 @ 2021-06-06 18:44 | 
 
 - 安装了js-cookie
 - 引入封装后请求发送类（使用request类进行发送，基于axios）
@@ -252,7 +341,7 @@
 - 使用request重新更改了首页和动物医疗管理的数据获取过程（为api做准备）
 - 配置了Mockjs（数据伪造）
 
-更新 @ 2021-06-06 2:00 | hzw
+更新 @ 2021-06-06 2:00 | 
 
 - 调整采购管理页面
 - 调整主页
@@ -260,14 +349,19 @@
 - 减小了部分样式的对比度
 - 修正了部分错误
 
-更新 @ 2021-06-05 23:24 | hzw
+更新 @ 2021-06-05 23:24 | 
 
 - 安装了 Vue-ECharts 和 @vue/composition-api，能够较好地实现图表功能
+
 - 增加了资金管理的部分页面，与资金管理的路由
+
 - 完成仓库管理界面的初步设计
+
 - 调整了Vuetify的i18n设置（本地化）
 
-更新 @ 2020-06-05 18:09 | hzw
+  
+
+更新 @ 2020-06-05 18:09 | 
 
 - 完成了“动物医疗管理”的界面实现
 - 移除了部分VCard组件的波纹效果 
@@ -275,7 +369,7 @@
 
 
 
-更新 @ 2021-06-05 14:46 | hzw
+更新 @ 2021-06-05 14:46 | 
 
 - 安装了Axios和Mock.js
 - 调整样式
@@ -283,7 +377,7 @@
 
 
 
-更新 @ 2021-06-05 01:28 | hzw
+更新 @ 2021-06-05 01:28 | 
 
 - 调整首页布局（对不同屏幕的适配性）
 - 调整路由切换动画速度
@@ -291,25 +385,92 @@
 
 
 
-更新和备份 @ 2021-06-04 23:32 | hzw
+更新 @ 2021-06-04 23:32 | 
 
 - 使用Vuetify重写了界面
 
-- 原有的未使用Vuetify的界面已经通过git放到新的branch里了
+
+
+
+#### 未使用组件库前的更新
+
+
+
+更新 @ 2021-06-04 00:35 | 
+
+- 增加了Animate.css样式，
+- 实现路由切换时的过渡效果(使用animate.css)
+- 重新整理了组件文件夹
+
+
+
+更新 @ 2021-06-03 21:20 | 
+
+- 优化了部分组件鼠标按下的样式
+
+
+
+
+更新 @ 2021-06-03 15:20 | 
+
+- 增加了按钮组件(ZButton.vue)，图标不需要外部引用(像element-ui的图标使用方式，需要使用MDI，可选项会比element-ui的按钮多一点)
+- 目前支持3个事件zmsclick、zmsmouseover、zmsmouseleave
+- 对于控件组件，通过访问/componentView查看示例
+
+
+
+更新 @ 2021-06-03 13:06 | 
+
+- 修改了Vue路由设置(Vue-Route)和左边栏(Slide Bar)的相应配置，现在能够通过点击左边栏跳转到相应的界面了（界面会显示在PageContainer组件中的路由视图中）
+- 目前只建立了动物管理的页面。如果需要加页面，参照views下的样例，和router/index.js下的样例建立新的页面。注意需要到store/index.js下改动（每一个菜单项的route键存储其对应的path，需要和router/index.js下的相对应）
+- 优化了Slidebar组件和PageContainer组件的样式
+
+
+
+更新 @ 2021-06-03 01:34 | 
+
+- 增加弹窗组件，支持插槽(slot)
+
+
+
+请求 @ 2021-06-03 00:52 | 
+
+- 现在的UI太难看了，需要有一位dl进行美术指导
+
+
+
+更新 @ 2021-06-03 00:39 | 
+
+- 增加了Slidebar的二级菜单，同时实现收折动画
+- 填补了一/二级菜单内容
+- 修改二级菜单内容可以到store里更改JSON的child，不需要在Slidebar.vue中添加组件
+- （求dl解决vue的background-image问题，filter+transition太难看了）
+
+
+
+更新 @ 2021-06-02 20:54 | 
+
+- 增加了MDI图标库
+- 将App.vue的路由视图(Router-View)移动到组件PageContainer中
+- 优化了左侧栏的样式
+- 对于左侧菜单的内容，可以到store里更改JSON，不需要在Slidebar.vue中添加组件
+
+
+
+更新 @2020-06-02 17:44
+
+- 优化侧栏和导航UI
+
+
+
+更新 @2021-06-02 14:02
+
+- 增加导航栏
+
+
+
+开始 @2021-06-01 23:44
+
+- 创建初始项目：Vue2.x, Vue-Router(history mode), Vuex, Babel, CSS Preprocessor(Sass/SCSS with Dart-SASS) and ESLint(Basic, lint on save)
 
   
-
-##### 参考内容
-
-1. [Vue.js](https://github.com/vuejs/vue)  by Evan You
-   1. Vue Router
-   2. Vuex
-2. [Vuetify](https://github.com/vuetifyjs/vuetify) （组件库与排版，类似于element-ui，貌似更难用？）
-3. [Material Design Icons](https://github.com/google/material-design-icons) （图标）
-4. [Animate.css](https://github.com/animate-css/animate.css) （过渡动画）
-5. [Penguin Statistics Frontend V2](https://github.com/penguin-statistics/frontend-v2) （VContainer的使用、CSS Repeating-Linear-Gradient、部分排版）
-6. [Vue Toastification](https://github.com/Maronato/vue-toastification)（模仿Element-UI的消息框）
-7. [Vue I18n](https://github.com/kazupon/vue-i18n) （本地化）
-8. [Vue-Echarts](https://github.com/ecomfe/vue-echarts) （图表）
-9. MockJS
-10. [Vue-Particles](https://github.com/creotip/vue-particles)（特效）
