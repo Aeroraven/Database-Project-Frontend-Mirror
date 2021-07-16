@@ -10,9 +10,9 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field label="动物编号" placeholder="请输入动物编号" prepend-icon="mdi-music-accidental-sharp"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <!--<v-col cols="12" sm="6" md="3">
                             <v-text-field label="疾病类型" placeholder="请输入疾病类型" prepend-icon="mdi-heart-pulse"  />
-                        </v-col>
+                        </v-col>-->
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field label="兽医名称" placeholder="请输入兽医名称" prepend-icon="mdi-doctor"  />
                         </v-col>
@@ -32,7 +32,7 @@
                     counter
                     prepend-inner-icon="mdi-information" 
                     name="input-7-4"
-                    label="情况描述"
+                    label="病情描述"
                     placeholder="填写情况描述"
                 >
                 </v-textarea>

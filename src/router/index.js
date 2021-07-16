@@ -2,24 +2,38 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import AnimalCareManagement from '../views/AnimalCareManagement.vue'
-import AnimalFeedManagement from '../views/AnimalFeedManagement.vue'
-import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
-import AnimalRecipeManagement from '../views/AnimalRecipeManagement.vue'
-import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
-import ComponentView from '../views/ComponentView.vue'
-import Login from '../views/Login.vue'
+import FundManagement from '../views/FundManagement.vue'
+import ProcurementManagement from '../views/ProcurementManagement.vue'
 import WarehouseManagement from '../views/WarehouseManagement.vue'
 import WarehouseItemManagement from '../views/WarehouseItemManagement.vue'
-import ProcurementManagement from '../views/ProcurementManagement.vue'
 import WarehouseInfoManagement from '../views/WarehouseInfoManagement.vue'
 import WarehouseFlowManagement from '../views/WarehouseFlowManagement.vue'
-import FundManagement from '../views/FundManagement.vue'
+import AnimalInfoManagement from '../views/AnimalInfoManagement.vue'
 import EmployeeManagement from '../views/EmployeeManagement.vue'
 import EmployeeFlowManagement from '../views/EmployeeFlowManagement.vue'
 import EmployeeInfoManagement from '../views/EmployeeInfoManagement.vue'
 import EmployeeItemManagement from '../views/EmployeeItemManagement.vue'
 import EmployeeCheck from '../views/EmployeeCheck'
-import AdmissionTicket from '../views/AdmissionTickets.vue'
+
+import ShowInformationManagement from '../views/ShowInformationManagement.vue'
+import TrainingManagement from '../views/TrainingManagement.vue'
+import ShowTicketManagement from '../views/ShowTicketManagement.vue'
+import VehicleManagement from '../views/VehicleManagement.vue'
+import GettingAroundZoo from '../views/GettingAroundZoo.vue'
+import ConvenienceService from '../views/ConvenienceService.vue'
+import StaffInfo from '../views/StaffInfo.vue'
+import AdmissionTicket from '../views/TicketsAdmmisManagement.vue'
+
+import AnimalExhibition from '../views/VenueExhiManagement.vue'
+import VenueItemManagement from '../views/VenueItemManagement.vue'
+import GuiderManagement from '../views/GuiderItemManagement.vue'
+import VenueFuncItemManagement from '../views/VenueFuncItemManagement.vue'
+
+import AnimalReproductionManagement from '../views/AnimalReproductionManagement.vue'
+import AnimalFeedManagement from '../views/AnimalFeedManagement.vue'
+
+import Login from '../views/Login.vue'
+
 
 Vue.use(VueRouter)
 
@@ -35,34 +49,58 @@ const routes = [
     component: Login
   },
   {
+    path: '/animalReproductionManagement',
+    name: 'AnimalReproductionManagement',
+    component: AnimalReproductionManagement,
+  },
+  {
+    path: '/animalFeedManagement',
+    name: 'AnimalFeedManagement',
+    component: AnimalFeedManagement,
+  },
+  {
+    path: '/venue/AnimalFunctionManagement',
+    name: 'VenueFuncItemManagement',
+    component: VenueFuncItemManagement,
+  },
+
+  {
+    path: '/ticketsManagement/Admissiontickets',
+    name: 'AdmissionTicket',
+    component: AdmissionTicket,
+  },
+ 
+  {
+    path: '/venue/AnimalExhibitionManagement',
+    name: 'AnimalExhibition',
+    component: AnimalExhibition
+  },
+
+  {
+    path: '/venue/itemManagement',
+    name: 'VenueItemManagement',
+    component: VenueItemManagement,
+  },
+
+  {
+    path: '/guiderManagement',
+    name: 'GuiderManagement',
+    component: GuiderManagement,
+  },
+  {
     path: '/animalCareManagement',
     name: 'AnimalCareManagement',
     component: AnimalCareManagement
   },
   {
-    path: '/animalFeedManagement',
-    name: 'AnimalFeedManagement',
-    component: AnimalFeedManagement
+    path: '/fundManagement',
+    name: 'FundManagement',
+    component: FundManagement
   },
   {
-    path: '/componentView',
-    name: 'ComponentView',
-    component: ComponentView
-  },
-  {
-    path: '/animalInfoManagement',
-    name: 'AnimalInfoManagement',
-    component: AnimalInfoManagement
-  },
-  {
-    path: '/animalRecipeManagement',
-    name: 'AnimalRecipeManagement',
-    component: AnimalRecipeManagement
-  },
-  {
-    path: '/animalReproductionManagement',
-    name: 'AnimalReproductionManagement',
-    component: AnimalReproductionManagement
+    path: '/procurementManagement',
+    name: 'ProcurementManagement',
+    component: ProcurementManagement
   },
   {
     path: '/warehouseManagement',
@@ -85,34 +123,30 @@ const routes = [
     component: WarehouseFlowManagement
   },
   {
-    path: '/fundManagement',
-    name: 'FundManagement',
-    component: FundManagement
-  },
-  {
-    path: '/procurementManagement',
-    name: 'ProcurementManagement',
-    component: ProcurementManagement
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/animalInfoManagement',
+    name: 'AnimalInfoManagement',
+    component: AnimalInfoManagement
   },
   {
     path: '/employeeManagement',
-    name: 'WarehouseManagement',
+    name: 'Adddssx',
+    component: EmployeeManagement
+  },
+
+   {
+    path: '/employeeManagement',
+    name: 'employeeManagement',
     component: EmployeeManagement
   },
 
   {
     path: '/employeeManagement/flowManagement',
-    name: 'WarehouseFlowManagement',
+    name: 'employeeFlowManagement',
     component: EmployeeFlowManagement
   },
   {
     path: '/employeeManagement/infoManagement',
-    name: 'WarehouseInfoManagement',
+    name: 'employeeInfoManagement',
     component: EmployeeInfoManagement,
   },
   {
@@ -122,21 +156,68 @@ const routes = [
   },
   {
     path: '/employeeManagement/check',
-    name: 'EmployeeItemManagement',
+    name: 'EmployeeCheck',
     component: EmployeeCheck,
+  },
+  {
+    path: '/showInformationManagement',
+    name: 'ShowInformationManagement',
+    component: ShowInformationManagement
+  },
+  {
+    path: '/trainingManagement',
+    name: 'TrainingManagement',
+    component: TrainingManagement
+  },
+  {
+    path: '/showTicketManagement',
+    name: 'ShowTicketManagement',
+    component: ShowTicketManagement
+  },
+  {
+    path: '/vehicleManagement',
+    name: 'VehicleManagement',
+    component: VehicleManagement
+  },
+  
+  {
+    path: '/gettingAroundZoo',
+    name: 'GettingAroundZoo',
+    component: GettingAroundZoo
   },
 
   {
-    path: '/ticketsManagement/AdmissionTickets',
-    name: 'AdmissionTicket',
-    component: AdmissionTicket,
+    path: '/convenienceService',
+    name: 'ConvenienceService',
+    component:  ConvenienceService
   },
+  {
+    path:'/account',
+    name:'StaffAccount',
+    component:StaffInfo
+  
+  }
+
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+let router = new VueRouter({
+  //mode: 'history',
+  //base: process.env.BASE_URL,
+  base:'zmsoffice',
   routes
+})
+
+
+router.beforeEach((to, from, next) => {
+  let isAuthenticated=localStorage.getItem('zmsToken')
+  if(isAuthenticated==''||isAuthenticated==undefined){
+    isAuthenticated=false
+  }else{
+    isAuthenticated=true
+  }
+  if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  else if (to.name === 'Login' && isAuthenticated) next({ name: 'Home' })
+  else next()
 })
 
 export default router

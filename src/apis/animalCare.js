@@ -8,18 +8,18 @@ export function getCareData(params) {
   })
 }
 
-export function createCareInfo(params) {
+export function createCareInfo(params,id) {
   return request({
-    url: '/api/animalCare/createCareInfo',
-    method: 'get',
+    url: '/api/animalCare/createCareInfo/'+id,
+    method: 'post',
     params
   })
 }
 
 export function updateCareInfo(params) {
   return request({
-    url: '/api/animalCare/updateCareInfo',
-    method: 'get',
+    url: '/api/animalCare/modifyCareInfo',
+    method: 'put',
     params
   })
 }

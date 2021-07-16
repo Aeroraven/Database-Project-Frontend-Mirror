@@ -10,6 +10,8 @@ let store= new Vuex.Store({
         sAsset_SlidebarHeadIcon:'assets/slide-bar-head-icon.png',
         sAsset_WelcomeIcon:'assets/welcome-icon.png',
         sAsset_PageBackground:'assets/background-trial.jpg',
+        sAsset_PageBackground2:'assets/background-trial-2.jpg',
+
 
         //项目常量
         sProjectName:"ZMS 管理系统",
@@ -28,12 +30,26 @@ let store= new Vuex.Store({
             warehouseManagement_flowRecord:'topbar.warehouseManagement_flowRecord',
             fundManagement:'topbar.fundManagement',
             procurement:'topbar.procurement',
+            animalShowInfoManagement:'topbar.animalShowInfoManagement',
+            trainingManagement:'topbar.trainingManagement',
+            showTicketManagement:'topbar.showTicketManagement',
+            vehicleManagement:'topbar.vehicleManagement',
+            gettingAroundZoo:'topbar.gettingAroundZoo',
+            convenienceService:'topbar.convenienceService',
+            account:'topbar2.account',
+
             employeeManagement:'员工管理',
             employeeManagement_flowRecord:'新增员工信息',
             employeeManagement_info:'员工信息管理',
             EmployeeItemManagement_item:'员工部门信息管理',
-            EmployeeManagement_check:'员工考核'
+            EmployeeManagement_check:'员工考核',
+            venueManagement:'场馆管理',
+            admissionTicketManagement:'门票管理',
+            GuideItemManagement_item:'导游信息管理',
+            VenueExhiManagement_info:'场馆管理',
+            EmployeeOutItem:'离职员工管理'
         },
+        
         sProjectFunctions:[
           //{name:'组件示例',route:'',icon:'mdi-puzzle',child:[
           //  {name:'组件示例',route:'/componentView',icon:'mdi-puzzle',child:[]}
@@ -41,19 +57,23 @@ let store= new Vuex.Store({
           {name:'navbar.animalManage',route:'',icon:'mdi-cat',child:[
             {name:'navbar.anicareManage',route:'/animalCareManagement',icon:'mdi-needle',child:[]},
             {name:'navbar.aniinfoManage',route:'/animalInfoManagement',icon:'mdi-information-outline',child:[]},
-            {name:'navbar.anirecpManage',route:'/animalRecipeManagement',icon:'mdi-food',child:[]},
+            //{name:'navbar.anirecpManage',route:'/animalRecipeManagement',icon:'mdi-food',child:[]},
             {name:'navbar.anifeedManage',route:'/animalFeedManagement',icon:'mdi-food-variant',child:[]},
             {name:'navbar.anibreedManage',route:'/animalReproductionManagement',icon:'mdi-baby-bottle-outline',child:[]},
           ]},
           {name:'navbar.anishowManage',route:'',icon:'mdi-radio',child:[
-            {name:'navbar.anishowinfManage',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'navbar.anitrainManage',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.anishowinfManage',route:'/showInformationManagement',icon:'mdi-information-outline',child:[]},
+            {name:'navbar.anitrainManage',route:'/trainingManagement',icon:'el-icon-document',child:[]},
           ]},
           {name:'navbar.ticketManage',route:'',icon:'mdi-ticket',child:[
-            {name:'navbar.shwtckMan',route:'/ticketManagement/AdmissionTickets',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'navbar.admtckMan',route:'',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.shwtckMan',route:'/showTicketManagement',icon:'el-icon-s-ticket',child:[]},
+            {name:'navbar.admtckMan',route:'/ticketsManagement/Admissiontickets',icon:'el-icon-tickets',child:[]},
           ]},
-          {name:'navbar.faclMan',child:[],route:'',icon:'mdi-home'},
+       
+          {name:'navbar.faclMan',route:'',icon:'el-icon-school',child:[
+            {name:'navbar.ExhibitionfaclMan',route:'/venue/AnimalExhibitionManagement',icon:'el-icon-office-building',child:[]},
+            
+          ]},
           {name:'navbar.fundMan',route:'',icon:'mdi-sack',child:[
             {name:'navbar.assetMan',route:'/fundManagement',icon:'mdi-sack',child:[]},
             {name:'navbar.procMan',route:'/procurementManagement',icon:'mdi-cart',child:[]},
@@ -62,12 +82,21 @@ let store= new Vuex.Store({
             {name:'navbar.wareMan',route:'/warehouseManagement',icon:'mdi-database',child:[]}
           ]},
           {name:'navbar.perMan',route:'',icon:'mdi-account-cog',child:[
-            {name:'navbar.perinfMan',route:'/employeeManagement',icon:'assets/slide-bar-animal-manage.png',child:[]},
-            {name:'navbar.perChkMan',route:'/employeeManagement/check',icon:'assets/slide-bar-animal-manage.png',child:[]},
+            {name:'navbar.perinfMan',route:'/employeeManagement',icon:'el-icon-user-solid',child:[]},
+            {name:'navbar.perChkMan',route:'/employeeManagement/check',icon:'el-icon-s-check',child:[]},
+           
           ]},
-          {name:'navbar.guidMan',child:[],route:'',icon:'mdi-account-voice'},
-          {name:'navbar.trafMan',child:[],route:'',icon:'mdi-car-hatchback'},
-          {name:'navbar.servMan',child:[],route:'',icon:'mdi-bus-stop-covered'},
+           {name:'navbar.guidMan',route:'',icon:'mdi-account-voice',child:[
+            {name:'navbar.guidMan',route:'/guiderManagement',icon:'mdi-account-voice',child:[]}
+          ]},
+          {name:'navbar.trafMan',route:'',icon:'mdi-car-hatchback',child:[
+            {name:'navbar.vehicleMan',route:'/vehicleManagement',icon:'el-icon-discover',child:[]},
+            {name:'navbar.gettingAroundZoo',route:'/gettingAroundZoo',icon:'el-icon-map-location',child:[]},
+          ]},
+          {name:'navbar.servMan',route:'',icon:'mdi-bus-stop-covered',child:[
+            {name:'navbar.convenienceService',route:'/convenienceService',icon:'el-icon-s-grid',child:[]},
+          ]},
+          
         ],
 
         //CSS相关定义
@@ -83,7 +112,7 @@ let store= new Vuex.Store({
           {sw:'简体中文(zh-CN)',cd:'zh-CN',id:0},
           {sw:'English(en-US)',cd:'en-US',id:1}
         ],
-        defaultLang:1,
+        defaultLang:0,
     },
     mutations: {
         calloutSlideBar(){

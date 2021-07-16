@@ -1,29 +1,29 @@
 <template>
     <div class="home">
         <span class="zms-view-title zms-primary-color">
-            <v-icon color="primary">mdi-database</v-icon> 员工信息管理
+            <v-icon color="primary">el-icon-user</v-icon> 员工信息管理
         </span>&nbsp;&nbsp;&nbsp;&nbsp;
         <v-btn light color="primary" @click="routerGo('/employeeManagement')">
             <v-icon>mdi-arrow-left</v-icon>返回员工管理
         </v-btn>
         
-        <div class="zms-wareitem">
+        <div class="zms-employeeitem">
             
-            <warehouse-info/>
+            <Employeee-info/>
         </div>
         
     </div>
 </template>
 
 <script>
-import WarehouseInfo from '../components/EmployeeComponents/WarehouseInfo.vue';
+import EmployeeeInfo from '../components/EmployeeComponents/EmployeeInfo.vue';
 
 export default {
-    name: 'WarehouseInfoManagement',
+    name: 'EmployeeeInfoManagement',
     created(){
         this.$store.dispatch('alterTopNavTitle',{title:this.$store.state.sPageName.employeeManagement_info})
     },components:{
-        WarehouseInfo
+        EmployeeeInfo
         
     },methods:{
         routerGo(x){
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-    .zms-wareitem{
+    .zms-employeeitem{
         margin-top:20px;
     }
 </style>

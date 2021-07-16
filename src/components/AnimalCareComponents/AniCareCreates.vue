@@ -1,5 +1,23 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
+        <!--事务成功进度条-->
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionDoneTitle')"
+        :alertBody="$t('common3.transactionDone')"
+        :alertLevel="`success`"
+        :alertOnlyConfirm="true"
+        ref="commit_done" />
+
+        <!--事务失败提示框-->
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+
+        
+
         <div class="zms-query-filter">
             <!-- 提交进度条 -->
             <v-dialog persistent v-model="submitStat" width="300">
@@ -69,18 +87,18 @@
                         <v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.animalId')"
                             :hint="$t('animalCare2.chooseByMagnify')"
-                            readonly v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
-                            prepend-icon="mdi-identifier" append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
+                              v-model="submitId" :placeholder="$t('common.pleaseInput')+$t('animalCare.animalId')" 
+                            prepend-icon="mdi-identifier" readonly append-icon="mdi-magnify" @click:append="calloutAnimalSelect"  />
                         </v-col>
-                        <v-col cols="12" sm="6" md="3">
+                        <!--<v-col cols="12" sm="6" md="3">
                             <v-text-field :label="$t('animalCare.diseaseName')" v-model="submitType" :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
                              prepend-icon="mdi-heart-pulse"   />
-                        </v-col>
+                        </v-col>-->
                         <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('animalCare.vetName')" readonly v-model="submitVetname"
+                            <v-text-field :label="$t('animalCare.vetName')"   v-model="submitVetname"
                              :hint="$t('animalCare2.chooseByMagnify')"
                              :placeholder="$t('common.pleaseInput')+$t('animalCare.vetName')" 
-                             prepend-icon="mdi-doctor" append-icon="mdi-magnify" @click:append="calloutStaffSelect"   />
+                             prepend-icon="mdi-doctor" readonly append-icon="mdi-magnify" @click:append="calloutStaffSelect"   />
                         </v-col>
                         <v-col cols="12" sm="6" md="3">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
@@ -98,8 +116,8 @@
                     counter
                     prepend-inner-icon="mdi-information" 
                     name="input-7-4"
-                    :label="$t('animalCare.note')"
-                    :placeholder="$t('common.pleaseInput')+$t('animalCare.note')"
+                    :label="$t('animalCare.diseaseName')"
+                    :placeholder="$t('common.pleaseInput')+$t('animalCare.diseaseName')"
                     v-model="submitNote"
                 >
                 </v-textarea>
@@ -117,9 +135,9 @@
                             <v-combobox :hint="$t('animalCare2.custSymptoms')" v-model="illInput" clearable multiple :items="illList"
                             :label="$t('animalCare2.symptoms')" prepend-icon="mdi-emoticon-sick"></v-combobox>
                         </v-col>
-                        <v-col cols="12" sm="6" md="6">
+                        <!--<v-col cols="12" sm="6" md="6">
                             <v-select :hint="$t('animalCare2.severityHint')" v-model="severeInput" :items="severityList" :label="$t('animalCare2.severity')" prepend-icon="mdi-exclamation-thick"></v-select>
-                        </v-col>
+                        </v-col>-->
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="6" md="6">
@@ -170,10 +188,12 @@
 <script>
 import { createCareInfo } from '../../apis/animalCare';
 import ItemSelector from '../CommonComponents/ItemSelector.vue'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
     name: 'AniCareCreate',
     components:{
-        ItemSelector
+        ItemSelector,
+        AlertMessagebox
     },
     created(){
     },data:()=>{
@@ -189,14 +209,14 @@ export default {
             errorTitle:'',
             errorInfo:'',
             menu2:false,
-            illList:['Headache','Fever','Trauma','Bacterial Infection',
-                'Fungal Infection','Organ Failure','Cancer','Respiratory Tract Infection'
-                ,'Food Poisoning'],
-            severityList:['Fatal','Severe','Moderate','Casual','Negligible'],
+            illList:['头痛','发热','腹泻','细菌感染',
+                '真菌感染','器官衰竭','呼吸道感染'
+                ,'食物中毒'],
+            severityList:['严重','重要','中等','较轻','轻症'],
             illInput:null,
             submitTemp:3700,
             submitHeartRate:60,
-            severeInput:"Moderate",
+            severeInput:"中等",
         }
     } ,
     computed:{
@@ -217,13 +237,12 @@ export default {
         generateAutoReport(){
             let st='';
             if(this.illInput!=null&&this.illInput!=""){
-                st+='The animal has following symptoms:';
+                st+='症状:';
                 st+=this.illInput
                 st+='. '
             }
-            st+='The physical temperature recorded is '+(this.submitTemp/100)+' centigrades'
-            st+='. The heart temperature recorded is '+(this.submitHeartRate)+' beats per minute'
-            st+='. The overall severity has been perceived as `'+this.severeInput+'`.'
+            st+='体温'+(this.submitTemp/100)+'度'
+            st+='. 心率'+(this.submitHeartRate)+' bpm.'
             this.submitNote=st;
             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('animalCare2.reportGenSuccessful')})
             return st;
@@ -242,31 +261,37 @@ export default {
         },
         submitCareInfo(){
             this.submitStat=true;
+            if(this.submitNote.replace(/[^\u0000-\u00ff]/g,"aaa").length>=50){
+                this.$refs.error_done.updateBody('疾病名称输入过长，请保证输入数据在25字节内。')
+                this.$refs.error_done.showAlert();
+            }
+            if(this.submitNote==null||this.submitNote==''){
+                this.$refs.error_done.updateBody('请输入疾病名称')
+                this.$refs.error_done.showAlert();
+            }
             setTimeout(
                 ()=>{
-                    createCareInfo().then(response => {
+                    
+                    createCareInfo(
+                        {
+                            diseaseName:this.submitNote,
+                            veterinaryId:this.veterinaryId,
+                            drug:'(暂无)',
+                            dateIll:this.submitDate,
+                            dateCure:null,
+                            animalId:this.submitId,
+                        },2
+                    ).then(response => {
                         console.log(this.submitDate)
                         this.submitStat=false;
-                        if(response.data.statcode!=0){
-                            this.errorReturn=true;
-                        }
-                        if(response.data.statcode==1){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentAniID')
-                            return 0;
-                        }
-                        if(response.data.statcode==2){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentTypeID')
-                            return 0;
-                        }
-                        if(response.data.statcode==3){
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('animalCare.NonexistentVetId')
-                            return 0;
-                        }
+                        
                         this.submitSuccTip(this.$t('animalCare.SubmitComplete'))
-                    })
+                        this.$refs.commit_done.showAlert()
+                    }).catch( err => {
+                        this.submitStat=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },2000
             )
         },
@@ -281,10 +306,10 @@ export default {
                 this.submitFailTip(this.$t('animalCare_SubmitEmptyId'))
                 return 0;
             }
-            if(this.submitType==null||this.submitType==undefined||this.submitType==0){
-                this.submitFailTip(this.$t('animalCare_SubmitEmptyType'))
-                return 0;
-            }
+            //if(this.submitType==null||this.submitType==undefined||this.submitType==0){
+            //    this.submitFailTip(this.$t('animalCare_SubmitEmptyType'))
+            //    return 0;
+            //}
             if(this.submitVetname==null||this.submitVetname==undefined||this.submitVetname==0){
                 this.submitFailTip(this.$t('animalCare_SubmitVetName'))
                 return 0;

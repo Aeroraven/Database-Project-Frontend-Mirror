@@ -1,19 +1,20 @@
 <template>
     <div class="zms-animalinfo">
-        <template>
-            <ani-info-query/>
-        </template>
+        <ani-info-query/>
     </div>
 </template>
 
 <script>
 import AniInfoQuery from './AniInfoQuery.vue'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
+
 export default {
     name: 'AniInfoContainer',
      created(){
     },
     components:{
         AniInfoQuery,
+        AlertMessagebox
     },data:()=>{
         return{
             tab:null,

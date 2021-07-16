@@ -9,13 +9,133 @@
 5. 修改较多，如果有之前版本的建议执行下面命令
 
    ```Shell
-   rmdir node_modules
    npm install
    ```
 
+4. **抄模板记得改，不要所有界面长一样！！！**
 
+5. **变量名记得改，不要抄完变量名不改！！！！！！**
+
+   不要出现如动物食谱管理里面有`$t('recipe.warehouseInfo')`这种变量名只改一半的情况！！！！
+   
+   
+
+**问题列表**
+
+- 查看ISSUE
 
 ##### 更新记录
+
+更新 @ 2021-07-13 00:18
+
+- 模块整合
+- API调试：
+  - 对部分模块增加了HTTP错误的处理(promise.catch)
+  - 设置了IP地址
+- 修复部分Bugs
+
+
+
+更新 @ 2021-07-11 15:44
+
+- 本地化：
+
+  - 完成中文翻译
+
+  - 将中文设置为了默认语言
+
+    
+
+修复 @ 2021-07-11 13:18
+
+- 本地化：
+  - 推进中文翻译进度
+- 问题修复：
+  - 修复了 Issue #56 的问题
+
+
+
+更新 @ 2021-07-09 15:11
+
+- 优化UI
+  - 增加加载页面（参考[Citrus-vuetify](https://github.com/Yiuman/citrus-vuetify)）
+  - 优化路由过渡动画（参考[Penguin Statistics](https://github.com/penguin-statistics/frontend-v2)）
+
+
+
+更新 @ 2021-07-08 0:00
+
+- 优化UI
+  - 更改了英文（PTSans）和中文字体（SourceHanSans）
+  - 调整了侧栏字体和下边距
+  - 调整了按钮字体
+  - 修复scoped缺失导致的input额外下划线的问题
+- Vuetify：I‘m !important. （被!important整吐了）
+
+
+
+更新 @ 2021-07-06 23:30 
+
+- 更新组件：提示框（AlertMessagebox）
+  - 能够显示带动效的图标了（感谢：SweetAlert2、ZY和某作业网站）
+  - 支持成功提示了
+  - 支持取消按钮的props了
+
+
+
+更新 @ 2021-07-06 16:00 
+
+- 更新模块：设置界面
+  - 增加清除本地缓存/LocalStorage选项
+  - 能够记录用户的偏好设置了(语言和夜间模式)
+
+
+
+更新 @ 2021-07-06 11:22 
+
+- 更新模块：采购管理
+  - 完成初步逻辑设计
+- Git：删除已完成的功能分支
+  - Feature/extend-purchasing-module：功能完成
+
+
+
+更新 @ 2021-07-05 17:02 
+
+- 更新模块：资金管理
+  - 完成初步逻辑设计
+- 界面优化
+- 更新组件：提示框
+  - 允许更多的自定义属性，支持插槽
+- Git：删除已完成的功能分支
+
+
+
+更新 @ 2021-07-04~2021-07-05 14:36 | hzw
+
+- 更新组件：等待进度条(PendingProgressCard)
+  - 允许加入正在处理/已经完成的事务项目
+- 更新模块：资金管理
+  - 优化统计数据界面
+  - 优化资金流向项目管理界面
+- 更新模块：动物医疗管理
+  - 优化界面和事务逻辑
+- 增加待机界面
+- 界面优化
+  - 优化背景效果
+  - 将部分EChart图表封装为组件，并适配Vuetify的Dark模式
+- 新增组件：提示框
+  - 不用再写一堆重复代码了
+- 引入依赖：
+  - particle-bg-vue 背景特效
+  - vue-particle-button 碎片效果的按钮（碎片效果的div目前只会操作DOM实现）
+  - vue-typing 打字机效果
+  - animated-number-vue 数字滚动效果
+- **已知问题**：
+  - 需要处理对particle-bg-vue和vue-particle-button采用的直接操作DOM的问题
+
+
+
 更新 @ 2021-07-03 16:58
 
 - 更新组件：实体选择(AnimalSelector)
@@ -193,4 +313,3 @@
 8. [Vue-Echarts](https://github.com/ecomfe/vue-echarts) （图表）
 9. MockJS
 10. [Vue-Particles](https://github.com/creotip/vue-particles)（特效）
-

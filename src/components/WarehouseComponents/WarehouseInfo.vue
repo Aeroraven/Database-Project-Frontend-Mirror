@@ -2,23 +2,36 @@
   <div class="zms-home-notice">
         <span>下方列出了园区内所有的仓库</span>
         <v-btn color="primary" text @click="newDialog=true">{{$t('warehouse.Info.create')}}</v-btn>
+        
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
 
+        <alert-messagebox
+        :alertTitle="$t('common3.transactionDoneTitle')"
+        :alertBody="$t('common3.transactionDone')"
+        :alertLevel="`success`"
+        :alertOnlyConfirm="true"
+        ref="commit_done" />
         <v-container>
             <v-row>
-                <v-col cols="12" md="4" v-for="item in warehouseDetail" :key="item.id" class="align-self-stretch">
+                <v-col cols="12" md="4" v-for="item in warehouseDetail" :key="item.storeId" class="align-self-stretch">
                     <v-card  :class="cardNightClass" :ripple="{ class: null }" class="mx-auto" max-width="400">
                         <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-                            <v-card-title>{{item.storage_name}}</v-card-title>
+                            <v-card-title>{{item.name}}</v-card-title>
                         </v-img>
-                        <v-card-subtitle class="pb-0"><b>编号</b> {{item.id}}</v-card-subtitle>
+                        <v-card-subtitle class="pb-0"><b>编号</b> {{item.storeId}}</v-card-subtitle>
                         <v-card-text class="text--primary pb-0">
                             <div><b>位置</b></div>
-                            <div>{{item.storage_location}}</div>
+                            <div>{{item.location}}</div>
                         </v-card-text>
                         
                         <v-card-actions>
-                            <v-btn color="primary" text @click="gotoItem(item.sid)">查看仓库内物品</v-btn>
-                            <v-btn color="primary" text @click="openDialog(item.sid)">编辑仓库信息</v-btn>
+                            <!--<v-btn color="primary" text @click="gotoItem(item.storeId)">查看仓库内物品</v-btn>
+                            <v-btn color="primary" text @click="openDialog(item.storeId)">编辑仓库信息</v-btn>-->
                         </v-card-actions>
                     </v-card>
                     
@@ -26,7 +39,7 @@
             </v-row>
             
         </v-container>
-
+    
         <v-dialog v-model="newDialog" persistent  max-width="600px">
             <v-card :ripple="{class:null}">
                 <v-card-title  class=" zms-strip-bg text-h5 text--white primary " color="warning">
@@ -36,13 +49,13 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.id" :label="$t('warehouse.Info.wareid')"></v-text-field>
+                                <v-text-field v-model="alterItem.storeId" :label="$t('warehouse.Info.wareid')"></v-text-field>
                             </v-col>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.storage_name"  :label="$t('warehouse.Info.wareName')"></v-text-field>
+                                <v-text-field v-model="alterItem.name"  :label="$t('warehouse.Info.wareName')"></v-text-field>
                             </v-col>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.storage_location" :label="$t('warehouse.Info.wareLocation')"></v-text-field>
+                                <v-text-field v-model="alterItem.location" :label="$t('warehouse.Info.wareLocation')"></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -52,7 +65,7 @@
                     <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="newDialog=false;">
                         <v-icon>mdi-close</v-icon>{{$t('common.cancel')}}
                     </v-btn>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="updateInfo()">
+                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="success" @click="createInfo()">
                         <v-icon>mdi-check</v-icon>{{$t('common.confirm')}}
                     </v-btn>
                 </v-card-actions>
@@ -68,13 +81,13 @@
                     <v-container>
                         <v-row>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.id" disabled :label="$t('warehouse.Info.wareid')"></v-text-field>
+                                <v-text-field v-model="alterItem.storeId" disabled :label="$t('warehouse.Info.wareid')"></v-text-field>
                             </v-col>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.storage_name"  :label="$t('warehouse.Info.wareName')"></v-text-field>
+                                <v-text-field v-model="alterItem.name"  :label="$t('warehouse.Info.wareName')"></v-text-field>
                             </v-col>
                             <v-col cols="12" lg="12">
-                                <v-text-field v-model="alterItem.storage_location" :label="$t('warehouse.Info.wareLocation')"></v-text-field>
+                                <v-text-field v-model="alterItem.location" :label="$t('warehouse.Info.wareLocation')"></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -137,9 +150,10 @@
 </template>
 
 <script>
-import {getWarehouseInfo, updateWarehouseInfo} from '../../apis/warehouse.js'
+import {getWarehouseInfo, updateWarehouseInfo,createWarehouse} from '../../apis/warehouse.js'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
-    components: {  },
+    components: { AlertMessagebox  },
     name: 'WarehouseInfo',
     props:{
         drawer:Boolean,
@@ -171,6 +185,9 @@ export default {
             newDialog:false,
             errorTitle:'',
             errorInfo:'',
+            sA:null,
+            sB:null,
+            sC:null,
         }
     },
     created(){
@@ -182,22 +199,36 @@ export default {
             this.alterId=id;
             this.alterItem=this.warehouseDetail[id]
         },
+        createInfo(){
+            createWarehouse({
+                id:this.alterItem.storeId,
+                name:this.alterItem.name,
+                location:this.alterItem.location
+            }).then(response=>{
+                this.newDialog=false
+                this.$store.dispatch('showToastNotify',{type:'success',info:'仓库已经创建'})
+                this.fetchWarehouseInfo()
+            }).catch( err => {
+                //this.newDialog=false;
+                this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                this.$refs.error_done.showAlert();
+            });
+        },
         updateInfo(){
             this.submitStat=true;
             setTimeout(
                 ()=>{
                     updateWarehouseInfo().then(response => {
-                        if(response.data.statcode!=0){
-                            this.submitStat=false;
-                            this.errorTitle=this.$t('common.error');
-                            this.errorInfo=this.$t('warehouse.Info.generalError')
-                            this.errorReturn=true;
-                            return 0;
-                        }
                         this.submitStat=false;
                         this.alterDialog=false,
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('warehouse.Info.alterDone')})
-                    })
+                        this.fetchWarehouseInfo()
+                    }).catch( err => {
+                        this.queryLoaderDialog=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                        
+                    });
                 },1000
             )
                 
@@ -207,15 +238,21 @@ export default {
             setTimeout(
                 ()=>{
                     getWarehouseInfo().then(response => {
+                        //this.warehouseDetail=response.data
                         this.warehouseDetail=response.data
+                        console.log(response)
                         this.queryLoaderDialog=false;
                         this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('warehouse.Info.queryDone')})
                         let i=0;
                         for(;i< this.warehouseDetail.length;i++){
                             this.warehouseDetail[i].dialogOpen=false;
-                            this.warehouseDetail[i].sid=i;
+                            this.warehouseDetail[i].storeId=i;
                         }
-                    })
+                    }).catch( err => {
+                        this.queryLoaderDialog=false;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },1000
             )
            

@@ -1,177 +1,216 @@
 <template>
     <div class="zms-anicare" :class="nmNightClass">
-        <div class="zms-query-filter">
-            <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title" >查询条件</span>
-            <div>
-                <v-container>
-                    <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('procure.procid')" :placeholder="$t('common.pleaseInput')+$t('procure.procid')" prepend-icon="mdi-music-accidental-sharp"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('procure.procname')" :placeholder="$t('common.pleaseInput')+$t('procure.procname')" prepend-icon="mdi-heart-pulse"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-text-field :label="$t('procure.procstat')" :placeholder="$t('common.pleaseInput')+$t('procure.procstat')" prepend-icon="mdi-doctor"  />
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="date" :label="$t('procure.procdate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
-                                    </v-text-field>
-                                </template>
-                                <v-date-picker color="primary" width="400" v-model="date" @input="menu2 = false"></v-date-picker>
-                            </v-menu>
-                        </v-col>
-                        
-                    </v-row>
-                </v-container>
-                <v-container>
-                    <v-row>
-                        <v-col cols="12" sm="6" md="3">
-                        </v-col>
-                        <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" >
-                                <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;{{$t('common.deletefilter')}}
-                            </v-btn>
-                        </v-col>
-
-                        <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()" >
-                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;{{$t('common.filterself')}}
-                            </v-btn>
-                        </v-col>
-
-                        <v-dialog persistent v-model="queryLoaderDialog" width="300">
-                            <v-card color="">
-                                <v-card-title>{{$t('common.finding')}}</v-card-title>
-                                <v-divider/>
-                                <br/>
-                                <v-card-text>
-                                    {{$t('common.pleasewait')}}<br/><br/>
-                                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
-                                </v-card-text>
-                            </v-card>
-                        </v-dialog>
-                        <v-dialog persistent v-model="submitStat" width="300">
-                            <v-card >
-                                <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
-                                <v-divider/>
-                                <br/>
-                                <v-card-text>
-                                    {{$t('animalCare.PleaseWait')}}<br/><br/>
-                                    <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
-                                </v-card-text>
-                            </v-card>
-                        </v-dialog>
-                        
-                        <v-col cols="12" sm="6" md="3">
-                            <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo()">
-                                <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;{{$t('common.filter')}}
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                
-            </div>
-        </div>
-        <v-divider/>
-        <v-dialog v-model="errorReturn" persistent width="500" >
-            <v-card color="" :ripple="{class:null}" >
-                <v-card-title class=" zms-strip-bg text-h5 text--white red " color="warning">
-                    <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{errorTitle}}</span>
-                </v-card-title>
-                <v-divider/>
-                <br/>
-                <v-card-text>
-                    <span class="zms-poptip-body" :class="txNightClass">{{errorInfo}}</span><br/><br/>
-                </v-card-text>
-                <v-divider/>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
-                        <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <div class="zms-query-result">
-            <v-icon color="primary">mdi-note-search</v-icon> <span class="zms-query-title">{{$t('common.query_result')}}</span>
-            <div class="zms-query-result-table">
-                <v-data-table
-                    :headers="headers"
-                    :items="queryData"
-                    :page.sync="page"
-                    :items-per-page="5"
-                    hide-default-footer
-                    @page-count="pageCount = $event"
-                    class="elevation-1"
-                >
-                <template v-slot:top>
-                    <v-toolbar flat >
-                        <v-toolbar-title>{{$t('common.query_result')}}</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-dialog v-model="dialog" persistent max-width="500px">
-                        
-                        <v-card :ripple="{class:null}">
-                            <v-card-title>
-                            <span class="headline">{{$t('animalCare.itemAlter')}}</span>
-                            </v-card-title>
-
-                            <v-card-text>
+        <alert-messagebox     
+        :alertTitle="$t('common3.transactionFailTitle')"
+        :alertBody="$t('common3.transactionFail')+errorInfo"
+        :alertLevel="`error`"
+        :alertOnlyConfirm="true"
+        ref="error_done" />
+        <v-container>
+            <v-row>
+                <v-col cols="12" sm="3" md="3" xl="3" lg="3">
+                    <div class="zms-query-filter">
+                        <v-icon color="primary">mdi-filter-plus</v-icon> <span class="zms-query-title" >查询条件</span>
+                        <div>
                             <v-container>
                                 <v-row>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['id']" disabled :label="$t('animalCare.animalId')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['disease_name']" disabled :label="$t('animalCare.diseaseName')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['veterinary_name']" :label="$t('animalCare.vetName')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['drug']" :label="$t('animalCare.drugName')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem['treatment_progress']" :label="$t('animalCare.treatProg')"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-checkbox v-model="editedItem['current_state']" class="mx-2" :label="$t('animalCare.currentStateW')"></v-checkbox>
-                                </v-col>
+                                    <v-col cols="12" sm="12" md="12" class="zms-vertical-col-height">
+                                        <v-text-field v-model="sA" :label="$t('procure.procid')" :placeholder="$t('common.pleaseInput')+$t('procure.procid')" prepend-icon="mdi-identifier"  />
+                                    </v-col>
+                                    <v-col cols="12"  sm="12" md="12" class="zms-vertical-col-height">
+                                        <v-text-field v-model="sB" :label="$t('procure.procname')" :placeholder="$t('common.pleaseInput')+$t('procure.procname')" prepend-icon="mdi-tag"  />
+                                    </v-col>
+                                    <v-col cols="12"   sm="12" md="12" class="zms-vertical-col-height">
+                                        <v-select
+                                        :items="['待审批','拒绝','通过']"
+                                        v-model="sC" 
+                                        :label="$t('procure.procstat')" 
+                                        :placeholder="$t('common.pleaseInput')+$t('procure.procstat')" 
+                                        prepend-icon="mdi-alarm-light"  />
+                                    </v-col>
+                                    <v-col cols="12"   sm="12" md="12" class="zms-vertical-col-height">
+                                        <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field v-model="date" :label="$t('procure.procdate')" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                </v-text-field>
+                                            </template>
+                                            <v-date-picker color="primary" width="400" v-model="date" @input="menu2 = false"></v-date-picker>
+                                        </v-menu>
+                                    </v-col>
+                                    
                                 </v-row>
                             </v-container>
-                            </v-card-text>
+                       
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" sm="12" md="12">
+                                    </v-col>
+                                    <v-col cols="12" sm="12" md="12">
+                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="error" @click="clrFilters">
+                                            <v-icon>mdi-filter-minus</v-icon>&nbsp;&nbsp;{{$t('common.deletefilter')}}
+                                        </v-btn>
+                                    </v-col>
 
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">{{$t('common.cancel')}}</v-btn>
-                                <v-btn color="blue darken-1" text @click="submitCareInfo(editedItem)">{{$t('common.save')}}</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                            </v-dialog>
-                        </v-toolbar>
-                    </template>
-                    <template v-slot:[`item.actions`]="{ item }">
-                        <v-icon small class="mr-2" @click="editItem(item)">
-                            mdi-pencil
-                        </v-icon>
-                        <!--<v-icon small class="mr-2">
-                            mdi-delete
-                        </v-icon>-->
-                    </template>
-                </v-data-table>
-            </div>
-            <div class="zms-query-pagination">
-                <v-pagination v-model="page" :length="pageCount"></v-pagination>
-            </div>
-        </div>
+                                    <v-col cols="12" sm="12" md="12">
+                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo(1)" >
+                                            <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;{{$t('common.filterself')}}
+                                        </v-btn>
+                                    </v-col>
+
+                                    <v-dialog persistent v-model="queryLoaderDialog" width="300">
+                                        <v-card color="">
+                                            <v-card-title>{{$t('common.finding')}}</v-card-title>
+                                            <v-divider/>
+                                            <br/>
+                                            <v-card-text>
+                                                {{$t('common.pleasewait')}}<br/><br/>
+                                                <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-dialog>
+                                    <v-dialog persistent v-model="submitStat" width="300">
+                                        <v-card >
+                                            <v-card-title>{{$t('animalCare.Submitting')}}</v-card-title>
+                                            <v-divider/>
+                                            <br/>
+                                            <v-card-text>
+                                                {{$t('animalCare.PleaseWait')}}<br/><br/>
+                                                <v-progress-linear indeterminate striped color="primary" class="mb-0"></v-progress-linear>
+                                            </v-card-text>
+                                        </v-card>
+                                    </v-dialog>
+                                    
+                                    <v-col cols="12" sm="12" md="12">
+                                        <v-btn :disabled="queryLoaderDialog===true" v-ripple block class="zms-width"  color="primary" @click="fetchCareInfo(0)">
+                                            <v-icon>mdi-filter</v-icon>&nbsp;&nbsp;{{$t('common.filter')}}
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        
+                        </div>
+                    </div>
+                </v-col>
+            
+                <v-divider/>
+                <v-dialog v-model="errorReturn" persistent width="500" >
+                    <v-card color="" :ripple="{class:null}" >
+                        <v-card-title class=" zms-strip-bg text-h5 text--white red " color="warning">
+                            <v-icon color="white">mdi-close-thick</v-icon>&nbsp;<span class="text--white" style="color:#ffffff !important;">{{errorTitle}}</span>
+                        </v-card-title>
+                        <v-divider/>
+                        <br/>
+                        <v-card-text>
+                            <span class="zms-poptip-body" :class="txNightClass">{{errorInfo}}</span><br/><br/>
+                        </v-card-text>
+                        <v-divider/>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn  class="zms-fullwidth" v-bind="attrs" v-on="on" light color="primary" @click="errorReturn=false;">
+                                <v-icon>mdi-exclamation</v-icon>{{$t('common.confirm')}}
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+                <v-col cols="12" sm="9" md="9" xl="9" lg="9">
+                    <div class="zms-query-result">
+                        <v-icon color="primary">mdi-note-search</v-icon> <span class="zms-query-title">{{$t('common.query_result')}}</span>
+                        <div class="zms-query-result-table">
+                            <v-data-table
+                                :headers="headers"
+                                :items="queryData"
+                                :page.sync="page"
+                                :items-per-page="5"
+                                hide-default-footer
+                                @page-count="pageCount = $event"
+                                class="elevation-1"
+                            >
+                                <template v-slot:top>
+                                    <v-toolbar flat >
+                                        <v-toolbar-title>{{$t('common.query_result')}}</v-toolbar-title>
+                                        <v-spacer></v-spacer>
+                                        <v-dialog v-model="dialog" persistent max-width="700px">
+                                        
+                                            <v-card :ripple="{class:null}">
+                                                <v-card-title class="zms-strip-bg text-h5 text--white primary " color="warning">
+                                                    <v-icon color="white">mdi-note-search-outline</v-icon>&nbsp;
+                                                    <span class="text--white" style="color:#ffffff !important;">
+                                                        {{$t('proc2.modifyEntry')}}
+                                                    </span>
+                                                </v-card-title>
+                                                <br/>
+                                                <v-card-text>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-icon color="primary">mdi-information</v-icon>
+                                                            <span class="zms-query-titlex">{{$t('fund.basicInfo')}}</span>
+                                                        </v-row>
+                                                        <br/><br/>
+                                                        <v-alert type="info" class="zms-force-nowrap-e" text border="left">
+                                                            {{$t('proc2.noModifyTip')}}
+                                                        </v-alert>
+                                                        <v-row>
+                                                            
+                                                            <v-container>
+                                                                <v-row>
+                                                                    <v-col cols="12" sm="6" md="6">
+                                                                        <v-text-field v-model="editedItem['id']" readonly :label="$t('proc2.id')" prepend-icon="mdi-identifier"></v-text-field>
+                                                                    </v-col>
+                                                                    <!--<v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="editedItem['content']" readonly :label="$t('proc2.content')" prepend-icon="mdi-file"></v-text-field>
+                                                                    </v-col>-->
+                                                                    <v-col cols="12" sm="6" md="6">
+                                                                        <v-text-field v-model="editedItem['stat']" readonly :label="$t('proc2.stat')" prepend-icon="mdi-alarm-light"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="6">
+                                                                        <v-text-field v-model="editedItem['initiator']" readonly :label="$t('proc2.initiator')" prepend-icon="mdi-account"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="6">
+                                                                        <v-text-field v-model="editedItem['inittime']" readonly :label="$t('proc2.inittime')" prepend-icon="mdi-calendar"></v-text-field>
+                                                                    </v-col>
+                                                                
+                                                                </v-row>
+                                                            </v-container>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card-text>
+
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn  class="zms-halfwidth3" light color="primary" @click="close">
+                                                        <v-icon>mdi-close</v-icon>{{$t('common.close')}}
+                                                    </v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </v-toolbar>
+                                </template>
+                                <template v-slot:[`item.actions`]="{ item }">
+                                    <v-icon small class="mr-2" @click="editItem(item)">
+                                        mdi-pencil
+                                    </v-icon>
+                                    <!--<v-icon small class="mr-2">
+                                        mdi-delete
+                                    </v-icon>-->
+                                </template>
+                            </v-data-table>
+                        </div>
+                        <div class="zms-query-pagination">
+                            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+                        </div>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-container>
+        
     </div>
 </template>
 
 <script>
 import {getProcOverview} from '../../apis/procurement'
+import AlertMessagebox from '../CommonComponents/AlertMessagebox.vue'
 export default {
+  components: { AlertMessagebox },
     name: 'AnicareQuery',
     computed:{
         nmNightClass(){
@@ -190,7 +229,7 @@ export default {
             return [
                 {text: this.$t('procure.procid'), value: 'id'},
                 {text: this.$t('procure.procname'), value: 'name'},
-                {text: this.$t('procure.proccontent'), value: 'content'},
+                //{text: this.$t('procure.proccontent'), value: 'content'},
                 {text: this.$t('procure.procstat'), value: 'stat'},
                 {text: this.$t('procure.initiator'), value: 'initiator'},
                 {text: this.$t('procure.inittime'), value: 'inittime'},
@@ -200,20 +239,68 @@ export default {
         },
     },
     methods:{
-        fetchCareInfo(){
+        clrFilters(){
+            this.sA=''
+            this.sB=''
+            this.sC=''
+            this.date=''
+            this.$store.dispatch('showToastNotify',{type:'primary',info:'查询条件已经清除'})
+        },
+        fetchCareInfo(T){
             this.queryLoaderDialog=true;
             setTimeout(
                 ()=>{
                     getProcOverview().then(response => {
-                        this.queryData = response.data
+                        let W=[]
+                        let X=[]
+                        //this.queryData = response.data
                         this.queryLoaderDialog=false;
-                        if(this.queryData.length>0){
+                        if(response.data.length>0){
                             this.$store.dispatch('showToastNotify',{type:'success',info:this.$t('common.findSuccess')})
+                            for(let i=0;i<response.data.length;i++){
+                                //window.alert(response.data[i].id,response.data[i].name,response.data[i].stat,response.data[i].inittime)
+                                if(T===0){
+                                    if(
+                                        (this.sA==''||(this.sA!=''&&response.data[i].id==this.sA))&&
+                                        (this.sB==''||(this.sB!=''&&response.data[i].name==this.sB))&&
+                                        (this.sC==''||(this.sC!=''&&response.data[i].stat==this.sC))&&
+                                        (this.date==''||(this.date!=''&&response.data[i].inittime==this.date))
+                                    ){
+                                        if(X.indexOf(response.data[i].id)!=-1){
+                                            continue
+                                        }
+                                        X.push(response.data[i].id)
+                                        W.push(response.data[i])
+                                    }
+                                }else{
+                                    if(
+                                        (this.sA==''||(this.sA!=''&&response.data[i].id==this.sA))&&
+                                        (this.sB==''||(this.sB!=''&&response.data[i].name==this.sB))&&
+                                        (this.sC==''||(this.sC!=''&&response.data[i].stat==this.sC))&&
+                                        (this.date==''||(this.date!=''&&response.data[i].inittime==this.date))&&
+                                        (response.data[i].initiator===localStorage.getItem('zmsBKId'))
+                                    ){
+                                        if(X.indexOf(response.data[i].id)!=-1){
+                                            continue
+                                        }
+                                        X.push(response.data[i].id)
+                                        W.push(response.data[i])
+                                    }
+                                }
+                               
+                            }
+                            for(let i=0;i<W.length;i++){
+                                W[i].inittime=W[i].inittime.substring(0,10)
+                            }
+                            this.queryData=W
                         }else{
                             this.$store.dispatch('showToastNotify',{type:'error',info:this.$t('animalCare.emptyInfo')})
                         }
-                        
-                    })
+                    }).catch( err => {
+                        this.queryLoaderDialog=0;
+                        this.$refs.error_done.updateBody(this.$t('common3.transactionFail')+err)
+                        this.$refs.error_done.showAlert();
+                    });
                 },2000
             )
         },
@@ -257,10 +344,14 @@ export default {
         pageCount:0,
         menu2:0,
         on:0,
+        sA:'',
+        sB:'',
+        sC:'',
+        sD:0,
         attrs:0,
         page:1,
         dialog:0,
-        date:null,
+        date:'',
         queryData:[],
         editedIndex: -1,
         editedItem: {
@@ -289,11 +380,11 @@ export default {
         transition: all .5s;
     }
     .zms-query-result{
-        margin-top:20px;
+        margin-top:0px;
     }
     .zms-anicare{
-        padding-left:50px;
-        padding-right:50px;
+        padding-left:0px;
+        padding-right:0px;
         padding-top:20px;
         padding-bottom:20px;
         background-color: #fafafa;
@@ -306,5 +397,8 @@ export default {
     }
     .zms-query-result-table{
         margin-top:10px;
+    }
+    .zms-vertical-col-height{
+        height:75px !important;
     }
 </style>

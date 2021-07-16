@@ -34,7 +34,7 @@
         </v-list>
         <hr/>
         <div class="zms-halfwidth zms-inlb">
-          <v-btn outlined block class="zms-fullwidth"  color="" style="border-color:#AAAAAA">
+          <v-btn outlined block class="zms-fullwidth"  color="" style="border-color:#AAAAAA" @click="reloadPage">
             <v-icon>mdi-refresh</v-icon>{{$t('common.reload')}}
           </v-btn>
           
@@ -44,11 +44,13 @@
           <v-btn outlined block  class="zms-fullwidth" style="border-color:#AAAAAA" v-bind="attrs" v-on="on"  color="" @click="dialog_setting=true">
             <v-icon>mdi-cog</v-icon>{{$t('settings.title')}}
           </v-btn>
-          <v-dialog v-model="dialog_setting" width="500">
-            
+          <v-dialog v-model="dialog_setting" width="700">
             <v-card :ripple="{class:null}">
-                <v-card-title class="text-h5 text--white" >
-                    <span class="text--white" style="">{{$t('settings.title')}}</span>
+                <v-card-title class=" zms-strip-bg text-h5 text--white darken-3 blue" color="warning">
+                  <v-icon color="white">mdi-cog</v-icon>&nbsp;
+                  <span class="text--white" style="color:#ffffff !important;">
+                      {{$t('settings.title')}}
+                  </span>
                 </v-card-title>
 
                 <v-card-text>
@@ -80,6 +82,7 @@ export default {
   name: 'Navigator',
   props:{
       drawer:Boolean,
+      lock:Boolean
   },
   data: () => ({
     items: [
@@ -95,6 +98,9 @@ export default {
     }
   },
   methods:{
+    reloadPage(){
+      window.location.reload();
+    },
     routerGo(x){
       this.$router.push(x);
     }
@@ -106,11 +112,11 @@ export default {
   .zms-navigator-container{
     //height:100%;
     overflow:overlay;
-    padding-bottom:300px;
+    padding-bottom:200px;
   }
   .zms-navigator-pri-item{
     border-radius:15px;
-    font-size:15px;
+    font-size:17px;
     font-weight: bold;
   }
 </style>

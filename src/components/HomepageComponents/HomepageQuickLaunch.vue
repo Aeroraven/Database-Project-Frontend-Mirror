@@ -9,16 +9,16 @@
                 <v-container fluid class="fill-height justify-center">
                     <v-row align="center" class="mx-0">
                         <v-col cols="12" md="6" class="align-self-stretch">
-                            <homepage-quick-launch-button icon="mdi-cat" title="动物管理" info="5 条新增信息"/>
+                            <homepage-quick-launch-button icon="mdi-cat" zmsroute="/animalInfoManagement" title="动物管理" info="查看动物信息状况"/>
                         </v-col>
                         <v-col cols="12" md="6" class="align-self-stretch">
-                            <homepage-quick-launch-button icon="mdi-account-edit" title="工作考核" info="1 条新增信息"/>
+                            <homepage-quick-launch-button icon="mdi-account-edit" zmsroute="/employeeManagement/check" title="工作考核" info="检查工作考核安排"/>
                         </v-col>
                         <v-col cols="12" md="6" class="align-self-stretch">
-                            <homepage-quick-launch-button icon="mdi-home" title="场馆信息" info="6 条新增信息"/>
+                            <homepage-quick-launch-button icon="mdi-home" zmsroute="/venue/AnimalExhibitionManagement" title="场馆信息" info="检查当前的场馆信息状况"/>
                         </v-col>
                         <v-col cols="12" md="6" class="align-self-stretch">
-                            <homepage-quick-launch-button icon="mdi-comment-quote" title="反馈信息" info="11 条新增信息"/>
+                            <homepage-quick-launch-button icon="mdi-comment-quote" zmsroute="/fundManagement" title="资金分析" info="分析资金流动趋势"/>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -37,7 +37,9 @@ export default {
         drawer:Boolean,
     },
     methods:{
-        
+        goto(){
+
+        }
     },computed:{
         cardNightClass(){
             return{

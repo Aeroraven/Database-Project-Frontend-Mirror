@@ -14,5 +14,12 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+    .zms-anicare{
+        margin-top:10px;
+    }
+    .zms-anicare-title{
+        font-size:23px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
 </style>
