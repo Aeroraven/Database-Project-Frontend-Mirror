@@ -1,5 +1,10 @@
 # TJZoo Management System 
 
+### 协议 / License
+GPLv3
+
+**Please note that we referenced several repositories or utilities that are licensed under GPLv3.**
+
 ### 项目部署
 
 - 本地调试：`npm install` + `npm run serve`
